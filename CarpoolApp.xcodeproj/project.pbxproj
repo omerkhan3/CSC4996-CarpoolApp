@@ -16,6 +16,8 @@
 		B3C388A2C93B9611A2420258 /* libPods-CarpoolApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F92902503469216B0FDDAA1E /* libPods-CarpoolApp.a */; };
 		C96AFA03201D4C8D008B0A54 /* Maps.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C96AFA02201D4C8D008B0A54 /* Maps.storyboard */; };
 		C995C78C201D57FF00B8CB3E /* another.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C995C78B201D57FF00B8CB3E /* another.storyboard */; };
+		C995C78E201D5DD400B8CB3E /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C995C78D201D5DD400B8CB3E /* MapKit.framework */; };
+		C995C790201D615E00B8CB3E /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C995C78F201D615D00B8CB3E /* CoreLocation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +31,8 @@
 		782413A9201D12FC00F06D99 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C96AFA02201D4C8D008B0A54 /* Maps.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Maps.storyboard; sourceTree = "<group>"; };
 		C995C78B201D57FF00B8CB3E /* another.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = another.storyboard; sourceTree = "<group>"; };
+		C995C78D201D5DD400B8CB3E /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		C995C78F201D615D00B8CB3E /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		F030565275DC7FB77646828A /* Pods-CarpoolApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarpoolApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-CarpoolApp/Pods-CarpoolApp.release.xcconfig"; sourceTree = "<group>"; };
 		F92902503469216B0FDDAA1E /* libPods-CarpoolApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CarpoolApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F95DAD1A528A8524339BF3C3 /* Pods-CarpoolApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarpoolApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CarpoolApp/Pods-CarpoolApp.debug.xcconfig"; sourceTree = "<group>"; };
@@ -39,6 +43,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C995C790201D615E00B8CB3E /* CoreLocation.framework in Frameworks */,
+				C995C78E201D5DD400B8CB3E /* MapKit.framework in Frameworks */,
 				B3C388A2C93B9611A2420258 /* libPods-CarpoolApp.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -92,6 +98,8 @@
 		F8CFD888E50D31099B0AD659 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C995C78F201D615D00B8CB3E /* CoreLocation.framework */,
+				C995C78D201D5DD400B8CB3E /* MapKit.framework */,
 				F92902503469216B0FDDAA1E /* libPods-CarpoolApp.a */,
 			);
 			name = Frameworks;
