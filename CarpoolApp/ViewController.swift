@@ -27,9 +27,9 @@ class ViewController: UIViewController {
         
         Auth.auth().createUser(withEmail: email!, password: password!, completion: { (user: User?, error) in
             if error == nil {
-                self.labelMessage.text = "You are successfully registered"
+                self.labelMessage.text = "Registration Successful!"
             }else{
-                self.labelMessage.text = "Registration Failed.. Please Try Again"
+                self.labelMessage.text = "User Already Exists, Please Try Again."
             }
             
         })
