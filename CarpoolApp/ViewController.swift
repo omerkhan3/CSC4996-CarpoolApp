@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import FirebaseAuth
+import MapKit
 
 class ViewController: UIViewController {
 
@@ -20,7 +21,7 @@ class ViewController: UIViewController {
     
     
     
-    @IBAction func registerButton(_ sender: UIButton)
+    @IBAction func registerButton(_ sender: UIButton)//login information screen
     {
         let email = emailField.text
         let password = passwordField.text
@@ -34,13 +35,20 @@ class ViewController: UIViewController {
             
         })
     }
-
-    
+//trying to implement the function that allows for users location
+    //let locationmanager = CLLocationManager()
+    //override func viewDidLoad(){
+       // super.viewDidLoad()
+    //}
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         FirebaseApp.configure()
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.requestLocation()
     }
 
     override func didReceiveMemoryWarning() {
@@ -51,3 +59,19 @@ class ViewController: UIViewController {
 
 }
 
+extension ViewController : CLLocationManagerDelegate {
+    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+        if status == .AuthorizedWhenInUse {
+            locationManager.requestLocation()
+        }
+}
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.first {
+            print("location:: (location)")
+        }
+    }
+    
+    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+        print("error:: (error)")
+    }
+}
