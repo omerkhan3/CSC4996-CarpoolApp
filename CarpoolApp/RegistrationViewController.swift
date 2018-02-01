@@ -42,6 +42,12 @@ class RegistrationViewController: UIViewController {
                 alert.addAction(exitAction)
                 
                 self.present(alert, animated: true, completion: nil)
+                
+                let userInfo = ["provider": user?.providerID] as [String:Any]
+                
+                DataService.inst.createUser(id: (user?.uid)!, userInfo: userInfo)
+                
+                
             }else{
                 actionTitle = "Error!"
                 actionItem = (error?.localizedDescription)!
