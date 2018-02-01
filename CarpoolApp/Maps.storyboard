@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="asH-Kp-euc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="v0x-j1-JIx">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -10,45 +10,37 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--My map-->
+        <!--View Controller-->
         <scene sceneID="dc3-mS-yWV">
             <objects>
-                <viewController id="v0x-j1-JIx" sceneMemberID="viewController">
+                <viewController id="v0x-j1-JIx" customClass="ViewController" customModule="CarpoolApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="513-cn-NUG">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="A1O-MZ-llj">
-                                <rect key="frame" x="16" y="64" width="343" height="583"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="A1O-MZ-llj">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <connections>
+                                    <outlet property="delegate" destination="v0x-j1-JIx" id="nxR-Dm-Lkd"/>
+                                </connections>
                             </mapView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="RYs-RH-4nv" firstAttribute="trailing" secondItem="A1O-MZ-llj" secondAttribute="trailing" id="3Zw-5h-Knp"/>
+                            <constraint firstItem="A1O-MZ-llj" firstAttribute="leading" secondItem="RYs-RH-4nv" secondAttribute="leading" id="8vD-I0-ySV"/>
+                            <constraint firstItem="RYs-RH-4nv" firstAttribute="bottom" secondItem="A1O-MZ-llj" secondAttribute="bottom" id="Q1V-9z-ceh"/>
+                            <constraint firstItem="A1O-MZ-llj" firstAttribute="top" secondItem="RYs-RH-4nv" secondAttribute="top" id="TA4-7V-zfe"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="RYs-RH-4nv"/>
                     </view>
-                    <navigationItem key="navigationItem" title="My map" id="dHh-Kk-wem" userLabel="My Maps"/>
+                    <connections>
+                        <outlet property="mapview" destination="A1O-MZ-llj" id="85L-nR-h6s"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yb9-SR-eYC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="533.60000000000002" y="45.42728635682159"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="aC9-1b-H2T">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="asH-Kp-euc" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="nGe-ZD-Re8" userLabel="My Maps">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="v0x-j1-JIx" kind="relationship" relationship="rootViewController" id="MHb-ny-OfM"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="WZI-oH-3QX" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-372" y="46"/>
         </scene>
     </scenes>
 </document>
