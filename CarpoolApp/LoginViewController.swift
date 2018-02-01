@@ -14,23 +14,52 @@ class LoginViewController: UIViewController {
 
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
-    @IBOutlet weak var resultLabel: UILabel!
+
     
     
     @IBAction func loginButton(_ sender: Any) {
         let email = self.emailField.text
         let password = self.passwordField.text
         
-        
+        var actionItem = ""
+        var actionTitle = ""
+        let exitAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+        if ((email?.isEmpty)! || (password?.isEmpty)!)
+        {
+            actionTitle = "Error!"
+            actionItem = "You have not entered all required information."
+            
+            let alert = UIAlertController(title: actionTitle, message: actionItem, preferredStyle: .alert)
+            
+            alert.addAction(exitAction)
+            
+            self.present(alert, animated: true, completion: nil)
+        }
+        else{
         Auth.auth().signIn(withEmail: email!, password: password!) { (user, error) in
             
             if error == nil {
-                print("Logged In!")
-                self.resultLabel.text = "Logged In!"
+                actionTitle = "Success!"
+                actionItem = "You have successfully logged in!"
                 
+                let alert = UIAlertController(title: actionTitle, message: actionItem, preferredStyle: .alert)
+                alert.addAction(exitAction)
+                
+                self.present(alert, animated: true, completion: nil)
             } else {
-                self.resultLabel.text = "Incorrect Username or Password.  Try Again."
+                
+                actionTitle = "Error!"
+                actionItem = (error?.localizedDescription)!
+                
+                
+                let alert = UIAlertController(title: actionTitle, message: actionItem, preferredStyle: .alert)
+                alert.addAction(exitAction)
+                
+                self.present(alert, animated: true, completion: nil)
+                
+                
             }
+        }
         }
     }
 

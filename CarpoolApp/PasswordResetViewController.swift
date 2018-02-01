@@ -38,6 +38,7 @@ class PasswordResetViewController: UIViewController {
             
             self.present(alert, animated: true, completion: nil)
         }
+        else{
         Auth.auth().sendPasswordReset(withEmail: email!, completion: { (error) in
             
             if error != nil {
@@ -58,10 +59,8 @@ class PasswordResetViewController: UIViewController {
                 self.present(alert, animated: true, completion: nil)
                 self.emailField.text = ""
             }
-
-            
-
         })
+    }
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

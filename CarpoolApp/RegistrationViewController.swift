@@ -15,19 +15,46 @@ class RegistrationViewController: UIViewController {
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
     
-    @IBOutlet weak var resultLabel: UILabel!
     @IBAction func registerButton(_ sender: UIButton) {
+        var actionItem = ""
+        var actionTitle = ""
+        let exitAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
         let email = emailField.text
         let password = passwordField.text
-        
+        if ((email?.isEmpty)! || (password?.isEmpty)!)
+        {
+            actionTitle = "Error!"
+            actionItem = "You have not entered all required information."
+            
+            let alert = UIAlertController(title: actionTitle, message: actionItem, preferredStyle: .alert)
+            
+            alert.addAction(exitAction)
+            
+            self.present(alert, animated: true, completion: nil)
+        }
+        else{
         Auth.auth().createUser(withEmail: email!, password: password!, completion: { (user: User?, error) in
             if error == nil {
-                self.resultLabel.text = "Registration Successful!"
+                actionTitle = "Success!"
+                actionItem = "Congratulations, you have successfully registered!"
+                
+                let alert = UIAlertController(title: actionTitle, message: actionItem, preferredStyle: .alert)
+                alert.addAction(exitAction)
+                
+                self.present(alert, animated: true, completion: nil)
             }else{
-                self.resultLabel.text = "User Already Exists, Please Try Again."
+                actionTitle = "Error!"
+                actionItem = (error?.localizedDescription)!
+                
+                
+                let alert = UIAlertController(title: actionTitle, message: actionItem, preferredStyle: .alert)
+                alert.addAction(exitAction)
+                
+                self.present(alert, animated: true, completion: nil)
             }
             
         })
+        }
     }
     
     override func viewDidLoad() {
