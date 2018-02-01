@@ -103,7 +103,7 @@
         <!--Password Reset View Controller-->
         <scene sceneID="eF2-dA-4hD">
             <objects>
-                <viewController id="cbc-3P-pF8" userLabel="Password Reset View Controller" sceneMemberID="viewController">
+                <viewController id="cbc-3P-pF8" userLabel="Password Reset View Controller" customClass="PasswordResetViewController" customModule="CarpoolApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="FNw-KL-uFW">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -136,8 +136,19 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EL0-Pe-PQD">
+                                <rect key="frame" x="16" y="305" width="343" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <state key="normal" title="Reset">
+                                    <color key="titleColor" red="0.93725490570000003" green="0.93725490570000003" blue="0.95686274770000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="resetButton:" destination="cbc-3P-pF8" eventType="touchUpInside" id="q9p-6a-dj6"/>
+                                </connections>
+                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Reset Password" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A7K-ax-wYA">
-                                <rect key="frame" x="16" y="159" width="343" height="41"/>
+                                <rect key="frame" x="16" y="134" width="343" height="41"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                 <color key="textColor" red="0.93725490570000003" green="0.93725490570000003" blue="0.95686274770000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -147,6 +158,9 @@
                         <color key="backgroundColor" red="0.2470588235" green="0.67450980390000004" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <viewLayoutGuide key="safeArea" id="pSI-86-HNY"/>
                     </view>
+                    <connections>
+                        <outlet property="emailField" destination="bTZ-oh-e4u" id="pKZ-rO-1pQ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ggs-uz-Lho" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -242,6 +256,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="rpR-hM-Ar1"/>
+        <segue reference="Z2h-3S-Lqv"/>
     </inferredMetricsTieBreakers>
 </document>
