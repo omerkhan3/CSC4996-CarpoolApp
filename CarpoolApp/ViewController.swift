@@ -7,17 +7,16 @@
 //
 
 import UIKit
-import Firebase
-import FirebaseAuth
 import MapKit
 import CoreLocation
 
 class ViewController: UIViewController, CLLocationManagerDelegate {
     
-    @IBOutlet weak var mapview: MKMapView!
+    
     // Used to start getting the users location
     let locationManager = CLLocationManager()
     
+    @IBOutlet weak var mapview: MKMapView!
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -26,7 +25,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         locationManager.requestAlwaysAuthorization()
         
         // For use when the app is open
-        //locationManager.requestWhenInUseAuthorization()
+        locationManager.requestWhenInUseAuthorization()
         
         // If location services is enabled get the users location
         if CLLocationManager.locationServicesEnabled() {
@@ -39,6 +38,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     // Print out the location to the console
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.first {
+            let span = MKCoordinateSpanMake(0.05, 0.05)
+            let region = MKCoordinateRegion(center: location.coordinate, span: span)
+            mapview.setRegion(region, animated: true)
             print(location.coordinate)
         }
     }
@@ -68,5 +70,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         
         self.present(alertController, animated: true, completion: nil)
     }
-    
+   
 }
+    
+
+
