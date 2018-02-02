@@ -1,8 +1,8 @@
 //
-//  ViewController.swift
+//  MapViewController.swift
 //  CarpoolApp
 //
-//  Created by Omer Khan on 1/27/18.
+//  Created by Matt on 2/1/18.
 //  Copyright © 2018 CSC 4996. All rights reserved.
 //
 
@@ -10,16 +10,11 @@ import UIKit
 import MapKit
 import CoreLocation
 
-class ViewController: UIViewController, CLLocationManagerDelegate {
-    
-    
-    // Used to start getting the users location
-    let locationManager = CLLocationManager()
-    
+class MapViewController: UIViewController, CLLocationManagerDelegate {
+let locationManager = CLLocationManager()
     @IBOutlet weak var mapview: MKMapView!
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         
         // For use when the app is open & in the background
         locationManager.requestAlwaysAuthorization()
@@ -33,6 +28,13 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             locationManager.desiredAccuracy = kCLLocationAccuracyBest // You can change the locaiton accuary here.
             locationManager.startUpdatingLocation()
         }
+
+        // Do any additional setup after loading the view.
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
     }
     
     // Print out the location to the console
@@ -70,8 +72,14 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         
         self.present(alertController, animated: true, completion: nil)
     }
-   
+    /*
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+    }
+    */
+
 }
-    
-
-
