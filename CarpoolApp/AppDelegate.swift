@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Braintree
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,9 +17,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        Braintree.setReturnURLScheme("com.carpool.CarpoolApp.payments")      //URL scheme which also contains the bundle ID (com.carpool.CarpoolApp), Moe
         return true
     }
-
+    
+    //Added Moe
+    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey: Any]) -> Bool
+    {
+        if url.scheme?.localizedCaseInsensitiveCompare("com.carpool.CarpoolApp.payments") == .orderedSame
+        {
+            return Braintree.handleOpen(url, sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String)
+        }
+        return false
+    }
+    
+    //To support iOS 7 and 8, we need the function below, Moe
+    func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool
+    {
+        if url.scheme?.localizedCaseInsensitiveCompare("com.carpool.CarpoolApp.payments") == .orderedSame
+        {
+            return Braintree.handleOpen(url, sourceApplication: sourceApplication)
+        }
+        return false
+    }
+    
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
