@@ -18,3 +18,10 @@ Pods/nanopb/pb_encode.c
 Pods/Pods.xcodeproj/xcuserdata/ammarkhan.xcuserdatad/xcschemes/GoogleToolboxForMac.xcscheme
 *.plist
 Pods/Pods.xcodeproj/xcuserdata/ammarkhan.xcuserdatad/xcschemes/xcschememanagement.plist
+*.xcconfig
+*.cc
+*.pch
+*.json
+Pods/leveldb-library/LICENSE
+Pods/GeoFire/LICENSE
+Pods/FirebaseDatabase/Frameworks/FirebaseDatabase.framework/FirebaseDatabase
