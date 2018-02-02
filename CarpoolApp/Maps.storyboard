@@ -18,15 +18,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="A1O-MZ-llj">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="A1O-MZ-llj">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                             </mapView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="A1O-MZ-llj" firstAttribute="trailing" secondItem="RYs-RH-4nv" secondAttribute="trailing" id="78q-1x-H5R"/>
+                            <constraint firstAttribute="bottom" secondItem="A1O-MZ-llj" secondAttribute="bottom" id="K62-C8-38Y"/>
                             <constraint firstItem="A1O-MZ-llj" firstAttribute="top" secondItem="513-cn-NUG" secondAttribute="top" id="MaF-YS-beS"/>
-                            <constraint firstItem="RYs-RH-4nv" firstAttribute="bottom" secondItem="A1O-MZ-llj" secondAttribute="bottom" id="QlL-ab-Hs3"/>
                             <constraint firstItem="A1O-MZ-llj" firstAttribute="leading" secondItem="RYs-RH-4nv" secondAttribute="leading" id="mlg-Sv-h7l"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="RYs-RH-4nv"/>
@@ -37,7 +37,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yb9-SR-eYC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="532" y="44.334975369458128"/>
+            <point key="canvasLocation" x="531.5" y="44"/>
         </scene>
     </scenes>
 </document>

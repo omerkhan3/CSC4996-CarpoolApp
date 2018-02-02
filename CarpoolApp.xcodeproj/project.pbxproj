@@ -12,7 +12,6 @@
 		782413AA201D12FC00F06D99 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 782413A9201D12FC00F06D99 /* GoogleService-Info.plist */; };
 		B3C388A2C93B9611A2420258 /* libPods-CarpoolApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F92902503469216B0FDDAA1E /* libPods-CarpoolApp.a */; };
 		C945DD7D2023DFFD003C8D9A /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C945DD7C2023DFFD003C8D9A /* MapViewController.swift */; };
-		C95B33A02022BBC60026950F /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 782413A3201D0F3A00F06D99 /* Info.plist */; };
 		C96AFA03201D4C8D008B0A54 /* Maps.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C96AFA02201D4C8D008B0A54 /* Maps.storyboard */; };
 		C995C78E201D5DD400B8CB3E /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C995C78D201D5DD400B8CB3E /* MapKit.framework */; };
 		C995C790201D615E00B8CB3E /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C995C78F201D615D00B8CB3E /* CoreLocation.framework */; };
@@ -133,6 +132,11 @@
 					78241393201D0F3A00F06D99 = {
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Maps.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -162,7 +166,6 @@
 				782413AA201D12FC00F06D99 /* GoogleService-Info.plist in Resources */,
 				C96AFA03201D4C8D008B0A54 /* Maps.storyboard in Resources */,
 				7824139F201D0F3A00F06D99 /* Assets.xcassets in Resources */,
-				C95B33A02022BBC60026950F /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
