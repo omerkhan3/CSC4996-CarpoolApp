@@ -14,6 +14,7 @@
 		782413A2201D0F3A00F06D99 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 782413A0201D0F3A00F06D99 /* LaunchScreen.storyboard */; };
 		782413AA201D12FC00F06D99 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 782413A9201D12FC00F06D99 /* GoogleService-Info.plist */; };
 		919CFC2420243EB700D4FC07 /* paymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919CFC2320243EB700D4FC07 /* paymentViewController.swift */; };
+		919CFC262024403300D4FC07 /* payment.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 919CFC252024403300D4FC07 /* payment.storyboard */; };
 		B3C388A2C93B9611A2420258 /* libPods-CarpoolApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F92902503469216B0FDDAA1E /* libPods-CarpoolApp.a */; };
 		C96AFA03201D4C8D008B0A54 /* Maps.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C96AFA02201D4C8D008B0A54 /* Maps.storyboard */; };
 		C995C78C201D57FF00B8CB3E /* another.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C995C78B201D57FF00B8CB3E /* another.storyboard */; };
@@ -31,6 +32,7 @@
 		782413A3201D0F3A00F06D99 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		782413A9201D12FC00F06D99 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		919CFC2320243EB700D4FC07 /* paymentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = paymentViewController.swift; sourceTree = "<group>"; };
+		919CFC252024403300D4FC07 /* payment.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = payment.storyboard; sourceTree = "<group>"; };
 		C96AFA02201D4C8D008B0A54 /* Maps.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Maps.storyboard; sourceTree = "<group>"; };
 		C995C78B201D57FF00B8CB3E /* another.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = another.storyboard; sourceTree = "<group>"; };
 		C995C78D201D5DD400B8CB3E /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -85,6 +87,7 @@
 				782413A3201D0F3A00F06D99 /* Info.plist */,
 				782413A9201D12FC00F06D99 /* GoogleService-Info.plist */,
 				919CFC2320243EB700D4FC07 /* paymentViewController.swift */,
+				919CFC252024403300D4FC07 /* payment.storyboard */,
 			);
 			path = CarpoolApp;
 			sourceTree = "<group>";
@@ -173,6 +176,7 @@
 				C995C78C201D57FF00B8CB3E /* another.storyboard in Resources */,
 				782413A2201D0F3A00F06D99 /* LaunchScreen.storyboard in Resources */,
 				782413AA201D12FC00F06D99 /* GoogleService-Info.plist in Resources */,
+				919CFC262024403300D4FC07 /* payment.storyboard in Resources */,
 				C96AFA03201D4C8D008B0A54 /* Maps.storyboard in Resources */,
 				7824139F201D0F3A00F06D99 /* Assets.xcassets in Resources */,
 				7824139D201D0F3A00F06D99 /* Main.storyboard in Resources */,
