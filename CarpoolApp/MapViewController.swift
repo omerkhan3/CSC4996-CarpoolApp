@@ -9,6 +9,12 @@
 import UIKit
 import MapKit
 import CoreLocation
+import Firebase
+import GeoFire
+
+
+
+
 
 class MapViewController: UIViewController, CLLocationManagerDelegate {
 let locationManager = CLLocationManager()
@@ -57,7 +63,7 @@ let locationManager = CLLocationManager()
     // Show the popup to the user if we have been deined access
     func showLocationDisabledPopUp() {
         let alertController = UIAlertController(title: "Background Location Access Disabled",
-                                                message: "In order to deliver pizza we need your location",
+                                                message: "You need to allow locations services for this app to function correctly",
                                                 preferredStyle: .alert)
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
