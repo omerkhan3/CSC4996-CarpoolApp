@@ -37,10 +37,13 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
             locationManager.desiredAccuracy = kCLLocationAccuracyBest // You can change the locaiton accuary here.
             locationManager.startUpdatingLocation()
         }
-        let samplelocation = otherlocations(title: "Starbucks",
-        locationName: "sample starbucks",
+        //starting sample location that works in emulator california location
+        let samplelocation = otherlocations(title: "sample locations",
+        //name of description
+        locationName: "sample description",
+        //prewritten plot
         coordinate: CLLocationCoordinate2D(latitude: 37.7749, longitude: -122.431297))
-       
+       //adding blip on map
         mapview.addAnnotation(samplelocation)
         
         
