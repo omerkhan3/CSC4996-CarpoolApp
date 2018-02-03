@@ -1,6 +1,3 @@
-'use strict';
-
-
 //We get this from braintree going to the API private key, choosing Node and then copying the code given below
 var braintree = require('braintree');
 var gateway = braintree.connect({
@@ -11,8 +8,28 @@ var gateway = braintree.connect({
 });
 
 
+app.get("/client_token", function (req, res) {
+  gateway.clientToken.generate({}, function (err, response) {
+    res.send(response.clientToken);
+  });
+});
+
+
+app.post("/checkout", function (req, res) {
+  var nonceFromTheClient = req.body.payment_method_nonce;
+  // Use payment method nonce here
+  gateway.transaction.sale({
+  amount: "4.00",
+  paymentMethodNonce: nonceFromTheClient,
+  options: {
+    submitForSettlement: true
+  }
+}, function (err, result) {
+});
+
+
 //Request comes in to get token, then uses Braintree SDK (gateway), generates client token and sends it back as a response
-router.get('/get_token', function (req, res) 
+/*router.get('/get_token', function (req, res) 
 {
     gateway.clientToken.generate( {}, function(err, response)
     {
@@ -35,6 +52,6 @@ router.post('/pay', function (req, res)
             console.log(result);
         }
     });
-});
+});*/
 
 

@@ -1,4 +1,5 @@
 PODS:
+  - Alamofire (4.6.0)
   - Braintree (4.10.0):
     - Braintree/Card (= 4.10.0)
     - Braintree/Core (= 4.10.0)
@@ -69,11 +70,13 @@ PODS:
   - nanopb/encode (0.3.8)
 
 DEPENDENCIES:
+  - Alamofire
   - Braintree
   - BraintreeDropIn
   - Firebase/Auth
 
 SPEC CHECKSUMS:
+  Alamofire: f41a599bd63041760b26d393ec1069d9d7b917f4
   Braintree: 424a8b0bf1d31fe1110035cfde438701e1425c1a
   BraintreeDropIn: 5882cca8dc3c4a5b8f11faa44fca52323253c857
   Firebase: 7d3b8cd837ad9fcd391657734c0d56dab8e9a5a3
@@ -85,6 +88,6 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: 5bb1eae636127de695590f50e7d248483eb891e6
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
 
-PODFILE CHECKSUM: 46de842cc4fb5d0b60c46130da76feab8c67036b
+PODFILE CHECKSUM: 7ac07b656ba4f54f91543c0ae45226f6a658b400
 
 COCOAPODS: 1.4.0

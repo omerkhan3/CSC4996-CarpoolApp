@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "85FBBAAB2B9287E9CAEE2191373F000E"
+               BlueprintIdentifier = "9F88A8E6380824626D50DF5FB010CC49"
                BuildableName = "Braintree-UI-Localization.bundle"
                BlueprintName = "Braintree-Braintree-UI-Localization"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -47,7 +47,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "85FBBAAB2B9287E9CAEE2191373F000E"
+            BlueprintIdentifier = "9F88A8E6380824626D50DF5FB010CC49"
             BuildableName = "Braintree-UI-Localization.bundle"
             BlueprintName = "Braintree-Braintree-UI-Localization"
             ReferencedContainer = "container:Pods.xcodeproj">
