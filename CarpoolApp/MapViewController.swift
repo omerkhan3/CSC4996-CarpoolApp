@@ -10,15 +10,18 @@ import UIKit
 import MapKit
 import CoreLocation
 import Firebase
-import GeoFire
-
-
+//import GeoFire
 
 
 
 class MapViewController: UIViewController, CLLocationManagerDelegate {
-let locationManager = CLLocationManager()
+
+        let locationManager = CLLocationManager()
+    
+    //linking mapview to this class
     @IBOutlet weak var mapview: MKMapView!
+   
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -34,7 +37,14 @@ let locationManager = CLLocationManager()
             locationManager.desiredAccuracy = kCLLocationAccuracyBest // You can change the locaiton accuary here.
             locationManager.startUpdatingLocation()
         }
-
+        let samplelocation = otherlocations(title: "Starbucks",
+        locationName: "sample starbucks",
+        coordinate: CLLocationCoordinate2D(latitude: 37.7749, longitude: -122.431297))
+       
+        mapview.addAnnotation(samplelocation)
+        
+        
+        
         // Do any additional setup after loading the view.
     }
 
@@ -43,7 +53,7 @@ let locationManager = CLLocationManager()
         // Dispose of any resources that can be recreated.
     }
     
-    // Print out the location to the console
+    // testing to see that location services work so it will print out the location to the console
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.first {
             let span = MKCoordinateSpanMake(0.05, 0.05)
