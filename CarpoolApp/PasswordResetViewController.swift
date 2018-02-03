@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import FirebaseAuth
+import GeoFire
 
 class PasswordResetViewController: UIViewController {
 
@@ -27,6 +28,7 @@ class PasswordResetViewController: UIViewController {
         var actionItem = ""
         var actionTitle = ""
         let exitAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+        
         if (email?.isEmpty)!
         {
             actionTitle = "Error!"
@@ -37,6 +39,7 @@ class PasswordResetViewController: UIViewController {
             alert.addAction(exitAction)
             
             self.present(alert, animated: true, completion: nil)
+            
         }
         else{
         Auth.auth().sendPasswordReset(withEmail: email!, completion: { (error) in
@@ -58,6 +61,7 @@ class PasswordResetViewController: UIViewController {
                 
                 self.present(alert, animated: true, completion: nil)
                 self.emailField.text = ""
+                
             }
         })
     }
