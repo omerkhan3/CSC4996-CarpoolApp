@@ -11,10 +11,7 @@
 		78241398201D0F3A00F06D99 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78241397201D0F3A00F06D99 /* AppDelegate.swift */; };
 		7824139D201D0F3A00F06D99 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7824139B201D0F3A00F06D99 /* Main.storyboard */; };
 		7824139F201D0F3A00F06D99 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7824139E201D0F3A00F06D99 /* Assets.xcassets */; };
-		782413A2201D0F3A00F06D99 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 782413A0201D0F3A00F06D99 /* LaunchScreen.storyboard */; };
 		782413AA201D12FC00F06D99 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 782413A9201D12FC00F06D99 /* GoogleService-Info.plist */; };
-		C96AFA03201D4C8D008B0A54 /* Maps.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C96AFA02201D4C8D008B0A54 /* Maps.storyboard */; };
-		C995C78C201D57FF00B8CB3E /* another.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C995C78B201D57FF00B8CB3E /* another.storyboard */; };
 		C995C78E201D5DD400B8CB3E /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C995C78D201D5DD400B8CB3E /* MapKit.framework */; };
 		C995C790201D615E00B8CB3E /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C995C78F201D615D00B8CB3E /* CoreLocation.framework */; };
 		D10EFE9A2022979700C962E1 /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10EFE992022979700C962E1 /* RegistrationViewController.swift */; };
@@ -28,12 +25,9 @@
 		78241397201D0F3A00F06D99 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7824139C201D0F3A00F06D99 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7824139E201D0F3A00F06D99 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		782413A1201D0F3A00F06D99 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		782413A3201D0F3A00F06D99 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		782413A9201D12FC00F06D99 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9320C101773311FB910A13A6 /* Pods_CarpoolApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CarpoolApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		C96AFA02201D4C8D008B0A54 /* Maps.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Maps.storyboard; sourceTree = "<group>"; };
-		C995C78B201D57FF00B8CB3E /* another.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = another.storyboard; sourceTree = "<group>"; };
 		C995C78D201D5DD400B8CB3E /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		C995C78F201D615D00B8CB3E /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		D10EFE992022979700C962E1 /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
@@ -85,10 +79,7 @@
 				D10EFE9D20229ACA00C962E1 /* PasswordResetViewController.swift */,
 				D10EFE9B2022983600C962E1 /* LoginViewController.swift */,
 				D10EFE992022979700C962E1 /* RegistrationViewController.swift */,
-				C96AFA02201D4C8D008B0A54 /* Maps.storyboard */,
-				C995C78B201D57FF00B8CB3E /* another.storyboard */,
 				7824139E201D0F3A00F06D99 /* Assets.xcassets */,
-				782413A0201D0F3A00F06D99 /* LaunchScreen.storyboard */,
 				782413A3201D0F3A00F06D99 /* Info.plist */,
 				782413A9201D12FC00F06D99 /* GoogleService-Info.plist */,
 			);
@@ -149,7 +140,7 @@
 				TargetAttributes = {
 					78241393201D0F3A00F06D99 = {
 						CreatedOnToolsVersion = 9.2;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -176,10 +167,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C995C78C201D57FF00B8CB3E /* another.storyboard in Resources */,
-				782413A2201D0F3A00F06D99 /* LaunchScreen.storyboard in Resources */,
 				782413AA201D12FC00F06D99 /* GoogleService-Info.plist in Resources */,
-				C96AFA03201D4C8D008B0A54 /* Maps.storyboard in Resources */,
 				7824139F201D0F3A00F06D99 /* Assets.xcassets in Resources */,
 				7824139D201D0F3A00F06D99 /* Main.storyboard in Resources */,
 			);
@@ -271,14 +259,6 @@
 				7824139C201D0F3A00F06D99 /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		782413A0201D0F3A00F06D99 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				782413A1201D0F3A00F06D99 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -396,11 +376,12 @@
 			baseConfigurationReference = F95DAD1A528A8524339BF3C3 /* Pods-CarpoolApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = SSUS7682B2;
 				INFOPLIST_FILE = CarpoolApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = CSC4996.CarpoolApp;
+				PRODUCT_BUNDLE_IDENTIFIER = CSC4996.CarpoolApp2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
@@ -413,11 +394,12 @@
 			baseConfigurationReference = F030565275DC7FB77646828A /* Pods-CarpoolApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = SSUS7682B2;
 				INFOPLIST_FILE = CarpoolApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = CSC4996.CarpoolApp;
+				PRODUCT_BUNDLE_IDENTIFIER = CSC4996.CarpoolApp2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
