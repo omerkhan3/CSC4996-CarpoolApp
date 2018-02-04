@@ -10,11 +10,10 @@ import UIKit
 import MapKit
 import CoreLocation
 import Firebase
-import SwiftyJSON
 import GeoFire
 import FirebaseDatabase
 import FirebaseCore
-
+import FirebaseAuth
 
 
 class MapViewController: UIViewController, CLLocationManagerDelegate {
@@ -29,45 +28,19 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     @IBOutlet weak var mapview: MKMapView!
    
    
-    //var user = [otherlocations]()
     
-//    func fetchData()
-//    {
-//        let fileName = Bundle.main.path(forResource: "jsonlist", ofType: "json")
-//        let filePath = URL(fileURLWithPath: fileName!)
-//        var data: Data?
-//        do {
-//            data = try Data(contentsOf: filePath, options: Data.ReadingOptions(rawValue: 0))
-//        } catch let error {
-//            data = nil
-//            print("Report error \(error.localizedDescription)")
-//        }
-//
-//        if let jsonData = data {
-//
-//                let json:JSON =  JSON(data: jsonData)
-//
-//            if let UsersJSONs = json["Users"]["User"].array {
-//                for UsersJSON in UsersJSONs {
-//                    if let user = otherlocations.from(json: UsersJSON) {
-//                        self.user.append(user)
-//                    }
-//                }
-//            }
-//        }
-//    }
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        geoFire.setLocation(CLLocation(latitude: 37.7853889, longitude: -122.4056973), forKey: "firebase-hq")
-        
-        geoFire.setLocation(CLLocation(latitude: 37.7853889, longitude: -122.4056973), forKey: "firebase-hq") { (error) in
-            if (error != nil) {
-                print("An error occured: \(error)")
-            } else {
-                print("Saved location successfully!")
-            }
-        }
+//        geoFire.setLocation(CLLocation(latitude: 37.7853889, longitude: -122.4056973), forKey: "EyzXZsmtEDUdBxd3YY0jklx58Zu2")
+//
+//        geoFire.setLocation(CLLocation(latitude: 37.7853889, longitude: -122.4056973), forKey: "EyzXZsmtEDUdBxd3YY0jklx58Zu2") { (error) in
+//            if (error != nil) {
+//                print("An error occured: \(error)")
+//            } else {
+//                print("Saved location successfully!")
+//            }
+//        }
         
         // For use when the app is open & in the background
         locationManager.requestAlwaysAuthorization()
@@ -93,12 +66,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         
         
         // Do any additional setup after loading the view.
-    }
+            
+}
 
-   
-    
-    
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -107,7 +78,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     // testing to see that location services work so it will print out the location to the console
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.first {
-            let span = MKCoordinateSpanMake(0.05, 0.05)
+            let span = MKCoordinateSpanMake(0.2, 0.2)
             let region = MKCoordinateRegion(center: location.coordinate, span: span)
             mapview.setRegion(region, animated: true)
             print(location.coordinate)

@@ -14,7 +14,6 @@
 		C910BD372026B15C008C7E46 /* jsonlist.json in Resources */ = {isa = PBXBuildFile; fileRef = C910BD362026B15B008C7E46 /* jsonlist.json */; };
 		C910BD3D2026DAA4008C7E46 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C910BD392026BF71008C7E46 /* SwiftyJSON.framework */; };
 		C945DD7D2023DFFD003C8D9A /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C945DD7C2023DFFD003C8D9A /* MapViewController.swift */; };
-		C9480E3C20266BA30030A9F0 /* otherlocations.json in Resources */ = {isa = PBXBuildFile; fileRef = C9480E3B20266BA30030A9F0 /* otherlocations.json */; };
 		C94865D22026F1E100B4D385 /* otherlocations.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94865D12026F1E100B4D385 /* otherlocations.swift */; };
 		C96AFA03201D4C8D008B0A54 /* Maps.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C96AFA02201D4C8D008B0A54 /* Maps.storyboard */; };
 		C96BADE42026EE2D008E442C /* GeoFire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C96BADE52026EE2D008E442C /* GeoFire.framework */; };
@@ -32,7 +31,6 @@
 		C910BD362026B15B008C7E46 /* jsonlist.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = jsonlist.json; path = ../../../Desktop/jsonlist.json; sourceTree = "<group>"; };
 		C910BD392026BF71008C7E46 /* SwiftyJSON.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SwiftyJSON.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C945DD7C2023DFFD003C8D9A /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
-		C9480E3B20266BA30030A9F0 /* otherlocations.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = otherlocations.json; path = "../../../Downloads/mVK7rOBSM6uuz41Bfgpr_MapKit_Duc_Tran/DucTran-MapKit-Starter/DucTran-MapKit/otherlocations.json"; sourceTree = "<group>"; };
 		C94865D12026F1E100B4D385 /* otherlocations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = otherlocations.swift; sourceTree = "<group>"; };
 		C96AFA02201D4C8D008B0A54 /* Maps.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Maps.storyboard; sourceTree = "<group>"; };
 		C96BADE52026EE2D008E442C /* GeoFire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = GeoFire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -82,7 +80,6 @@
 			children = (
 				78241397201D0F3A00F06D99 /* AppDelegate.swift */,
 				C96AFA02201D4C8D008B0A54 /* Maps.storyboard */,
-				C9480E3B20266BA30030A9F0 /* otherlocations.json */,
 				C945DD7C2023DFFD003C8D9A /* MapViewController.swift */,
 				C910BD362026B15B008C7E46 /* jsonlist.json */,
 				7824139E201D0F3A00F06D99 /* Assets.xcassets */,
@@ -184,7 +181,6 @@
 			files = (
 				782413AA201D12FC00F06D99 /* GoogleService-Info.plist in Resources */,
 				C910BD372026B15C008C7E46 /* jsonlist.json in Resources */,
-				C9480E3C20266BA30030A9F0 /* otherlocations.json in Resources */,
 				C96AFA03201D4C8D008B0A54 /* Maps.storyboard in Resources */,
 				7824139F201D0F3A00F06D99 /* Assets.xcassets in Resources */,
 			);

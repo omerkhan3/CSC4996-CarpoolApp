@@ -10,11 +10,11 @@ import Foundation
 import MapKit
 import AddressBook
 import Firebase
-import SwiftyJSON
 import FirebaseDatabase
+import FirebaseAuth
 
 
-
+//connecting to firebase database
 let DB_Ref = Database.database().reference()
 let geoFireRef = Database.database().reference().child("userLocation")
 let geoFire = GeoFire(firebaseRef: geoFireRef)
@@ -32,8 +32,11 @@ let region = MKCoordinateRegionMake(center.coordinate, span)
 var regionQuery = geoFire.query(with: region)
 
 
+
 class otherlocations: NSObject, MKAnnotation
 {
+    
+    
     let title: String?
     let locationName: String?
     let coordinate: CLLocationCoordinate2D
@@ -52,23 +55,6 @@ class otherlocations: NSObject, MKAnnotation
     }
     
     
-    
-    //    class func from (json:JSON) -> otherlocations?
-    //    {
-    //        var title: String
-    //        if let unwrappedTitle = json["email"].string {
-    //            title = unwrappedTitle
-    //        } else {
-    //            title = ""
-    //        }
-    //
-    //        let locationName = json["User"]["email"].string
-    //        let lat = json["User"]["lat"].doubleValue
-    //        let long = json["User"]["long"].doubleValue
-    //        let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
-    //
-    //        return otherlocations(title: title, locationName: locationName, coordinate: coordinate)
-    //    }
     
     func mapItem() -> MKMapItem
     {
