@@ -10,8 +10,8 @@ import UIKit
 import MapKit
 import CoreLocation
 import Firebase
-//import GeoFire
-
+//import SwiftyJSON
+import GeoFire
 
 
 class MapViewController: UIViewController, CLLocationManagerDelegate {
@@ -20,8 +20,34 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     
     //linking mapview to this class
     @IBOutlet weak var mapview: MKMapView!
-   
     
+    //var user = [otherlocations]()
+    
+//    func fetchData()
+//    {
+//        let fileName = Bundle.main.path(forResource: "jsonlist", ofType: "json")
+//        let filePath = URL(fileURLWithPath: fileName!)
+//        var data: Data?
+//        do {
+//            data = try Data(contentsOf: filePath, options: Data.ReadingOptions(rawValue: 0))
+//        } catch let error {
+//            data = nil
+//            print("Report error \(error.localizedDescription)")
+//        }
+//
+//        if let jsonData = data {
+//
+//                let json:JSON =  JSON(data: jsonData)
+//
+//            if let UsersJSONs = json["Users"]["User"].array {
+//                for UsersJSON in UsersJSONs {
+//                    if let user = otherlocations.from(json: UsersJSON) {
+//                        self.user.append(user)
+//                    }
+//                }
+//            }
+//        }
+//    }
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -51,6 +77,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         // Do any additional setup after loading the view.
     }
 
+   
+    
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -94,3 +124,4 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
   
 
 }
+

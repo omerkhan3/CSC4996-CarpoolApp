@@ -11,12 +11,16 @@
 		78241398201D0F3A00F06D99 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78241397201D0F3A00F06D99 /* AppDelegate.swift */; };
 		7824139F201D0F3A00F06D99 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7824139E201D0F3A00F06D99 /* Assets.xcassets */; };
 		782413AA201D12FC00F06D99 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 782413A9201D12FC00F06D99 /* GoogleService-Info.plist */; };
+		C910BD372026B15C008C7E46 /* jsonlist.json in Resources */ = {isa = PBXBuildFile; fileRef = C910BD362026B15B008C7E46 /* jsonlist.json */; };
+		C910BD3C2026D950008C7E46 /* GeoFire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C910BD3B2026BF76008C7E46 /* GeoFire.framework */; };
+		C910BD3D2026DAA4008C7E46 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C910BD392026BF71008C7E46 /* SwiftyJSON.framework */; };
 		C945DD7D2023DFFD003C8D9A /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C945DD7C2023DFFD003C8D9A /* MapViewController.swift */; };
 		C9480E3A2026686B0030A9F0 /* otherlocations.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9480E392026686B0030A9F0 /* otherlocations.swift */; };
 		C9480E3C20266BA30030A9F0 /* otherlocations.json in Resources */ = {isa = PBXBuildFile; fileRef = C9480E3B20266BA30030A9F0 /* otherlocations.json */; };
 		C96AFA03201D4C8D008B0A54 /* Maps.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C96AFA02201D4C8D008B0A54 /* Maps.storyboard */; };
+		C98AA76B20269B6400DCECC6 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98AA76A20269B6400DCECC6 /* DataService.swift */; };
 		C995C78E201D5DD400B8CB3E /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C995C78D201D5DD400B8CB3E /* MapKit.framework */; };
-		C995C790201D615E00B8CB3E /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C995C78F201D615D00B8CB3E /* CoreLocation.framework */; };
+		C995C790201D615E00B8CB3E /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C995C78F201D615D00B8CB3E /* CoreLocation.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,11 +30,15 @@
 		7824139E201D0F3A00F06D99 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		782413A3201D0F3A00F06D99 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		782413A9201D12FC00F06D99 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		C910BD362026B15B008C7E46 /* jsonlist.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = jsonlist.json; path = ../../../Desktop/jsonlist.json; sourceTree = "<group>"; };
+		C910BD392026BF71008C7E46 /* SwiftyJSON.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SwiftyJSON.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C910BD3B2026BF76008C7E46 /* GeoFire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = GeoFire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C945DD7C2023DFFD003C8D9A /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		C9480E392026686B0030A9F0 /* otherlocations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = otherlocations.swift; sourceTree = "<group>"; };
 		C9480E3B20266BA30030A9F0 /* otherlocations.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = otherlocations.json; path = "../../../Downloads/mVK7rOBSM6uuz41Bfgpr_MapKit_Duc_Tran/DucTran-MapKit-Starter/DucTran-MapKit/otherlocations.json"; sourceTree = "<group>"; };
 		C96AFA02201D4C8D008B0A54 /* Maps.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Maps.storyboard; sourceTree = "<group>"; };
 		C98AA769202670A500DCECC6 /* Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Header.h; sourceTree = "<group>"; };
+		C98AA76A20269B6400DCECC6 /* DataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DataService.swift; path = "../../../Downloads/CSC4996-CarpoolApp-omer/CarpoolApp/DataService.swift"; sourceTree = "<group>"; };
 		C995C78D201D5DD400B8CB3E /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		C995C78F201D615D00B8CB3E /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		F030565275DC7FB77646828A /* Pods-CarpoolApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarpoolApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-CarpoolApp/Pods-CarpoolApp.release.xcconfig"; sourceTree = "<group>"; };
@@ -43,8 +51,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				C995C790201D615E00B8CB3E /* CoreLocation.framework in Frameworks */,
+				C910BD3C2026D950008C7E46 /* GeoFire.framework in Frameworks */,
 				C995C78E201D5DD400B8CB3E /* MapKit.framework in Frameworks */,
 				1D5945E438E5BCFDAC043373 /* Pods_CarpoolApp.framework in Frameworks */,
+				C910BD3D2026DAA4008C7E46 /* SwiftyJSON.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -76,8 +86,10 @@
 				C96AFA02201D4C8D008B0A54 /* Maps.storyboard */,
 				C9480E3B20266BA30030A9F0 /* otherlocations.json */,
 				C945DD7C2023DFFD003C8D9A /* MapViewController.swift */,
-				C9480E392026686B0030A9F0 /* otherlocations.swift */,
+				C910BD362026B15B008C7E46 /* jsonlist.json */,
+				C98AA76A20269B6400DCECC6 /* DataService.swift */,
 				7824139E201D0F3A00F06D99 /* Assets.xcassets */,
+				C9480E392026686B0030A9F0 /* otherlocations.swift */,
 				782413A3201D0F3A00F06D99 /* Info.plist */,
 				782413A9201D12FC00F06D99 /* GoogleService-Info.plist */,
 				C98AA769202670A500DCECC6 /* Header.h */,
@@ -97,6 +109,8 @@
 		F8CFD888E50D31099B0AD659 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C910BD3B2026BF76008C7E46 /* GeoFire.framework */,
+				C910BD392026BF71008C7E46 /* SwiftyJSON.framework */,
 				C995C78F201D615D00B8CB3E /* CoreLocation.framework */,
 				C995C78D201D5DD400B8CB3E /* MapKit.framework */,
 				0E09741CC3F28EFD9B714807 /* Pods_CarpoolApp.framework */,
@@ -172,6 +186,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				782413AA201D12FC00F06D99 /* GoogleService-Info.plist in Resources */,
+				C910BD372026B15C008C7E46 /* jsonlist.json in Resources */,
 				C9480E3C20266BA30030A9F0 /* otherlocations.json in Resources */,
 				C96AFA03201D4C8D008B0A54 /* Maps.storyboard in Resources */,
 				7824139F201D0F3A00F06D99 /* Assets.xcassets in Resources */,
@@ -224,6 +239,7 @@
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GeoFire/GeoFire.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
@@ -232,6 +248,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GeoFire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
@@ -250,6 +267,7 @@
 				C945DD7D2023DFFD003C8D9A /* MapViewController.swift in Sources */,
 				C9480E3A2026686B0030A9F0 /* otherlocations.swift in Sources */,
 				78241398201D0F3A00F06D99 /* AppDelegate.swift in Sources */,
+				C98AA76B20269B6400DCECC6 /* DataService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -372,6 +390,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = SSUS7682B2;
 				INFOPLIST_FILE = CarpoolApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = CSC4996.CarpoolApp11;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -390,6 +409,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = SSUS7682B2;
 				INFOPLIST_FILE = CarpoolApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = CSC4996.CarpoolApp11;
 				PRODUCT_NAME = "$(TARGET_NAME)";
