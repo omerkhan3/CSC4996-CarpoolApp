@@ -10,17 +10,25 @@ import UIKit
 import MapKit
 import CoreLocation
 import Firebase
-//import SwiftyJSON
+import SwiftyJSON
 import GeoFire
+import FirebaseDatabase
+import FirebaseCore
+
 
 
 class MapViewController: UIViewController, CLLocationManagerDelegate {
 
         let locationManager = CLLocationManager()
     
+    
+   // let geofireRef = Firebase(url: "https://<your-firebase>.firebaseio.com/")
+   // let geoFire = GeoFire(firebaseRef: geofireRef)
+    
     //linking mapview to this class
     @IBOutlet weak var mapview: MKMapView!
-    
+   
+   
     //var user = [otherlocations]()
     
 //    func fetchData()
@@ -50,6 +58,16 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
 //    }
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        geoFire.setLocation(CLLocation(latitude: 37.7853889, longitude: -122.4056973), forKey: "firebase-hq")
+        
+        geoFire.setLocation(CLLocation(latitude: 37.7853889, longitude: -122.4056973), forKey: "firebase-hq") { (error) in
+            if (error != nil) {
+                print("An error occured: \(error)")
+            } else {
+                print("Saved location successfully!")
+            }
+        }
         
         // For use when the app is open & in the background
         locationManager.requestAlwaysAuthorization()

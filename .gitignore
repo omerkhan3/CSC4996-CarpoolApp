@@ -25,3 +25,8 @@ Pods/Pods.xcodeproj/xcuserdata/ammarkhan.xcuserdatad/xcschemes/xcschememanagemen
 Pods/leveldb-library/LICENSE
 Pods/GeoFire/LICENSE
 Pods/FirebaseDatabase/Frameworks/FirebaseDatabase.framework/FirebaseDatabase
+*.pcm
+*.timestamp
+*.apinotesc
+*.idx
+*.xcactivitylog
