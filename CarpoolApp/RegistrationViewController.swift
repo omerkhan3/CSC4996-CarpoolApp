@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import FirebaseAuth
+import MapKit
 
 class RegistrationViewController: UIViewController {
 
@@ -21,6 +22,9 @@ class RegistrationViewController: UIViewController {
     
     
     @IBAction func registerButton(_ sender: UIButton) {
+    
+        
+        
         var actionItem = ""
         var actionTitle = ""
         let exitAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)

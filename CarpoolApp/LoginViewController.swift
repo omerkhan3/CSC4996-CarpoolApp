@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import FirebaseAuth
+import MapKit
 
 class LoginViewController: UIViewController {
 
@@ -46,6 +47,8 @@ class LoginViewController: UIViewController {
                 alert.addAction(exitAction)
                 
                 self.present(alert, animated: true, completion: nil)
+                
+                 DataService.inst.setUserLocation(location: CLLocation(latitude: 37.7853889, longitude: -122.4056973))
             } else {
                 
                 actionTitle = "Error!"
