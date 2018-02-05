@@ -7,5 +7,7 @@ target 'CarpoolApp' do
   pod 'Firebase/Auth'
 pod 'Firebase/Core'
 pod 'Firebase/Database'
+pod 'Braintree'
+pod 'BraintreeDropIn'
 
 end

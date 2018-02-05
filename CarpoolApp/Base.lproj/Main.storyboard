@@ -686,6 +686,9 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="36"/>
                                 <state key="normal" title="Pay Now"/>
+                                <connections>
+                                    <action selector="paymentAction:" destination="R6r-bC-zJp" eventType="touchUpInside" id="atT-LW-MmO"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -693,6 +696,7 @@
                     </view>
                     <connections>
                         <outlet property="mapview" destination="N8h-oI-A57" id="Ce4-YY-HI9"/>
+                        <outlet property="paymentButton" destination="hNw-r2-tEt" id="CTP-Ko-rFa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tLp-Ur-Gzh" userLabel="First Responder" sceneMemberID="firstResponder"/>
