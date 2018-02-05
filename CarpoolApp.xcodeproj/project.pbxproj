@@ -10,6 +10,7 @@
 		2033C2D02026CE5C0081E53A /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2033C2CF2026CE5C0081E53A /* ProfileViewController.swift */; };
 		205A4B43202569DC005AE87C /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205A4B42202569DC005AE87C /* LaunchViewController.swift */; };
 		206736E32026A929008714A7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 206736E52026A929008714A7 /* LaunchScreen.storyboard */; };
+		208A2E8B202829E600393D43 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208A2E8A202829E600393D43 /* MapViewController.swift */; };
 		20F47A0420277D4800D79394 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 20F47A0320277D4800D79394 /* GoogleService-Info.plist */; };
 		63917F3C2F967485C2582052 /* Pods_CarpoolApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9320C101773311FB910A13A6 /* Pods_CarpoolApp.framework */; };
 		78241398201D0F3A00F06D99 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78241397201D0F3A00F06D99 /* AppDelegate.swift */; };
@@ -27,6 +28,7 @@
 		2033C2CF2026CE5C0081E53A /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		205A4B42202569DC005AE87C /* LaunchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
 		206736E42026A929008714A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		208A2E8A202829E600393D43 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		20F47A0320277D4800D79394 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		78241394201D0F3A00F06D99 /* CarpoolApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CarpoolApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		78241397201D0F3A00F06D99 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -79,18 +81,19 @@
 		78241396201D0F3A00F06D99 /* CarpoolApp */ = {
 			isa = PBXGroup;
 			children = (
+				208A2E8A202829E600393D43 /* MapViewController.swift */,
 				20F47A0320277D4800D79394 /* GoogleService-Info.plist */,
 				205A4B42202569DC005AE87C /* LaunchViewController.swift */,
 				D16EC1512023AD8800D56CF2 /* DataService.swift */,
 				78241397201D0F3A00F06D99 /* AppDelegate.swift */,
 				D10EFE9D20229ACA00C962E1 /* PasswordResetViewController.swift */,
 				D10EFE9B2022983600C962E1 /* LoginViewController.swift */,
+				2033C2CF2026CE5C0081E53A /* ProfileViewController.swift */,
 				D10EFE992022979700C962E1 /* RegistrationViewController.swift */,
 				7824139E201D0F3A00F06D99 /* Assets.xcassets */,
 				782413A3201D0F3A00F06D99 /* Info.plist */,
 				7824139B201D0F3A00F06D99 /* Main.storyboard */,
 				206736E52026A929008714A7 /* LaunchScreen.storyboard */,
-				2033C2CF2026CE5C0081E53A /* ProfileViewController.swift */,
 			);
 			path = CarpoolApp;
 			sourceTree = "<group>";
@@ -259,6 +262,7 @@
 				2033C2D02026CE5C0081E53A /* ProfileViewController.swift in Sources */,
 				D10EFE9E20229ACA00C962E1 /* PasswordResetViewController.swift in Sources */,
 				D16EC1522023AD8800D56CF2 /* DataService.swift in Sources */,
+				208A2E8B202829E600393D43 /* MapViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

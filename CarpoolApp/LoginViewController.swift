@@ -19,7 +19,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var scrollView: UIScrollView!
     
-    let dist = -100 // distance to adjust for keyboard
+    let dist = -200 // distance to adjust for keyboard
     
     
     
