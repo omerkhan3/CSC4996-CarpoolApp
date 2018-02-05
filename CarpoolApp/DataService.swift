@@ -9,8 +9,11 @@
 import Foundation
 import Firebase
 import FirebaseDatabase
+import GeoFire
 
 let DB_Ref = Database.database().reference()
+let geoFireRef = Database.database().reference().child("userLocation")
+let geoFire = GeoFire(firebaseRef: geoFireRef)
 
 class DataService{
     static let inst = DataService()
@@ -28,5 +31,11 @@ class DataService{
     
     func createUser(id: String, userInfo: Dictionary<String, Any>){
         REF_USERS.child(id).updateChildValues(userInfo)
+    }
+    
+    func setUserLocation(location: CLLocation) {
+        let uid = Auth.auth().currentUser?.uid
+        geoFire.setLocation(location, forKey: uid!)
+        
     }
 }

@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 import FirebaseAuth
-
+import MapKit
 
 
 class LoginViewController: UIViewController, UITextFieldDelegate{
@@ -59,9 +59,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
                 alert.addAction(exitAction)
                 self.present(alert, animated: true, completion: nil)
                 
-                // Login error handling
-            } else {
+                DataService.inst.setUserLocation(location: CLLocation(latitude: 37.7853889, longitude: -122.4056973))
                 
+            } else {
+                // Login error handling
                 actionTitle = "Error!"
                 actionItem = (error?.localizedDescription)!
                 
