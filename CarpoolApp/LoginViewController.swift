@@ -15,8 +15,8 @@ import MapKit
 class LoginViewController: UIViewController, UITextFieldDelegate{
     
     // UI components
-    @IBOutlet weak var emailField: UITextField!
-    @IBOutlet weak var passwordField: UITextField!
+    @IBOutlet weak var emailField: UITextField! // email text field.
+    @IBOutlet weak var passwordField: UITextField! // password text field.
     @IBOutlet weak var scrollView: UIScrollView!
     
     let dist = -200 // distance to adjust for keyboard
@@ -32,11 +32,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
         
         var actionItem = ""
         var actionTitle = ""
-        let exitAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+        let exitAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)  // default action to exit out of native alerts.
         
         
         // Check that both fields are completed
-        if ((email?.isEmpty)! || (password?.isEmpty)!)
+        if ((email?.isEmpty)! || (password?.isEmpty)!)  // error handling for if all fields were filled  out.
         {
             actionTitle = "Error!"
             actionItem = "You have not entered all required information."
@@ -44,10 +44,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
             // Activate UIAlertController to display error
             let alert = UIAlertController(title: actionTitle, message: actionItem, preferredStyle: .alert)
             alert.addAction(exitAction)
-            self.present(alert, animated: true, completion: nil)
+            self.present(alert, animated: true, completion: nil)  // present error alert.
         } else {
         
-        // Firebase authenication
+        // Firebase authenication query for login.
         Auth.auth().signIn(withEmail: email!, password: password!) { (user, error) in
             // Check login successful
             if error == nil {
@@ -59,12 +59,12 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
                 alert.addAction(exitAction)
                 self.present(alert, animated: true, completion: nil)
                 
-                DataService.inst.setUserLocation(location: CLLocation(latitude: 37.7853889, longitude: -122.4056973))
+                DataService.inst.setUserLocation(location: CLLocation(latitude: 37.7853889, longitude: -122.4056973)) //use the dataservice GeoFire method to store the location from which the user logs in from.
                 
             } else {
                 // Login error handling
                 actionTitle = "Error!"
-                actionItem = (error?.localizedDescription)!
+                actionItem = (error?.localizedDescription)! // "localizedDescription" provides feedback as to what the error is.
                 
                 // Activate UIAlertController to display confirmation
                 let alert = UIAlertController(title: actionTitle, message: actionItem, preferredStyle: .alert)

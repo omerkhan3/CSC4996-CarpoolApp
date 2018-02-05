@@ -25,7 +25,7 @@ class PasswordResetViewController: UIViewController, UITextFieldDelegate {
         
         var actionItem = ""
         var actionTitle = ""
-        let exitAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+        let exitAction = UIAlertAction(title: "OK", style: .cancel, handler: nil) // this is the default action for exiting out of native alerts,
         
         // Check that email field has been completed
         if (email?.isEmpty)!
@@ -34,12 +34,12 @@ class PasswordResetViewController: UIViewController, UITextFieldDelegate {
             actionItem = "The email field is empty."
             
             // Activate UIAlertController to display error
-            let alert = UIAlertController(title: actionTitle, message: actionItem, preferredStyle: .alert)
+            let alert = UIAlertController(title: actionTitle, message: actionItem, preferredStyle: .alert) // alerts errors in the submission.
             
             alert.addAction(exitAction)
             self.present(alert, animated: true, completion: nil)
         } else {
-        // Firebase password reset function
+        // Firebase password reset query
         Auth.auth().sendPasswordReset(withEmail: email!, completion: { (error) in
             
             // Reset error handling
@@ -59,7 +59,7 @@ class PasswordResetViewController: UIViewController, UITextFieldDelegate {
                 alert.addAction(exitAction)
                 
                 self.present(alert, animated: true, completion: nil)
-                self.emailField.text = ""
+                self.emailField.text = "" //reset email field afterwards.
             }
         })
         }

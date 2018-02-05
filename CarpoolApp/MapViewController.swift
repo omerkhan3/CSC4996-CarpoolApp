@@ -20,7 +20,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
   let locationManager = CLLocationManager()
     @IBOutlet weak var paymentButton: UIButton!
     
-    let tokenizationKey =  "sandbox_vtqbvdrz_kjjqnn2gj7vbds9g"
+    let tokenizationKey =  "sandbox_vtqbvdrz_kjjqnn2gj7vbds9g" // this is the tokenization key needed to authenticate with Braintree sandbox.  Since this is just a sandbox account, we have hard-coded the key in, but for production this key would need to be hosted elsewhere.
     
     var ref: DatabaseReference! // create database reference
     var centerMapped = false
@@ -185,21 +185,23 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     }
     
     @IBAction func paymentAction(_ sender: UIButton) {
-        showDropIn(clientTokenOrTokenizationKey: self.tokenizationKey)
+        showDropIn(clientTokenOrTokenizationKey: self.tokenizationKey) // Drop-in is initalized on-click.
     }
     
     func showDropIn(clientTokenOrTokenizationKey: String) {
         let request =  BTDropInRequest()
+        // The tokenization key is what we use to authenticate client-side to Braintree, and allows us access to drop-in.
         let dropIn = BTDropInController(authorization: self.tokenizationKey, request: request)
         { (controller, result, error) in
-            if (error != nil) {
+            if (error != nil) {  // if there are errors when calling the Braintree Dropin.
                 print("Error.")
-            } else if (result?.isCancelled == true) {
+            } else if (result?.isCancelled == true) { // if selects the cancel option of UI.
                 print("Cancelled.")
                 
             } else if let result = result {
-                let selectedPaymentMethod = result.paymentMethod?.nonce
-                self.postNonceToServer(paymentMethodNonce: selectedPaymentMethod!)
+                let selectedPaymentMethod = result.paymentMethod?.nonce // the nonce contains unique identifiers about the transaction that are needed by the server to process the transaction.
+                
+                self.postNonceToServer(paymentMethodNonce: selectedPaymentMethod!) // this is the call to send the nonce to the server.
             }
             controller.dismiss(animated: true, completion: nil)
         }
@@ -208,14 +210,14 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     
     
     
-    func postNonceToServer(paymentMethodNonce: String) {
-        let paymentURL = URL(string: "http://localhost:3000/checkout")!
+    func postNonceToServer(paymentMethodNonce: String) { // method to send unique payment "nonce" to the server for transaction processing.
+        let paymentURL = URL(string: "http://localhost:3000/checkout")! // the URL endpoint of our local node server.  We will need to switch this when we are able to host somewhere else.
         var request = URLRequest(url: paymentURL)
-        request.httpBody = "payment_method_nonce=\(paymentMethodNonce)".data(using: String.Encoding.utf8)
-        request.httpMethod = "POST"
+        request.httpBody = "payment_method_nonce=\(paymentMethodNonce)".data(using: String.Encoding.utf8) // "payment_method_nonce" is the field that the server will be looking for to receive the nonce.
+        request.httpMethod = "POST" // POST method.
         
         URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
-            if (error != nil){
+            if (error != nil){  // error handling responses.
                 print ("An error has occured.")
             }
             else{
