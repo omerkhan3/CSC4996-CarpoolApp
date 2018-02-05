@@ -17,7 +17,7 @@ import Braintree
 import BraintreeDropIn
 
 class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
-
+  let locationManager = CLLocationManager()
     @IBOutlet weak var paymentButton: UIButton!
     
     let tokenizationKey =  "sandbox_vtqbvdrz_kjjqnn2gj7vbds9g"
@@ -101,7 +101,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             mapview.showsUserLocation = true
             
         } else {
-           // locationManager.requestWhenInUseAuthorization()
+           locationManager.requestWhenInUseAuthorization()
         }
         
     }
