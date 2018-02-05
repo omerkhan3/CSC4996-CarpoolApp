@@ -14,7 +14,6 @@
 		C910BD372026B15C008C7E46 /* jsonlist.json in Resources */ = {isa = PBXBuildFile; fileRef = C910BD362026B15B008C7E46 /* jsonlist.json */; };
 		C910BD3D2026DAA4008C7E46 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C910BD392026BF71008C7E46 /* SwiftyJSON.framework */; };
 		C945DD7D2023DFFD003C8D9A /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C945DD7C2023DFFD003C8D9A /* MapViewController.swift */; };
-		C94865D22026F1E100B4D385 /* otherlocations.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94865D12026F1E100B4D385 /* otherlocations.swift */; };
 		C96AFA03201D4C8D008B0A54 /* Maps.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C96AFA02201D4C8D008B0A54 /* Maps.storyboard */; };
 		C96BADE42026EE2D008E442C /* GeoFire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C96BADE52026EE2D008E442C /* GeoFire.framework */; };
 		C995C78E201D5DD400B8CB3E /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C995C78D201D5DD400B8CB3E /* MapKit.framework */; };
@@ -31,7 +30,6 @@
 		C910BD362026B15B008C7E46 /* jsonlist.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = jsonlist.json; path = ../../../Desktop/jsonlist.json; sourceTree = "<group>"; };
 		C910BD392026BF71008C7E46 /* SwiftyJSON.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SwiftyJSON.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C945DD7C2023DFFD003C8D9A /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
-		C94865D12026F1E100B4D385 /* otherlocations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = otherlocations.swift; sourceTree = "<group>"; };
 		C96AFA02201D4C8D008B0A54 /* Maps.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Maps.storyboard; sourceTree = "<group>"; };
 		C96BADE52026EE2D008E442C /* GeoFire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = GeoFire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C98AA769202670A500DCECC6 /* Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Header.h; sourceTree = "<group>"; };
@@ -86,7 +84,6 @@
 				782413A3201D0F3A00F06D99 /* Info.plist */,
 				782413A9201D12FC00F06D99 /* GoogleService-Info.plist */,
 				C98AA769202670A500DCECC6 /* Header.h */,
-				C94865D12026F1E100B4D385 /* otherlocations.swift */,
 			);
 			path = CarpoolApp;
 			sourceTree = "<group>";
@@ -258,7 +255,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C945DD7D2023DFFD003C8D9A /* MapViewController.swift in Sources */,
-				C94865D22026F1E100B4D385 /* otherlocations.swift in Sources */,
 				78241398201D0F3A00F06D99 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
