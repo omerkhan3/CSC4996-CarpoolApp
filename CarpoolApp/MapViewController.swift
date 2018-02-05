@@ -101,8 +101,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         {
             return nil
         }
-        
-        let reuseId = "Image"
+        //use later if we want to have annotations over the person
+        let reuseId = ""
         var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId)
         if annotationView == nil {
             annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
