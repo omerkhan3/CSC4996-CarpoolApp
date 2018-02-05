@@ -33,10 +33,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     
     //Array With data from FireBase
    
-    var postData = [String:AnyObject]()
-    var finalDict = [[String: AnyObject]]()
-    var userLatt = CLLocationDegrees()
-    var userLonn = CLLocationDegrees()
+ 
+    var lat = CLLocationDegrees()
+    var long = CLLocationDegrees()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -80,8 +79,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
         if let loc = userLocation.location {
             if !centerMapped {
-                self.userLatt = userLocation.coordinate.latitude
-                self.userLonn = userLocation.coordinate.longitude
+                self.lat = userLocation.coordinate.latitude
+                self.long = userLocation.coordinate.longitude
                 centerMapOnLocation(location: loc)
                 centerMapped = true
             }
@@ -102,29 +101,27 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         {
             return nil
         }
-    
-    //Venue Annotation
-    let reuseId = "Image"
-    var annotationView = mapview.dequeueReusableAnnotationView(withIdentifier: reuseId)
-    if annotationView == nil {
-    annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
-    annotationView?.canShowCallout = true
-    annotationView?.image = UIImage(named: "Marker")
-    
-    let subtitleView = UILabel()
-    subtitleView.font = subtitleView.font.withSize(12)
-    subtitleView.numberOfLines = 2
-    subtitleView.text = annotation.subtitle!
-    annotationView?.detailCalloutAccessoryView = subtitleView
-    
+        
+        let reuseId = "Image"
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId)
+        if annotationView == nil {
+            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
+            annotationView?.canShowCallout = true
+            annotationView?.image = UIImage(named: "Marker")
+            
+            let subtitleView = UILabel()
+            subtitleView.font = subtitleView.font.withSize(12)
+            subtitleView.numberOfLines = 2
+            subtitleView.text = annotation.subtitle!
+            annotationView?.detailCalloutAccessoryView = subtitleView
+            
+        }
+        else {
+            annotationView?.annotation = annotation
+        }
+        
+        return annotationView
     }
-    else {
-    annotationView?.annotation = annotation
-    }
-    
-    return annotationView
-}
-    
     
     func getDataForMapAnnotation(Users: [[String:AnyObject]]){
         
@@ -137,7 +134,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             let title = key["email"] as! String
             let subtitle = key["lastName"]
             let center = CLLocationCoordinate2D(latitude: lat, longitude: long)
-            _ = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.75, longitudeDelta: 0.75))
+            _ = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 25, longitudeDelta: 25))
             
             let annotation = MKPointAnnotation()
             annotation.coordinate = CLLocationCoordinate2DMake(lat, long)
@@ -146,4 +143,5 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             self.mapview.addAnnotation(annotation)
         }
     }
+
 }

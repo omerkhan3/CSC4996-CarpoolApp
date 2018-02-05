@@ -11,8 +11,6 @@
 		78241398201D0F3A00F06D99 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78241397201D0F3A00F06D99 /* AppDelegate.swift */; };
 		7824139F201D0F3A00F06D99 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7824139E201D0F3A00F06D99 /* Assets.xcassets */; };
 		782413AA201D12FC00F06D99 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 782413A9201D12FC00F06D99 /* GoogleService-Info.plist */; };
-		C910BD372026B15C008C7E46 /* jsonlist.json in Resources */ = {isa = PBXBuildFile; fileRef = C910BD362026B15B008C7E46 /* jsonlist.json */; };
-		C910BD3D2026DAA4008C7E46 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C910BD392026BF71008C7E46 /* SwiftyJSON.framework */; };
 		C945DD7D2023DFFD003C8D9A /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C945DD7C2023DFFD003C8D9A /* MapViewController.swift */; };
 		C96AFA03201D4C8D008B0A54 /* Maps.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C96AFA02201D4C8D008B0A54 /* Maps.storyboard */; };
 		C96BADE42026EE2D008E442C /* GeoFire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C96BADE52026EE2D008E442C /* GeoFire.framework */; };
@@ -27,8 +25,6 @@
 		7824139E201D0F3A00F06D99 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		782413A3201D0F3A00F06D99 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		782413A9201D12FC00F06D99 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		C910BD362026B15B008C7E46 /* jsonlist.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = jsonlist.json; path = ../../../Desktop/jsonlist.json; sourceTree = "<group>"; };
-		C910BD392026BF71008C7E46 /* SwiftyJSON.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SwiftyJSON.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C945DD7C2023DFFD003C8D9A /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		C96AFA02201D4C8D008B0A54 /* Maps.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Maps.storyboard; sourceTree = "<group>"; };
 		C96BADE52026EE2D008E442C /* GeoFire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = GeoFire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -48,7 +44,6 @@
 				C96BADE42026EE2D008E442C /* GeoFire.framework in Frameworks */,
 				C995C790201D615E00B8CB3E /* CoreLocation.framework in Frameworks */,
 				C995C78E201D5DD400B8CB3E /* MapKit.framework in Frameworks */,
-				C910BD3D2026DAA4008C7E46 /* SwiftyJSON.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -79,7 +74,6 @@
 				78241397201D0F3A00F06D99 /* AppDelegate.swift */,
 				C96AFA02201D4C8D008B0A54 /* Maps.storyboard */,
 				C945DD7C2023DFFD003C8D9A /* MapViewController.swift */,
-				C910BD362026B15B008C7E46 /* jsonlist.json */,
 				7824139E201D0F3A00F06D99 /* Assets.xcassets */,
 				782413A3201D0F3A00F06D99 /* Info.plist */,
 				782413A9201D12FC00F06D99 /* GoogleService-Info.plist */,
@@ -101,7 +95,6 @@
 			isa = PBXGroup;
 			children = (
 				C96BADE52026EE2D008E442C /* GeoFire.framework */,
-				C910BD392026BF71008C7E46 /* SwiftyJSON.framework */,
 				C995C78F201D615D00B8CB3E /* CoreLocation.framework */,
 				C995C78D201D5DD400B8CB3E /* MapKit.framework */,
 				0E09741CC3F28EFD9B714807 /* Pods_CarpoolApp.framework */,
@@ -177,7 +170,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				782413AA201D12FC00F06D99 /* GoogleService-Info.plist in Resources */,
-				C910BD372026B15C008C7E46 /* jsonlist.json in Resources */,
 				C96AFA03201D4C8D008B0A54 /* Maps.storyboard in Resources */,
 				7824139F201D0F3A00F06D99 /* Assets.xcassets in Resources */,
 			);
