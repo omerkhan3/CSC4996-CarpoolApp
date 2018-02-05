@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+#Set current directory
+cd `dirname $0`
+
+echo "Installing pods"
+
+pod install
+

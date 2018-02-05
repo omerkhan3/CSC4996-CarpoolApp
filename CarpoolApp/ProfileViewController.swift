@@ -7,13 +7,50 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseAuth
+import FirebaseDatabase
+
 
 class ProfileViewController: UIViewController {
+    
+    var ref: DatabaseReference! // Creates database reference
+    var refHandle: UInt! // Create reference handle
 
+    @IBOutlet weak var UserFirstName: UILabel!
+    @IBOutlet weak var UserLastName: UILabel!
+    @IBOutlet weak var UserEmail: UILabel!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        // Reference database data
+        ref = Database.database().reference()
+        
+        // Reference user data
+        let userID = Auth.auth().currentUser?.uid
+        ref = Database.database().reference().child("Users") // Create reference to child node
+        ref.child(userID!).observeSingleEvent(of: .value, with: { (snapshot) in
+            // Get user value
+            let value = snapshot.value as? NSDictionary
+            let userEmail = value?["email"] as? String ?? ""
+            let firstName = value?["firstName"] as? String ?? ""
+            let lastName = value?["lastName"] as? String ?? ""
+            self.UserFirstName.text = firstName
+            self.UserLastName.text = lastName
+            self.UserEmail.text = userEmail
+            print("UserID: ")
+            print(userID!)
+            print("Email: ")
+            print(userEmail)
+            print("firstNAme: ")
+            print(firstName)
+            print("lastName: ")
+            print(lastName)
+        }) { (error) in
+            print(error.localizedDescription)
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -21,15 +58,20 @@ class ProfileViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    // Attach listener to each view that needs sign-in user information
+    // Listens for auth state
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        // Attatch listener
+//        let handle = Auth.auth().addStateDidChangeListener { (auth, user) in
+//
+//        }
     }
-    */
-
+    
+    // Detatch listener
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+//        Auth.auth().removeStateDidChangeListener(handle!)
+    }
 }
