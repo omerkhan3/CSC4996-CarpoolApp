@@ -52,44 +52,69 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         mapview.userTrackingMode = MKUserTrackingMode.follow
         mapview.showsUserLocation = true
 
-        //Geofire
+        displayAnnotations()        //Geofire
 //        geoFireRef = Database.database().reference().child("userLocation")
 //        geoFire = GeoFire(firebaseRef: geoFireRef)
         
-//        ref = Database.database().reference().child("Users") // Create reference to child node
-//        ref.child(user1).observeSingleEvent(of: .value, with: { (snapshot) in
+     //   ref = Database.database().reference().child("Users") // Create reference to child node
+     //   ref.child(user1).observeSingleEvent(of: .value, with: { (snapshot) in
 //            // Get user value
-//            let value = snapshot.value as? NSDictionary
-//            let userLong = value?["long"] as? CLLocationDegrees
-//            let userLat = value?["lat"] as? CLLocationDegrees
-//            let firstName = value?["firstName"] as? String ?? ""
-//            let lastName = value?["lastName"] as? String ?? ""
+     //       let value = snapshot.value as? NSDictionary
+       //     let userLat = (snapshot.value as AnyObject!)!["lat"] as! String!
+         //   let userLong = (snapshot.value as AnyObject!)!["long"] as! String!
+          
+     //       let firstName = value?["firstName"] as? String ?? ""
+//           let lastName = value?["lastName"] as? String ?? ""
 //            print("User ID: ")
 //            print(user1)
-//            print("Saved Longitude: ")
-//            print(userLong!)
-//            print("Saved Latitude: ")
-//            print(userLat!)
+         // print("Saved Longitude: ")
+          //  print(userLong!)
+         //  print("Saved Latitude: ")
+         //   print(userLat!)
 //            print("lastName: ")
 //            print(lastName)
         
 //            let additionLocation = otherlocations(title: lastName!, )
-//            let center = CLLocationCoordinate2D(latitude: userLat!, longitude: userLong!)
-//            _ = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 25, longitudeDelta: 25))
+           // let center = CLLocationCoordinate2D(latitude: userLat, longitude: userLong)
+         //   _ = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1))
             
+          //  let annotation = MKPointAnnotation()
             
-            
+         //   annotation.coordinate = CLLocationCoordinate2D(latitude: (Double(userLat!))!, longitude: (Double(userLong!))!)
+          //  annotation.title = "test"
+         //   annotation.subtitle = "test"
+           // self.mapview.addAnnotation(annotation)
 //            let annotation = MKPointAnnotation()
 //            annotation.coordinate = CLLocationCoordinate2DMake(userLat, userLong)
 //            //annotation.title = lastName.capitalized
-//            // annotation.subtitle = subtitle?.capitalized
+//            annotation.subtitle = firstName.capitalized
 //            self.mapview.addAnnotation(annotation)
 //        }) { (error) in
 //            print(error.localizedDescription)
             //        }
-//        })
+    //   })
 
 }
+    func displayAnnotations() {
+
+        let ref = Database.database().reference()
+        ref.child("user1").observe(.childAdded, with: { (snapshot) in
+
+           
+            let latitude = (snapshot.value as AnyObject!)!["lat"] as! String!
+            let longitude = (snapshot.value as AnyObject!)!["long"] as! String!
+
+
+            let annotation = MKPointAnnotation()
+
+            annotation.coordinate = CLLocationCoordinate2D(latitude: (Double(latitude!))!, longitude: (Double(longitude!))!)
+            annotation.title = "date"
+            annotation.subtitle = "time"
+            self.mapview.addAnnotation(annotation)
+    
+        })}
+
+
     //Brings up the user on the map after authorization
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
