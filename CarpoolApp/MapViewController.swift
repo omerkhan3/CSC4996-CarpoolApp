@@ -22,25 +22,14 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     
     let tokenizationKey =  "sandbox_vtqbvdrz_kjjqnn2gj7vbds9g" // this is the tokenization key needed to authenticate with Braintree sandbox.  Since this is just a sandbox account, we have hard-coded the key in, but for production this key would need to be hosted elsewhere.
     
-    var ref: DatabaseReference! // create database reference
-    var centerMapped = false
+   // var centerMapped = false
     
 
     
     //linking mapview to this class
     @IBOutlet weak var mapview: MKMapView!
     
-   
-    //GeoFire
-//    var geoFire: GeoFire!
-//    var geoFireRef: DatabaseReference!
-    
-    
-    //Array With data from FireBase
-   
- 
-    var lat = CLLocationDegrees()
-    var long = CLLocationDegrees()
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,6 +44,27 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         let result = circleQuery.observeReady({})
         
        // print("Done Querying. ")
+        
+        func getDataForMapAnnotation(Users: [[String:AnyObject]]){
+            
+            //Populates Map with annotations.
+            
+            for key in Users{
+                
+                let lat = key["LATITUDE"] as! CLLocationDegrees
+                let long = key["LONGITUDE"] as! CLLocationDegrees
+                let title = key["email"] as! String
+                let subtitle = key["lastName"]
+                let center = CLLocationCoordinate2D(latitude: lat, longitude: long)
+                _ = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 25, longitudeDelta: 25))
+                
+                let annotation = MKPointAnnotation()
+                annotation.coordinate = CLLocationCoordinate2DMake(lat, long)
+                annotation.title = "testtitle"
+                //annotation.subtitle = subtitle?.capitalized
+                self.mapview.addAnnotation(annotation)
+            }
+        }
         
         
         // Set up Map
@@ -151,14 +161,18 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         mapview.setRegion(coordinateRegion, animated: true)
     }
     
-    func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
-        if let loc = userLocation.location {
-            if !centerMapped {
-                self.lat = userLocation.coordinate.latitude
-                self.long = userLocation.coordinate.longitude
-                centerMapOnLocation(location: loc)
-                centerMapped = true
-            }
+//    func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
+//        if let loc = userLocation.location {
+//            if !centerMapped {
+//                self.lat = userLocation.coordinate.latitude
+//                self.long = userLocation.coordinate.longitude
+//                centerMapOnLocation(location: loc)
+//                centerMapped = true
+//            }
+    
+            
+            //testing to make sure i can write to firebase through geo coordinates
+            
 //            geoFire.setLocation(CLLocation(latitude: self.userLatt, longitude: self.userLonn), forKey: "userLocation") { (error) in
 //                if (error != nil) {
 //                    print("An error occured: \(String(describing: error))")
@@ -166,58 +180,11 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
 //                    print("Saved location successfully!", self.userLatt, self.userLonn)
 //                }
 //            }
-        }
-    }
-    //Annotation Override.
-    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        
-        //User Annotation
-        if (annotation is MKUserLocation)
-        {
-            return nil
-        }
-        //use later if we want to have annotations over the person
-        let reuseId = ""
-        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId)
-        if annotationView == nil {
-            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
-            annotationView?.canShowCallout = true
-            annotationView?.image = UIImage(named: "Marker")
-            
-            let subtitleView = UILabel()
-            subtitleView.font = subtitleView.font.withSize(12)
-            subtitleView.numberOfLines = 2
-            subtitleView.text = annotation.subtitle!
-            annotationView?.detailCalloutAccessoryView = subtitleView
-            
-        }
-        else {
-            annotationView?.annotation = annotation
-        }
-        
-        return annotationView
-    }
     
-    func getDataForMapAnnotation(Users: [[String:AnyObject]]){
-        
-        //Populates Map with annotations.
-        
-        for key in Users{
-            
-            let lat = key["LATITUDE"] as! CLLocationDegrees
-            let long = key["LONGITUDE"] as! CLLocationDegrees
-            let title = key["email"] as! String
-            let subtitle = key["lastName"]
-            let center = CLLocationCoordinate2D(latitude: lat, longitude: long)
-            _ = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 25, longitudeDelta: 25))
-            
-            let annotation = MKPointAnnotation()
-            annotation.coordinate = CLLocationCoordinate2DMake(lat, long)
-            annotation.title = title.capitalized
-            annotation.subtitle = subtitle?.capitalized
-            self.mapview.addAnnotation(annotation)
-        }
-    }
+    
+   
+    
+  
     
     @IBAction func paymentAction(_ sender: UIButton) {
         showDropIn(clientTokenOrTokenizationKey: self.tokenizationKey) // Drop-in is initalized on-click.
