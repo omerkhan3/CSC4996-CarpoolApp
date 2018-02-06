@@ -47,6 +47,16 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         
         let user1 = "DLB4aElaJ6WNr7V9593Ey1jPS023"
         
+        let center = CLLocation(latitude: 37.77,  longitude: -122.41)  // Test Query on user locations to see who is found within a 100 mile radius.
+        let circleQuery = geoFire.query(at: center, withRadius: 100)
+        _ = circleQuery.observe(.keyEntered, with: { (key: String?, location: CLLocation?) in
+            print("Found User: ", key!)  // print UID of users found.
+        })
+        let result = circleQuery.observeReady({})
+        
+       // print("Done Querying. ")
+        
+        
         // Set up Map
         mapview.delegate = self
         mapview.userTrackingMode = MKUserTrackingMode.follow
