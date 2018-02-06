@@ -43,28 +43,34 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         })
         let result = circleQuery.observeReady({})
         
-       // print("Done Querying. ")
+         // print("Done Querying. ")
         
-        func getDataForMapAnnotation(Users: [[String:AnyObject]]){
-            
-            //Populates Map with annotations.
-            
-            for key in Users{
-                
-                let lat = key["LATITUDE"] as! CLLocationDegrees
-                let long = key["LONGITUDE"] as! CLLocationDegrees
-                let title = key["email"] as! String
-                let subtitle = key["lastName"]
-                let center = CLLocationCoordinate2D(latitude: lat, longitude: long)
-                _ = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 25, longitudeDelta: 25))
-                
-                let annotation = MKPointAnnotation()
-                annotation.coordinate = CLLocationCoordinate2DMake(lat, long)
-                annotation.title = "testtitle"
-                //annotation.subtitle = subtitle?.capitalized
-                self.mapview.addAnnotation(annotation)
-            }
-        }
+        let samplelocation = otherlocations(title: "sample location",
+                    locationName: "sample description",
+            coordinate: CLLocationCoordinate2D(latitude: 42.3410, longitude: -83.0552))
+                mapview.addAnnotation(samplelocation)
+     
+        
+//        func getDataForMapAnnotation(Users: [[String:AnyObject]]){
+//
+//            //Populates Map with annotations.
+//
+//            for key in Users{
+//
+//                let lat = key["LATITUDE"] as! CLLocationDegrees
+//                let long = key["LONGITUDE"] as! CLLocationDegrees
+//                let title = key["email"] as! String
+//                let subtitle = key["lastName"]
+//                let center = CLLocationCoordinate2D(latitude: lat, longitude: long)
+//                _ = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 25, longitudeDelta: 25))
+//
+//                let annotation = MKPointAnnotation()
+//                annotation.coordinate = CLLocationCoordinate2DMake(lat, long)
+//                annotation.title = "testtitle"
+//                //annotation.subtitle = subtitle?.capitalized
+//                self.mapview.addAnnotation(annotation)
+//            }
+//        }
         
         
         // Set up Map
@@ -72,7 +78,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         mapview.userTrackingMode = MKUserTrackingMode.follow
         mapview.showsUserLocation = true
 
-        displayAnnotations()        //Geofire
+        //displayAnnotations()        //Geofire
 //        geoFireRef = Database.database().reference().child("userLocation")
 //        geoFire = GeoFire(firebaseRef: geoFireRef)
         
