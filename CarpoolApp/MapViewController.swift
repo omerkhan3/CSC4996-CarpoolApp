@@ -17,7 +17,10 @@ import Braintree
 import BraintreeDropIn
 
 class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
-  let locationManager = CLLocationManager()
+    
+    let locationManager = CLLocationManager()
+    var ref: DatabaseReference! // Creates database reference
+    
     @IBOutlet weak var paymentButton: UIButton!
     
     let tokenizationKey =  "sandbox_vtqbvdrz_kjjqnn2gj7vbds9g" // this is the tokenization key needed to authenticate with Braintree sandbox.  Since this is just a sandbox account, we have hard-coded the key in, but for production this key would need to be hosted elsewhere.
@@ -49,6 +52,31 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
                     locationName: "sample description",
             coordinate: CLLocationCoordinate2D(latitude: 42.3410, longitude: -83.0552))
                 mapview.addAnnotation(samplelocation)
+        
+        // Query location from Firebase
+        ref = Database.database().reference().child("Users") // Create reference to child node
+        ref.child(user1).observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            // Get user value
+            let value = snapshot.value as? NSDictionary
+            let userLat = Double(value?["lat"] as? CLLocationDegrees ?? 0)
+            let userLong = Double(value?["long"] as? CLLocationDegrees ?? 0)
+            //let firstName = value?["firstName"] as? String ?? ""
+            let lastName = value?["lastName"] as? String ?? ""
+            print("User ID: ")
+            print(user1)
+            print("Saved Longitude: ")
+            print(userLong)
+            print("Saved Latitude: ")
+            print(userLat)
+            print("lastName: ")
+            print(lastName)
+        
+            let databaseLocation = otherlocations(title: lastName,
+                        locationName: lastName,
+                        coordinate: CLLocationCoordinate2D(latitude: userLat, longitude: userLong))
+            self.mapview.addAnnotation(databaseLocation)
+        })
      
         
 //        func getDataForMapAnnotation(Users: [[String:AnyObject]]){
