@@ -690,13 +690,29 @@
                                     <action selector="paymentAction:" destination="R6r-bC-zJp" eventType="touchUpInside" id="atT-LW-MmO"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="suy-Wi-Lpv" userLabel="directionbutton">
+                                <rect key="frame" x="290" y="52" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="Hs9-U7-r7g"/>
+                                    <constraint firstAttribute="width" constant="40" id="Ubt-gM-ZPi"/>
+                                </constraints>
+                                <state key="normal" image="icon-direction"/>
+                                <connections>
+                                    <action selector="showDirection:" destination="R6r-bC-zJp" eventType="touchUpInside" id="AuE-2O-9MJ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="ly9-9m-dFR" firstAttribute="trailing" secondItem="suy-Wi-Lpv" secondAttribute="trailing" constant="45" id="Gj0-eC-Ake"/>
+                            <constraint firstItem="suy-Wi-Lpv" firstAttribute="top" secondItem="ly9-9m-dFR" secondAttribute="top" constant="8" id="ve7-k8-KZa"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="ly9-9m-dFR"/>
                     </view>
                     <connections>
                         <outlet property="mapview" destination="N8h-oI-A57" id="Ce4-YY-HI9"/>
                         <outlet property="paymentButton" destination="hNw-r2-tEt" id="CTP-Ko-rFa"/>
+                        <outlet property="showDirection" destination="suy-Wi-Lpv" id="oRJ-zP-mGx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tLp-Ur-Gzh" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -706,6 +722,7 @@
     </scenes>
     <resources>
         <image name="Image" width="100" height="100"/>
+        <image name="icon-direction" width="100" height="100"/>
         <image name="rounded" width="341" height="341"/>
     </resources>
     <inferredMetricsTieBreakers>

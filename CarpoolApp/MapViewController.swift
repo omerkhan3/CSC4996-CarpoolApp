@@ -77,78 +77,45 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
                         coordinate: CLLocationCoordinate2D(latitude: userLat, longitude: userLong))
             self.mapview.addAnnotation(databaseLocation)
         })
-     
-        
-//        func getDataForMapAnnotation(Users: [[String:AnyObject]]){
-//
-//            //Populates Map with annotations.
-//
-//            for key in Users{
-//
-//                let lat = key["LATITUDE"] as! CLLocationDegrees
-//                let long = key["LONGITUDE"] as! CLLocationDegrees
-//                let title = key["email"] as! String
-//                let subtitle = key["lastName"]
-//                let center = CLLocationCoordinate2D(latitude: lat, longitude: long)
-//                _ = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 25, longitudeDelta: 25))
-//
-//                let annotation = MKPointAnnotation()
-//                annotation.coordinate = CLLocationCoordinate2DMake(lat, long)
-//                annotation.title = "testtitle"
-//                //annotation.subtitle = subtitle?.capitalized
-//                self.mapview.addAnnotation(annotation)
-//            }
-//        }
-        
-        
+    
         // Set up Map
         mapview.delegate = self
         mapview.userTrackingMode = MKUserTrackingMode.follow
         mapview.showsUserLocation = true
-
-        //displayAnnotations()        //Geofire
-//        geoFireRef = Database.database().reference().child("userLocation")
-//        geoFire = GeoFire(firebaseRef: geoFireRef)
-        
-     //   ref = Database.database().reference().child("Users") // Create reference to child node
-     //   ref.child(user1).observeSingleEvent(of: .value, with: { (snapshot) in
-//            // Get user value
-     //       let value = snapshot.value as? NSDictionary
-       //     let userLat = (snapshot.value as AnyObject!)!["lat"] as! String!
-         //   let userLong = (snapshot.value as AnyObject!)!["long"] as! String!
-          
-     //       let firstName = value?["firstName"] as? String ?? ""
-//           let lastName = value?["lastName"] as? String ?? ""
-//            print("User ID: ")
-//            print(user1)
-         // print("Saved Longitude: ")
-          //  print(userLong!)
-         //  print("Saved Latitude: ")
-         //   print(userLat!)
-//            print("lastName: ")
-//            print(lastName)
-        
-//            let additionLocation = otherlocations(title: lastName!, )
-           // let center = CLLocationCoordinate2D(latitude: userLat, longitude: userLong)
-         //   _ = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1))
-            
-          //  let annotation = MKPointAnnotation()
-            
-         //   annotation.coordinate = CLLocationCoordinate2D(latitude: (Double(userLat!))!, longitude: (Double(userLong!))!)
-          //  annotation.title = "test"
-         //   annotation.subtitle = "test"
-           // self.mapview.addAnnotation(annotation)
-//            let annotation = MKPointAnnotation()
-//            annotation.coordinate = CLLocationCoordinate2DMake(userLat, userLong)
-//            //annotation.title = lastName.capitalized
-//            annotation.subtitle = firstName.capitalized
-//            self.mapview.addAnnotation(annotation)
-//        }) { (error) in
-//            print(error.localizedDescription)
-            //        }
-    //   })
-
 }
+    var currentPlacemark:CLPlacemark?
+    
+    @IBAction func showDirection(sender: Any) {
+    
+    //makes sure to get location from destination location rather than users current location
+        guard let currentPlacemark = currentPlacemark else{
+            return
+        }
+        let directionRequest = MKDirectionsRequest()
+        let destinationPlacemark = MKPlacemark(placemark:currentPlacemark)
+    
+        
+        //set source of the direction request
+        directionRequest.source = MKMapItem.forCurrentLocation()
+        directionRequest.destination = MKMapItem(placemark: destinationPlacemark)
+        directionRequest.transportType = .automobile
+        
+        // determine the directions/route
+        let directions = MKDirections(request: directionRequest)
+        directions.calculate(completionHandler: <#T##MKDirectionsHandler##MKDirectionsHandler##(MKDirectionsResponse?, Error?) -> Void#>)
+        
+        
+    }
+    //selecting an annotation will call this method
+    func mapView(_ mapView:MKMapView, didSelect view:MKAnnotationView)
+    {
+        //grab annotation form location
+        let location = view.annotation as! otherlocations
+        self.currentPlacemark = MKPlacemark(coordinate: location.coordinate)
+    }
+    
+    
+    
     func displayAnnotations() {
 
         let ref = Database.database().reference()
@@ -195,31 +162,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         mapview.setRegion(coordinateRegion, animated: true)
     }
     
-//    func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
-//        if let loc = userLocation.location {
-//            if !centerMapped {
-//                self.lat = userLocation.coordinate.latitude
-//                self.long = userLocation.coordinate.longitude
-//                centerMapOnLocation(location: loc)
-//                centerMapped = true
-//            }
-    
-            
-            //testing to make sure i can write to firebase through geo coordinates
-            
-//            geoFire.setLocation(CLLocation(latitude: self.userLatt, longitude: self.userLonn), forKey: "userLocation") { (error) in
-//                if (error != nil) {
-//                    print("An error occured: \(String(describing: error))")
-//                } else {
-//                    print("Saved location successfully!", self.userLatt, self.userLonn)
-//                }
-//            }
-    
-    
-   
-    
-  
-    
+
     @IBAction func paymentAction(_ sender: UIButton) {
         showDropIn(clientTokenOrTokenizationKey: self.tokenizationKey) // Drop-in is initalized on-click.
     }
@@ -245,7 +188,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     }
     
     
-    
     func postNonceToServer(paymentMethodNonce: String) { // method to send unique payment "nonce" to the server for transaction processing.
         let paymentURL = URL(string: "http://localhost:3000/checkout")! // the URL endpoint of our local node server.  We will need to switch this when we are able to host somewhere else.
         var request = URLRequest(url: paymentURL)
@@ -262,8 +204,4 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             
             }.resume()
     }
-    
-    
-    
-
 }
