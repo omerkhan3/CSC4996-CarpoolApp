@@ -30,7 +30,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
 
     
     //linking mapview to this class
-    @IBOutlet weak var mapview: MKMapView!
+    @IBOutlet weak var mapView: MKMapView!
     
 
 
@@ -51,7 +51,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         let samplelocation = otherlocations(title: "sample location",
                     locationName: "sample description",
             coordinate: CLLocationCoordinate2D(latitude: 42.3410, longitude: -83.0552))
-                mapview.addAnnotation(samplelocation)
+                mapView.addAnnotation(samplelocation)
         
         // Query location from Firebase
         ref = Database.database().reference().child("Users") // Create reference to child node
@@ -75,17 +75,18 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             let databaseLocation = otherlocations(title: lastName,
                         locationName: lastName,
                         coordinate: CLLocationCoordinate2D(latitude: userLat, longitude: userLong))
-            self.mapview.addAnnotation(databaseLocation)
+            self.mapView.addAnnotation(databaseLocation)
         })
     
         // Set up Map
-        mapview.delegate = self
-        mapview.userTrackingMode = MKUserTrackingMode.follow
-        mapview.showsUserLocation = true
+        mapView.delegate = self
+        mapView.userTrackingMode = MKUserTrackingMode.follow
+        mapView.showsUserLocation = true
 }
     var currentPlacemark:CLPlacemark?
     
-    @IBAction func showDirection(sender: Any) {
+    
+    @IBAction func showDirection(_ sender: Any) {
     
     //makes sure to get location from destination location rather than users current location
         guard let currentPlacemark = currentPlacemark else{
@@ -102,14 +103,20 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         
         // determine the directions/route, and check for any errors along the way
         let directions = MKDirections(request: directionRequest)
-        directions.calculate { (directionsResponce, <#Error?#>) in
+        directions.calculate { (directionsResponse, error) in
             //if directions response is nil, else case gets called
-            guard let directionsResponce = directionsResponce else {
+            guard let directionsResponse = directionsResponse else {
                 if let error = error{
                     print("Error getting directions: \(error.localizedDescription)")
                 }
                 return
             }
+            let route = directionsResponse.routes[0]
+            self.mapView.removeOverlays(self.mapView.overlays)
+            self.mapView.add(route.polyline, level: .aboveRoads)
+            
+            let routeRect = route.polyline.boundingMapRect
+            self.mapView.setRegion(MKCoordinateRegionForMapRect(routeRect), animated: true)
         }
         
         
@@ -139,7 +146,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             annotation.coordinate = CLLocationCoordinate2D(latitude: (Double(latitude!))!, longitude: (Double(longitude!))!)
             annotation.title = "date"
             annotation.subtitle = "time"
-            self.mapview.addAnnotation(annotation)
+            self.mapView.addAnnotation(annotation)
     
         })}
 
@@ -152,7 +159,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     func locationAuthStatus () {
         if CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
             
-            mapview.showsUserLocation = true
+            mapView.showsUserLocation = true
             
         } else {
            locationManager.requestWhenInUseAuthorization()
@@ -161,13 +168,13 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     }
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         if status == .authorizedWhenInUse {
-            mapview.showsUserLocation = true
+            mapView.showsUserLocation = true
         }
     }
     func centerMapOnLocation(location: CLLocation) {
         let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, 7500, 7500)
         
-        mapview.setRegion(coordinateRegion, animated: true)
+        mapView.setRegion(coordinateRegion, animated: true)
     }
     
 

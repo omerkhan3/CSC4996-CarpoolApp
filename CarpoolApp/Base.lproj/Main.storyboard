@@ -698,7 +698,7 @@
                                 </constraints>
                                 <state key="normal" image="icon-direction"/>
                                 <connections>
-                                    <action selector="showDirection:" destination="R6r-bC-zJp" eventType="touchUpInside" id="AuE-2O-9MJ"/>
+                                    <action selector="showDirection:" destination="R6r-bC-zJp" eventType="touchUpInside" id="bdi-9n-NZV"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -710,9 +710,8 @@
                         <viewLayoutGuide key="safeArea" id="ly9-9m-dFR"/>
                     </view>
                     <connections>
-                        <outlet property="mapview" destination="N8h-oI-A57" id="Ce4-YY-HI9"/>
+                        <outlet property="mapView" destination="N8h-oI-A57" id="MaW-9l-4FR"/>
                         <outlet property="paymentButton" destination="hNw-r2-tEt" id="CTP-Ko-rFa"/>
-                        <outlet property="showDirection" destination="suy-Wi-Lpv" id="oRJ-zP-mGx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tLp-Ur-Gzh" userLabel="First Responder" sceneMemberID="firstResponder"/>
