@@ -701,6 +701,18 @@
                                     <action selector="showDirection:" destination="R6r-bC-zJp" eventType="touchUpInside" id="bdi-9n-NZV"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aze-ES-co9">
+                                <rect key="frame" x="16" y="52" width="126" height="49"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <state key="normal" title="Log Out">
+                                    <color key="titleColor" red="1" green="0.056511778030000001" blue="0.0052194360419999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="logOut:" destination="R6r-bC-zJp" eventType="touchUpInside" id="bW9-P8-12c"/>
+                                    <segue destination="6jN-3M-seF" kind="show" id="VqD-j8-XGO"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -718,6 +730,42 @@
             </objects>
             <point key="canvasLocation" x="1127.2" y="124.8768472906404"/>
         </scene>
+        <!--Logout View Controller-->
+        <scene sceneID="P7U-ok-oAf">
+            <objects>
+                <viewController storyboardIdentifier="Logout" id="6jN-3M-seF" customClass="LogoutViewController" customModule="CarpoolApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="26M-jN-dqj">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WWc-ze-29P">
+                                <rect key="frame" x="141" y="375" width="93" height="63"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <state key="normal" title="Login">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <segue destination="mgs-n6-XJs" kind="show" id="nQm-d0-sbL"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="center" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8jG-Pg-Smg">
+                                <rect key="frame" x="16" y="238" width="359" height="46"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <state key="normal" title="Thanks For Visiting CarPool App!">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.31044802824075035" green="0.88634798477845955" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <viewLayoutGuide key="safeArea" id="jGa-nS-UEY"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nq1-lI-Toi" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2000.8" y="124.8768472906404"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Image" width="100" height="100"/>
@@ -725,8 +773,8 @@
         <image name="rounded" width="341" height="341"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="P6H-22-ef1"/>
+        <segue reference="nQm-d0-sbL"/>
         <segue reference="Z2h-3S-Lqv"/>
-        <segue reference="ir8-bc-Yfk"/>
+        <segue reference="cOY-IK-lfO"/>
     </inferredMetricsTieBreakers>
 </document>

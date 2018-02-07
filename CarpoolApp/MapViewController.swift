@@ -177,6 +177,21 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         mapView.setRegion(coordinateRegion, animated: true)
     }
     
+    
+    
+    @IBAction func logOut(_ sender: Any) {
+        if Auth.auth().currentUser != nil {
+            do {
+                try?Auth.auth().signOut()
+                
+                if Auth.auth().currentUser == nil {
+                    let LogoutViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Logout") as! LogoutViewController
+                    self.present(LogoutViewController, animated: true, completion: nil)
+                }
+            }
+        }
+    } 
+    
 
     @IBAction func paymentAction(_ sender: UIButton) {
         showDropIn(clientTokenOrTokenizationKey: self.tokenizationKey) // Drop-in is initalized on-click.
