@@ -18,21 +18,51 @@ import BraintreeDropIn
 
 class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     
+    // Class variables
     let locationManager = CLLocationManager()
     var ref: DatabaseReference! // Creates database reference
+    var currentPlacemark:CLPlacemark?
+    let tokenizationKey =  "sandbox_vtqbvdrz_kjjqnn2gj7vbds9g" // this is the tokenization key needed to authenticate with Braintree sandbox.  Since this is just a sandbox account, we have hard-coded the key in, but for production this key would need to be hosted elsewhere.
+    // var centerMapped = false
     
     @IBOutlet weak var paymentButton: UIButton!
-    
-    let tokenizationKey =  "sandbox_vtqbvdrz_kjjqnn2gj7vbds9g" // this is the tokenization key needed to authenticate with Braintree sandbox.  Since this is just a sandbox account, we have hard-coded the key in, but for production this key would need to be hosted elsewhere.
-    
-   // var centerMapped = false
-    
 
-    
     //linking mapview to this class
     @IBOutlet weak var mapView: MKMapView!
     
-
+    @IBAction func showDirection(_ sender: Any) {
+        
+        //makes sure to get location from destination location rather than users current location
+        guard let currentPlacemark = currentPlacemark else{
+            return
+        }
+        let directionRequest = MKDirectionsRequest()
+        let destinationPlacemark = MKPlacemark(placemark:currentPlacemark)
+        
+        
+        //set source of the direction request
+        directionRequest.source = MKMapItem.forCurrentLocation()
+        directionRequest.destination = MKMapItem(placemark: destinationPlacemark)
+        directionRequest.transportType = .automobile
+        
+        // determine the directions/route, and check for any errors along the way
+        let directions = MKDirections(request: directionRequest)
+        directions.calculate { (directionsResponse, error) in
+            //if directions response is nil, else case gets called
+            guard let directionsResponse = directionsResponse else {
+                if let error = error{
+                    print("Error getting directions: \(error.localizedDescription)")
+                }
+                return
+            }
+            let route = directionsResponse.routes[0]
+            self.mapView.removeOverlays(self.mapView.overlays)
+            self.mapView.add(route.polyline, level: .aboveRoads)
+            
+            let routeRect = route.polyline.boundingMapRect
+            self.mapView.setRegion(MKCoordinateRegionForMapRect(routeRect), animated: true)
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,11 +75,12 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             print("Found User: ", key!)  // print UID of users found.
         })
         let result = circleQuery.observeReady({})
+        print("circleQueryResult =  \(result)")
         
          // print("Done Querying. ")
         
         let samplelocation = otherlocations(title: "sample location",
-                    locationName: "sample description",
+            locationName: "sample description",
             coordinate: CLLocationCoordinate2D(latitude: 42.3410, longitude: -83.0552))
                 mapView.addAnnotation(samplelocation)
         
@@ -82,45 +113,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         mapView.delegate = self
         mapView.userTrackingMode = MKUserTrackingMode.follow
         mapView.showsUserLocation = true
-}
-    var currentPlacemark:CLPlacemark?
-    
-    
-    @IBAction func showDirection(_ sender: Any) {
-    
-    //makes sure to get location from destination location rather than users current location
-        guard let currentPlacemark = currentPlacemark else{
-            return
-        }
-        let directionRequest = MKDirectionsRequest()
-        let destinationPlacemark = MKPlacemark(placemark:currentPlacemark)
-    
-        
-        //set source of the direction request
-        directionRequest.source = MKMapItem.forCurrentLocation()
-        directionRequest.destination = MKMapItem(placemark: destinationPlacemark)
-        directionRequest.transportType = .automobile
-        
-        // determine the directions/route, and check for any errors along the way
-        let directions = MKDirections(request: directionRequest)
-        directions.calculate { (directionsResponse, error) in
-            //if directions response is nil, else case gets called
-            guard let directionsResponse = directionsResponse else {
-                if let error = error{
-                    print("Error getting directions: \(error.localizedDescription)")
-                }
-                return
-            }
-            let route = directionsResponse.routes[0]
-            self.mapView.removeOverlays(self.mapView.overlays)
-            self.mapView.add(route.polyline, level: .aboveRoads)
-            
-            let routeRect = route.polyline.boundingMapRect
-            self.mapView.setRegion(MKCoordinateRegionForMapRect(routeRect), animated: true)
-        }
-        
-        
     }
+    
     //selecting an annotation will call this method
     func mapView(_ mapView:MKMapView, didSelect view:MKAnnotationView)
     {
