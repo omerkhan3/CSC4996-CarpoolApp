@@ -100,9 +100,17 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         directionRequest.destination = MKMapItem(placemark: destinationPlacemark)
         directionRequest.transportType = .automobile
         
-        // determine the directions/route
+        // determine the directions/route, and check for any errors along the way
         let directions = MKDirections(request: directionRequest)
-        directions.calculate(completionHandler: <#T##MKDirectionsHandler##MKDirectionsHandler##(MKDirectionsResponse?, Error?) -> Void#>)
+        directions.calculate { (directionsResponce, <#Error?#>) in
+            //if directions response is nil, else case gets called
+            guard let directionsResponce = directionsResponce else {
+                if let error = error{
+                    print("Error getting directions: \(error.localizedDescription)")
+                }
+                return
+            }
+        }
         
         
     }
