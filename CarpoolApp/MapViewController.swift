@@ -186,10 +186,11 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             } else if (result?.isCancelled == true) { // if selects the cancel option of UI.
                 print("Cancelled.")
                 
-            } else if let result = result {
-                let selectedPaymentMethod = result.paymentMethod?.nonce // the nonce contains unique identifiers about the transaction that are needed by the server to process the transaction.
+            } else if let paymentResult = result {
+                let selectedPaymentMethod = paymentResult.paymentMethod?.nonce // the nonce contains unique identifiers about the transaction that are needed by the server to process the transaction.
                 
                 self.postNonceToServer(paymentMethodNonce: selectedPaymentMethod!) // this is the call to send the nonce to the server.
+
             }
             controller.dismiss(animated: true, completion: nil)
         }

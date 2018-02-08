@@ -23,8 +23,8 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
     
     // Register button isClicked method
     @IBAction func registerButton(_ sender: UIButton) {// on click of the register button.
-        var actionItem = ""
-        var actionTitle = ""
+        var actionItem : String=String()
+        var actionTitle : String=String()
         let exitAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)  // default action to exit out of native alerts.
         let email = emailField.text
         let password = passwordField.text

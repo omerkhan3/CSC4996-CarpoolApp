@@ -30,8 +30,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
         let email = self.emailField.text
         let password = self.passwordField.text
         
-        var actionItem = ""
-        var actionTitle = ""
+        var actionItem : String=String()
+        var actionTitle : String=String()
         let exitAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)  // default action to exit out of native alerts.
         
         
