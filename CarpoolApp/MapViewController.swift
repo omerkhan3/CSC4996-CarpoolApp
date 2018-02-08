@@ -27,13 +27,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     
    // var centerMapped = false
     
-
-    
     //linking mapview to this class
     @IBOutlet weak var mapView: MKMapView!
     
-
-
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -44,6 +40,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         _ = circleQuery.observe(.keyEntered, with: { (key: String?, location: CLLocation?) in
             print("Found User: ", key!)  // print UID of users found.
         })
+        
         let result = circleQuery.observeReady({})
         
          // print("Done Querying. ")
@@ -94,7 +91,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         }
         let directionRequest = MKDirectionsRequest()
         let destinationPlacemark = MKPlacemark(placemark:currentPlacemark)
-    
         
         //set source of the direction request
         directionRequest.source = MKMapItem.forCurrentLocation()
@@ -118,9 +114,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             let routeRect = route.polyline.boundingMapRect
             self.mapView.setRegion(MKCoordinateRegionForMapRect(routeRect), animated: true)
         }
-        
-        
     }
+    
+    
     //selecting an annotation will call this method
     func mapView(_ mapView:MKMapView, didSelect view:MKAnnotationView)
     {
@@ -128,7 +124,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         let location = view.annotation as! otherlocations
         self.currentPlacemark = MKPlacemark(coordinate: location.coordinate)
     }
-    
     
     
     func displayAnnotations() {
@@ -149,13 +144,14 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             self.mapView.addAnnotation(annotation)
     
         })}
-
-
+    
     //Brings up the user on the map after authorization
     override func viewDidAppear(_ animated: Bool) {
+        //createAlert(title: "WARNING!", message: "Are you sure you want to log out?")
         super.viewDidAppear(animated)
         locationAuthStatus()
     }
+    
     func locationAuthStatus () {
         if CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
             
@@ -166,17 +162,18 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         }
         
     }
+    
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         if status == .authorizedWhenInUse {
             mapView.showsUserLocation = true
         }
     }
+    
     func centerMapOnLocation(location: CLLocation) {
         let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, 7500, 7500)
         
         mapView.setRegion(coordinateRegion, animated: true)
     }
-    
     
     
     @IBAction func logOut(_ sender: Any) {
@@ -190,12 +187,30 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
                 }
             }
         }
-    } 
+        
+        func createAlert (title:String, message:String)
+        {
+            createAlert(title: "WARNING!", message: "Are you sure you want to log out?")
+            let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
+            
+            alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: {
+                (action) in alert.dismiss(animated: true , completion: nil)
+                print("Cancel")
+            }))
+            
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: {
+                (action) in alert.dismiss(animated: true , completion: nil)
+                print("OK")
+            }))
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
     
 
     @IBAction func paymentAction(_ sender: UIButton) {
         showDropIn(clientTokenOrTokenizationKey: self.tokenizationKey) // Drop-in is initalized on-click.
     }
+    
     
     func showDropIn(clientTokenOrTokenizationKey: String) {
         let request =  BTDropInRequest()
