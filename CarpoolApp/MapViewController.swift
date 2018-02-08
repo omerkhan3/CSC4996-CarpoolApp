@@ -88,20 +88,21 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         self.present(logoutAlert, animated: true)
     }
     
-    func GeoFireQuery()
-    {
-        let center = CLLocation(latitude: 37.77,  longitude: -122.41)  // Test Query on user locations to see who is found within a 100 mile radius.
-        let circleQuery = geoFire.query(at: center, withRadius: 100)
-        _ = circleQuery.observe(.keyEntered, with: { (key: String?, location: CLLocation?) in
-            print("Found User: ", key!)  // print UID of users found.
-        })
-        let result = circleQuery.observeReady({})
-        print("circleQueryResult =  \(result)")
-        
-        print("Done Querying. ")
-        
-    }
+//    func GeoFireQuery()
+//    {
+//        let center = CLLocation(latitude: 37.77,  longitude: -122.41)  // Test Query on user locations to see who is found within a 100 mile radius.
+//        let circleQuery = geoFire.query(at: center, withRadius: 100)
+//        _ = circleQuery.observe(.keyEntered, with: { (key: String?, location: CLLocation?) in
+//            print("Found User: ", key!)  // print UID of users found.
+//        })
+//        let result = circleQuery.observeReady({})
+//        print("circleQueryResult =  \(result)")
+//
+//        print("Done Querying. ")
+//
+//    }
     
+    //grab data from firebase
     func GrabFBdata ()
     {
         let user1 = "DLB4aElaJ6WNr7V9593Ey1jPS023"
@@ -175,7 +176,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         locationAuthStatus()
     }
     
-    //make sure user accepts location request
+    //make sure user accepts location request, if they havent already, then prompt them to
     func locationAuthStatus ()
     {
         locationManager.delegate = self
@@ -188,11 +189,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         }
         
     }
-//    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-//        if status == .authorizedWhenInUse {
-//            mapView.showsUserLocation = true
-//        }
-//    }
     
     @IBAction func paymentAction(_ sender: UIButton) {
         showDropIn(clientTokenOrTokenizationKey: self.tokenizationKey) // Drop-in is initalized on-click.
