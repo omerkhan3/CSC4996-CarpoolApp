@@ -709,6 +709,7 @@
                                     <color key="titleColor" red="1" green="0.056511778030000001" blue="0.0052194360419999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
+                                    <action selector="logOut:" destination="XaM-Tt-DcI" eventType="touchUpInside" id="9qf-Gp-MJt"/>
                                     <action selector="logOut:" destination="R6r-bC-zJp" eventType="touchUpInside" id="bW9-P8-12c"/>
                                     <segue destination="6jN-3M-seF" kind="show" id="VqD-j8-XGO"/>
                                 </connections>
@@ -727,6 +728,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tLp-Ur-Gzh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="XaM-Tt-DcI" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1127.2" y="124.8768472906404"/>
         </scene>
@@ -773,6 +775,7 @@
         <image name="rounded" width="341" height="341"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="VqD-j8-XGO"/>
         <segue reference="nQm-d0-sbL"/>
         <segue reference="Z2h-3S-Lqv"/>
         <segue reference="cOY-IK-lfO"/>

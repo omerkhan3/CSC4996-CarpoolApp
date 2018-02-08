@@ -184,28 +184,11 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
                 if Auth.auth().currentUser == nil {
                     let LogoutViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Logout") as! LogoutViewController
                     self.present(LogoutViewController, animated: true, completion: nil)
+                    print("Logout Successful")
                 }
             }
         }
-        
-        func createAlert (title:String, message:String)
-        {
-            createAlert(title: "WARNING!", message: "Are you sure you want to log out?")
-            let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
-            
-            alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: {
-                (action) in alert.dismiss(animated: true , completion: nil)
-                print("Cancel")
-            }))
-            
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: {
-                (action) in alert.dismiss(animated: true , completion: nil)
-                print("OK")
-            }))
-            self.present(alert, animated: true, completion: nil)
-        }
     }
-    
 
     @IBAction func paymentAction(_ sender: UIButton) {
         showDropIn(clientTokenOrTokenizationKey: self.tokenizationKey) // Drop-in is initalized on-click.
