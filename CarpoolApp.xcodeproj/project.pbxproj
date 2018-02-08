@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2018C368202CB38900E28C08 /* LogoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2018C367202CB38900E28C08 /* LogoutViewController.swift */; };
 		2033C2D02026CE5C0081E53A /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2033C2CF2026CE5C0081E53A /* ProfileViewController.swift */; };
 		205A4B43202569DC005AE87C /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205A4B42202569DC005AE87C /* LaunchViewController.swift */; };
 		206736E32026A929008714A7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 206736E52026A929008714A7 /* LaunchScreen.storyboard */; };
@@ -26,6 +27,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2018C367202CB38900E28C08 /* LogoutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogoutViewController.swift; sourceTree = "<group>"; };
 		2033C2CF2026CE5C0081E53A /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		205A4B42202569DC005AE87C /* LaunchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
 		206736E42026A929008714A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -83,6 +85,7 @@
 		78241396201D0F3A00F06D99 /* CarpoolApp */ = {
 			isa = PBXGroup;
 			children = (
+				2018C367202CB38900E28C08 /* LogoutViewController.swift */,
 				208A2E8A202829E600393D43 /* MapViewController.swift */,
 				20F47A0320277D4800D79394 /* GoogleService-Info.plist */,
 				205A4B42202569DC005AE87C /* LaunchViewController.swift */,
@@ -270,6 +273,7 @@
 				D10EFE9E20229ACA00C962E1 /* PasswordResetViewController.swift in Sources */,
 				D16EC1522023AD8800D56CF2 /* DataService.swift in Sources */,
 				C98BB0A0202A58A8006B054C /* otherlocations.swift in Sources */,
+				2018C368202CB38900E28C08 /* LogoutViewController.swift in Sources */,
 				208A2E8B202829E600393D43 /* MapViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -34,10 +34,12 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         
         //makes sure to get location from destination location rather than users current location
         guard let currentPlacemark = currentPlacemark else{
+            print("returning")
             return
         }
         let directionRequest = MKDirectionsRequest()
         let destinationPlacemark = MKPlacemark(placemark:currentPlacemark)
+        print(destinationPlacemark)
         
         
         //set source of the direction request
@@ -67,6 +69,25 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         }
     }
 
+    @IBAction func logoutButtonPressed(_ sender: Any) {
+        let logoutAlert = UIAlertController(title: "Logout", message: "Are you sure you want to log out?", preferredStyle: UIAlertControllerStyle.alert)
+        logoutAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+            if Auth.auth().currentUser != nil {
+                do {
+                    try?Auth.auth().signOut()
+                    
+                    if Auth.auth().currentUser == nil {
+                        let LogoutViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Logout") as! LogoutViewController
+                        self.present(LogoutViewController, animated: true, completion: nil)
+                        print("Logout Successful")
+                    }
+                }
+            }
+        }))
+        logoutAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        self.present(logoutAlert, animated: true)
+    }
+    
     func GeoFireQuery()
     {
         let center = CLLocation(latitude: 37.77,  longitude: -122.41)  // Test Query on user locations to see who is found within a 100 mile radius.

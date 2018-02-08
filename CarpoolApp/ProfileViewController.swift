@@ -29,28 +29,28 @@ class ProfileViewController: UIViewController {
         ref = Database.database().reference()
         
         // Reference user data
-        let userID = Auth.auth().currentUser?.uid
-        ref = Database.database().reference().child("Users") // Create reference to child node
-        ref.child(userID!).observeSingleEvent(of: .value, with: { (snapshot) in
-            // Get user value
-            let value = snapshot.value as? NSDictionary
-            let userEmail = value?["email"] as? String ?? ""
-            let firstName = value?["firstName"] as? String ?? ""
-            let lastName = value?["lastName"] as? String ?? ""
-            self.UserFirstName.text = firstName
-            self.UserLastName.text = lastName
-            self.UserEmail.text = userEmail
-            print("UserID: ")
-            print(userID!)
-            print("Email: ")
-            print(userEmail)
-            print("firstNAme: ")
-            print(firstName)
-            print("lastName: ")
-            print(lastName)
-        }) { (error) in
-            print(error.localizedDescription)
-        }
+            let userID = Auth.auth().currentUser?.uid
+            ref = Database.database().reference().child("Users") // Create reference to child node
+            ref.child(userID!).observeSingleEvent(of: .value, with: { (snapshot) in
+                // Get user value
+                let value = snapshot.value as? NSDictionary
+                let userEmail = value?["email"] as? String ?? ""
+                let firstName = value?["firstName"] as? String ?? ""
+                let lastName = value?["lastName"] as? String ?? ""
+                self.UserFirstName.text = firstName
+                self.UserLastName.text = lastName
+                self.UserEmail.text = userEmail
+                print("UserID: ")
+                print(userID!)
+                print("Email: ")
+                print(userEmail)
+                print("firstNAme: ")
+                print(firstName)
+                print("lastName: ")
+                print(lastName)
+            }) { (error) in
+                print(error.localizedDescription)
+            }
     }
 
     override func didReceiveMemoryWarning() {

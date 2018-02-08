@@ -20,7 +20,7 @@ class LaunchViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         // delay to allow for animation
-        let time = DispatchTime.now() + 1.5
+        let time = DispatchTime.now() + 2
         DispatchQueue.main.asyncAfter(deadline: time){
             self.performSegue(withIdentifier: "toRegister", sender: self) // manually perform segue
         }
@@ -32,7 +32,7 @@ class LaunchViewController: UIViewController {
     }
     
     func animateLogo(){
-        UIView.animate(withDuration: 1.5, animations: {
+        UIView.animate(withDuration: 2, animations: {
             self.logo.transform = CGAffineTransform(scaleX: 2, y:2) // Zoom effect
             self.logo.alpha = 0.0 // Fade effect
         })

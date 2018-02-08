@@ -18,10 +18,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
     @IBOutlet weak var emailField: UITextField! // email text field.
     @IBOutlet weak var passwordField: UITextField! // password text field.
     @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var profileButton: UIButton!
+    
     
     let dist = -200 // distance to adjust for keyboard
-    
-    
     
     // Login button isPressed method
     @IBAction func loginButton(_ sender: Any) {
@@ -53,6 +53,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
             if error == nil {
                 actionTitle = "Success!"
                 actionItem = "You have successfully logged in!"
+                self.profileButton.isHidden = false
                 
                 // Activate UIAlertController to display confirmation
                 let alert = UIAlertController(title: actionTitle, message: actionItem, preferredStyle: .alert)
@@ -79,6 +80,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        profileButton.isHidden = true
+        
     }
 
     override func didReceiveMemoryWarning() {
