@@ -55,20 +55,20 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
                 }
                 return
             }
+            //selecting 0 means will choose shortest route
             let route = directionsResponse.routes[0]
+            //show the line above the roads and remove each overlay when different annotation is selected
             self.mapView.removeOverlays(self.mapView.overlays)
             self.mapView.add(route.polyline, level: .aboveRoads)
             
+            //zoom in on route once polyline is drawn
             let routeRect = route.polyline.boundingMapRect
             self.mapView.setRegion(MKCoordinateRegionForMapRect(routeRect), animated: true)
         }
     }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        let user1 = "DLB4aElaJ6WNr7V9593Ey1jPS023"
-        
+    func GeoFireQuery()
+    {
         let center = CLLocation(latitude: 37.77,  longitude: -122.41)  // Test Query on user locations to see who is found within a 100 mile radius.
         let circleQuery = geoFire.query(at: center, withRadius: 100)
         _ = circleQuery.observe(.keyEntered, with: { (key: String?, location: CLLocation?) in
@@ -77,12 +77,13 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         let result = circleQuery.observeReady({})
         print("circleQueryResult =  \(result)")
         
-         // print("Done Querying. ")
+        print("Done Querying. ")
         
-        let samplelocation = otherlocations(title: "sample location",
-            locationName: "sample description",
-            coordinate: CLLocationCoordinate2D(latitude: 42.3410, longitude: -83.0552))
-                mapView.addAnnotation(samplelocation)
+    }
+    
+    func GrabFBdata ()
+    {
+        let user1 = "DLB4aElaJ6WNr7V9593Ey1jPS023"
         
         // Query location from Firebase
         ref = Database.database().reference().child("Users") // Create reference to child node
@@ -102,76 +103,76 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             print(userLat)
             print("lastName: ")
             print(lastName)
-        
-            let databaseLocation = otherlocations(title: lastName,
-                        locationName: lastName,
-                        coordinate: CLLocationCoordinate2D(latitude: userLat, longitude: userLong))
+            
+            let databaseLocation = otherlocations(title: lastName, locationName: lastName, coordinate: CLLocationCoordinate2D(latitude: userLat, longitude: userLong))
             self.mapView.addAnnotation(databaseLocation)
         })
+        
+    }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        //first sample locaiton
+        let samplelocation = otherlocations(title: "sample location",
+            locationName: "sample description",
+            coordinate: CLLocationCoordinate2D(latitude: 42.2410, longitude: -83.0552))
+                mapView.addAnnotation(samplelocation)
+        
         // Set up Map
         mapView.delegate = self
         mapView.userTrackingMode = MKUserTrackingMode.follow
         mapView.showsUserLocation = true
+        
+        GrabFBdata()
+        
     }
     
     //selecting an annotation will call this method
     func mapView(_ mapView:MKMapView, didSelect view:MKAnnotationView)
     {
-        //grab annotation form location
-        let location = view.annotation as! otherlocations
+        //grab annotation from current location
+        if let location = view.annotation as? otherlocations{
         self.currentPlacemark = MKPlacemark(coordinate: location.coordinate)
+        }
+    }
+    //function that is called when polygon line is drawn, can set size and color
+    func mapView(_ mapView:MKMapView, rendererFor overlay:MKOverlay) ->MKOverlayRenderer
+    {
+        let renderer = MKPolylineRenderer(overlay: overlay)
+        
+        renderer.strokeColor = UIColor.green
+        renderer.lineWidth = 3.5
+        
+        return renderer
     }
     
-    
-    
-    func displayAnnotations() {
-
-        let ref = Database.database().reference()
-        ref.child("user1").observe(.childAdded, with: { (snapshot) in
-
-           
-            let latitude = (snapshot.value as AnyObject!)!["lat"] as! String!
-            let longitude = (snapshot.value as AnyObject!)!["long"] as! String!
-
-
-            let annotation = MKPointAnnotation()
-
-            annotation.coordinate = CLLocationCoordinate2D(latitude: (Double(latitude!))!, longitude: (Double(longitude!))!)
-            annotation.title = "date"
-            annotation.subtitle = "time"
-            self.mapView.addAnnotation(annotation)
-    
-        })}
-
 
     //Brings up the user on the map after authorization
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         locationAuthStatus()
     }
-    func locationAuthStatus () {
+    
+    //make sure user accepts location request
+    func locationAuthStatus ()
+    {
+        locationManager.delegate = self
         if CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
-            
             mapView.showsUserLocation = true
-            
+            locationManager.startUpdatingLocation()
         } else {
            locationManager.requestWhenInUseAuthorization()
+            locationManager.startUpdatingLocation()
         }
         
     }
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        if status == .authorizedWhenInUse {
-            mapView.showsUserLocation = true
-        }
-    }
-    func centerMapOnLocation(location: CLLocation) {
-        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, 7500, 7500)
-        
-        mapView.setRegion(coordinateRegion, animated: true)
-    }
+//    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+//        if status == .authorizedWhenInUse {
+//            mapView.showsUserLocation = true
+//        }
+//    }
     
-
     @IBAction func paymentAction(_ sender: UIButton) {
         showDropIn(clientTokenOrTokenizationKey: self.tokenizationKey) // Drop-in is initalized on-click.
     }
@@ -196,7 +197,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         }
         self.present(dropIn!, animated: true, completion: nil)
     }
-    
     
     func postNonceToServer(paymentMethodNonce: String) { // method to send unique payment "nonce" to the server for transaction processing.
         let paymentURL = URL(string: "http://localhost:3000/checkout")! // the URL endpoint of our local node server.  We will need to switch this when we are able to host somewhere else.

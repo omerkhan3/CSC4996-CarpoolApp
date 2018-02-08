@@ -43,7 +43,7 @@
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="First Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="znP-8g-3nf">
                                                 <rect key="frame" x="16" y="245" width="164" height="40"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="164" id="gQ9-z5-RIV"/>
+                                                    <constraint firstAttribute="width" constant="164" id="Oqt-eK-Hlj"/>
                                                     <constraint firstAttribute="height" constant="40" id="ytt-lD-Y0D"/>
                                                 </constraints>
                                                 <nil key="textColor"/>
@@ -185,8 +185,8 @@
                             <constraint firstItem="h1a-zy-Zcx" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="60" id="QE1-68-Zc0"/>
                             <constraint firstItem="P20-ob-LHO" firstAttribute="top" secondItem="h1a-zy-Zcx" secondAttribute="bottom" constant="52" id="Raf-Fn-Oli"/>
                             <constraint firstItem="oLz-pL-mgF" firstAttribute="centerX" secondItem="h1a-zy-Zcx" secondAttribute="centerX" id="XvD-LF-eM1"/>
-                            <constraint firstItem="oLz-pL-mgF" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Yrp-7W-xMn"/>
-                            <constraint firstItem="P20-ob-LHO" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="t8Y-6q-0AF"/>
+                            <constraint firstItem="oLz-pL-mgF" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Yrp-7W-xMn"/>
+                            <constraint firstItem="P20-ob-LHO" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="t8Y-6q-0AF"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -200,7 +200,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1436" y="124.13793103448276"/>
+            <point key="canvasLocation" x="-1436.5" y="124"/>
         </scene>
         <!--Launch View Controller-->
         <scene sceneID="D4R-Dh-FfW">
@@ -545,7 +545,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User Profile" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m2v-PF-IRr">
-                                <rect key="frame" x="16" y="164.66666666666666" width="343" height="41"/>
+                                <rect key="frame" x="16" y="160.66666666666666" width="343" height="41"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="41" id="nWJ-Ag-wrd"/>
                                 </constraints>
@@ -605,9 +605,9 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome back!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IEn-d3-Ora">
-                                <rect key="frame" x="25" y="239.66666666666666" width="334" height="20.999999999999972"/>
+                                <rect key="frame" x="25" y="235.66666666666666" width="334" height="24.999999999999972"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="DJP-4i-unY"/>
+                                    <constraint firstAttribute="height" constant="25" id="DJP-4i-unY"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="32"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -726,7 +726,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="P6H-22-ef1"/>
-        <segue reference="Z2h-3S-Lqv"/>
-        <segue reference="ir8-bc-Yfk"/>
+        <segue reference="rpR-hM-Ar1"/>
+        <segue reference="cOY-IK-lfO"/>
     </inferredMetricsTieBreakers>
 </document>
