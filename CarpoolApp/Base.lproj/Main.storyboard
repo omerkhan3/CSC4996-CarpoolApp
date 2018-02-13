@@ -100,12 +100,11 @@
                                                     <outlet property="delegate" destination="BYZ-38-t0r" id="SLx-ZN-hpk"/>
                                                 </connections>
                                             </textField>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w0K-KS-wZt">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w0K-KS-wZt">
                                                 <rect key="frame" x="16" y="518" width="343" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="tNC-cG-zhd"/>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                 <state key="normal" title="Login">
                                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 </state>
@@ -283,7 +282,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="734"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U8r-ii-zC5">
-                                                <rect key="frame" x="16" y="449" width="343" height="30"/>
+                                                <rect key="frame" x="153" y="449" width="68" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="Whz-yc-AsV"/>
                                                 </constraints>
@@ -308,7 +307,7 @@
                                                 </connections>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hRU-M6-9T5">
-                                                <rect key="frame" x="16" y="411" width="343" height="30"/>
+                                                <rect key="frame" x="145" y="411" width="84" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="1xD-ec-1Wq"/>
                                                 </constraints>
@@ -323,12 +322,12 @@
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstItem="hRU-M6-9T5" firstAttribute="leading" secondItem="U8r-ii-zC5" secondAttribute="leading" id="6Ty-hu-0ow"/>
+                                            <constraint firstItem="hRU-M6-9T5" firstAttribute="leading" secondItem="U8r-ii-zC5" secondAttribute="leading" constant="-8" id="6Ty-hu-0ow"/>
                                             <constraint firstItem="bTZ-oh-e4u" firstAttribute="centerX" secondItem="1nU-KF-gLh" secondAttribute="centerX" id="DRI-de-7IF"/>
                                             <constraint firstItem="U8r-ii-zC5" firstAttribute="top" secondItem="hRU-M6-9T5" secondAttribute="bottom" constant="8" symbolic="YES" id="L9U-uq-XIw"/>
                                             <constraint firstItem="bTZ-oh-e4u" firstAttribute="top" secondItem="1nU-KF-gLh" secondAttribute="top" constant="283" id="RaP-VQ-xP6"/>
                                             <constraint firstItem="bTZ-oh-e4u" firstAttribute="leading" secondItem="1nU-KF-gLh" secondAttribute="leading" constant="16" id="Vnf-Y0-KcF"/>
-                                            <constraint firstItem="hRU-M6-9T5" firstAttribute="trailing" secondItem="U8r-ii-zC5" secondAttribute="trailing" id="b7v-7V-fIL"/>
+                                            <constraint firstItem="hRU-M6-9T5" firstAttribute="trailing" secondItem="U8r-ii-zC5" secondAttribute="trailing" constant="8" id="b7v-7V-fIL"/>
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EL0-Pe-PQD">
@@ -349,13 +348,13 @@
                                     <constraint firstItem="bTZ-oh-e4u" firstAttribute="trailing" secondItem="EL0-Pe-PQD" secondAttribute="trailing" id="0wS-7Y-i1G"/>
                                     <constraint firstItem="hRU-M6-9T5" firstAttribute="top" secondItem="EL0-Pe-PQD" secondAttribute="bottom" constant="29" id="5ga-7c-bXu"/>
                                     <constraint firstAttribute="trailing" secondItem="1nU-KF-gLh" secondAttribute="trailing" id="7hw-qa-DwT"/>
-                                    <constraint firstItem="EL0-Pe-PQD" firstAttribute="trailing" secondItem="hRU-M6-9T5" secondAttribute="trailing" id="8oc-Dk-wy0"/>
+                                    <constraint firstItem="EL0-Pe-PQD" firstAttribute="trailing" secondItem="hRU-M6-9T5" secondAttribute="trailing" constant="130" id="8oc-Dk-wy0"/>
                                     <constraint firstItem="1nU-KF-gLh" firstAttribute="centerX" secondItem="964-5n-ljr" secondAttribute="centerX" id="AcG-6v-DeP"/>
                                     <constraint firstItem="bTZ-oh-e4u" firstAttribute="leading" secondItem="EL0-Pe-PQD" secondAttribute="leading" id="ExH-PE-zeg"/>
                                     <constraint firstItem="EL0-Pe-PQD" firstAttribute="top" secondItem="bTZ-oh-e4u" secondAttribute="bottom" constant="29" id="IxE-uu-Mht"/>
                                     <constraint firstItem="1nU-KF-gLh" firstAttribute="top" secondItem="964-5n-ljr" secondAttribute="top" id="UD0-wQ-7X8"/>
                                     <constraint firstItem="1nU-KF-gLh" firstAttribute="leading" secondItem="964-5n-ljr" secondAttribute="leading" id="Xzp-mM-x4K"/>
-                                    <constraint firstItem="EL0-Pe-PQD" firstAttribute="leading" secondItem="hRU-M6-9T5" secondAttribute="leading" id="eWD-ph-WSp"/>
+                                    <constraint firstItem="EL0-Pe-PQD" firstAttribute="leading" secondItem="hRU-M6-9T5" secondAttribute="leading" constant="-129" id="eWD-ph-WSp"/>
                                     <constraint firstAttribute="bottom" secondItem="1nU-KF-gLh" secondAttribute="bottom" id="i54-7T-yws"/>
                                     <constraint firstItem="1nU-KF-gLh" firstAttribute="centerY" secondItem="964-5n-ljr" secondAttribute="centerY" id="pXt-QM-COM"/>
                                 </constraints>
@@ -384,6 +383,14 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ggs-uz-Lho" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-842.39999999999998" y="-734.48275862068965"/>
+        </scene>
+        <!--Page View Controller-->
+        <scene sceneID="24B-vl-UPa">
+            <objects>
+                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="pageCurl" navigationOrientation="horizontal" spineLocation="min" id="VjD-d2-olF" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lBe-3F-tWJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-162" y="-721"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="cUS-ZJ-Kef">
@@ -715,7 +722,7 @@
                                     <color key="titleColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="logoutButtonPressed:" destination="R6r-bC-zJp" eventType="touchUpInside" id="kdV-c6-ri8"/>
+                                    <action selector="logoutbutton:" destination="Cfv-bp-pUi" eventType="touchUpInside" id="giV-YR-CW8"/>
                                     <segue destination="TRt-E4-Ilz" kind="show" identifier="Logout" id="87a-Q2-KCO"/>
                                 </connections>
                             </button>
@@ -739,6 +746,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tLp-Ur-Gzh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="Cfv-bp-pUi" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1127.2" y="124.8768472906404"/>
         </scene>
@@ -801,6 +809,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="P6H-22-ef1"/>
         <segue reference="rpR-hM-Ar1"/>
-        <segue reference="cOY-IK-lfO"/>
+        <segue reference="ir8-bc-Yfk"/>
     </inferredMetricsTieBreakers>
 </document>

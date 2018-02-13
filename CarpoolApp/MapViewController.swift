@@ -27,6 +27,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     
     @IBOutlet weak var paymentButton: UIButton!
 
+   
     //linking mapview to this class
     @IBOutlet weak var mapView: MKMapView!
     
@@ -69,24 +70,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         }
     }
 
-    @IBAction func logoutButtonPressed(_ sender: Any) {
-        let logoutAlert = UIAlertController(title: "Logout", message: "Are you sure you want to log out?", preferredStyle: UIAlertControllerStyle.alert)
-        logoutAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-            if Auth.auth().currentUser != nil {
-                do {
-                    try?Auth.auth().signOut()
-                    
-                    if Auth.auth().currentUser == nil {
-                        let LogoutViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Logout") as! LogoutViewController
-                        self.present(LogoutViewController, animated: true, completion: nil)
-                        print("Logout Successful")
-                    }
-                }
-            }
-        }))
-        logoutAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        self.present(logoutAlert, animated: true)
-    }
+   
     
 //    func GeoFireQuery()
 //    {
