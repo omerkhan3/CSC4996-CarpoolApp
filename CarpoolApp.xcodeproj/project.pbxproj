@@ -20,7 +20,7 @@
 		C98BB0A0202A58A8006B054C /* otherlocations.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98BB09F202A58A8006B054C /* otherlocations.swift */; };
 		C995C78E201D5DD400B8CB3E /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C995C78D201D5DD400B8CB3E /* MapKit.framework */; };
 		C995C790201D615E00B8CB3E /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C995C78F201D615D00B8CB3E /* CoreLocation.framework */; };
-		C9D0F3892032C65D000BB24D /* DesignableX in Resources */ = {isa = PBXBuildFile; fileRef = C9D0F3882032C65D000BB24D /* DesignableX */; };
+		C9A7D7ED2032D6830014861D /* UIViewX.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A7D7EC2032D6830014861D /* UIViewX.swift */; };
 		D10EFE9A2022979700C962E1 /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10EFE992022979700C962E1 /* RegistrationViewController.swift */; };
 		D10EFE9C2022983600C962E1 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10EFE9B2022983600C962E1 /* LoginViewController.swift */; };
 		D10EFE9E20229ACA00C962E1 /* PasswordResetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10EFE9D20229ACA00C962E1 /* PasswordResetViewController.swift */; };
@@ -43,7 +43,7 @@
 		C98BB09F202A58A8006B054C /* otherlocations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = otherlocations.swift; sourceTree = "<group>"; };
 		C995C78D201D5DD400B8CB3E /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		C995C78F201D615D00B8CB3E /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
-		C9D0F3882032C65D000BB24D /* DesignableX */ = {isa = PBXFileReference; lastKnownFileType = folder; name = DesignableX; path = "../../../Downloads/DesignableX-master/DesignableXTesting/DesignableXTesting/DesignableX"; sourceTree = "<group>"; };
+		C9A7D7EC2032D6830014861D /* UIViewX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIViewX.swift; path = "../../../Downloads/DesignableX-master/DesignableXTesting/DesignableXTesting/DesignableX/UIViewX.swift"; sourceTree = "<group>"; };
 		D10EFE992022979700C962E1 /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
 		D10EFE9B2022983600C962E1 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		D10EFE9D20229ACA00C962E1 /* PasswordResetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordResetViewController.swift; sourceTree = "<group>"; };
@@ -100,7 +100,7 @@
 				7824139E201D0F3A00F06D99 /* Assets.xcassets */,
 				782413A3201D0F3A00F06D99 /* Info.plist */,
 				7824139B201D0F3A00F06D99 /* Main.storyboard */,
-				C9D0F3882032C65D000BB24D /* DesignableX */,
+				C9A7D7EC2032D6830014861D /* UIViewX.swift */,
 				206736E52026A929008714A7 /* LaunchScreen.storyboard */,
 				C98BB09F202A58A8006B054C /* otherlocations.swift */,
 			);
@@ -190,7 +190,6 @@
 			files = (
 				7824139F201D0F3A00F06D99 /* Assets.xcassets in Resources */,
 				20F47A0420277D4800D79394 /* GoogleService-Info.plist in Resources */,
-				C9D0F3892032C65D000BB24D /* DesignableX in Resources */,
 				206736E32026A929008714A7 /* LaunchScreen.storyboard in Resources */,
 				7824139D201D0F3A00F06D99 /* Main.storyboard in Resources */,
 			);
@@ -271,6 +270,7 @@
 			files = (
 				D10EFE9C2022983600C962E1 /* LoginViewController.swift in Sources */,
 				205A4B43202569DC005AE87C /* LaunchViewController.swift in Sources */,
+				C9A7D7ED2032D6830014861D /* UIViewX.swift in Sources */,
 				D10EFE9A2022979700C962E1 /* RegistrationViewController.swift in Sources */,
 				78241398201D0F3A00F06D99 /* AppDelegate.swift in Sources */,
 				2033C2D02026CE5C0081E53A /* ProfileViewController.swift in Sources */,
