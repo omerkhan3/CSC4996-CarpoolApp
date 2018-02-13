@@ -70,7 +70,7 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
                 // Create new user entry in database
                 let userInfo = ["provider": user?.providerID as Any, "firstName": self.firstNameField.text as Any, "lastName": self.lastNameField.text as Any, "email": email as Any] as [String:Any] // store information that user has submitted in a dictionary.
                 DataService.inst.createUser(id: (user?.uid)!, userInfo: userInfo)  // we userInfo to store data in the DB under the user's unique identifier.
-                
+                self.storeUserInfo(id: (user?.uid)!, userInfo: userInfo)
                 // Error handling
             }else{
                 actionTitle = "Error!"
@@ -85,6 +85,24 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
+    func storeUserInfo(id: String, userInfo: Dictionary<String, Any>)
+    {
+        let registrationURL = URL(string: "http://localhost:3000/registerUser")!
+        var request = URLRequest(url: registrationURL)
+        request.httpBody = "uniqueID=\(id)userInfo=\(userInfo)".data(using: String.Encoding.utf8)
+        request.httpMethod = "POST" // POST method.
+        
+        URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
+            if (error != nil){  // error handling responses.
+                print ("An error has occured.")
+            }
+            else{
+                print ("Success!")
+            }
+            
+            }.resume()
+        
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
 

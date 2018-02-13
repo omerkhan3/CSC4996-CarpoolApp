@@ -13,6 +13,19 @@ admin.initializeApp({
  databaseURL: 'https://csc4996-carpoolapp.firebaseio.com'
 });
 
+
+router.post('/', function(req, res, next) {
+ var registrationID = req.body.uniqueID;
+  //var userInfo = req.body.userInfo;
+
+
+
+  console.log (registrationID);
+//  console.log(userInfo);
+  console.log ("connection received.");
+});
+
+/*
 var db = admin.database();
 var ref = db.ref('/');
 var usersRef = ref.child("Users");
@@ -23,6 +36,5 @@ usersRef.update({
 	}
 });
 
-console.log ("wrote to db.");
+console.log ("wrote to db.");/*/
 module.exports = router;
-
