@@ -3,15 +3,6 @@ var path = require('path');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var firebase = require('firebase');
-var admin = require('firebase-admin');
-
-var serviceAccount = require('./csc4996-carpoolapp-firebase-adminsdk-fsifh-456e34f4e0.json');
-
-admin.initializeApp({
- credential: admin.credential.cert(serviceAccount),
- databaseURL: 'https://csc4996-carpoolapp.firebaseio.com'
-});
 
 
 var index = require('./routes/index');
@@ -32,20 +23,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', index);
 app.use('/users', users);
 
+
 var checkout = require('./routes/checkout');  // this is the only custom code in this file.  the rest was initialized by the "npm init" command and express.
 app.use('/checkout', checkout);  // using the checkout route we are using to handle nonce.
 
-var db = admin.database();
-var ref = db.ref('/');
-var usersRef = ref.child("Users");
-usersRef.set({
-	nodetest2: {
-		first_name:  "Omer",
-		last_name: "Khan"
-	}
-});
+var registerUser = require('./routes/registerUser');
+app.use('/registerUser', registerUser);
 
-console.log ("wrote to db.");
 
 
 
