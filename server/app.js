@@ -3,12 +3,18 @@ var path = require('path');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
-
+var firebase = require('firebase');
+var admin = require('firebase-admin');
 var index = require('./routes/index');
 var users = require('./routes/users');
+var serviceAccount = require('./csc4996-carpoolapp-firebase-adminsdk-fsifh-456e34f4e0.json');
 
 var app = express();
+admin.initializeApp({
+ credential: admin.credential.cert(serviceAccount),
+ databaseURL: 'https://csc4996-carpoolapp.firebaseio.com'
+});
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

@@ -6,35 +6,27 @@ var bodyParser = require('body-parser');
 var firebase = require('firebase');
 var admin = require('firebase-admin');
 var router = express.Router();
-var serviceAccount = require('../csc4996-carpoolapp-firebase-adminsdk-fsifh-456e34f4e0.json');
 
-admin.initializeApp({
- credential: admin.credential.cert(serviceAccount),
- databaseURL: 'https://csc4996-carpoolapp.firebaseio.com'
-});
-
+var db = admin.database();
+var usersRef = db.ref('/Users');
 
 router.post('/', function(req, res, next) {
- var registrationID = req.body.uniqueID;
-  //var userInfo = req.body.userInfo;
+ var userInfo = req.body.userInfo;
+ var userJSON = JSON.parse(userInfo);
+ var userID = userJSON['userID'];
 
-
-
-  console.log (registrationID);
-//  console.log(userInfo);
-  console.log ("connection received.");
+ usersRef.update({
+  [userID]: {
+    lastName:  userJSON['lastName'],
+    firstName: userJSON['firstName'],
+    provider: userJSON['provider'],
+    email: userJSON['email']
+  }
 });
 
-/*
-var db = admin.database();
-var ref = db.ref('/');
-var usersRef = ref.child("Users");
-usersRef.update({
-	nodetest2: {
-		first_name:  "Test",
-		last_name: "Khan"
-	}
+  console.log ("User Set.");
 });
 
-console.log ("wrote to db.");/*/
+
+
 module.exports = router;

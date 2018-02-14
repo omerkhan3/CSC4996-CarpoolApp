@@ -67,10 +67,17 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
                 alert.addAction(exitAction)
                 self.present(alert, animated: true, completion: nil)
                 
+                let userID = (user?.uid) ?? "Unknown"
+                let provider = (user?.providerID) ?? "Unknown"
+                let firstName = self.firstNameField.text ?? "Unknown"
+                let lastName = self.lastNameField.text ?? "Unknown"
+                let email = self.emailField.text ?? "Unknown"
                 // Create new user entry in database
-                let userInfo = ["provider": user?.providerID as Any, "firstName": self.firstNameField.text as Any, "lastName": self.lastNameField.text as Any, "email": email as Any] as [String:Any] // store information that user has submitted in a dictionary.
-                DataService.inst.createUser(id: (user?.uid)!, userInfo: userInfo)  // we userInfo to store data in the DB under the user's unique identifier.
-                self.storeUserInfo(id: (user?.uid)!, userInfo: userInfo)
+                let userInfo = ["userID": userID,   "provider": provider, "firstName": firstName, "lastName": lastName, "email": email] as [String:Any] // store information that user has submitted in a dictionary.
+               // DataService.inst.createUser(id: (user?.uid)!, userInfo: userInfo)  // we userInfo to store data in the DB under the user's unique identifier.
+
+                
+                self.storeUserInfo(userInfo: userInfo)
                 // Error handling
             }else{
                 actionTitle = "Error!"
@@ -85,22 +92,27 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    func storeUserInfo(id: String, userInfo: Dictionary<String, Any>)
+    func storeUserInfo(userInfo: Dictionary<String, Any>)
     {
         let registrationURL = URL(string: "http://localhost:3000/registerUser")!
         var request = URLRequest(url: registrationURL)
-        request.httpBody = "uniqueID=\(id)userInfo=\(userInfo)".data(using: String.Encoding.utf8)
-        request.httpMethod = "POST" // POST method.
+        let userJSON = try! JSONSerialization.data(withJSONObject: userInfo, options: .prettyPrinted)
+        let userJSONInfo = NSString(data: userJSON, encoding: String.Encoding.utf8.rawValue)! as String
+                request.httpBody = "userInfo=\(userJSONInfo)".data(using: String.Encoding.utf8)
+                request.httpMethod = "POST" // POST method.
+                
+                URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
+                    if (error != nil){  // error handling responses.
+                        print ("An error has occured.")
+                    }
+                    else{
+                        print ("Success!")
+                    }
+                    
+                    }.resume()
         
-        URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
-            if (error != nil){  // error handling responses.
-                print ("An error has occured.")
-            }
-            else{
-                print ("Success!")
-            }
-            
-            }.resume()
+
+
         
     }
     override func viewDidLoad() {
