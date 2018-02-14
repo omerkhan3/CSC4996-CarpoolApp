@@ -1,6 +1,8 @@
 
 .DS_Store
 CarpoolApp.xcworkspace/xcuserdata/Matt.xcuserdatad/UserInterfaceState.xcuserstate
+CarpoolApp.xcworkspace/xcuserdata/omerkhan.xcuserdatad/UserInterfaceState.xcuserstate
+CarpoolApp.xcodeproj/xcuserdata/omerkhan.xcuserdatad/
 *.h
 *.modulemap
 *.m
@@ -8,3 +10,4 @@ CarpoolApp.xcworkspace/xcuserdata/Matt.xcuserdatad/UserInterfaceState.xcuserstat
 *.xcscheme
 Pods/
 server/node_modules/
+Podfile.lock
