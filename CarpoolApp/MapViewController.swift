@@ -27,12 +27,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     
     @IBOutlet weak var paymentButton: UIButton!
 
-   
     //linking mapview to this class
     @IBOutlet weak var mapView: MKMapView!
     
     @IBAction func showDirection(_ sender: Any) {
-        
         //makes sure to get location from destination location rather than users current location
         guard let currentPlacemark = currentPlacemark else{
             print("returning")
@@ -70,7 +68,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         }
     }
 
-   
+   //Logout alert
     @IBAction func logOutButton(_ sender: Any) {
         let logoutAlert = UIAlertController(title: "Logout", message: "Are you sure you want to log out?", preferredStyle: UIAlertControllerStyle.alert)
         logoutAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
@@ -80,9 +78,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         logoutAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         self.present(logoutAlert, animated: true)
     }
-    
-    
-    
     
 //    func GeoFireQuery()
 //    {
@@ -125,7 +120,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             let databaseLocation = otherlocations(title: lastName, locationName: lastName, coordinate: CLLocationCoordinate2D(latitude: userLat, longitude: userLong))
             self.mapView.addAnnotation(databaseLocation)
         })
-        
     }
     
     override func viewDidLoad() {
@@ -143,7 +137,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         mapView.showsUserLocation = true
         
         GrabFBdata()
-        
     }
     
     //selecting an annotation will call this method
@@ -164,7 +157,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         
         return renderer
     }
-    
 
     //Brings up the user on the map after authorization
     override func viewDidAppear(_ animated: Bool) {
@@ -183,7 +175,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
            locationManager.requestWhenInUseAuthorization()
             locationManager.startUpdatingLocation()
         }
-        
     }
     
     @IBAction func paymentAction(_ sender: UIButton) {
@@ -204,7 +195,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
                 let selectedPaymentMethod = paymentResult.paymentMethod?.nonce // the nonce contains unique identifiers about the transaction that are needed by the server to process the transaction.
                 
                 self.postNonceToServer(paymentMethodNonce: selectedPaymentMethod!) // this is the call to send the nonce to the server.
-
             }
             controller.dismiss(animated: true, completion: nil)
         }
@@ -224,7 +214,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             else{
                 print ("Success!")
             }
-            
             }.resume()
     }
 }

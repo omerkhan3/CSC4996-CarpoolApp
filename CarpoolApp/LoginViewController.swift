@@ -11,8 +11,7 @@ import Firebase
 import FirebaseAuth
 import MapKit
 
-
-class LoginViewController: UIViewController, UITextFieldDelegate{
+class LoginViewController: UIViewController, UITextFieldDelegate {
     
     // UI components
     @IBOutlet weak var emailField: UITextField! // email text field.
@@ -73,7 +72,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
                 self.present(alert, animated: true, completion: nil)
             }
         }
-            
         }
     }
 

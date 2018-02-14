@@ -96,5 +96,4 @@ class PasswordResetViewController: UIViewController, UITextFieldDelegate {
         let movement: CGFloat = CGFloat(up ? distance: -distance)
         self.view.frame = self.view.frame.offsetBy(dx: 0, dy: movement)
     }
-
 }

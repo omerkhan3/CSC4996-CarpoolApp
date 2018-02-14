@@ -11,7 +11,6 @@ import Firebase
 import FirebaseAuth
 import FirebaseDatabase
 
-
 class ProfileViewController: UIViewController {
     
     var ref: DatabaseReference! // Creates database reference
@@ -20,7 +19,6 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var UserFirstName: UILabel!
     @IBOutlet weak var UserLastName: UILabel!
     @IBOutlet weak var UserEmail: UILabel!
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()

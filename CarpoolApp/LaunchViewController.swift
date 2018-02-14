@@ -12,7 +12,6 @@ class LaunchViewController: UIViewController {
 
     @IBOutlet weak var logo: UIImageView!
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         animateLogo() // Animation function
@@ -37,5 +36,4 @@ class LaunchViewController: UIViewController {
             self.logo.alpha = 0.0 // Fade effect
         })
     }
-    
 }
