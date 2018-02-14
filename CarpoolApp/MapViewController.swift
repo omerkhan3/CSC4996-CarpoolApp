@@ -71,6 +71,18 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     }
 
    
+    @IBAction func logOutButton(_ sender: Any) {
+        let logoutAlert = UIAlertController(title: "Logout", message: "Are you sure you want to log out?", preferredStyle: UIAlertControllerStyle.alert)
+        logoutAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+            self.performSegue(withIdentifier: "Logout", sender: self)
+        }))
+        
+        logoutAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        self.present(logoutAlert, animated: true)
+    }
+    
+    
+    
     
 //    func GeoFireQuery()
 //    {

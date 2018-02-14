@@ -1,27 +1,27 @@
 PODS:
-  - Braintree (4.10.1):
-    - Braintree/Card (= 4.10.1)
-    - Braintree/Core (= 4.10.1)
-    - Braintree/PayPal (= 4.10.1)
-    - Braintree/UI (= 4.10.1)
-  - Braintree/Card (4.10.1):
+  - Braintree (4.10.0):
+    - Braintree/Card (= 4.10.0)
+    - Braintree/Core (= 4.10.0)
+    - Braintree/PayPal (= 4.10.0)
+    - Braintree/UI (= 4.10.0)
+  - Braintree/Card (4.10.0):
     - Braintree/Core
-  - Braintree/Core (4.10.1)
-  - Braintree/PayPal (4.10.1):
+  - Braintree/Core (4.10.0)
+  - Braintree/PayPal (4.10.0):
     - Braintree/Core
     - Braintree/PayPalOneTouch
-  - Braintree/PayPalDataCollector (4.10.1):
+  - Braintree/PayPalDataCollector (4.10.0):
     - Braintree/Core
     - Braintree/PayPalUtils
-  - Braintree/PayPalOneTouch (4.10.1):
+  - Braintree/PayPalOneTouch (4.10.0):
     - Braintree/Core
     - Braintree/PayPalDataCollector
     - Braintree/PayPalUtils
-  - Braintree/PayPalUtils (4.10.1)
-  - Braintree/UI (4.10.1):
+  - Braintree/PayPalUtils (4.10.0)
+  - Braintree/UI (4.10.0):
     - Braintree/Card
     - Braintree/Core
-  - Braintree/UnionPay (4.10.1):
+  - Braintree/UnionPay (4.10.0):
     - Braintree/Card
     - Braintree/Core
   - BraintreeDropIn (5.3.0):
@@ -92,11 +92,11 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   GeoFire:
-    :commit: a9083282fe04e8900553ebed8efb7c4f5b2998c6
+    :commit: 257b6ceb6dd124bf3fc45c70c0c08367ef6080d3
     :git: https://github.com/firebase/geofire-objc.git
 
 SPEC CHECKSUMS:
-  Braintree: 80c60275d80a946753538b2762112bc18038e2b6
+  Braintree: 424a8b0bf1d31fe1110035cfde438701e1425c1a
   BraintreeDropIn: 5882cca8dc3c4a5b8f11faa44fca52323253c857
   Firebase: 7d3b8cd837ad9fcd391657734c0d56dab8e9a5a3
   FirebaseAnalytics: 388b630c15713f5dbf364071f5f3d6077fb52f4e

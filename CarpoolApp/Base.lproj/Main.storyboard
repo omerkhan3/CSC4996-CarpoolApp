@@ -744,6 +744,7 @@
                                     <color key="titleColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
+                                    <action selector="logOutButton:" destination="R6r-bC-zJp" eventType="touchUpInside" id="svb-Uw-aEC"/>
                                     <action selector="logoutbutton:" destination="Cfv-bp-pUi" eventType="touchUpInside" id="giV-YR-CW8"/>
                                     <segue destination="TRt-E4-Ilz" kind="show" identifier="Logout" id="87a-Q2-KCO"/>
                                 </connections>
