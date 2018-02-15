@@ -28,7 +28,10 @@ class ProfileViewController: UIViewController {
         
         // Reference user data
             let userID = Auth.auth().currentUser?.uid
-            ref = Database.database().reference().child("Users") // Create reference to child node
+            ref = Database.database().reference().child("Users")
+                // Create reference to child node
+        
+        readProfileInfo(userID: userID!)
             ref.child(userID!).observeSingleEvent(of: .value, with: { (snapshot) in
                 // Get user value
                 let value = snapshot.value as? NSDictionary
@@ -51,6 +54,23 @@ class ProfileViewController: UIViewController {
             }
     }
 
+    func readProfileInfo(userID: String)
+    {
+        let viewProfileURL = URL(string: "http://localhost:3000/viewProfile")!
+        var request = URLRequest(url: viewProfileURL)
+        request.httpBody = "userID=\(userID)".data(using: String.Encoding.utf8)
+        request.httpMethod = "GET" // POST method.
+        
+        URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
+            if (error != nil){  // error handling responses.
+                print ("An error has occured.")
+            }
+            else{
+                print ("Success!")
+            }
+            
+            }.resume()
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

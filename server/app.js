@@ -7,6 +7,9 @@ var firebase = require('firebase');
 var admin = require('firebase-admin');
 var index = require('./routes/index');
 var users = require('./routes/users');
+var checkout = require('./routes/checkout');
+var registerUser = require('./routes/registerUser');
+var viewProfile = require('./routes/viewProfile');
 var serviceAccount = require('./csc4996-carpoolapp-firebase-adminsdk-fsifh-456e34f4e0.json');
 
 var app = express();
@@ -14,7 +17,6 @@ admin.initializeApp({
  credential: admin.credential.cert(serviceAccount),
  databaseURL: 'https://csc4996-carpoolapp.firebaseio.com'
 });
-
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -28,15 +30,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/users', users);
-
-
-var checkout = require('./routes/checkout');  // this is the only custom code in this file.  the rest was initialized by the "npm init" command and express.
 app.use('/checkout', checkout);  // using the checkout route we are using to handle nonce.
-
-var registerUser = require('./routes/registerUser');
 app.use('/registerUser', registerUser);
-
-
+app.use('/viewProfile', viewProfile);
 
 
 // catch 404 and forward to error handler
