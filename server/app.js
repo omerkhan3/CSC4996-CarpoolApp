@@ -7,9 +7,7 @@ var firebase = require('firebase');
 var admin = require('firebase-admin');
 var index = require('./routes/index');
 var users = require('./routes/users');
-var checkout = require('./routes/checkout');
-var registerUser = require('./routes/registerUser');
-var viewProfile = require('./routes/viewProfile');
+
 var serviceAccount = require('./csc4996-carpoolapp-firebase-adminsdk-fsifh-456e34f4e0.json');
 
 var app = express();
@@ -18,6 +16,9 @@ admin.initializeApp({
  databaseURL: 'https://csc4996-carpoolapp.firebaseio.com'
 });
 
+var checkout = require('./routes/checkout');
+var registerUser = require('./routes/registerUser');
+var viewProfile = require('./routes/viewProfile');
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
