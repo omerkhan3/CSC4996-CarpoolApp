@@ -11,8 +11,10 @@ var db = admin.database();
 var usersRef = db.ref('/Users');
 
 router.get('/', function(req, res, next) {
+console.log ("In function");
  var userID = req.body.userID;
-
+console.log (req.body.userID);
+console.log(userID);
 
  // Attach an asynchronous callback to read the data at our posts reference
  ref.on(userID, function(snapshot) {

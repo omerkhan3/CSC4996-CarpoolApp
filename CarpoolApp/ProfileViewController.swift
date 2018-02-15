@@ -56,9 +56,13 @@ class ProfileViewController: UIViewController {
 
     func readProfileInfo(userID: String)
     {
-        let viewProfileURL = URL(string: "http://localhost:3000/viewProfile")!
-        var request = URLRequest(url: viewProfileURL)
-        request.httpBody = "userID=\(userID)".data(using: String.Encoding.utf8)
+        var viewProfileComponents = URLComponents(string: "http://localhost:3000/viewProfile/")!
+        viewProfileComponents.queryItems = [
+            URLQueryItem(name: "userID", value: userID)
+        ]
+        var request = URLRequest(url: viewProfileComponents.url!)
+        print (viewProfileComponents.url!)
+
         request.httpMethod = "GET" // POST method.
         
         URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
