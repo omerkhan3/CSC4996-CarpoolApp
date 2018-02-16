@@ -25,11 +25,11 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User Registration" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P20-ob-LHO">
-                                <rect key="frame" x="16" y="160" width="343" height="41"/>
+                                <rect key="frame" x="16" y="160" width="343" height="72"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="41" id="y9E-hJ-chd"/>
+                                    <constraint firstAttribute="height" constant="72" id="y9E-hJ-chd"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -64,38 +64,59 @@
                                                     <outlet property="delegate" destination="BYZ-38-t0r" id="u5F-3K-55b"/>
                                                 </connections>
                                             </textField>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Email" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="LZv-4b-P4p">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Email" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="LZv-4b-P4p" customClass="UITextFieldX" customModule="CarpoolApp" customModuleProvider="target">
                                                 <rect key="frame" x="16" y="293" width="343" height="40"/>
+                                                <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="RO2-5L-nJU"/>
                                                 </constraints>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="image" keyPath="leftImage" value="user"/>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="leftPadding">
+                                                        <real key="value" value="7"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <outlet property="delegate" destination="BYZ-38-t0r" id="3bV-WC-X8A"/>
                                                 </connections>
                                             </textField>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Password" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="LzU-66-RPC">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Confirm Password" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="LzU-66-RPC" customClass="UITextFieldX" customModule="CarpoolApp" customModuleProvider="target">
                                                 <rect key="frame" x="16" y="389" width="343" height="40"/>
+                                                <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="WtU-IV-xLr"/>
                                                 </constraints>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="image" keyPath="leftImage" value="lock"/>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="leftPadding">
+                                                        <real key="value" value="7"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <outlet property="delegate" destination="BYZ-38-t0r" id="GlB-rU-YCH"/>
                                                 </connections>
                                             </textField>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Confirm Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="M8r-cr-ehA">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="M8r-cr-ehA" customClass="UITextFieldX" customModule="CarpoolApp" customModuleProvider="target">
                                                 <rect key="frame" x="16" y="341" width="343" height="40"/>
+                                                <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="1Yb-KN-p0l"/>
                                                 </constraints>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="image" keyPath="leftImage" value="lock"/>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="leftPadding">
+                                                        <real key="value" value="7"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <outlet property="delegate" destination="BYZ-38-t0r" id="SLx-ZN-hpk"/>
                                                 </connections>
@@ -202,7 +223,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1436.5" y="124"/>
+            <point key="canvasLocation" x="-1437.5999999999999" y="123.39901477832512"/>
         </scene>
         <!--Launch View Controller-->
         <scene sceneID="D4R-Dh-FfW">
@@ -395,7 +416,7 @@
         <scene sceneID="cUS-ZJ-Kef">
             <objects>
                 <viewController id="mgs-n6-XJs" userLabel="Login View Controller" customClass="LoginViewController" customModule="CarpoolApp" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="HSz-b1-gQn" customClass="UIViewX" customModule="CarpoolApp" customModuleProvider="target">
+                    <view key="view" contentMode="scaleToFill" id="HSz-b1-gQn" customClass="UIViewX" customModule="CarpoolApp">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -723,26 +744,36 @@
                                     <action selector="paymentAction:" destination="R6r-bC-zJp" eventType="touchUpInside" id="atT-LW-MmO"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="suy-Wi-Lpv" userLabel="directionbutton">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="suy-Wi-Lpv" userLabel="directionbutton">
                                 <rect key="frame" x="290" y="52" width="40" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="Hs9-U7-r7g"/>
                                     <constraint firstAttribute="width" constant="40" id="Ubt-gM-ZPi"/>
                                 </constraints>
-                                <state key="normal" image="icon-direction"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" image="icon-direction">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
                                 <connections>
                                     <action selector="showDirection:" destination="R6r-bC-zJp" eventType="touchUpInside" id="bdi-9n-NZV"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J4m-Ik-q5P">
-                                <rect key="frame" x="40" y="52" width="89" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J4m-Ik-q5P" customClass="RoundedButton" customModule="CarpoolApp" customModuleProvider="target">
+                                <rect key="frame" x="40" y="52" width="104" height="40"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="Eq6-lb-TpA"/>
+                                    <constraint firstAttribute="height" constant="40" id="Eq6-lb-TpA"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="27"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <state key="normal" title="Logout">
-                                    <color key="titleColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleColor" red="1" green="0.33662539190000001" blue="0.31478605549999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="rounded" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="20"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="logOutButton:" destination="R6r-bC-zJp" eventType="touchUpInside" id="svb-Uw-aEC"/>
                                     <action selector="logoutbutton:" destination="Cfv-bp-pUi" eventType="touchUpInside" id="giV-YR-CW8"/>
@@ -752,7 +783,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="suy-Wi-Lpv" firstAttribute="leading" secondItem="J4m-Ik-q5P" secondAttribute="trailing" constant="161" id="0Kc-7n-Ab2"/>
+                            <constraint firstItem="suy-Wi-Lpv" firstAttribute="leading" secondItem="J4m-Ik-q5P" secondAttribute="trailing" constant="146" id="0Kc-7n-Ab2"/>
                             <constraint firstItem="J4m-Ik-q5P" firstAttribute="leading" secondItem="ly9-9m-dFR" secondAttribute="leading" constant="40" id="AsD-Kx-dtX"/>
                             <constraint firstItem="ly9-9m-dFR" firstAttribute="trailing" secondItem="suy-Wi-Lpv" secondAttribute="trailing" constant="45" id="Gj0-eC-Ake"/>
                             <constraint firstItem="hNw-r2-tEt" firstAttribute="leading" secondItem="BjO-j5-aae" secondAttribute="leadingMargin" id="OZH-9Z-r8A"/>
@@ -837,7 +868,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="P6H-22-ef1"/>
-        <segue reference="Z2h-3S-Lqv"/>
+        <segue reference="rpR-hM-Ar1"/>
         <segue reference="cOY-IK-lfO"/>
     </inferredMetricsTieBreakers>
 </document>

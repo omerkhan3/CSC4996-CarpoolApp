@@ -19,7 +19,7 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var passwordField: UITextField! // password text field.
     @IBOutlet weak var confirmPasswordField: UITextField! // confirm password text field.
     
-    let dist = -220 // distance to adjust for keyboard
+    let dist = -140 // distance to adjust for keyboard
     
     // Register button isClicked method
     @IBAction func registerButton(_ sender: UIButton) {// on click of the register button.

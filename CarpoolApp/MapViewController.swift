@@ -67,7 +67,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             self.mapView.setRegion(MKCoordinateRegionForMapRect(routeRect), animated: true)
         }
     }
-
+    
    //Logout alert
     @IBAction func logOutButton(_ sender: Any) {
         let logoutAlert = UIAlertController(title: "Logout", message: "Are you sure you want to log out?", preferredStyle: UIAlertControllerStyle.alert)
@@ -124,7 +124,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         //first sample locaiton
         let samplelocation = otherlocations(title: "sample location",
             locationName: "sample description",
