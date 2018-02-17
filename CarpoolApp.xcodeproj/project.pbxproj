@@ -17,6 +17,7 @@
 		78241398201D0F3A00F06D99 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78241397201D0F3A00F06D99 /* AppDelegate.swift */; };
 		7824139D201D0F3A00F06D99 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7824139B201D0F3A00F06D99 /* Main.storyboard */; };
 		7824139F201D0F3A00F06D99 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7824139E201D0F3A00F06D99 /* Assets.xcassets */; };
+		913D7A7E2038C91500E1EFA2 /* FreqDestinationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 913D7A7D2038C91500E1EFA2 /* FreqDestinationsViewController.swift */; };
 		C968E520203669E400B137B8 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C968E51F203669E400B137B8 /* RoundedButton.swift */; };
 		C98BB0A0202A58A8006B054C /* otherlocations.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98BB09F202A58A8006B054C /* otherlocations.swift */; };
 		C995C78E201D5DD400B8CB3E /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C995C78D201D5DD400B8CB3E /* MapKit.framework */; };
@@ -41,6 +42,7 @@
 		7824139C201D0F3A00F06D99 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7824139E201D0F3A00F06D99 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		782413A3201D0F3A00F06D99 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		913D7A7D2038C91500E1EFA2 /* FreqDestinationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreqDestinationsViewController.swift; sourceTree = "<group>"; };
 		9320C101773311FB910A13A6 /* Pods_CarpoolApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CarpoolApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C968E51F203669E400B137B8 /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		C98BB09F202A58A8006B054C /* otherlocations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = otherlocations.swift; sourceTree = "<group>"; };
@@ -117,6 +119,7 @@
 				C968E51F203669E400B137B8 /* RoundedButton.swift */,
 				C9D8928E2033629B005EC683 /* UITextFieldX.swift */,
 				C9A7D7EC2032D6830014861D /* UIViewX.swift */,
+				913D7A7D2038C91500E1EFA2 /* FreqDestinationsViewController.swift */,
 			);
 			path = "New Group";
 			sourceTree = "<group>";
@@ -287,6 +290,7 @@
 				205A4B43202569DC005AE87C /* LaunchViewController.swift in Sources */,
 				C9A7D7ED2032D6830014861D /* UIViewX.swift in Sources */,
 				D10EFE9A2022979700C962E1 /* RegistrationViewController.swift in Sources */,
+				913D7A7E2038C91500E1EFA2 /* FreqDestinationsViewController.swift in Sources */,
 				78241398201D0F3A00F06D99 /* AppDelegate.swift in Sources */,
 				2033C2D02026CE5C0081E53A /* ProfileViewController.swift in Sources */,
 				D10EFE9E20229ACA00C962E1 /* PasswordResetViewController.swift in Sources */,
