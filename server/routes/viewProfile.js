@@ -13,14 +13,14 @@ var usersRef = db.ref('/Users');
 router.get('/', function(req, res, next) {
 var userID = req.query.userID;
 console.log(userID);
+var profileRef = db.ref(`/Users/${userID}`);
 
+ profileRef.on('value', function(snapshot) {
+   res.send(snapshot.val());
+ }, function (errorObject) {
+   res.send("The read failed: " + errorObject.code);
+ });
 
- // Attach an asynchronous callback to read the data at our posts reference
- db.ref('/Users/' + userID).once('value')
-     .then( snapshot => {
-      // res.send(snapshot.val());
-      console.log (snapshot.val());
-});
 
 
 });
