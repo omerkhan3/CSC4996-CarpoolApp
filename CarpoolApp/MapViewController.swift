@@ -201,9 +201,16 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     }
     
     func postNonceToServer(paymentMethodNonce: String) { // method to send unique payment "nonce" to the server for transaction processing.
+        let currentUser = Auth.auth().currentUser
+        currentUser?.getIDTokenForcingRefresh(true) { idToken, error in
+            if let error = error {
+                print (error.localizedDescription)
+                return;
+            }
+        let userToken = idToken!
         let paymentURL = URL(string: "http://localhost:3000/checkout")! // the URL endpoint of our local node server.  We will need to switch this when we are able to host somewhere else.
         var request = URLRequest(url: paymentURL)
-        request.httpBody = "payment_method_nonce=\(paymentMethodNonce)".data(using: String.Encoding.utf8) // "payment_method_nonce" is the field that the server will be looking for to receive the nonce.
+            request.httpBody = "payment_method_nonce=\(paymentMethodNonce)&idToken=\(userToken)".data(using: String.Encoding.utf8) // "payment_method_nonce" is the field that the server will be looking for to receive the nonce.
         request.httpMethod = "POST" // POST method.
         
         URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
@@ -214,5 +221,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
                 print ("Success!")
             }
             }.resume()
+    }
     }
 }

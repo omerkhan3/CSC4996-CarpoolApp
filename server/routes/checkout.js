@@ -1,7 +1,9 @@
 
 var express = require('express');
 var router = express.Router();
-var braintree = require('braintree');  // we create an instance of the module "braintree"
+var braintree = require('braintree');
+var firebase = require('firebase');
+var admin = require('firebase-admin');  // we create an instance of the module "braintree"
 
 router.post('/', function(req, res, next) {
  var gateway = braintree.connect({
@@ -12,21 +14,34 @@ router.post('/', function(req, res, next) {
 });
 
   // Use the payment method nonce here
-  var nonceFromTheClient = req.body.payment_method_nonce; // this is the payment nonce provided by UI.  this contains unique payment information used to process transaction.
+  var nonceFromTheClient = req.body.payment_method_nonce;
+  var idToken = req.body.idToken;
+
+
+  admin.auth().verifyIdToken(idToken)
+    .then(function(decodedToken) {
+      //var uid = decodedToken.uid;
+      var newTransaction = gateway.transaction.sale({
+        amount: '10.00',  // we have hardcoded $10 for now for all transactions, we will eventually need to add "amount" field to our HTTP message from client.
+        paymentMethodNonce: nonceFromTheClient,  // we use the nonce received from client.
+        options: {
+          submitForSettlement: true  // this commad is what tells Braintree to process the transaction.
+        }
+      }, function(error, result) {
+          if (result) {   // error handling for the transaction processing.
+            res.send(result);
+          } else {
+            res.status(500).send(error);
+          }
+      });
+
+    }).catch(function(error) {
+      // Handle error
+      console.log ("Invalid User.");
+    });
+   // this is the payment nonce provided by UI.  this contains unique payment information used to process transaction.
   // Create a new transaction for $10
-  var newTransaction = gateway.transaction.sale({
-    amount: '10.00',  // we have hardcoded $10 for now for all transactions, we will eventually need to add "amount" field to our HTTP message from client.
-    paymentMethodNonce: nonceFromTheClient,  // we use the nonce received from client.
-    options: {
-      submitForSettlement: true  // this commad is what tells Braintree to process the transaction.
-    }
-  }, function(error, result) {
-      if (result) {   // error handling for the transaction processing.
-        res.send(result);
-      } else {
-        res.status(500).send(error);
-      }
-  });
+
 });
 
 module.exports = router;
