@@ -7,9 +7,9 @@
 //
 
 import UIKit
-import M13Checkbox
 
-class Frequent_Destinations: UIViewController {
+
+class FrequentDestinationsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
