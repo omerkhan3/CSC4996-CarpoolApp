@@ -14,8 +14,8 @@ class Frequent_Destinations: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
      
-        let checkbox = M13Checkbox(frame: CGRect(x: 0.0, y: 0.0, width: 40.0, height: 40.0))
-        view.addSubview(checkbox)
+      //  let checkbox = M13Checkbox(frame: CGRect(x: 0.0, y: 0.0, width: 40.0, height: 40.0))
+     //   view.addSubview(checkbox)
         // Do any additional setup after loading the view.
     }
 
