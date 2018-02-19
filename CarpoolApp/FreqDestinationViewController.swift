@@ -14,7 +14,7 @@ class FreqDestinationViewController: UIViewController {
     //var searchCompleter = MKLocalSearchCompleter()
     //var searchResults = [MKLocalSearchCompletion]()
     
-    @IBOutlet weak var HomeInput: UITableView!
+    /*@IBOutlet weak var HomeInput: UITableView!
     @IBOutlet weak var HomeSearchBar: UISearchBar!
     @IBOutlet weak var WorkInput: UITableView!
     @IBOutlet weak var WorkSearchBar: UISearchBar!
@@ -71,5 +71,5 @@ extension FreqDestinationViewController: MKLocalSearchCompleterDelegate {
     func completer(_ completer: MKLocalSearchCompleter, didFailWithError error: Error) {
         //handle the error
         print(error.localizedDescription)
-    }
+    }*/
 }

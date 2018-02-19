@@ -517,6 +517,50 @@
             </objects>
             <point key="canvasLocation" x="560.79999999999995" y="-644.33497536945811"/>
         </scene>
+        <!--Location Search Table-->
+        <scene sceneID="KRD-KR-ZhX">
+            <objects>
+                <tableViewController storyboardIdentifier="LocationSearchTable" id="0Kd-U0-8RB" customClass="LocationSearchTable" customModule="CarpoolApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="KDp-uO-9QB">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" textLabel="ikO-QV-gYE" detailTextLabel="ejC-58-49Q" style="IBUITableViewCellStyleSubtitle" id="7Pe-Ds-Y0J">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="7Pe-Ds-Y0J" id="Mm6-8k-Sfi">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.666666666666664"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ikO-QV-gYE">
+                                            <rect key="frame" x="16.000000000000004" y="5" width="33.333333333333336" height="20.333333333333332"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ejC-58-49Q">
+                                            <rect key="frame" x="15.999999999999996" y="25.333333333333332" width="43.666666666666664" height="14.333333333333334"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="0Kd-U0-8RB" id="wBW-ZD-EhA"/>
+                            <outlet property="delegate" destination="0Kd-U0-8RB" id="XfQ-JX-IuB"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vii-7s-kpY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1234" y="-644"/>
+        </scene>
         <!--Login View Controller-->
         <scene sceneID="cUS-ZJ-Kef">
             <objects>
@@ -784,7 +828,7 @@
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                 <state key="normal" title="Map" image="Image"/>
                                 <connections>
-                                    <segue destination="R6r-bC-zJp" kind="show" id="0qJ-Dc-Fet"/>
+                                    <segue destination="oQZ-sz-3Yh" kind="show" id="0qJ-Dc-Fet"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -841,7 +885,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="N8h-oI-A57">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                                <rect key="frame" x="0.0" y="44" width="375" height="768"/>
                                 <connections>
                                     <outlet property="delegate" destination="R6r-bC-zJp" id="3xB-eD-wl6"/>
                                 </connections>
@@ -858,7 +902,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="suy-Wi-Lpv" userLabel="directionbutton">
-                                <rect key="frame" x="290" y="52" width="40" height="40"/>
+                                <rect key="frame" x="290" y="96" width="40" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="Hs9-U7-r7g"/>
                                     <constraint firstAttribute="width" constant="40" id="Ubt-gM-ZPi"/>
@@ -872,7 +916,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J4m-Ik-q5P" customClass="RoundedButton" customModule="CarpoolApp" customModuleProvider="target">
-                                <rect key="frame" x="40" y="52" width="104" height="40"/>
+                                <rect key="frame" x="40" y="96" width="104" height="40"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="Eq6-lb-TpA"/>
@@ -911,6 +955,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ly9-9m-dFR"/>
                     </view>
+                    <navigationItem key="navigationItem" id="3pr-9f-19b"/>
                     <connections>
                         <outlet property="mapView" destination="N8h-oI-A57" id="MaW-9l-4FR"/>
                         <outlet property="paymentButton" destination="hNw-r2-tEt" id="CTP-Ko-rFa"/>
@@ -919,7 +964,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tLp-Ur-Gzh" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="Cfv-bp-pUi" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1127.2" y="124.8768472906404"/>
+            <point key="canvasLocation" x="1469.5999999999999" y="124.8768472906404"/>
         </scene>
         <!--Logout View Controller-->
         <scene sceneID="Jy9-BN-ySP">
@@ -933,7 +978,7 @@
                                 <rect key="frame" x="67" y="294" width="240" height="225"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Thank you for using the Carpool App!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0SL-9C-em8">
-                                <rect key="frame" x="67" y="142" width="240" height="101"/>
+                                <rect key="frame" x="67" y="186" width="240" height="57"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="26"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -969,7 +1014,25 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KhB-ZK-sMy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2008.8" y="126.35467980295567"/>
+            <point key="canvasLocation" x="2351.1999999999998" y="126.35467980295567"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="0tU-q8-Ws1">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="oQZ-sz-3Yh" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="6h3-2T-hBh">
+                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="R6r-bC-zJp" kind="relationship" relationship="rootViewController" id="VF8-hQ-nQW"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CkZ-wc-gdx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2500" y="-644"/>
         </scene>
     </scenes>
     <resources>
