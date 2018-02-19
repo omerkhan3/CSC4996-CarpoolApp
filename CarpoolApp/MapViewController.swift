@@ -154,7 +154,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         //Mapviewcontroller passes a handle of itself to locationsearchtable which is in locationsearchtable
         locationSearchTable.handleMapSearchDelegate = self
         
-        
         //first sample locaiton
         let samplelocation = otherlocations(title: "sample location",
             locationName: "sample description",
