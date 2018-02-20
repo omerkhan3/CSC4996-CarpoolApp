@@ -21,14 +21,15 @@ class FreqDestinations: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        
+        //Table view will be hidden when getting onto the freq. destinations screen
+        searchTable.isHidden = true
         searchCompleter.delegate = self
     }
 }
     extension FreqDestinations: UISearchBarDelegate {
             func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-            
+            //When text is being inputted into search bar, table view will not be hidden
+            searchTable.isHidden = false
             searchCompleter.queryFragment = searchText
         }
     }
@@ -42,6 +43,8 @@ class FreqDestinations: UIViewController {
         
         func completer(_ completer: MKLocalSearchCompleter, didFailWithError error: Error) {
             // handle error
+            //When text is deleted in search bar, table view will be hidden
+            searchTable.isHidden = true
         }
     }
     
