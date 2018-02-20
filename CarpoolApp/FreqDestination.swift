@@ -14,15 +14,27 @@ class FreqDestinations: UIViewController {
     var searchCompleter = MKLocalSearchCompleter()
     var searchResults = [MKLocalSearchCompletion]()
     
-    //@IBOutlet weak var homeInput: UISearchBar!
-    //@IBOutlet weak var schoolInput: UISearchBar!
-    //@IBOutlet weak var workInput: UISearchBar!
     @IBOutlet weak var searchTable: UITableView!
+    @IBOutlet weak var searchTable2: UITableView!
+    @IBOutlet weak var searchTable3: UITableView!
+    @IBOutlet weak var searchTable4: UITableView!
+    @IBOutlet weak var otherInput: UITextField!
+    @IBOutlet weak var otherSearchBar: UISearchBar!
+    @IBAction func addInput(_ sender: UIButton) {
+        otherInput.isHidden = false
+        otherSearchBar.isHidden = false
+        sender.isHidden = true
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         //Table view will be hidden when getting onto the freq. destinations screen
         searchTable.isHidden = true
+        searchTable2.isHidden = true
+        searchTable3.isHidden = true
+        searchTable4.isHidden = true
+        otherInput.isHidden = true
+        otherSearchBar.isHidden = true
         searchCompleter.delegate = self
     }
 }
@@ -30,6 +42,9 @@ class FreqDestinations: UIViewController {
             func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
             //When text is being inputted into search bar, table view will not be hidden
             searchTable.isHidden = false
+            searchTable2.isHidden = false
+            searchTable3.isHidden = false
+            searchTable4.isHidden = false
             searchCompleter.queryFragment = searchText
         }
     }
@@ -39,12 +54,18 @@ class FreqDestinations: UIViewController {
         func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
             searchResults = completer.results
             searchTable.reloadData()
+            searchTable2.reloadData()
+            searchTable3.reloadData()
+            searchTable4.reloadData()
         }
         
         func completer(_ completer: MKLocalSearchCompleter, didFailWithError error: Error) {
             // handle error
             //When text is deleted in search bar, table view will be hidden
             searchTable.isHidden = true
+            searchTable2.isHidden = true
+            searchTable3.isHidden = true
+            searchTable4.isHidden = true
         }
     }
     
