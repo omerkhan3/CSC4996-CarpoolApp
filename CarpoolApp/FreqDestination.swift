@@ -117,21 +117,25 @@ class FreqDestinations: UIViewController {
         func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
             tableView.deselectRow(at: indexPath, animated: true)
             
-            //Needs code below that selects the selected option from table view and puts it in the search bar area(1-4)
+            //Needs fixing to not have it output mklocalsearch blah blah blah before address in search bar
             if tableView == searchTable {
-                
+                let searchResult = searchResults[indexPath.row]
+                HomeSearchBar.text = searchResult.description
                 searchTable.isHidden = true
             }
             if tableView == searchTable2 {
-                
+                let searchResult = searchResults[indexPath.row]
+                WorkSearchBar.text = searchResult.description
                 searchTable2.isHidden = true
             }
             if tableView == searchTable3 {
-                
+                let searchResult = searchResults[indexPath.row]
+                SchoolSearchBar.text = searchResult.description
                 searchTable3.isHidden = true
             }
             if tableView == searchTable4 {
-                
+                let searchResult = searchResults[indexPath.row]
+                otherSearchBar.text = searchResult.description
                 searchTable4.isHidden = true
             }
         }
