@@ -20,6 +20,10 @@ class FreqDestinations: UIViewController {
     @IBOutlet weak var searchTable4: UITableView!
     @IBOutlet weak var otherInput: UITextField!
     @IBOutlet weak var otherSearchBar: UISearchBar!
+    @IBOutlet weak var HomeSearchBar: UISearchBar!
+    @IBOutlet weak var WorkSearchBar: UISearchBar!
+    @IBOutlet weak var SchoolSearchBar: UISearchBar!
+    
     @IBAction func addInput(_ sender: UIButton) {
         otherInput.isHidden = false
         otherSearchBar.isHidden = false
@@ -40,11 +44,31 @@ class FreqDestinations: UIViewController {
 }
     extension FreqDestinations: UISearchBarDelegate {
             func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-            //When text is being inputted into search bar, table view will not be hidden
-            searchTable.isHidden = false
-            searchTable2.isHidden = false
-            searchTable3.isHidden = false
-            searchTable4.isHidden = false
+            //When text is being inputted into search bar, table view will not be hidden depending on which search bar is clicked on
+                if searchBar == HomeSearchBar {
+                    searchTable.isHidden = false
+                    searchTable2.isHidden = true
+                    searchTable3.isHidden = true
+                    searchTable4.isHidden = true
+                }
+                if searchBar == WorkSearchBar {
+                    searchTable.isHidden = true
+                    searchTable2.isHidden = false
+                    searchTable3.isHidden = true
+                    searchTable4.isHidden = true
+                }
+                if searchBar == SchoolSearchBar {
+                    searchTable.isHidden = true
+                    searchTable2.isHidden = true
+                    searchTable3.isHidden = false
+                    searchTable4.isHidden = true
+                }
+                if searchBar == otherSearchBar {
+                    searchTable.isHidden = true
+                    searchTable2.isHidden = true
+                    searchTable3.isHidden = true
+                    searchTable4.isHidden = false
+                }
             searchCompleter.queryFragment = searchText
         }
     }
@@ -92,14 +116,23 @@ class FreqDestinations: UIViewController {
         
         func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
             tableView.deselectRow(at: indexPath, animated: true)
-            dismiss(animated: true, completion: nil)
-            let completion = searchResults[indexPath.row]
             
-            let searchRequest = MKLocalSearchRequest(completion: completion)
-            let search = MKLocalSearch(request: searchRequest)
-            search.start { (response, error) in
-                let coordinate = response?.mapItems[0].placemark.coordinate
-                print(String(describing: coordinate))
+            //Needs code below that selects the selected option from table view and puts it in the search bar area(1-4)
+            if tableView == searchTable {
+                
+                searchTable.isHidden = true
+            }
+            if tableView == searchTable2 {
+                
+                searchTable2.isHidden = true
+            }
+            if tableView == searchTable3 {
+                
+                searchTable3.isHidden = true
+            }
+            if tableView == searchTable4 {
+                
+                searchTable4.isHidden = true
             }
         }
     }
