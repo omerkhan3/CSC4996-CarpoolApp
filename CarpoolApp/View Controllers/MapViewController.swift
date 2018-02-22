@@ -16,7 +16,15 @@ import FirebaseAuth
 import Braintree
 import BraintreeDropIn
 
+//MOE
+protocol MapSearch {
+    func dropPinZoomIn(placemark:MKPlacemark)
+}
+
 class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
+    
+    var resultSearchController: UISearchController? = nil
+    var selectedPin: MKPlacemark? = nil
     
     // Class variables
     let locationManager = CLLocationManager()
@@ -124,6 +132,32 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //MOES
+        //Setting up the table we made for result search
+        let locationSearchTable = storyboard!.instantiateViewController(withIdentifier: "LocationSearchTable") as! LocationSearchTable
+        resultSearchController = UISearchController(searchResultsController: locationSearchTable)
+        resultSearchController?.searchResultsUpdater = locationSearchTable
+        
+        //Creates the search bar and includes it in the navigation bar
+        let searchBar = resultSearchController!.searchBar
+        searchBar.sizeToFit()
+        searchBar.placeholder = "Search for places"
+        navigationItem.titleView = resultSearchController?.searchBar
+        
+        //Nav bar disappears when results are shown, semi-transparent background when clicking on search bar, and the last is for limiting the area to not cover up the search bar
+        resultSearchController?.hidesNavigationBarDuringPresentation = false
+        resultSearchController?.dimsBackgroundDuringPresentation = true
+        definesPresentationContext = true
+        
+        //Passes a handle of the mapview from the map view controller to the locationsearchtable
+        locationSearchTable.mapView = mapView
+        
+        //Mapviewcontroller passes a handle of itself to locationsearchtable which is in locationsearchtable
+        locationSearchTable.handleMapSearchDelegate = self
+        
+        
+        
         //first sample locaiton
         let samplelocation = otherlocations(title: "sample location",
             locationName: "sample description",
@@ -214,5 +248,26 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
                 print ("Success!")
             }
             }.resume()
+    }
+}
+//Uses the protocol we created mapsearch, clears map of any other annotations on it, and mkpointannotation has the coordinate, subtitle(city, state), and title of the place(ex. H&M)
+extension MapViewController: MapSearch {
+    func dropPinZoomIn(placemark:MKPlacemark) {
+        selectedPin = placemark
+        // clear existing pins
+        mapView.removeAnnotations(mapView.annotations)
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = placemark.coordinate
+        annotation.title = placemark.name
+        if let city = placemark.locality,
+            let state = placemark.administrativeArea {
+            annotation.subtitle = "(city) (state)"
+        }
+        //Add the annotation stated above(city, state)
+        mapView.addAnnotation(annotation)
+        let span = MKCoordinateSpanMake(0.05, 0.05)
+        //Will zoom in the map to the coordinate of the place chosen
+        let region = MKCoordinateRegionMake(placemark.coordinate, span)
+        mapView.setRegion(region, animated: true)
     }
 }

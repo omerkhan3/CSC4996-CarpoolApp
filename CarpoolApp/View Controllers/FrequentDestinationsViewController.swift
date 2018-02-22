@@ -20,19 +20,23 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDataSour
     @IBOutlet weak var arrivalButton: UIButton!
     @IBOutlet weak var departureButton: UIButton!
     @IBOutlet weak var placeButton: UIButton!
+    @IBOutlet weak var placePicker: UIPickerView!
     
-    let pickerData = ["work, school, gym"]
+    let pickerData = ["work", "school", "gym"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         pickerView.isHidden = true
-      // pickerView.delegate = self
-        //pickerView.dataSource = self
+       // pickerView.delegate = self
+       // pickerView.dataSource = self
+        placePicker.isHidden = true
+        placePicker.delegate = self
+        placePicker.dataSource = self
     }
 
     @IBAction func placePress(_ sender: UIButton) {
-        if pickerView.isHidden{
-            pickerView.isHidden = false
+        if placePicker.isHidden{
+            placePicker.isHidden = false
         }    }
     @IBAction func arrivalPress(_ sender: UIButton) {
         
@@ -50,7 +54,7 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDataSour
     }
    //  returns the number of 'columns' to display.
     
-    public func numberOfComponents(in pickerView: UIPickerView) -> Int {
+    public func numberOfComponents(in placePicker: UIPickerView) -> Int {
         return 1
 
     }
@@ -66,7 +70,8 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDataSour
 
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
              placeButton.setTitle(pickerData[row], for: .normal)
-            pickerView.isHidden = true
+            placePicker.isHidden = true
+        
     }
     
     
