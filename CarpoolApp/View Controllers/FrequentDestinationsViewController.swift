@@ -9,22 +9,60 @@
 import UIKit
 
 
-class FrequentDestinationsViewController: UIViewController {
+class FrequentDestinationsViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate   {
 
+   
+    @IBOutlet weak var pickerView: UIPickerView!
+    @IBOutlet weak var arrivalButton: UIButton!
+    @IBOutlet weak var departureButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-     
-      //  let checkbox = M13Checkbox(frame: CGRect(x: 0.0, y: 0.0, width: 40.0, height: 40.0))
-     //   view.addSubview(checkbox)
-        // Do any additional setup after loading the view.
+        pickerView.isHidden = true
+       
     }
 
+    @IBAction func arrivalPress(_ sender: UIButton) {
+        
+        if pickerView.isHidden{
+            pickerView.isHidden = false
+        }
+    }
+    
+    @IBAction func departurePress(_ sender: UIButton) {
+        
+        if pickerView.isHidden{
+            pickerView.isHidden = false
+        }
+        
+    }
+    // returns the number of 'columns' to display.
+    
+    public func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+        
+    }
+    // returns the # of rows in each component..
+    
+    public func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        
+    }
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-
+    
     /*
     // MARK: - Navigation
 
