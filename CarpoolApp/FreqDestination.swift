@@ -11,9 +11,11 @@ import MapKit
 
 class FreqDestinations: UIViewController {
     
+    //Used for search results being shown in table view and for table view to autocomplete address results
     var searchCompleter = MKLocalSearchCompleter()
     var searchResults = [MKLocalSearchCompletion]()
     
+    //Linking each table view and search bar
     @IBOutlet weak var searchTable: UITableView!
     @IBOutlet weak var searchTable2: UITableView!
     @IBOutlet weak var searchTable3: UITableView!
@@ -32,6 +34,7 @@ class FreqDestinations: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         //Table view will be hidden when getting onto the freq. destinations screen
         searchTable.isHidden = true
         searchTable2.isHidden = true
@@ -40,11 +43,18 @@ class FreqDestinations: UIViewController {
         otherInput.isHidden = true
         otherSearchBar.isHidden = true
         searchCompleter.delegate = self
+        //Placeholder text for each search bar
+        HomeSearchBar.placeholder = "Search for Places"
+        WorkSearchBar.placeholder = "Search for Places"
+        SchoolSearchBar.placeholder = "Search for Places"
+        otherSearchBar.placeholder = "Search for Places"
     }
 }
     extension FreqDestinations: UISearchBarDelegate {
+        
             func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-            //When text is being inputted into search bar, table view will not be hidden depending on which search bar is clicked on
+            
+                //When text is being inputted into search bar, table view will not be hidden depending on which search bar is clicked on
                 if searchBar == HomeSearchBar {
                     searchTable.isHidden = false
                     searchTable2.isHidden = true
@@ -69,6 +79,7 @@ class FreqDestinations: UIViewController {
                     searchTable3.isHidden = true
                     searchTable4.isHidden = false
                 }
+                
             searchCompleter.queryFragment = searchText
         }
     }
@@ -84,7 +95,6 @@ class FreqDestinations: UIViewController {
         }
         
         func completer(_ completer: MKLocalSearchCompleter, didFailWithError error: Error) {
-            // handle error
             //When text is deleted in search bar, table view will be hidden
             searchTable.isHidden = true
             searchTable2.isHidden = true
@@ -117,26 +127,35 @@ class FreqDestinations: UIViewController {
         func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
             tableView.deselectRow(at: indexPath, animated: true)
             
-            //Needs fixing to not have it output mklocalsearch blah blah blah before address in search bar
+            //If statements for selecting an address from table view and it showing up in search bar field as well as the table view disappearing after selection
             if tableView == searchTable {
                 let searchResult = searchResults[indexPath.row]
-                HomeSearchBar.text = searchResult.description
+                HomeSearchBar.text = searchResult.subtitle
                 searchTable.isHidden = true
             }
             if tableView == searchTable2 {
                 let searchResult = searchResults[indexPath.row]
-                WorkSearchBar.text = searchResult.description
+                WorkSearchBar.text = searchResult.subtitle
                 searchTable2.isHidden = true
             }
             if tableView == searchTable3 {
                 let searchResult = searchResults[indexPath.row]
-                SchoolSearchBar.text = searchResult.description
+                SchoolSearchBar.text = searchResult.subtitle
                 searchTable3.isHidden = true
             }
             if tableView == searchTable4 {
                 let searchResult = searchResults[indexPath.row]
-                otherSearchBar.text = searchResult.description
+                otherSearchBar.text = searchResult.subtitle
                 searchTable4.isHidden = true
+            }
+            
+            //Outputs latitude and longtitude of selected place
+            let completion = searchResults[indexPath.row]
+            let searchRequest = MKLocalSearchRequest(completion: completion)
+            let search = MKLocalSearch(request: searchRequest)
+            search.start { (response, error) in
+                let coordinate = response?.mapItems[0].placemark.coordinate
+                print(String(describing: coordinate))
             }
         }
     }

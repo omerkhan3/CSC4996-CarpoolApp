@@ -709,14 +709,6 @@
                                                     <segue destination="cbc-3P-pF8" kind="presentation" id="Z2h-3S-Lqv"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wER-C8-ear">
-                                                <rect key="frame" x="245" y="225" width="46" height="30"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <state key="normal" title="Button"/>
-                                                <connections>
-                                                    <segue destination="zsC-v0-opa" kind="show" id="IT8-LZ-fsK"/>
-                                                </connections>
-                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
@@ -888,6 +880,14 @@
                                 <state key="normal" title="Map" image="Image"/>
                                 <connections>
                                     <segue destination="oQZ-sz-3Yh" kind="show" id="0qJ-Dc-Fet"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xMZ-lk-66v">
+                                <rect key="frame" x="110" y="558" width="151" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Frequent Destinations"/>
+                                <connections>
+                                    <segue destination="zsC-v0-opa" kind="show" id="Pr6-dW-SoF"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -1103,7 +1103,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="P6H-22-ef1"/>
-        <segue reference="rpR-hM-Ar1"/>
+        <segue reference="Z2h-3S-Lqv"/>
         <segue reference="cOY-IK-lfO"/>
     </inferredMetricsTieBreakers>
 </document>
