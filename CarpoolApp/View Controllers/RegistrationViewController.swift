@@ -18,6 +18,7 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var emailField: UITextField! // email text field.
     @IBOutlet weak var passwordField: UITextField! // password text field.
     @IBOutlet weak var confirmPasswordField: UITextField! // confirm password text field.
+ 
     
     let dist = -140 // distance to adjust for keyboard
     

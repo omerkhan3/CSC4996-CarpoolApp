@@ -11,17 +11,29 @@ import UIKit
 
 class FrequentDestinationsViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate   {
 
-   
+   // var pickertime : timeval
+   // var arrivaltime : timeval
+   // var departuretime : timeval
+    
+    
     @IBOutlet weak var pickerView: UIPickerView!
     @IBOutlet weak var arrivalButton: UIButton!
     @IBOutlet weak var departureButton: UIButton!
+    @IBOutlet weak var placeButton: UIButton!
+    
+    let pickerData = ["work, school, gym"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         pickerView.isHidden = true
-       
+      // pickerView.delegate = self
+        //pickerView.dataSource = self
     }
 
+    @IBAction func placePress(_ sender: UIButton) {
+        if pickerView.isHidden{
+            pickerView.isHidden = false
+        }    }
     @IBAction func arrivalPress(_ sender: UIButton) {
         
         if pickerView.isHidden{
@@ -36,24 +48,25 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDataSour
         }
         
     }
-    // returns the number of 'columns' to display.
+   //  returns the number of 'columns' to display.
     
     public func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
-        
+
     }
     // returns the # of rows in each component..
-    
+
     public func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        
+        return pickerData.count
     }
-    
+
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        
+        return pickerData[row]
     }
-    
+
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        
+             placeButton.setTitle(pickerData[row], for: .normal)
+            pickerView.isHidden = true
     }
     
     
