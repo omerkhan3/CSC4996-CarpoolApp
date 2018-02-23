@@ -71,6 +71,7 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDataSour
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
              placeButton.setTitle(pickerData[row], for: .normal)
             placePicker.isHidden = true
+            
         
     }
     
