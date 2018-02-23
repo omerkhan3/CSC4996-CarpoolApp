@@ -6,7 +6,7 @@ var bodyParser = require('body-parser');
 var firebase = require('firebase');
 var admin = require('firebase-admin');
 var index = require('./routes/index');
-var users = require('./routes/users');
+
 
 var serviceAccount = require('./csc4996-carpoolapp-firebase-adminsdk-fsifh-456e34f4e0.json');
 
@@ -15,10 +15,8 @@ admin.initializeApp({
  credential: admin.credential.cert(serviceAccount),
  databaseURL: 'https://csc4996-carpoolapp.firebaseio.com'
 });
-
-var checkout = require('./routes/checkout');
-var registerUser = require('./routes/registerUser');
-var viewProfile = require('./routes/viewProfile');
+var users = require('./routes/users');
+var payment = require('./routes/payment');
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
@@ -31,9 +29,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/users', users);
-app.use('/checkout', checkout);  // using the checkout route we are using to handle nonce.
-app.use('/registerUser', registerUser);
-app.use('/viewProfile', viewProfile);
+app.use('/payment', payment);  // using the checkout route we are using to handle nonce.
+//app.use('/registerUser', registerUser);
+//app.use('/viewProfile', viewProfile);
 
 
 // catch 404 and forward to error handler

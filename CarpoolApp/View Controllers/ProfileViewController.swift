@@ -12,65 +12,50 @@ import FirebaseAuth
 import FirebaseDatabase
 
 class ProfileViewController: UIViewController {
-    
-    var ref: DatabaseReference! // Creates database reference
-    var refHandle: UInt! // Create reference handle
-
     @IBOutlet weak var UserFirstName: UILabel!
     @IBOutlet weak var UserLastName: UILabel!
     @IBOutlet weak var UserEmail: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Reference database data
-        ref = Database.database().reference()
-        
-        // Reference user data
-            let userID = Auth.auth().currentUser?.uid
-            ref = Database.database().reference().child("Users")
-                // Create reference to child node
-        
+        let userID = Auth.auth().currentUser?.uid
         readProfileInfo(userID: userID!)
-            ref.child(userID!).observeSingleEvent(of: .value, with: { (snapshot) in
-                // Get user value
-                let value = snapshot.value as? NSDictionary
-                let userEmail = value?["email"] as? String ?? ""
-                let firstName = value?["firstName"] as? String ?? ""
-                let lastName = value?["lastName"] as? String ?? ""
-                self.UserFirstName.text = firstName
-                self.UserLastName.text = lastName
-                self.UserEmail.text = userEmail
-                print("UserID: ")
-                print(userID!)
-                print("Email: ")
-                print(userEmail)
-                print("firstNAme: ")
-                print(firstName)
-                print("lastName: ")
-                print(lastName)
-            }) { (error) in
-                print(error.localizedDescription)
-            }
     }
 
     func readProfileInfo(userID: String)
     {
-        var viewProfileComponents = URLComponents(string: "http://localhost:3000/viewProfile/")!
+        var viewProfileComponents = URLComponents(string: "http://localhost:3000/users/profile")!
         viewProfileComponents.queryItems = [
             URLQueryItem(name: "userID", value: userID)
         ]
-        var request = URLRequest(url: viewProfileComponents.url!)
+        var request = URLRequest(url: viewProfileComponents.url!)  // Pass Parameter in URL
         print (viewProfileComponents.url!)
 
-        request.httpMethod = "GET" // POST method.
+        request.httpMethod = "GET" // GET METHOD
         
         URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
             if (error != nil){  // error handling responses.
-                print ("An error has occured.")
+                print (error as Any)
             }
-            else{
-                print ("Success!")
+            else if let data = data {
+             let userInfoString:NSString = NSString(data: data, encoding: String.Encoding.utf8.rawValue)!
+                if let data = userInfoString.data(using: String.Encoding.utf8.rawValue) {
+                    
+                    do {
+                        let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String:AnyObject]
+                        if let userInfo = json
+                        {
+                            DispatchQueue.main.async {
+                                self.UserFirstName.text =  (userInfo["firstName"] as! String)
+                                self.UserLastName.text = (userInfo["lastName"] as! String)
+                                self.UserEmail.text = (userInfo["email"] as! String)
+                            }
+                        }
+                    } catch let error as NSError {
+                        print(error)
+                    }
+                    
+                }
             }
             
             }.resume()
