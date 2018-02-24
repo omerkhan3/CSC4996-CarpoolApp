@@ -60,7 +60,7 @@
 		C9896715203A1AAA00521450 /* BEMCheckBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BEMCheckBox.m; sourceTree = "<group>"; };
 		C9896716203A1AAA00521450 /* BEMPathManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BEMPathManager.h; sourceTree = "<group>"; };
 		C9896717203A1AAA00521450 /* BEMCheckBoxGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BEMCheckBoxGroup.h; sourceTree = "<group>"; };
-		C98BB09F202A58A8006B054C /* otherlocations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = otherlocations.swift; sourceTree = "<group>"; };
+		C98BB09F202A58A8006B054C /* otherlocations.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; path = otherlocations.swift; sourceTree = "<group>"; };
 		C995C78D201D5DD400B8CB3E /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		C995C78F201D615D00B8CB3E /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		C9A7D7EC2032D6830014861D /* UIViewX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewX.swift; sourceTree = "<group>"; };
@@ -114,6 +114,7 @@
 				C98966FC203A183500521450 /* View Controllers */,
 				C968E52120366ACF00B137B8 /* Design */,
 				20F47A0320277D4800D79394 /* GoogleService-Info.plist */,
+				C989670F203A1AAA00521450 /* Classes */,
 				D16EC1512023AD8800D56CF2 /* DataService.swift */,
 				78241397201D0F3A00F06D99 /* AppDelegate.swift */,
 				7824139E201D0F3A00F06D99 /* Assets.xcassets */,
@@ -127,14 +128,12 @@
 		C968E52120366ACF00B137B8 /* Design */ = {
 			isa = PBXGroup;
 			children = (
-				C989670F203A1AAA00521450 /* Classes */,
 				C968E51F203669E400B137B8 /* RoundedButton.swift */,
 				C98BB09F202A58A8006B054C /* otherlocations.swift */,
 				C9D8928E2033629B005EC683 /* UITextFieldX.swift */,
 				C9A7D7EC2032D6830014861D /* UIViewX.swift */,
 			);
-			name = Design;
-			path = "New Group";
+			path = Design;
 			sourceTree = "<group>";
 		};
 		C98966FC203A183500521450 /* View Controllers */ = {

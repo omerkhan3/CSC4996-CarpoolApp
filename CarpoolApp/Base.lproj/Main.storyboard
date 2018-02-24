@@ -839,7 +839,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="N8h-oI-A57">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="N8h-oI-A57">
                                 <rect key="frame" x="0.0" y="44" width="375" height="768"/>
                                 <connections>
                                     <outlet property="delegate" destination="R6r-bC-zJp" id="3xB-eD-wl6"/>
@@ -857,7 +857,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="suy-Wi-Lpv" userLabel="directionbutton">
-                                <rect key="frame" x="290" y="52" width="40" height="40"/>
+                                <rect key="frame" x="290" y="96" width="40" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="Hs9-U7-r7g"/>
                                     <constraint firstAttribute="width" constant="40" id="Ubt-gM-ZPi"/>
@@ -871,7 +871,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J4m-Ik-q5P" customClass="RoundedButton" customModule="CarpoolApp" customModuleProvider="target">
-                                <rect key="frame" x="40" y="52" width="104" height="40"/>
+                                <rect key="frame" x="40" y="96" width="104" height="40"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="Eq6-lb-TpA"/>
@@ -933,7 +933,7 @@
                                 <rect key="frame" x="67" y="294" width="240" height="225"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Thank you for using the Carpool App!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0SL-9C-em8">
-                                <rect key="frame" x="67" y="142" width="240" height="101"/>
+                                <rect key="frame" x="67" y="186" width="240" height="57"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="26"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -1515,7 +1515,6 @@
         <image name="user" width="20" height="20"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="0qJ-Dc-Fet"/>
         <segue reference="iBo-OI-WKP"/>
         <segue reference="Z2h-3S-Lqv"/>
         <segue reference="cOY-IK-lfO"/>
