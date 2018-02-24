@@ -17,6 +17,7 @@ admin.initializeApp({
 });
 var users = require('./routes/users');
 var payment = require('./routes/payment');
+var pgtest = require('./routes/pgtest');
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
@@ -29,7 +30,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/users', users);
-app.use('/payment', payment);  // using the checkout route we are using to handle nonce.
+app.use('/payment', payment);
+app.use('/pgtest', pgtest);
+// using the checkout route we are using to handle nonce.
 //app.use('/registerUser', registerUser);
 //app.use('/viewProfile', viewProfile);
 

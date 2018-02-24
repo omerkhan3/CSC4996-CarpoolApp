@@ -6,16 +6,21 @@ var bodyParser = require('body-parser');
 var firebase = require('firebase');
 var admin = require('firebase-admin');
 var router = express.Router();
-
+var pg = require('pg');
 var db = admin.database();
 var usersRef = db.ref('/Users');
+
+var conString = "postgres://postgres:carpool@localhost:5432/Carpool";
+var client = new pg.Client(conString);
+client.connect();
+
 
 router.post('/register', function(req, res, next) {
  var userInfo = req.body.userInfo;
  var userJSON = JSON.parse(userInfo);
  var userID = userJSON['userID'];
 
- usersRef.update({
+/* usersRef.update({
   [userID]: {
     lastName:  userJSON['lastName'],
     firstName: userJSON['firstName'],
@@ -23,6 +28,10 @@ router.post('/register', function(req, res, next) {
     email: userJSON['email']
   }
 });
+/*/
+
+client.query("INSERT INTO \"Carpool\".\"Users\"(\"userID\", \"firstName\", \"lastName\", \"email\") values($1, $2, $3, $4)", [
+  userID, userJSON['firstName'], userJSON['lastName'], userJSON['email']]);
 
   console.log ("User Set.");
 });
