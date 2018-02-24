@@ -19,10 +19,6 @@
 		7824139F201D0F3A00F06D99 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7824139E201D0F3A00F06D99 /* Assets.xcassets */; };
 		C9623A0420393201001E40CD /* FrequentDestinationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9623A0320393201001E40CD /* FrequentDestinationsViewController.swift */; };
 		C968E520203669E400B137B8 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C968E51F203669E400B137B8 /* RoundedButton.swift */; };
-		C9896718203A1AAB00521450 /* BEMAnimationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C9896711203A1AAA00521450 /* BEMAnimationManager.m */; };
-		C9896719203A1AAB00521450 /* BEMPathManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C9896712203A1AAA00521450 /* BEMPathManager.m */; };
-		C989671A203A1AAB00521450 /* BEMCheckBoxGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = C9896713203A1AAA00521450 /* BEMCheckBoxGroup.m */; };
-		C989671B203A1AAB00521450 /* BEMCheckBox.m in Sources */ = {isa = PBXBuildFile; fileRef = C9896715203A1AAA00521450 /* BEMCheckBox.m */; };
 		C98BB0A0202A58A8006B054C /* otherlocations.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98BB09F202A58A8006B054C /* otherlocations.swift */; };
 		C995C78E201D5DD400B8CB3E /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C995C78D201D5DD400B8CB3E /* MapKit.framework */; };
 		C995C790201D615E00B8CB3E /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C995C78F201D615D00B8CB3E /* CoreLocation.framework */; };
@@ -49,17 +45,8 @@
 		7824139E201D0F3A00F06D99 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		782413A3201D0F3A00F06D99 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9320C101773311FB910A13A6 /* Pods_CarpoolApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CarpoolApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		C91041FC20398AE5002350A6 /* CheckMarkHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CheckMarkHeader.h; sourceTree = "<group>"; };
 		C9623A0320393201001E40CD /* FrequentDestinationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrequentDestinationsViewController.swift; sourceTree = "<group>"; };
 		C968E51F203669E400B137B8 /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
-		C9896710203A1AAA00521450 /* BEMCheckBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BEMCheckBox.h; sourceTree = "<group>"; };
-		C9896711203A1AAA00521450 /* BEMAnimationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BEMAnimationManager.m; sourceTree = "<group>"; };
-		C9896712203A1AAA00521450 /* BEMPathManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BEMPathManager.m; sourceTree = "<group>"; };
-		C9896713203A1AAA00521450 /* BEMCheckBoxGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BEMCheckBoxGroup.m; sourceTree = "<group>"; };
-		C9896714203A1AAA00521450 /* BEMAnimationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BEMAnimationManager.h; sourceTree = "<group>"; };
-		C9896715203A1AAA00521450 /* BEMCheckBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BEMCheckBox.m; sourceTree = "<group>"; };
-		C9896716203A1AAA00521450 /* BEMPathManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BEMPathManager.h; sourceTree = "<group>"; };
-		C9896717203A1AAA00521450 /* BEMCheckBoxGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BEMCheckBoxGroup.h; sourceTree = "<group>"; };
 		C98BB09F202A58A8006B054C /* otherlocations.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; path = otherlocations.swift; sourceTree = "<group>"; };
 		C995C78D201D5DD400B8CB3E /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		C995C78F201D615D00B8CB3E /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -92,7 +79,6 @@
 		7824138B201D0F3A00F06D99 = {
 			isa = PBXGroup;
 			children = (
-				C91041FC20398AE5002350A6 /* CheckMarkHeader.h */,
 				78241396201D0F3A00F06D99 /* CarpoolApp */,
 				78241395201D0F3A00F06D99 /* Products */,
 				DD7D054E6C73D03C1FE59E38 /* Pods */,
@@ -114,7 +100,6 @@
 				C98966FC203A183500521450 /* View Controllers */,
 				C968E52120366ACF00B137B8 /* Design */,
 				20F47A0320277D4800D79394 /* GoogleService-Info.plist */,
-				C989670F203A1AAA00521450 /* Classes */,
 				D16EC1512023AD8800D56CF2 /* DataService.swift */,
 				78241397201D0F3A00F06D99 /* AppDelegate.swift */,
 				7824139E201D0F3A00F06D99 /* Assets.xcassets */,
@@ -151,21 +136,6 @@
 				C9623A0320393201001E40CD /* FrequentDestinationsViewController.swift */,
 			);
 			path = "View Controllers";
-			sourceTree = "<group>";
-		};
-		C989670F203A1AAA00521450 /* Classes */ = {
-			isa = PBXGroup;
-			children = (
-				C9896710203A1AAA00521450 /* BEMCheckBox.h */,
-				C9896711203A1AAA00521450 /* BEMAnimationManager.m */,
-				C9896712203A1AAA00521450 /* BEMPathManager.m */,
-				C9896713203A1AAA00521450 /* BEMCheckBoxGroup.m */,
-				C9896714203A1AAA00521450 /* BEMAnimationManager.h */,
-				C9896715203A1AAA00521450 /* BEMCheckBox.m */,
-				C9896716203A1AAA00521450 /* BEMPathManager.h */,
-				C9896717203A1AAA00521450 /* BEMCheckBoxGroup.h */,
-			);
-			path = Classes;
 			sourceTree = "<group>";
 		};
 		DD7D054E6C73D03C1FE59E38 /* Pods */ = {
@@ -304,7 +274,6 @@
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GeoFire/GeoFire.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
-				"${BUILT_PRODUCTS_DIR}/M13Checkbox/M13Checkbox.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
@@ -315,7 +284,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GeoFire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/M13Checkbox.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
@@ -334,19 +302,15 @@
 				C9D8928F2033629B005EC683 /* UITextFieldX.swift in Sources */,
 				D10EFE9C2022983600C962E1 /* LoginViewController.swift in Sources */,
 				205A4B43202569DC005AE87C /* LaunchViewController.swift in Sources */,
-				C989671B203A1AAB00521450 /* BEMCheckBox.m in Sources */,
 				C9A7D7ED2032D6830014861D /* UIViewX.swift in Sources */,
 				D10EFE9A2022979700C962E1 /* RegistrationViewController.swift in Sources */,
 				78241398201D0F3A00F06D99 /* AppDelegate.swift in Sources */,
 				2033C2D02026CE5C0081E53A /* ProfileViewController.swift in Sources */,
-				C9896719203A1AAB00521450 /* BEMPathManager.m in Sources */,
 				D10EFE9E20229ACA00C962E1 /* PasswordResetViewController.swift in Sources */,
 				D16EC1522023AD8800D56CF2 /* DataService.swift in Sources */,
 				C9DE0B2B203F5C6100554E9C /* LocationSearchTable.swift in Sources */,
 				C98BB0A0202A58A8006B054C /* otherlocations.swift in Sources */,
 				2018C368202CB38900E28C08 /* LogoutViewController.swift in Sources */,
-				C9896718203A1AAB00521450 /* BEMAnimationManager.m in Sources */,
-				C989671A203A1AAB00521450 /* BEMCheckBoxGroup.m in Sources */,
 				208A2E8B202829E600393D43 /* MapViewController.swift in Sources */,
 				C968E520203669E400B137B8 /* RoundedButton.swift in Sources */,
 				C9623A0420393201001E40CD /* FrequentDestinationsViewController.swift in Sources */,
@@ -429,7 +393,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_OBJC_BRIDGING_HEADER = CheckMarkHeader.h;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -479,7 +443,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
-				SWIFT_OBJC_BRIDGING_HEADER = CheckMarkHeader.h;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VALIDATE_PRODUCT = YES;
 			};
