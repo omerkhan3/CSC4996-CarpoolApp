@@ -77,6 +77,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        emailField.placeholder = "Email"
+        passwordField.placeholder = "Password"
         // Do any additional setup after loading the view.
         profileButton.isHidden = true
         
