@@ -10,9 +10,23 @@ var pg = require('pg');
 var db = admin.database();
 var usersRef = db.ref('/Users');
 
-var conString = "postgres://postgres:carpool@localhost:5432/Carpool";
+var conString = "postgres://carpool:carpool2018@carpool.clawh88zlo74.us-east-2.rds.amazonaws.com:5432/carpool";
 var client = new pg.Client(conString);
-client.connect();
+
+client.connect((err) => {
+  if (err) {
+    console.error('connection error', err.stack);
+  } else {
+    console.log('Connected to DB.');
+  }
+});
+
+
+
+//var query = client.query("select \"Users\".\"firstName\", \"Users\".\"lastName\", \"Users\".\"email\" from carpool.\"Users\" where \"Users\".\"userID\" = 'OWVqu8jLXLSjizorl9FkgfUtoiq2';");
+
+
+
 
 
 router.post('/register', function(req, res, next) {
@@ -30,24 +44,29 @@ router.post('/register', function(req, res, next) {
 });
 /*/
 
-client.query("INSERT INTO \"Carpool\".\"Users\"(\"userID\", \"firstName\", \"lastName\", \"email\") values($1, $2, $3, $4)", [
+client.query("INSERT INTO carpool.\"Users\"(\"userID\", \"firstName\", \"lastName\", \"email\") values($1, $2, $3, $4)", [
   userID, userJSON['firstName'], userJSON['lastName'], userJSON['email']]);
 
   console.log ("User Set.");
 });
 
 
+
 router.get('/profile', function(req, res, next) {
 var userID = req.query.userID;
 console.log(userID);
-var profileRef = db.ref(`/Users/${userID}`);
+//var profileRef = db.ref(`/Users/${userID}`);
 
- profileRef.on('value', function(snapshot) {
+/* profileRef.on('value', function(snapshot) {
    res.send(snapshot.val());
  }, function (errorObject) {
    res.send("The read failed: " + errorObject.code);
  });
+/*/
 
+client.query("select \"Users\".\"firstName\", \"Users\".\"lastName\", \"Users\".\"email\" from carpool.\"Users\" where \"Users\".\"userID\" = 'OWVqu8jLXLSjizorl9FkgfUtoiq2'")
+  .then(result => res.send(result.rows))
+  .catch(e => res.send(e.stack))
 
 
 });
