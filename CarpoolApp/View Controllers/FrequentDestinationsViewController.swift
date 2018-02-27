@@ -8,10 +8,13 @@
 
 import UIKit
 import BEMCheckBox
+import MapKit
 
-class FrequentDestinationsViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, BEMCheckBoxDelegate   {
+class FrequentDestinationsViewController: UIViewController, UIPickerViewDelegate, BEMCheckBoxDelegate, UISearchBarDelegate,MKLocalSearchCompleterDelegate,UITableViewDataSource,UITableViewDelegate   {
 
-
+    var searchCompleter = MKLocalSearchCompleter()
+    var searchResults = [MKLocalSearchCompletion]()
+    
     var options = [String]()
     @IBOutlet weak var pickerView: UIPickerView!
     @IBOutlet weak var arrivalButton: UIButton!
@@ -30,6 +33,10 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDataSour
     
     @IBOutlet weak var departtime: UITextField!
     
+    @IBOutlet weak var HomeSearchBar: UISearchBar!
+    @IBOutlet weak var WorkSearchBar: UISearchBar!
+    @IBOutlet weak var searchTable: UITableView!
+    @IBOutlet weak var searchTable2: UITableView!
 
     let picker = UIDatePicker()
     
@@ -41,9 +48,9 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDataSour
         //pickerView.isHidden = true
        // pickerView.delegate = self
        // pickerView.dataSource = self
-        placePicker.isHidden = true
-        placePicker.delegate = self
-        placePicker.dataSource = self
+       // placePicker.isHidden = true
+       // placePicker.delegate = self
+       // placePicker.dataSource = self
         sunday.delegate = self
         monday.delegate = self
         tuesday.delegate = self
@@ -51,12 +58,83 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDataSour
         thursday.delegate = self
         friday.delegate = self
         saturday.delegate = self
+        
+        searchTable.isHidden = true
+        searchTable2.isHidden = true
+        searchCompleter.delegate = self
+        HomeSearchBar.placeholder = "Search for Places"
+        WorkSearchBar.placeholder = "Search for Places"
        
     }
     
     
+        
+        func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+            
+            //When text is being inputted into search bar, table view will not be hidden depending on which search bar is clicked on
+            if searchBar == HomeSearchBar {
+                searchTable.isHidden = false
+                searchTable2.isHidden = true
+            }
+            if searchBar == WorkSearchBar {
+                searchTable.isHidden = true
+                searchTable2.isHidden = false
+            }
+             searchCompleter.queryFragment = searchText
+            
+        }
+    func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
+        searchResults = completer.results
+        searchTable.reloadData()
+        searchTable2.reloadData()
+    }
+    func completer(_ completer: MKLocalSearchCompleter, didFailWithError error: Error) {
+        //When text is deleted in search bar, table view will be hidden
+        searchTable.isHidden = true
+        searchTable2.isHidden = true
+    }
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
     
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return searchResults.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let searchResult = searchResults[indexPath.row]
+        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: nil)
+        cell.textLabel?.text = searchResult.title
+        cell.detailTextLabel?.text = searchResult.subtitle
+        return cell
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        //If statements for selecting an address from table view and it showing up in search bar field as well as the table view disappearing after selection
+        if tableView == searchTable {
+            let searchResult = searchResults[indexPath.row]
+            HomeSearchBar.text = searchResult.subtitle
+            searchTable.isHidden = true
+        }
+        if tableView == searchTable2 {
+            let searchResult = searchResults[indexPath.row]
+            WorkSearchBar.text = searchResult.subtitle
+            searchTable2.isHidden = true
+        }
+        
+        //Outputs latitude and longtitude of selected place
+        let completion = searchResults[indexPath.row]
+        let searchRequest = MKLocalSearchRequest(completion: completion)
+        let search = MKLocalSearch(request: searchRequest)
+        search.start { (response, error) in
+            let coordinate = response?.mapItems[0].placemark.coordinate
+            print(String(describing: coordinate))
+        }
+    }
+                
     @IBOutlet weak var driverSetting: UISwitch!
+    
     
     
     
@@ -131,35 +209,35 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDataSour
     }
     
     
-    @IBAction func placePress(_ sender: UIButton) {
-        if placePicker.isHidden{
-            placePicker.isHidden = false
-        }    }
-        
-
-    
-   //  returns the number of 'columns' to display.
-    
-    public func numberOfComponents(in placePicker: UIPickerView) -> Int {
-        return 1
-
-    }
-    // returns the # of rows in each component..
-
-    public func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return pickerData.count
-    }
-
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return pickerData[row]
-    }
-
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-             placeButton.setTitle(pickerData[row], for: .normal)
-            placePicker.isHidden = true
-            
-        
-    }
+//    @IBAction func placePress(_ sender: UIButton) {
+//        if placePicker.isHidden{
+//            placePicker.isHidden = false
+//        }    }
+//
+//
+//
+//   //  returns the number of 'columns' to display.
+//
+//    public func numberOfComponents(in placePicker: UIPickerView) -> Int {
+//        return 1
+//
+//    }
+//    // returns the # of rows in each component..
+//
+//    public func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+//        return pickerData.count
+//    }
+//
+//    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+//        return pickerData[row]
+//    }
+//
+//    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+//             placeButton.setTitle(pickerData[row], for: .normal)
+//            placePicker.isHidden = true
+//
+//
+//    }
     
    
     

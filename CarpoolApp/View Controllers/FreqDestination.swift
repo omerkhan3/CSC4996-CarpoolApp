@@ -16,14 +16,12 @@ class FreqDestinations: UIViewController {
     var searchResults = [MKLocalSearchCompletion]()
     
     //Linking each table view and search bar
-    @IBOutlet weak var searchTable: UITableView!
-    @IBOutlet weak var searchTable2: UITableView!
+  
     @IBOutlet weak var searchTable3: UITableView!
     @IBOutlet weak var searchTable4: UITableView!
     @IBOutlet weak var otherInput: UITextField!
     @IBOutlet weak var otherSearchBar: UISearchBar!
-    @IBOutlet weak var HomeSearchBar: UISearchBar!
-    @IBOutlet weak var WorkSearchBar: UISearchBar!
+   
     @IBOutlet weak var SchoolSearchBar: UISearchBar!
     
     @IBAction func addInput(_ sender: UIButton) {
@@ -36,68 +34,32 @@ class FreqDestinations: UIViewController {
         super.viewDidLoad()
         
         //Table view will be hidden when getting onto the freq. destinations screen
-        searchTable.isHidden = true
-        searchTable2.isHidden = true
+    
         searchTable3.isHidden = true
         searchTable4.isHidden = true
         otherInput.isHidden = true
         otherSearchBar.isHidden = true
         searchCompleter.delegate = self
         //Placeholder text for each search bar
-        HomeSearchBar.placeholder = "Search for Places"
-        WorkSearchBar.placeholder = "Search for Places"
+     
         SchoolSearchBar.placeholder = "Search for Places"
         otherSearchBar.placeholder = "Search for Places"
     }
 }
-    extension FreqDestinations: UISearchBarDelegate {
-        
-            func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-            
-                //When text is being inputted into search bar, table view will not be hidden depending on which search bar is clicked on
-                if searchBar == HomeSearchBar {
-                    searchTable.isHidden = false
-                    searchTable2.isHidden = true
-                    searchTable3.isHidden = true
-                    searchTable4.isHidden = true
-                }
-                if searchBar == WorkSearchBar {
-                    searchTable.isHidden = true
-                    searchTable2.isHidden = false
-                    searchTable3.isHidden = true
-                    searchTable4.isHidden = true
-                }
-                if searchBar == SchoolSearchBar {
-                    searchTable.isHidden = true
-                    searchTable2.isHidden = true
-                    searchTable3.isHidden = false
-                    searchTable4.isHidden = true
-                }
-                if searchBar == otherSearchBar {
-                    searchTable.isHidden = true
-                    searchTable2.isHidden = true
-                    searchTable3.isHidden = true
-                    searchTable4.isHidden = false
-                }
-                
-            searchCompleter.queryFragment = searchText
-        }
-    }
+
     
     extension FreqDestinations: MKLocalSearchCompleterDelegate {
         
         func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
             searchResults = completer.results
-            searchTable.reloadData()
-            searchTable2.reloadData()
+     
             searchTable3.reloadData()
             searchTable4.reloadData()
         }
         
         func completer(_ completer: MKLocalSearchCompleter, didFailWithError error: Error) {
             //When text is deleted in search bar, table view will be hidden
-            searchTable.isHidden = true
-            searchTable2.isHidden = true
+        
             searchTable3.isHidden = true
             searchTable4.isHidden = true
         }
@@ -128,16 +90,8 @@ class FreqDestinations: UIViewController {
             tableView.deselectRow(at: indexPath, animated: true)
             
             //If statements for selecting an address from table view and it showing up in search bar field as well as the table view disappearing after selection
-            if tableView == searchTable {
-                let searchResult = searchResults[indexPath.row]
-                HomeSearchBar.text = searchResult.subtitle
-                searchTable.isHidden = true
-            }
-            if tableView == searchTable2 {
-                let searchResult = searchResults[indexPath.row]
-                WorkSearchBar.text = searchResult.subtitle
-                searchTable2.isHidden = true
-            }
+         
+               
             if tableView == searchTable3 {
                 let searchResult = searchResults[indexPath.row]
                 SchoolSearchBar.text = searchResult.subtitle
@@ -159,3 +113,4 @@ class FreqDestinations: UIViewController {
             }
         }
     }
+
