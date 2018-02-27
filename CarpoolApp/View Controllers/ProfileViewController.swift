@@ -27,7 +27,7 @@ class ProfileViewController: UIViewController {
                 self.view.layoutIfNeeded()
                 })
         } else {
-            sideMenuConstraint.constant = -230
+            //sideMenuConstraint.constant = -230
             UIView.animate(withDuration: 0.3, animations: {
                 self.view.layoutIfNeeded()
             })
@@ -42,7 +42,7 @@ class ProfileViewController: UIViewController {
         readProfileInfo(userID: userID!)
         
         // Initialize constant with -230 (hide side menu)
-        sideMenuConstraint.constant = -230
+        //sideMenuConstraint.constant = -230
     }
 
     func readProfileInfo(userID: String)
