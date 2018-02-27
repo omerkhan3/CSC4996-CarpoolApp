@@ -2,16 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
+      "filename" : "font-awesome_4-7-0_user-circle-o_30_30_007dff_none.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "user@2x.png",
+      "filename" : "font-awesome_4-7-0_user-circle-o_60_60_007dff_none.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "user@3x.png",
+      "filename" : "font-awesome_4-7-0_user-circle-o_120_120_007dff_none.png",
       "scale" : "3x"
     }
   ],
