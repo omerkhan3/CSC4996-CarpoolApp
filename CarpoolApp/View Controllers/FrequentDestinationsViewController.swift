@@ -10,7 +10,7 @@ import UIKit
 import BEMCheckBox
 import MapKit
 
-class FrequentDestinationsViewController: UIViewController, UIPickerViewDelegate, BEMCheckBoxDelegate, UISearchBarDelegate,MKLocalSearchCompleterDelegate,UITableViewDataSource,UITableViewDelegate   {
+class FrequentDestinationsViewController: UIViewController, UIPickerViewDelegate, BEMCheckBoxDelegate  {
 
     var searchCompleter = MKLocalSearchCompleter()
     var searchResults = [MKLocalSearchCompletion]()
@@ -65,72 +65,6 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDelegate
         HomeSearchBar.placeholder = "Search for Places"
         WorkSearchBar.placeholder = "Search for Places"
        
-    }
-    
-    
-        
-        func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-            
-            //When text is being inputted into search bar, table view will not be hidden depending on which search bar is clicked on
-            if searchBar == HomeSearchBar {
-                searchTable.isHidden = false
-                searchTable2.isHidden = true
-            }
-            if searchBar == WorkSearchBar {
-                searchTable.isHidden = true
-                searchTable2.isHidden = false
-            }
-             searchCompleter.queryFragment = searchText
-            
-        }
-    func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
-        searchResults = completer.results
-        searchTable.reloadData()
-        searchTable2.reloadData()
-    }
-    func completer(_ completer: MKLocalSearchCompleter, didFailWithError error: Error) {
-        //When text is deleted in search bar, table view will be hidden
-        searchTable.isHidden = true
-        searchTable2.isHidden = true
-    }
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return searchResults.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let searchResult = searchResults[indexPath.row]
-        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: nil)
-        cell.textLabel?.text = searchResult.title
-        cell.detailTextLabel?.text = searchResult.subtitle
-        return cell
-    }
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        
-        //If statements for selecting an address from table view and it showing up in search bar field as well as the table view disappearing after selection
-        if tableView == searchTable {
-            let searchResult = searchResults[indexPath.row]
-            HomeSearchBar.text = searchResult.subtitle
-            searchTable.isHidden = true
-        }
-        if tableView == searchTable2 {
-            let searchResult = searchResults[indexPath.row]
-            WorkSearchBar.text = searchResult.subtitle
-            searchTable2.isHidden = true
-        }
-        
-        //Outputs latitude and longtitude of selected place
-        let completion = searchResults[indexPath.row]
-        let searchRequest = MKLocalSearchRequest(completion: completion)
-        let search = MKLocalSearch(request: searchRequest)
-        search.start { (response, error) in
-            let coordinate = response?.mapItems[0].placemark.coordinate
-            print(String(describing: coordinate))
-        }
     }
                 
     @IBOutlet weak var driverSetting: UISwitch!
@@ -286,16 +220,82 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDelegate
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
+
+
+extension FrequentDestinationsViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        
+        //When text is being inputted into search bar, table view will not be hidden depending on which search bar is clicked on
+        if searchBar == HomeSearchBar {
+            searchTable.isHidden = false
+            searchTable2.isHidden = true
+        }
+        if searchBar == WorkSearchBar {
+            searchTable.isHidden = true
+            searchTable2.isHidden = false
+        }
+        searchCompleter.queryFragment = searchText
+    }
+}
+
+extension FrequentDestinationsViewController: MKLocalSearchCompleterDelegate{
+    func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
+    searchResults = completer.results
+    searchTable.reloadData()
+    searchTable2.reloadData()
+    }
+    
+    func completer(_ completer: MKLocalSearchCompleter, didFailWithError error: Error) {
+    //When text is deleted in search bar, table view will be hidden
+    searchTable.isHidden = true
+    searchTable2.isHidden = true
+    }
+}
+
+extension FrequentDestinationsViewController: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+}
+
+func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    return searchResults.count
+}
+
+func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    let searchResult = searchResults[indexPath.row]
+    let cell = UITableViewCell(style: .subtitle, reuseIdentifier: nil)
+    cell.textLabel?.text = searchResult.title
+    cell.detailTextLabel?.text = searchResult.subtitle
+    return cell
+    }
+}
+
+extension FrequentDestinationsViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        //If statements for selecting an address from table view and it showing up in search bar field as well as the table view disappearing after selection
+        if tableView == searchTable {
+            let searchResult = searchResults[indexPath.row]
+            HomeSearchBar.text = searchResult.subtitle
+            searchTable.isHidden = true
+        }
+        if tableView == searchTable2 {
+            let searchResult = searchResults[indexPath.row]
+            WorkSearchBar.text = searchResult.subtitle
+            searchTable2.isHidden = true
+        }
+        
+        //Outputs latitude and longtitude of selected place
+        let completion = searchResults[indexPath.row]
+        let searchRequest = MKLocalSearchRequest(completion: completion)
+        let search = MKLocalSearch(request: searchRequest)
+        search.start { (response, error) in
+            let coordinate = response?.mapItems[0].placemark.coordinate
+            print(String(describing: coordinate))
+        }
+    }
+}
+
+
