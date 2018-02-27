@@ -6,41 +6,51 @@ var bodyParser = require('body-parser');
 var firebase = require('firebase');
 var admin = require('firebase-admin');
 var router = express.Router();
+var promise = require('bluebird');
+var options = {
+  promiseLib: promise
+};
 
-var db = admin.database();
-var usersRef = db.ref('/Users');
+var pgp = require('pg-promise')(options);
+var conString = "postgres://carpool:carpool2018@carpool.clawh88zlo74.us-east-2.rds.amazonaws.com:5432/carpool";
+var db = pgp(conString);
+
 
 router.post('/register', function(req, res, next) {
  var userInfo = req.body.userInfo;
  var userJSON = JSON.parse(userInfo);
  var userID = userJSON['userID'];
 
- usersRef.update({
-  [userID]: {
-    lastName:  userJSON['lastName'],
-    firstName: userJSON['firstName'],
-    provider: userJSON['provider'],
-    email: userJSON['email']
-  }
+ db.none("INSERT INTO carpool.\"Users\"(\"userID\", \"firstName\", \"lastName\", \"email\") values($1, $2, $3, $4)", [
+   userID, userJSON['firstName'], userJSON['lastName'], userJSON['email']])
+   .then(function () {
+     res.status(200)
+       .json({
+         status: 'Success',
+         message: 'User Info Stored'
+       });
+   })
+   .catch(function (err) {
+     res.send(error);
+   });
 });
 
-  console.log ("User Set.");
-});
 
 
 router.get('/profile', function(req, res, next) {
 var userID = req.query.userID;
 console.log(userID);
-var profileRef = db.ref(`/Users/${userID}`);
-
- profileRef.on('value', function(snapshot) {
-   res.send(snapshot.val());
- }, function (errorObject) {
-   res.send("The read failed: " + errorObject.code);
- });
-
-
-
+db.one("select \"Users\".\"firstName\", \"Users\".\"lastName\", \"Users\".\"email\" from carpool.\"Users\" where \"Users\".\"userID\" = $1", userID)
+.then(function(data) {
+  res.status(200).json({
+    status: 'Success',
+    data: data,
+    message:  'Retrieved User Profile.'
+  });
+})
+  .catch(function(err){
+    return next(err);
+  });
 });
 
 
