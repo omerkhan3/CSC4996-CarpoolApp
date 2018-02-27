@@ -23,9 +23,7 @@ class profile2ViewController: UIViewController, UITextFieldDelegate, UITextViewD
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var scrollView: UIScrollView!
     
-    
     let dist = -190
-    
     
     @IBAction func editButton(_ sender: Any) {
         
@@ -38,6 +36,7 @@ class profile2ViewController: UIViewController, UITextFieldDelegate, UITextViewD
         super.viewDidLoad()
         let userID = Auth.auth().currentUser?.uid
         readProfileInfo(userID: userID!)
+        self.phoneNumberField.delegate = self
     }
     
     func readProfileInfo(userID: String)
@@ -84,6 +83,15 @@ class profile2ViewController: UIViewController, UITextFieldDelegate, UITextViewD
         // Dispose of any resources that can be recreated.
     }
     
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if textField == phoneNumberField {
+        let allowedCharacters = CharacterSet.decimalDigits
+        let characterSet = CharacterSet(charactersIn: string)
+        return allowedCharacters.isSuperset(of: characterSet)
+    }
+        return true
+}
+    
     // Keyboard handling
     // Begin editing within text field
     func textFieldDidBeginEditing(_ textField: UITextField) {
@@ -111,11 +119,17 @@ class profile2ViewController: UIViewController, UITextFieldDelegate, UITextViewD
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        if (text as NSString).rangeOfCharacter(from: CharacterSet.newlines).location == NSNotFound {
-            return true
+        if textView == bioField {
+            let currentText = textView.text ?? ""
+            guard let stringRange = Range(range, in: currentText) else { return false }
+            let changedText = currentText.replacingCharacters(in: stringRange, with: text)
+            return changedText.count <= 150
         }
-        textView.resignFirstResponder()
-        return false
+        if (text == "\n") {
+            textView.resignFirstResponder()
+            return false
+        }
+        return true
     }
     
     // Move scroll view
