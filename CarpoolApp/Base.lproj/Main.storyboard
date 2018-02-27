@@ -574,10 +574,14 @@
                         <viewLayoutGuide key="safeArea" id="Lc9-cz-iGf"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="color" keyPath="firstColor">
-                                <color key="value" red="0.89894349090000003" green="0.47486341700000001" blue="0.26713597160000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="value" red="0.78871760589999995" green="0.88867136609999997" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="color" keyPath="secondColor">
-                                <color key="value" red="0.8322937198" green="0.90509706739999995" blue="0.28707564419999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="value" red="0.59290684530000004" green="1" blue="0.66847684029999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="horizontalGradient" value="YES"/>
+                            <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                <real key="value" value="0.0"/>
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </view>
@@ -1207,7 +1211,12 @@
                             <searchBar contentMode="redraw" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Puy-Yp-mOp" userLabel="HomeSearchBar">
                                 <rect key="frame" x="11" y="92" width="343" height="56"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <color key="barTintColor" red="0.74542994480000002" green="0.92197057599999999" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <scopeButtonTitles>
+                                    <string>Title</string>
+                                    <string>Title</string>
+                                </scopeButtonTitles>
                                 <connections>
                                     <outlet property="delegate" destination="kN2-ms-6kd" id="Riw-rg-skB"/>
                                 </connections>
@@ -1347,7 +1356,7 @@
         <image name="user" width="20" height="20"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="iBo-OI-WKP"/>
+        <segue reference="P6H-22-ef1"/>
         <segue reference="Z2h-3S-Lqv"/>
         <segue reference="cOY-IK-lfO"/>
     </inferredMetricsTieBreakers>

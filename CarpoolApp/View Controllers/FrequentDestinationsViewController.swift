@@ -202,6 +202,7 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDelegate
         {
         case true:
             options += [option]
+            dump(options)
         case false:
             if let index = options.index(of: option)
             {
@@ -212,7 +213,8 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDelegate
     }
     @IBAction func actionSubmit(_ sender : Any)
     {
-        print(options.joined(separator: "&"))
+        dump(options)
+        print(options.joined(separator: ", "))
         print(arrivaltime.text)
         print(departtime.text)
     }
@@ -292,7 +294,7 @@ extension FrequentDestinationsViewController: UITableViewDelegate {
         let searchRequest = MKLocalSearchRequest(completion: completion)
         let search = MKLocalSearch(request: searchRequest)
         search.start { (response, error) in
-            let coordinate = response?.mapItems[0].placemark.coordinate
+            let coordinate = response!.mapItems[0].placemark.coordinate
             print(String(describing: coordinate))
         }
     }
