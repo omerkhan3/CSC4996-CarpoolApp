@@ -26,18 +26,19 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDataSour
     @IBOutlet weak var thursday: BEMCheckBox!
     @IBOutlet weak var friday: BEMCheckBox!
     @IBOutlet weak var saturday: BEMCheckBox!
+    @IBOutlet weak var arrivaltime: UITextField!
     
+    @IBOutlet weak var departtime: UITextField!
     
-   
-    
-    
+
+    let picker = UIDatePicker()
     
     let pickerData = ["work", "school", "gym"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
      
-        pickerView.isHidden = true
+        //pickerView.isHidden = true
        // pickerView.delegate = self
        // pickerView.dataSource = self
         placePicker.isHidden = true
@@ -50,28 +51,93 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDataSour
         thursday.delegate = self
         friday.delegate = self
         saturday.delegate = self
-        
+       
+    }
+    
+    
+    
+    @IBOutlet weak var driverSetting: UISwitch!
+    
+    
+    
+    @IBAction func arrivalpress(_ sender: UITextField) {
+        createDatePicker1()
         
     }
-
+    
+    
+    @IBAction func departpress(_ sender: UITextField) {
+        createDatePicker2()
+    }
+    
+    
+    func createDatePicker1() {
+        
+        // toolbar
+        
+        let toolbar = UIToolbar()
+        toolbar.sizeToFit()
+        
+        // done button for toolbar
+        let done = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(donePressed1))
+        toolbar.setItems([done], animated: false)
+        
+        arrivaltime.inputAccessoryView = toolbar
+       arrivaltime.inputView = picker
+        
+        // format picker for date
+        picker.datePickerMode = .time
+    }
+    
+    @objc func donePressed1() {
+        // format date
+        let formatter = DateFormatter()
+        formatter.dateStyle = .none
+        formatter.timeStyle = .short
+        let dateString = formatter.string(from: picker.date)
+        
+        arrivaltime.text = "\(dateString)"
+        self.view.endEditing(true)
+        
+    }
+    
+    func createDatePicker2() {
+        
+        // toolbar
+        let toolbar = UIToolbar()
+        toolbar.sizeToFit()
+        
+        // done button for toolbar
+        let done = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(donePressed2))
+        toolbar.setItems([done], animated: false)
+        
+        departtime.inputAccessoryView = toolbar
+        departtime.inputView = picker
+        
+        // format picker for date
+        picker.datePickerMode = .time
+    }
+    
+    @objc func donePressed2() {
+        // format date
+        let formatter = DateFormatter()
+        formatter.dateStyle = .none
+        formatter.timeStyle = .short
+        let dateString = formatter.string(from: picker.date)
+        
+        departtime.text = "\(dateString)"
+        self.view.endEditing(true)
+        
+    }
+    
+    
     @IBAction func placePress(_ sender: UIButton) {
         if placePicker.isHidden{
             placePicker.isHidden = false
         }    }
-    @IBAction func arrivalPress(_ sender: UIButton) {
         
-        if pickerView.isHidden{
-            pickerView.isHidden = false
-        }
-    }
+
     
-    @IBAction func departurePress(_ sender: UIButton) {
-        
-        if pickerView.isHidden{
-            pickerView.isHidden = false
-        }
-        
-    }
    //  returns the number of 'columns' to display.
     
     public func numberOfComponents(in placePicker: UIPickerView) -> Int {
@@ -94,6 +160,8 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDataSour
             
         
     }
+    
+   
     
     func didTap(_ checkBox: BEMCheckBox) {
         switch checkBox {
@@ -133,6 +201,8 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDataSour
     @IBAction func actionSubmit(_ sender : Any)
     {
         print(options.joined(separator: "&"))
+        print(arrivaltime.text)
+        print(departtime.text)
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
