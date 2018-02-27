@@ -11,19 +11,21 @@ import Firebase
 import FirebaseAuth
 import FirebaseDatabase
 
-class profile2ViewController: UIViewController, UITextFieldDelegate {
+class profile2ViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate {
     @IBOutlet weak var lastName: UILabel!
     @IBOutlet weak var firstName: UILabel!
     @IBOutlet weak var phoneNumber: UILabel!
     @IBOutlet weak var phoneNumberField: UITextField!
     @IBOutlet weak var emailField: UITextField!
-    @IBOutlet weak var bioField: UITextField!
+    @IBOutlet weak var bioField: UITextView!
     @IBOutlet weak var Email: UILabel!
     @IBOutlet weak var Bio: UILabel!
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var scrollView: UIScrollView!
     
+    
     let dist = -190
+    
     
     @IBAction func editButton(_ sender: Any) {
         
@@ -88,9 +90,18 @@ class profile2ViewController: UIViewController, UITextFieldDelegate {
         moveScrollView(textField, distance: dist, up: true)
     }
     
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        let scrollPoint: CGPoint = CGPoint.init(x: 0, y: 200)
+        self.scrollView.setContentOffset(scrollPoint, animated: true)
+    }
+    
     // End editing within text field
     func textFieldDidEndEditing(_ textField: UITextField) {
         moveScrollView(textField, distance: dist, up: false)
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        self.scrollView.setContentOffset(CGPoint.zero, animated: true)
     }
     
     // Hide keyboard if return key is pressed
@@ -98,6 +109,15 @@ class profile2ViewController: UIViewController, UITextFieldDelegate {
         textField.resignFirstResponder()
         return true
     }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if (text as NSString).rangeOfCharacter(from: CharacterSet.newlines).location == NSNotFound {
+            return true
+        }
+        textView.resignFirstResponder()
+        return false
+    }
+    
     // Move scroll view
     func moveScrollView(_ textField: UITextField, distance: Int, up: Bool) {
         let movement: CGFloat = CGFloat(up ? distance: -distance)
