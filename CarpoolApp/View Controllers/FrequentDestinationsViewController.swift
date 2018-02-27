@@ -7,31 +7,51 @@
 //
 
 import UIKit
+import BEMCheckBox
+
+class FrequentDestinationsViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, BEMCheckBoxDelegate   {
 
 
-class FrequentDestinationsViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate   {
-
-   // var pickertime : timeval
-   // var arrivaltime : timeval
-   // var departuretime : timeval
-    
-    
+    var options = [String]()
     @IBOutlet weak var pickerView: UIPickerView!
     @IBOutlet weak var arrivalButton: UIButton!
     @IBOutlet weak var departureButton: UIButton!
     @IBOutlet weak var placeButton: UIButton!
     @IBOutlet weak var placePicker: UIPickerView!
     
+    @IBOutlet weak var sunday: BEMCheckBox!
+    @IBOutlet weak var monday: BEMCheckBox!
+    @IBOutlet weak var tuesday: BEMCheckBox!
+    @IBOutlet weak var wednesday: BEMCheckBox!
+    @IBOutlet weak var thursday: BEMCheckBox!
+    @IBOutlet weak var friday: BEMCheckBox!
+    @IBOutlet weak var saturday: BEMCheckBox!
+    
+    
+   
+    
+    
+    
     let pickerData = ["work", "school", "gym"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
+     
         pickerView.isHidden = true
        // pickerView.delegate = self
        // pickerView.dataSource = self
         placePicker.isHidden = true
         placePicker.delegate = self
         placePicker.dataSource = self
+        sunday.delegate = self
+        monday.delegate = self
+        tuesday.delegate = self
+        wednesday.delegate = self
+        thursday.delegate = self
+        friday.delegate = self
+        saturday.delegate = self
+        
+        
     }
 
     @IBAction func placePress(_ sender: UIButton) {
@@ -75,7 +95,45 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDataSour
         
     }
     
-    
+    func didTap(_ checkBox: BEMCheckBox) {
+        switch checkBox {
+        case sunday:
+            addRemoveOption(forState: checkBox.on, option: "sunday")
+        case monday :
+            addRemoveOption(forState: checkBox.on, option: "monday")
+        case tuesday :
+            addRemoveOption(forState: checkBox.on, option: "tuesday")
+        case wednesday :
+            addRemoveOption(forState: checkBox.on, option: "wednesday")
+        case thursday :
+            addRemoveOption(forState: checkBox.on, option: "thursday")
+        case friday :
+            addRemoveOption(forState: checkBox.on, option: "friday")
+        case saturday :
+            addRemoveOption(forState: checkBox.on, option: "saturday")
+        default:
+            addRemoveOption(forState: checkBox.on, option: "none")
+        }
+        
+    }
+    func addRemoveOption(forState : Bool , option : String)
+    {
+        switch forState
+        {
+        case true:
+            options += [option]
+        case false:
+            if let index = options.index(of: option)
+            {
+                options.remove(at: index)
+            }
+            
+        }
+    }
+    @IBAction func actionSubmit(_ sender : Any)
+    {
+        print(options.joined(separator: "&"))
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
