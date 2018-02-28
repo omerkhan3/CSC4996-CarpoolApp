@@ -9,6 +9,8 @@
 import UIKit
 import BEMCheckBox
 import MapKit
+import Firebase
+import FirebaseAuth
 
 class FrequentDestinationsViewController: UIViewController, UIPickerViewDelegate, BEMCheckBoxDelegate  {
 
@@ -38,9 +40,12 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDelegate
     @IBOutlet weak var searchTable: UITableView!
     @IBOutlet weak var searchTable2: UITableView!
 
+    @IBOutlet weak var routeName: UITextField!
     let picker = UIDatePicker()
     
     let pickerData = ["work", "school", "gym"]
+    var longitudeArray: [Float] = []
+    var latitudeArray: [Float] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -215,8 +220,13 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDelegate
     {
         dump(options)
         print(options.joined(separator: ", "))
-        print(arrivaltime.text)
-        print(departtime.text)
+        let driver = self.driverSetting.isOn
+        let userID = Auth.auth().currentUser!.uid
+        let routeInfo = ["userID": userID, "departureTime": departtime.text! as Any, "arrivalTime" : arrivaltime.text! as Any, "Days" :  options, "Longitudes": longitudeArray, "Latitudes": latitudeArray, "Driver": driver, "Name": self.routeName.text! as Any] as [String : Any]
+        print (routeInfo)
+        addRoute(routeInfo: routeInfo)
+      //  print(arrivaltime.text)
+       // print(departtime.text)
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -224,6 +234,25 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDelegate
     }
 }
 
+func addRoute(routeInfo: Dictionary<String, Any>)
+{
+    let routeURL = URL(string: "http://localhost:3000/routes/")!
+    var request = URLRequest(url: routeURL)
+    let userJSON = try! JSONSerialization.data(withJSONObject: routeInfo, options: .prettyPrinted)
+    let userJSONInfo = NSString(data: userJSON, encoding: String.Encoding.utf8.rawValue)! as String
+    request.httpBody = "userInfo=\(userJSONInfo)".data(using: String.Encoding.utf8)
+    request.httpMethod = "POST" // POST method.
+    
+    URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
+        if (error != nil){  // error handling responses.
+            print ("An error has occured.")
+        }
+        else{
+            print ("Success!")
+        }
+        
+        }.resume()
+}
 
 extension FrequentDestinationsViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
@@ -294,8 +323,10 @@ extension FrequentDestinationsViewController: UITableViewDelegate {
         let searchRequest = MKLocalSearchRequest(completion: completion)
         let search = MKLocalSearch(request: searchRequest)
         search.start { (response, error) in
-            let coordinate = response!.mapItems[0].placemark.coordinate
-            print(String(describing: coordinate))
+            self.longitudeArray.append(Float( response!.mapItems[0].placemark.coordinate.longitude))
+            self.latitudeArray.append(Float( response!.mapItems[0].placemark.coordinate.latitude))
+            
+           // print(String(describing: coordinate))
         }
     }
 }

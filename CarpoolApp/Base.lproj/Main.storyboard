@@ -1272,6 +1272,7 @@
                         <outlet property="driverSetting" destination="8Xi-oG-2Jm" id="Rda-jP-etu"/>
                         <outlet property="friday" destination="5yK-Yg-ZgG" id="c33-a4-m7D"/>
                         <outlet property="monday" destination="yQt-Mf-iEX" id="onG-jf-Ffu"/>
+                        <outlet property="routeName" destination="wQG-dY-A8L" id="ati-DG-wTw"/>
                         <outlet property="saturday" destination="uJo-vh-5M0" id="1kZ-XO-Iv2"/>
                         <outlet property="searchTable" destination="dDJ-GJ-MOj" id="wjZ-Lg-8hc"/>
                         <outlet property="searchTable2" destination="0FR-M1-ok5" id="d3j-Gl-EEw"/>
