@@ -20,7 +20,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oLz-pL-mgF">
-                                <rect key="frame" x="0.0" y="44" width="373" height="734"/>
+                                <rect key="frame" x="0.0" y="44" width="372" height="734"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Carpool" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h1a-zy-Zcx">
                                         <rect key="frame" x="114" y="12" width="147" height="48"/>
@@ -1278,13 +1278,6 @@
                                     <outlet property="delegate" destination="c8J-yT-xIz" id="z7E-Aj-l4n"/>
                                 </connections>
                             </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Frequent Destinations" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pbe-zg-kMm">
-                                <rect key="frame" x="67" y="44" width="256" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                <color key="textColor" red="0.18485060019999999" green="0.80917368020000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Home" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zTF-1I-fLX">
                                 <rect key="frame" x="16" y="198" width="46" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1384,6 +1377,13 @@
                                     <outlet property="delegate" destination="c8J-yT-xIz" id="fyJ-bv-OaW"/>
                                 </connections>
                             </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Frequent Destinations" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pbe-zg-kMm">
+                                <rect key="frame" x="52" y="44" width="281" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
+                                <color key="textColor" red="0.18485060019999999" green="0.80917368020000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.78871760589999995" green="0.88867136609999997" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="JQL-5w-ldh"/>
@@ -1402,7 +1402,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AJA-5h-fUJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-532" y="214"/>
+            <point key="canvasLocation" x="-532" y="213.54679802955667"/>
         </scene>
         <!--Location Search Table-->
         <scene sceneID="IA0-2k-Gfu">
@@ -1446,7 +1446,99 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Sxh-1R-gX5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1892" y="-1074"/>
+            <point key="canvasLocation" x="1012" y="-610"/>
+        </scene>
+        <!--Payment View Controller-->
+        <scene sceneID="mma-aT-t4F">
+            <objects>
+                <viewController storyboardIdentifier="Payment" id="iKr-Ei-WSJ" customClass="PaymentViewController" customModule="CarpoolApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="bbz-ha-IcM">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6G7-cR-cMg">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PAYMENTS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uMc-WA-eWc">
+                                        <rect key="frame" x="117" y="52" width="141" height="21"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="141" id="62z-gf-bhO"/>
+                                            <constraint firstAttribute="height" constant="21" id="h1M-ya-SWV"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
+                                        <color key="textColor" red="0.18485060019999999" green="0.80917368020000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recent Payments" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6a2-2r-ivz">
+                                        <rect key="frame" x="112" y="126" width="151" height="21"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                        <color key="textColor" red="0.18485060019999999" green="0.80917368020000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JgE-Wa-7ht" customClass="RoundedButton" customModule="CarpoolApp" customModuleProvider="target">
+                                        <rect key="frame" x="83" y="587" width="210" height="30"/>
+                                        <color key="backgroundColor" red="0.2470588235" green="0.67450980390000004" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <state key="normal" title="ADD NEW PAYMENT METHOD">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="rounded" value="YES"/>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="newPayment:" destination="iKr-Ei-WSJ" eventType="touchUpInside" id="bOS-T6-qbj"/>
+                                        </connections>
+                                    </button>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Np3-vC-VdM">
+                                        <rect key="frame" x="24" y="155" width="327" height="401"/>
+                                        <subviews>
+                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="BaF-qy-MvP">
+                                                <rect key="frame" x="8" y="64" width="311" height="329"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </tableView>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="401" id="Krg-qz-7Gb"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" red="0.78871760589999995" green="0.88867136609999997" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="Np3-vC-VdM" firstAttribute="leading" secondItem="6G7-cR-cMg" secondAttribute="leading" constant="24" id="0Nx-o7-qxI"/>
+                                    <constraint firstItem="uMc-WA-eWc" firstAttribute="top" secondItem="6G7-cR-cMg" secondAttribute="topMargin" id="DgG-RB-EHs"/>
+                                    <constraint firstItem="uMc-WA-eWc" firstAttribute="centerX" secondItem="Np3-vC-VdM" secondAttribute="centerX" id="Gbq-98-5hU"/>
+                                    <constraint firstItem="6a2-2r-ivz" firstAttribute="top" secondItem="uMc-WA-eWc" secondAttribute="bottom" constant="53" id="LrI-ma-eeF"/>
+                                    <constraint firstAttribute="trailing" secondItem="uMc-WA-eWc" secondAttribute="trailing" constant="117" id="N1o-5h-vdT"/>
+                                    <constraint firstItem="JgE-Wa-7ht" firstAttribute="top" secondItem="Np3-vC-VdM" secondAttribute="bottom" constant="31" id="aRE-BK-lgZ"/>
+                                    <constraint firstItem="uMc-WA-eWc" firstAttribute="centerX" secondItem="6G7-cR-cMg" secondAttribute="centerX" id="cM6-mV-Ma6"/>
+                                    <constraint firstAttribute="bottom" secondItem="uMc-WA-eWc" secondAttribute="bottom" constant="739" id="fdE-OI-0qm"/>
+                                    <constraint firstItem="Np3-vC-VdM" firstAttribute="top" secondItem="6a2-2r-ivz" secondAttribute="bottom" constant="8" symbolic="YES" id="sQz-OV-fPO"/>
+                                    <constraint firstItem="uMc-WA-eWc" firstAttribute="centerX" secondItem="6a2-2r-ivz" secondAttribute="centerX" id="tBy-rP-YHO"/>
+                                    <constraint firstItem="uMc-WA-eWc" firstAttribute="centerX" secondItem="JgE-Wa-7ht" secondAttribute="centerX" id="xyP-dk-C77"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="6G7-cR-cMg" secondAttribute="trailing" id="3QD-Ep-IN9"/>
+                            <constraint firstItem="6G7-cR-cMg" firstAttribute="leading" secondItem="bbz-ha-IcM" secondAttribute="leading" id="Fic-XK-J2v"/>
+                            <constraint firstItem="6G7-cR-cMg" firstAttribute="top" secondItem="bbz-ha-IcM" secondAttribute="top" id="LbL-9n-88Y"/>
+                            <constraint firstAttribute="bottom" secondItem="6G7-cR-cMg" secondAttribute="bottom" id="xdi-gM-2v2"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="OZG-Zp-Z9z"/>
+                    </view>
+                    <connections>
+                        <outlet property="paymentsTable" destination="BaF-qy-MvP" id="YeG-GC-iNA"/>
+                        <outlet property="scrollView" destination="6G7-cR-cMg" id="3ke-kl-wxQ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="I8o-9V-KLs" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1765.5999999999999" y="-610.34482758620697"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="A5t-mL-ayN">
@@ -1464,7 +1556,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9kP-fV-glo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="122" y="-480"/>
+            <point key="canvasLocation" x="257" y="-610"/>
         </scene>
     </scenes>
     <resources>
@@ -1477,7 +1569,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="P6H-22-ef1"/>
-        <segue reference="rpR-hM-Ar1"/>
+        <segue reference="Z2h-3S-Lqv"/>
         <segue reference="cOY-IK-lfO"/>
     </inferredMetricsTieBreakers>
 </document>
