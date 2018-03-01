@@ -7,6 +7,14 @@ var firebase = require('firebase');
 var admin = require('firebase-admin');
 var index = require('./routes/index');
 
+var promise = require('bluebird');
+var options = {
+  promiseLib: promise
+};
+
+var pgp = require('pg-promise')(options);
+var conString = "postgres://carpool:carpool2018@carpool.clawh88zlo74.us-east-2.rds.amazonaws.com:5432/carpool";
+var db = pgp(conString);
 
 var serviceAccount = require('./csc4996-carpoolapp-firebase-adminsdk-fsifh-456e34f4e0.json');
 
@@ -17,6 +25,7 @@ admin.initializeApp({
 });
 var users = require('./routes/users');
 var payment = require('./routes/payment');
+var routes = require('./routes/routes');
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
@@ -32,7 +41,7 @@ app.use('/users', users);
 app.use('/payment', payment);  // using the checkout route we are using to handle nonce.
 //app.use('/registerUser', registerUser);
 //app.use('/viewProfile', viewProfile);
-
+app.use('/routes', routes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
