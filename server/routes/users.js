@@ -7,6 +7,14 @@ var firebase = require('firebase');
 var admin = require('firebase-admin');
 var router = express.Router();
 
+var promise = require('bluebird');
+var options = {
+  promiseLib: promise
+};
+
+var pgp = require('pg-promise')(options);
+var conString = "postgres://carpool:carpool2018@carpool.clawh88zlo74.us-east-2.rds.amazonaws.com:5432/carpool";
+var db = pgp(conString);
 
 
 router.post('/register', function(req, res, next) {
@@ -35,6 +43,7 @@ var userID = req.query.userID;
 console.log(userID);
 db.one("select \"Users\".\"firstName\", \"Users\".\"lastName\", \"Users\".\"email\" from carpool.\"Users\" where \"Users\".\"userID\" = $1", userID)
 .then(function(data) {
+  console.log(data);
   res.status(200).json({
     status: 'Success',
     data: data,

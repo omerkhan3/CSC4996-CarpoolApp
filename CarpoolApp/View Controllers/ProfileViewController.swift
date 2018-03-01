@@ -61,11 +61,12 @@ class ProfileViewController: UIViewController {
                 print (error as Any)
             }
             else if let data = data {
+                print(data)
              let userInfoString:NSString = NSString(data: data, encoding: String.Encoding.utf8.rawValue)!
                 if let data = userInfoString.data(using: String.Encoding.utf8.rawValue) {
-                    
                     do {
                         let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String:AnyObject]
+                        print (json as Any)
                         if let userInfo = json!["data"]
                         {
                             DispatchQueue.main.async {

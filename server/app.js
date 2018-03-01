@@ -7,14 +7,6 @@ var firebase = require('firebase');
 var admin = require('firebase-admin');
 var index = require('./routes/index');
 
-var promise = require('bluebird');
-var options = {
-  promiseLib: promise
-};
-
-var pgp = require('pg-promise')(options);
-var conString = "postgres://carpool:carpool2018@carpool.clawh88zlo74.us-east-2.rds.amazonaws.com:5432/carpool";
-var db = pgp(conString);
 
 var serviceAccount = require('./csc4996-carpoolapp-firebase-adminsdk-fsifh-456e34f4e0.json');
 
