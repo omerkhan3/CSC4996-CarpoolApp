@@ -9,6 +9,6 @@ pod 'Firebase/Core'
 pod 'Firebase/Database'
 pod 'Braintree'
 pod 'BraintreeDropIn'
-pod 'M13Checkbox'
+pod 'BEMCheckBox'
 
 end

@@ -23,6 +23,7 @@
 		C995C78E201D5DD400B8CB3E /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C995C78D201D5DD400B8CB3E /* MapKit.framework */; };
 		C995C790201D615E00B8CB3E /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C995C78F201D615D00B8CB3E /* CoreLocation.framework */; };
 		C9A7D7ED2032D6830014861D /* UIViewX.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A7D7EC2032D6830014861D /* UIViewX.swift */; };
+		C9B52A8220453F2B00501AAA /* Checkbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B52A8120453F2B00501AAA /* Checkbox.swift */; };
 		C9D8928F2033629B005EC683 /* UITextFieldX.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D8928E2033629B005EC683 /* UITextFieldX.swift */; };
 		C9DE0B2A203F5C6100554E9C /* FreqDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DE0B28203F5C5F00554E9C /* FreqDestination.swift */; };
 		C9DE0B2B203F5C6100554E9C /* LocationSearchTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DE0B29203F5C6100554E9C /* LocationSearchTable.swift */; };
@@ -51,6 +52,7 @@
 		C995C78D201D5DD400B8CB3E /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		C995C78F201D615D00B8CB3E /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		C9A7D7EC2032D6830014861D /* UIViewX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewX.swift; sourceTree = "<group>"; };
+		C9B52A8120453F2B00501AAA /* Checkbox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Checkbox.swift; sourceTree = "<group>"; };
 		C9D8928E2033629B005EC683 /* UITextFieldX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITextFieldX.swift; sourceTree = "<group>"; };
 		C9DE0B28203F5C5F00554E9C /* FreqDestination.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FreqDestination.swift; sourceTree = "<group>"; };
 		C9DE0B29203F5C6100554E9C /* LocationSearchTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationSearchTable.swift; sourceTree = "<group>"; };
@@ -117,6 +119,7 @@
 				C98BB09F202A58A8006B054C /* otherlocations.swift */,
 				C9D8928E2033629B005EC683 /* UITextFieldX.swift */,
 				C9A7D7EC2032D6830014861D /* UIViewX.swift */,
+				C9B52A8120453F2B00501AAA /* Checkbox.swift */,
 			);
 			path = Design;
 			sourceTree = "<group>";
@@ -269,6 +272,7 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-CarpoolApp/Pods-CarpoolApp-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/BEMCheckBox/BEMCheckBox.framework",
 				"${BUILT_PRODUCTS_DIR}/Braintree/Braintree.framework",
 				"${BUILT_PRODUCTS_DIR}/BraintreeDropIn/BraintreeDropIn.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
@@ -279,6 +283,7 @@
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BEMCheckBox.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Braintree.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BraintreeDropIn.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
@@ -315,6 +320,7 @@
 				C968E520203669E400B137B8 /* RoundedButton.swift in Sources */,
 				C9623A0420393201001E40CD /* FrequentDestinationsViewController.swift in Sources */,
 				C9DE0B2A203F5C6100554E9C /* FreqDestination.swift in Sources */,
+				C9B52A8220453F2B00501AAA /* Checkbox.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
