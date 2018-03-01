@@ -16,14 +16,13 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDelegate
 
     var searchCompleter = MKLocalSearchCompleter()
     var searchResults = [MKLocalSearchCompletion]()
+    let picker = UIDatePicker()
     
+    //let pickerData = ["work", "school", "gym"]
+    var longitudeArray: [Float] = []
+    var latitudeArray: [Float] = []
     var options = [String]()
-    @IBOutlet weak var pickerView: UIPickerView!
-    @IBOutlet weak var arrivalButton: UIButton!
-    @IBOutlet weak var departureButton: UIButton!
-    @IBOutlet weak var placeButton: UIButton!
-    @IBOutlet weak var placePicker: UIPickerView!
-    
+    // Starting of buttons and outlets
     @IBOutlet weak var sunday: BEMCheckBox!
     @IBOutlet weak var monday: BEMCheckBox!
     @IBOutlet weak var tuesday: BEMCheckBox!
@@ -31,22 +30,39 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDelegate
     @IBOutlet weak var thursday: BEMCheckBox!
     @IBOutlet weak var friday: BEMCheckBox!
     @IBOutlet weak var saturday: BEMCheckBox!
+    //labels for arrive and depart time
     @IBOutlet weak var arrivaltime: UITextField!
-    
     @IBOutlet weak var departtime: UITextField!
-    
+    //buttons for search bars and tables up top
     @IBOutlet weak var HomeSearchBar: UISearchBar!
     @IBOutlet weak var WorkSearchBar: UISearchBar!
     @IBOutlet weak var searchTable: UITableView!
     @IBOutlet weak var searchTable2: UITableView!
-
+    //label press action that brings up the time picker for arrival
+    @IBAction func arrivalpress(_ sender: UITextField) {
+        createDatePicker1()
+    }
+    //label press action that brings up the time picker for depart
+    @IBAction func departpress(_ sender: UITextField) {
+        createDatePicker2()
+    }
+    //switch for deciding if the user is going to be a driver or no
+    @IBOutlet weak var driverSetting: UISwitch!
+    // label that will allow the driver to save the name of a route
     @IBOutlet weak var routeName: UITextField!
-    let picker = UIDatePicker()
-    
-    let pickerData = ["work", "school", "gym"]
-    var longitudeArray: [Float] = []
-    var latitudeArray: [Float] = []
-    
+    // when this save buttons is pressed, all information will then be transfered to the database
+    @IBAction func actionSubmit(_ sender : Any)
+    {
+        dump(options)
+        print(options.joined(separator: ", "))
+        let driver = self.driverSetting.isOn
+        let userID = Auth.auth().currentUser!.uid
+        let routeInfo = ["userID": userID, "departureTime": departtime.text! as Any, "arrivalTime" : arrivaltime.text! as Any, "Days" :  options, "Longitudes": longitudeArray, "Latitudes": latitudeArray, "Driver": driver, "Name": self.routeName.text! as Any] as [String : Any]
+        print (routeInfo)
+        addRoute(routeInfo: routeInfo)
+        //  print(arrivaltime.text)
+        // print(departtime.text)
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
      
@@ -63,35 +79,15 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDelegate
         thursday.delegate = self
         friday.delegate = self
         saturday.delegate = self
-        
         searchTable.isHidden = true
         searchTable2.isHidden = true
         searchCompleter.delegate = self
         HomeSearchBar.placeholder = "Search for Places"
         WorkSearchBar.placeholder = "Search for Places"
-       
     }
-                
-    @IBOutlet weak var driverSetting: UISwitch!
-    
-    
-    
-    
-    @IBAction func arrivalpress(_ sender: UITextField) {
-        createDatePicker1()
-        
-    }
-    
-    
-    @IBAction func departpress(_ sender: UITextField) {
-        createDatePicker2()
-    }
-    
     
     func createDatePicker1() {
-        
         // toolbar
-        
         let toolbar = UIToolbar()
         toolbar.sizeToFit()
         
@@ -100,24 +96,24 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDelegate
         toolbar.setItems([done], animated: false)
         
         arrivaltime.inputAccessoryView = toolbar
-       arrivaltime.inputView = picker
+        arrivaltime.inputView = picker
         
         // format picker for date
         picker.datePickerMode = .time
     }
-    
     @objc func donePressed1() {
-        // format date
+        // format time using dateformatter
         let formatter = DateFormatter()
+        // takes date off of the picker
         formatter.dateStyle = .none
+        // allows for only HH:MM and am or pm
         formatter.timeStyle = .short
+         // formatting the time into a string
         let dateString = formatter.string(from: picker.date)
         
         arrivaltime.text = "\(dateString)"
         self.view.endEditing(true)
-        
     }
-    
     func createDatePicker2() {
         
         // toolbar
@@ -134,7 +130,6 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDelegate
         // format second picker for time
         picker.datePickerMode = .time
     }
-    
     @objc func donePressed2() {
         // format time using dateformatter
         let formatter = DateFormatter()
@@ -182,8 +177,6 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDelegate
 //
 //    }
     
-   
-    
     func didTap(_ checkBox: BEMCheckBox) {
         switch checkBox {
         case sunday:
@@ -203,8 +196,8 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDelegate
         default:
             addRemoveOption(forState: checkBox.on, option: "none")
         }
-        
     }
+    //function that will analyze each checkbox to decide if it is checked or not, whenever save is pressed. It goes through of of the switch cases and whichever ones are on, it adds that day to the array
     func addRemoveOption(forState : Bool , option : String)
     {
         switch forState
@@ -220,18 +213,7 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDelegate
             
         }
     }
-    @IBAction func actionSubmit(_ sender : Any)
-    {
-        dump(options)
-        print(options.joined(separator: ", "))
-        let driver = self.driverSetting.isOn
-        let userID = Auth.auth().currentUser!.uid
-        let routeInfo = ["userID": userID, "departureTime": departtime.text! as Any, "arrivalTime" : arrivaltime.text! as Any, "Days" :  options, "Longitudes": longitudeArray, "Latitudes": latitudeArray, "Driver": driver, "Name": self.routeName.text! as Any] as [String : Any]
-        print (routeInfo)
-        addRoute(routeInfo: routeInfo)
-      //  print(arrivaltime.text)
-       // print(departtime.text)
-    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
