@@ -119,25 +119,29 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDelegate
         let toolbar = UIToolbar()
         toolbar.sizeToFit()
         
-        // done button for toolbar
+        // done button for toolbar picker
         let done = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(donePressed2))
         toolbar.setItems([done], animated: false)
         
         departtime.inputAccessoryView = toolbar
         departtime.inputView = picker
         
-        // format picker for date
+        // format second picker for time
         picker.datePickerMode = .time
     }
     
     @objc func donePressed2() {
-        // format date
+        // format time using dateformatter
         let formatter = DateFormatter()
+        // takes date off of the picker
         formatter.dateStyle = .none
+        // allows for only HH:MM and am or pm
         formatter.timeStyle = .short
+        // formatting the time into a string
         let dateString = formatter.string(from: picker.date)
-        
+        // adding the selected time back to the label
         departtime.text = "\(dateString)"
+        
         self.view.endEditing(true)
         
     }
