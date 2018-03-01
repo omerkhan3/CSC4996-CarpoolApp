@@ -8,13 +8,12 @@ var admin = require('firebase-admin');
 var router = express.Router();
 
 
-
-router.post('/register', function(req, res, next) {
+router.post('/', function(req, res, next) {
  var userInfo = req.body.userInfo;
  var userJSON = JSON.parse(userInfo);
  var userID = userJSON['userID'];
-
- db.none("INSERT INTO carpool.\"Users\"(\"userID\", \"firstName\", \"lastName\", \"email\") values($1, $2, $3, $4)", [
+ console.log(userJSON);
+/* db.none("INSERT INTO carpool.\"Users\"(\"userID\", \"firstName\", \"lastName\", \"email\") values($1, $2, $3, $4)", [
    userID, userJSON['firstName'], userJSON['lastName'], userJSON['email']])
    .then(function () {
      res.status(200)
@@ -26,25 +25,10 @@ router.post('/register', function(req, res, next) {
    .catch(function (err) {
      res.send(error);
    });
+   /*/
 });
 
 
-
-router.get('/profile', function(req, res, next) {
-var userID = req.query.userID;
-console.log(userID);
-db.one("select \"Users\".\"firstName\", \"Users\".\"lastName\", \"Users\".\"email\" from carpool.\"Users\" where \"Users\".\"userID\" = $1", userID)
-.then(function(data) {
-  res.status(200).json({
-    status: 'Success',
-    data: data,
-    message:  'Retrieved User Profile.'
-  });
-})
-  .catch(function(err){
-    return next(err);
-  });
-});
 
 
 
