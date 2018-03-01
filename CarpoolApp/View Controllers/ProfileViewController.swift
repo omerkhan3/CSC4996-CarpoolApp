@@ -66,7 +66,7 @@ class ProfileViewController: UIViewController {
                     
                     do {
                         let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String:AnyObject]
-                        if let userInfo = json
+                        if let userInfo = json!["data"]
                         {
                             DispatchQueue.main.async {
                                 self.UserFirstName.text =  (userInfo["firstName"] as! String)
