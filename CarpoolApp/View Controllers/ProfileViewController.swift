@@ -72,7 +72,7 @@ class ProfileViewController: UIViewController {
                             DispatchQueue.main.async {
                                 self.UserFirstName.text =  (userInfo["firstName"] as! String)
                                 self.UserLastName.text = (userInfo["lastName"] as! String)
-                                self.UserEmail.text = (userInfo["email"] as! String)
+                                self.UserEmail.text = (userInfo["Email"] as! String)
                             }
                         }
                     } catch let error as NSError {
