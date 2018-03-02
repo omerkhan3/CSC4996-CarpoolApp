@@ -7,7 +7,6 @@ var firebase = require('firebase');
 var admin = require('firebase-admin');
 var index = require('./routes/index');
 
-
 var serviceAccount = require('./csc4996-carpoolapp-firebase-adminsdk-fsifh-456e34f4e0.json');
 
 var app = express();

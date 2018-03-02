@@ -6,7 +6,8 @@ var bodyParser = require('body-parser');
 var firebase = require('firebase');
 var admin = require('firebase-admin');
 var router = express.Router();
-
+const db = require('../routes/db');
+const pgp = db.$config.pgp;
 
 router.post('/', function(req, res, next) {
  var routeInfo = req.body.routeInfo;
@@ -17,8 +18,8 @@ router.post('/', function(req, res, next) {
  if (routeJSON['Driver'] == true)
  {
    var driverID;
-   var addDriverQuery = "INSERT INTO carpool.\"Drivers\"(\"userID\") values ('$1')";
-   db.any(addDriverQuery, userID)
+   var addDriverQuery = "INSERT INTO carpool.\"Drivers\"(\"userID\") values ($1)";
+   db.one(addDriverQuery, userID)
    .then(function () {
      console.log("Driver added.");
    })
@@ -27,19 +28,18 @@ router.post('/', function(req, res, next) {
    });
 
    var getDriverIDQuery = "Select \"driverID\" from carpool.\"Drivers\" where \"userID\" = $1";
-   db.any(getDriverIDQuery, userID)
+   db.one(getDriverIDQuery, userID)
    .then(function(data){
-       console.log(data);
+       driverID = data.driverID;
    })
    .catch(function(error){
        console.log('error:', error)
    });
-   //console.log(driverID);
-var test = routeJSON['Longitudes'][0];
-console.log(test);
-  var addDriverRouteQuery = "INSERT INTO carpool.\"driverRoute\"(\"driverID\", \"startTime\", \"endTime\", \"startPointLong\", \"startPointLat\", \"endPointLong\", \"endPointLat\") values($1, $2, $3, $4, $5, $6, $7)";
+
+
+  var addDriverRouteQuery = "INSERT INTO carpool.\"driverRoute\"(\"driverID\", \"departureTime\", \"arrivalTime\", \"startPointLong\", \"startPointLat\", \"endPointLong\", \"endPointLat\", \"Name\") values($1, $2, $3, $4, $5, $6, $7, $8)";
   db.any(addDriverRouteQuery, [
-   14, routeJSON['departureTime'], routeJSON['arrivalTime'], routeJSON['Longitudes'][0], routeJSON['Latitudes'][0], routeJSON['Longitudes'][1], routeJSON['Latitudes'][1]])
+   driverID, routeJSON['departureTime'], routeJSON['arrivalTime'], routeJSON['Longitudes'][0], routeJSON['Latitudes'][0], routeJSON['Longitudes'][1], routeJSON['Latitudes'][1], routeJSON['Name']])
    .then(function () {
      console.log("Succesfully added route.");
      res.status(200)
@@ -52,6 +52,65 @@ console.log(test);
      console.log(err);
      res.send(err);
    });
+
+   var setGeographyQuery = "UPDATE carpool.\"driverRoute\" SET startPoint = ST_POINT (\"startPointLat\", \"startPointLong\"); UPDATE carpool.\"driverRoute\" SET endPoint = ST_POINT (\"endPointLat\", \"endPointLong\")";
+   db.none(setGeographyQuery)
+   .then(function () {
+     console.log("Geographies Set.");
+   })
+   .catch(function(err) {
+     console.log("Error");
+   })
+
+ }
+
+ else {
+   var riderID;
+   var addRiderQuery = "INSERT INTO carpool.\"Riders\"(\"userID\") values ($1)";
+   db.one(addRiderQuery, userID)
+   .then(function () {
+     console.log("Rider added.");
+   })
+   .catch(function (err) {
+     console.log(err);
+   });
+
+   var getRiderIDQuery = "Select \"riderID\" from carpool.\"Riders\" where \"userID\" = $1";
+   db.one(getRiderIDQuery, userID)
+   .then(function(data){
+       riderID = data.riderID;
+   })
+   .catch(function(error){
+       console.log('error:', error)
+   });
+
+
+   var addDriverRouteQuery = "INSERT INTO carpool.\"riderRoute\"(\"riderID\", \"departureTime\", \"arrivalTime\", \"startPointLong\", \"startPointLat\", \"endPointLong\", \"endPointLat\", \"Name\") values($1, $2, $3, $4, $5, $6, $7, $8)";
+   db.any(addDriverRouteQuery, [
+    riderID, routeJSON['departureTime'], routeJSON['arrivalTime'], routeJSON['Longitudes'][0], routeJSON['Latitudes'][0], routeJSON['Longitudes'][1], routeJSON['Latitudes'][1], routeJSON['Name']])
+    .then(function () {
+      console.log("Succesfully added route.");
+      res.status(200)
+        .json({
+          status: 'Success',
+          message: 'Rider route stored.'
+        });
+    })
+    .catch(function (err) {
+      console.log(err);
+      res.send(err);
+    });
+
+    var setGeographyQuery = "UPDATE carpool.\"riderRoute\" SET startPoint = ST_POINT (\"startPointLat\", \"startPointLong\"); UPDATE carpool.\"riderRoute\" SET endPoint = ST_POINT (\"endPointLat\", \"endPointLong\")";
+    db.none(setGeographyQuery)
+    .then(function () {
+      console.log("Geographies Set.");
+    })
+    .catch(function(err) {
+      console.log("Error");
+    })
+
+
 
  }
 
