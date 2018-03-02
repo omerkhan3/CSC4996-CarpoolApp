@@ -65,6 +65,13 @@ router.post('/', function(req, res, next) {
  }
 
  else {
+
+ var matchingQuery = "SELECT * FROM carpool.\"driverRoute\" WHERE ST_DWithin(startPoint, Geography(ST_MakePoint($1, $2)),1000) AND ST_DWithin(endPoint, Geography(ST_MakePoint($3, $4)),1000) AND \"departureTime\" = $5 AND \"arrivalTime\" = $6;";
+ db.any(matchingQuery, [routeJSON['Latitudes'][0], routeJSON['Longitudes'][0], routeJSON['Latitudes'][1], routeJSON['Longitudes'][1], routeJSON['departureTime'], routeJSON['arrivalTime']])
+ .then(function(data) {
+   console.log(data);
+ })
+
    var riderID;
    var addRiderQuery = "INSERT INTO carpool.\"Riders\"(\"userID\") values ($1)";
    db.one(addRiderQuery, userID)
@@ -109,7 +116,6 @@ router.post('/', function(req, res, next) {
     .catch(function(err) {
       console.log("Error");
     })
-
 
 
  }
