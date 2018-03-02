@@ -11,6 +11,7 @@ import UIKit
 class PaymentViewController: UIViewController {
     
     @IBOutlet weak var paymentsTable: UITableView!
+  
     @IBAction func newPayment(_ sender: Any) {
         
     }
@@ -28,7 +29,7 @@ class PaymentViewController: UIViewController {
         formatter.dateStyle = .short
         formatter.timeStyle = .short
         return formatter
-    }
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,16 +42,5 @@ class PaymentViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 }
-
-
-//Need this new class for labels and cell or it will give an error for invalid use
-class PaymentTableViewCell: UITableViewCell {
-    
-    static let reuseIdentifier = "TableViewCell"
-    @IBOutlet weak var contactLabel: UILabel!
-    @IBOutlet weak var dateLabel: UILabel!
-    @IBOutlet weak var amountLabel: UILabel!
-}
-
 
 

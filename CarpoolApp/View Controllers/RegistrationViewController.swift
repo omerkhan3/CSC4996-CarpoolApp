@@ -18,8 +18,8 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var emailField: UITextField! // email text field.
     @IBOutlet weak var passwordField: UITextField! // password text field.
     @IBOutlet weak var confirmPasswordField: UITextField! // confirm password text field.
-    @IBOutlet weak var DateOfBirth: UITextField!
-    @IBOutlet weak var PhoneNumber: UITextField!
+    @IBOutlet weak var DateOfBirth: UITextField! //Date of birth text field
+    @IBOutlet weak var PhoneNumber: UITextField! //Phone number text field
     
     
     let dist = -140 // distance to adjust for keyboard
@@ -113,14 +113,45 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
                     }
                     
                     }.resume()
-        
-
-
-        
     }
+    
+    //Restrictions for numbers only to be used with phone number field and letters only for first and last name
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if textField == PhoneNumber {
+            let allowedCharacters = CharacterSet.decimalDigits
+            let characterSet = CharacterSet(charactersIn: string)
+            return allowedCharacters.isSuperset(of: characterSet)
+        }
+        if textField == firstNameField {
+            let allowedCharacters = CharacterSet.letters
+            let characterSet = CharacterSet(charactersIn: string)
+            return allowedCharacters.isSuperset(of: characterSet)
+        }
+        if textField == lastNameField {
+            let allowedCharacters = CharacterSet.letters
+            let characterSet = CharacterSet(charactersIn: string)
+            return allowedCharacters.isSuperset(of: characterSet)
+        }
+        return true
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.PhoneNumber.delegate = self
+        firstNameField.layer.borderWidth = 1.0
+        firstNameField.layer.cornerRadius = 10.0
+        lastNameField.layer.borderWidth = 1.0
+        lastNameField.layer.cornerRadius = 10.0
+        emailField.layer.borderWidth = 1.0
+        emailField.layer.cornerRadius = 10.0
+        passwordField.layer.borderWidth = 1.0
+        passwordField.layer.cornerRadius = 10.0
+        confirmPasswordField.layer.borderWidth = 1.0
+        confirmPasswordField.layer.cornerRadius = 10.0
+        DateOfBirth.layer.borderWidth = 1.0
+        DateOfBirth.layer.cornerRadius = 10.0
+        PhoneNumber.layer.borderWidth = 1.0
+        PhoneNumber.layer.cornerRadius = 10.0
         // Do any additional setup after loading the view.
     }
 
