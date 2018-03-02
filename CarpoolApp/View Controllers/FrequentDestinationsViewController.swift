@@ -145,38 +145,8 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDelegate
         self.view.endEditing(true)
         
     }
-    
-    
-//    @IBAction func placePress(_ sender: UIButton) {
-//        if placePicker.isHidden{
-//            placePicker.isHidden = false
-//        }    }
-//
-//
-//
-//   //  returns the number of 'columns' to display.
-//
-//    public func numberOfComponents(in placePicker: UIPickerView) -> Int {
-//        return 1
-//
-//    }
-//    // returns the # of rows in each component..
-//
-//    public func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-//        return pickerData.count
-//    }
-//
-//    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-//        return pickerData[row]
-//    }
-//
-//    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-//             placeButton.setTitle(pickerData[row], for: .normal)
-//            placePicker.isHidden = true
-//
-//
-//    }
-    
+
+    //start switch statement that will check if each box is checked, then print out names of checked days
     func didTap(_ checkBox: BEMCheckBox) {
         switch checkBox {
         case sunday:
@@ -202,9 +172,12 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDelegate
     {
         switch forState
         {
+        //if box is checked add that day to the array
         case true:
+            
             options += [option]
             dump(options)
+        //if box is not checked, or checked then unchecked, remove it from the array
         case false:
             if let index = options.index(of: option)
             {
