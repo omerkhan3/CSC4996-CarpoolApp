@@ -11,8 +11,9 @@ import UIKit
 class PaymentViewController: UIViewController {
     
     @IBOutlet weak var paymentsTable: UITableView!
-    @IBOutlet weak var scrollView: UIScrollView!
-    
+    @IBOutlet weak var contactLabel: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var amountLabel: UILabel!
     @IBAction func newPayment(_ sender: Any) {
         
     }
@@ -30,3 +31,6 @@ class PaymentViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 }
+
+
+
