@@ -22,14 +22,20 @@ class profile2ViewController: UIViewController, UITextFieldDelegate, UITextViewD
     @IBOutlet weak var Bio: UILabel!
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var scrollView: UIScrollView!
+    var options = [String]()
     
     let dist = -190
     
     @IBAction func editButton(_ sender: Any) {
         
     }
+    
     @IBAction func SaveButton(_ sender: Any) {
-        
+        dump(options)
+        print(options.joined(separator: ", "))
+        let userID = Auth.auth().currentUser!.uid
+        let userInfo = ["userID": userID, "phoneNumber": phoneNumberField.text! as Any, "email": emailField.text! as Any, "bio": bioField.text! as Any] as [String: Any]
+        print(userInfo)
     }
     
     override func viewDidLoad() {
