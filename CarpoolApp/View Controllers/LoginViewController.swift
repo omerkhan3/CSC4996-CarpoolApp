@@ -17,7 +17,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var emailField: UITextField! // email text field.
     @IBOutlet weak var passwordField: UITextField! // password text field.
     @IBOutlet weak var scrollView: UIScrollView!
-    @IBOutlet weak var profileButton: UIButton!
+    @IBOutlet weak var dashboardButton: RoundedButton!
+    
     
     
     let dist = -190 // distance to adjust for keyboard
@@ -52,11 +53,13 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             if error == nil {
                 actionTitle = "Success!"
                 actionItem = "You have successfully logged in!"
-                self.profileButton.isHidden = false
+                //self.dashboardButton.isHidden = false
                 
                 // Activate UIAlertController to display confirmation
                 let alert = UIAlertController(title: actionTitle, message: actionItem, preferredStyle: .alert)
-                alert.addAction(exitAction)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                    self.performSegue(withIdentifier: "showDashboard", sender: self)
+                }))
                 self.present(alert, animated: true, completion: nil)
                 
                 DataService.inst.setUserLocation(location: CLLocation(latitude: 37.7853889, longitude: -122.4056973)) //use the dataservice GeoFire method to store the location from which the user logs in from.
@@ -78,7 +81,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        profileButton.isHidden = true
+        //profileButton.isHidden = true
         
     }
 

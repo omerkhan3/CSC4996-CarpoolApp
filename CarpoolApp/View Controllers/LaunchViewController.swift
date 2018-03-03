@@ -21,7 +21,7 @@ class LaunchViewController: UIViewController {
         // delay to allow for animation
         let time = DispatchTime.now() + 2
         DispatchQueue.main.asyncAfter(deadline: time){
-            self.performSegue(withIdentifier: "toRegister", sender: self) // manually perform segue
+            self.performSegue(withIdentifier: "showLogin", sender: self) // manually perform segue
         }
     }
 

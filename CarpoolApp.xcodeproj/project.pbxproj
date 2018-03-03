@@ -12,6 +12,8 @@
 		205A4B43202569DC005AE87C /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205A4B42202569DC005AE87C /* LaunchViewController.swift */; };
 		206736E32026A929008714A7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 206736E52026A929008714A7 /* LaunchScreen.storyboard */; };
 		208A2E8B202829E600393D43 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208A2E8A202829E600393D43 /* MapViewController.swift */; };
+		20DA407D204B2F04003D8473 /* SideMenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DA407C204B2F04003D8473 /* SideMenuTableViewController.swift */; };
+		20DA407F204B49FA003D8473 /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DA407E204B49FA003D8473 /* DashboardViewController.swift */; };
 		20F47A0420277D4800D79394 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 20F47A0320277D4800D79394 /* GoogleService-Info.plist */; };
 		63917F3C2F967485C2582052 /* Pods_CarpoolApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9320C101773311FB910A13A6 /* Pods_CarpoolApp.framework */; };
 		78241398201D0F3A00F06D99 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78241397201D0F3A00F06D99 /* AppDelegate.swift */; };
@@ -39,6 +41,8 @@
 		205A4B42202569DC005AE87C /* LaunchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
 		206736E42026A929008714A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		208A2E8A202829E600393D43 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		20DA407C204B2F04003D8473 /* SideMenuTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuTableViewController.swift; sourceTree = "<group>"; };
+		20DA407E204B49FA003D8473 /* DashboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewController.swift; sourceTree = "<group>"; };
 		20F47A0320277D4800D79394 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		78241394201D0F3A00F06D99 /* CarpoolApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CarpoolApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		78241397201D0F3A00F06D99 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -137,6 +141,8 @@
 				2033C2CF2026CE5C0081E53A /* ProfileViewController.swift */,
 				D10EFE992022979700C962E1 /* RegistrationViewController.swift */,
 				C96F4839204A4ACC00363162 /* FrequentDestinationsViewController.swift */,
+				20DA407C204B2F04003D8473 /* SideMenuTableViewController.swift */,
+				20DA407E204B49FA003D8473 /* DashboardViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -278,6 +284,7 @@
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GeoFire/GeoFire.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/SideMenu/SideMenu.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
@@ -289,6 +296,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GeoFire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SideMenu.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
@@ -304,6 +312,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				20DA407F204B49FA003D8473 /* DashboardViewController.swift in Sources */,
 				C9D8928F2033629B005EC683 /* UITextFieldX.swift in Sources */,
 				D10EFE9C2022983600C962E1 /* LoginViewController.swift in Sources */,
 				205A4B43202569DC005AE87C /* LaunchViewController.swift in Sources */,
@@ -317,6 +326,7 @@
 				C9DE0B2B203F5C6100554E9C /* LocationSearchTable.swift in Sources */,
 				C98BB0A0202A58A8006B054C /* otherlocations.swift in Sources */,
 				2018C368202CB38900E28C08 /* LogoutViewController.swift in Sources */,
+				20DA407D204B2F04003D8473 /* SideMenuTableViewController.swift in Sources */,
 				208A2E8B202829E600393D43 /* MapViewController.swift in Sources */,
 				C968E520203669E400B137B8 /* RoundedButton.swift in Sources */,
 				C9DE0B2A203F5C6100554E9C /* FreqDestination.swift in Sources */,

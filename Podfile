@@ -10,5 +10,6 @@ pod 'Firebase/Database'
 pod 'Braintree'
 pod 'BraintreeDropIn'
 pod 'BEMCheckBox'
+pod 'SideMenu'
 
 end
