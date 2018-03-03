@@ -35,6 +35,7 @@ class PaymentsViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    
     //Shows the braintree Drop-In UI
     func showDropIn(clientTokenOrTokenizationKey: String) {
         let request = BTDropInRequest()
@@ -91,4 +92,42 @@ class TableViewCell: UITableViewCell {
     @IBOutlet weak var contactLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var amountLabel: UILabel!
+    
+    
+    func paymentInfo(userID: String)
+    {
+        var viewProfileComponents = URLComponents(string: "http://localhost:3000/users/profile")!
+        viewProfileComponents.queryItems = [
+            URLQueryItem(name: "userID", value: userID)
+        ]
+        var request = URLRequest(url: viewProfileComponents.url!)  // Pass Parameter in URL
+        print (viewProfileComponents.url!)
+        
+        request.httpMethod = "GET" // GET METHOD
+        
+        URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
+            if (error != nil){  // error handling responses.
+                print (error as Any)
+            }
+            else if let data = data {
+                let userInfoString:NSString = NSString(data: data, encoding: String.Encoding.utf8.rawValue)!
+                while let data = userInfoString.data(using: String.Encoding.utf8.rawValue) {
+                    
+                    do {
+                        let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String:AnyObject]
+                        if let userInfo = json
+                        {
+                            DispatchQueue.main.async {
+                                self.contactLabel.text = (userInfo["Contact"] as! String)
+                                self.dateLabel.text = (userInfo["Date"] as! String)
+                                self.amountLabel.text = (userInfo["Amount"] as! String)
+                            }
+                        }
+                    } catch let error as NSError {
+                        print(error)
+                    }
+                }
+            }
+        }
+    }
 }
