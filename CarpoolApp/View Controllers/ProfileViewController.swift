@@ -15,34 +15,14 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var UserFirstName: UILabel!
     @IBOutlet weak var UserLastName: UILabel!
     @IBOutlet weak var UserEmail: UILabel!
-    @IBOutlet weak var sideMenuConstraint: NSLayoutConstraint!
+
     
-    var sideMenuHidden = true
     
-    @IBAction func menuBtnPressed(_ sender: Any) {
-        if sideMenuHidden {
-            sideMenuConstraint.constant = 0
-            
-            UIView.animate(withDuration: 0.3, animations: {
-                self.view.layoutIfNeeded()
-                })
-        } else {
-            sideMenuConstraint.constant = -230
-            UIView.animate(withDuration: 0.3, animations: {
-                self.view.layoutIfNeeded()
-            })
-        }
-        
-        sideMenuHidden = !sideMenuHidden
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         let userID = Auth.auth().currentUser?.uid
         readProfileInfo(userID: userID!)
-        
-        // Initialize constant with -230 (hide side menu)
-        sideMenuConstraint.constant = -230
     }
 
     func readProfileInfo(userID: String)
