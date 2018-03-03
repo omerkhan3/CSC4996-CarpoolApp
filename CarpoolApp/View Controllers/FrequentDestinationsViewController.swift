@@ -22,6 +22,7 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDelegate
     var longitudeArray: [Float] = []
     var latitudeArray: [Float] = []
     var options = [String]()
+    
     // Starting of buttons and outlets
     @IBOutlet weak var sunday: BEMCheckBox!
     @IBOutlet weak var monday: BEMCheckBox!
@@ -30,26 +31,33 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDelegate
     @IBOutlet weak var thursday: BEMCheckBox!
     @IBOutlet weak var friday: BEMCheckBox!
     @IBOutlet weak var saturday: BEMCheckBox!
+    
     //labels for arrive and depart time
     @IBOutlet weak var arrivaltime: UITextField!
     @IBOutlet weak var departtime: UITextField!
+    
     //buttons for search bars and tables up top
     @IBOutlet weak var HomeSearchBar: UISearchBar!
     @IBOutlet weak var WorkSearchBar: UISearchBar!
     @IBOutlet weak var searchTable: UITableView!
     @IBOutlet weak var searchTable2: UITableView!
+    
     //label press action that brings up the time picker for arrival
     @IBAction func arrivalpress(_ sender: UITextField) {
         createDatePicker1()
     }
+    
     //label press action that brings up the time picker for depart
     @IBAction func departpress(_ sender: UITextField) {
         createDatePicker2()
     }
+    
     //switch for deciding if the user is going to be a driver or no
     @IBOutlet weak var driverSetting: UISwitch!
+    
     // label that will allow the driver to save the name of a route
     @IBOutlet weak var routeName: UITextField!
+    
     // when this save buttons is pressed, all information will then be transfered to the database
     @IBAction func actionSubmit(_ sender : Any)
     {
@@ -63,6 +71,7 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDelegate
         //  print(arrivaltime.text)
         // print(departtime.text)
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
      
@@ -114,6 +123,7 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDelegate
         arrivaltime.text = "\(dateString)"
         self.view.endEditing(true)
     }
+    
     func createDatePicker2() {
         
         // toolbar
@@ -143,7 +153,6 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDelegate
         departtime.text = "\(dateString)"
         
         self.view.endEditing(true)
-        
     }
 
     //start switch statement that will check if each box is checked, then print out names of checked days
@@ -167,6 +176,7 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDelegate
             addRemoveOption(forState: checkBox.on, option: "none")
         }
     }
+    
     //function that will analyze each checkbox to decide if it is checked or not, whenever save is pressed. It goes through of of the switch cases and whichever ones are on, it adds that day to the array
     func addRemoveOption(forState : Bool , option : String)
     {
@@ -183,7 +193,6 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDelegate
             {
                 options.remove(at: index)
             }
-            
         }
     }
     
@@ -220,6 +229,7 @@ extension FrequentDestinationsViewController: UISearchBarDelegate {
         if searchBar == HomeSearchBar {
             searchTable.isHidden = false
             searchTable2.isHidden = true
+            WorkSearchBar.isHidden = true
         }
         if searchBar == WorkSearchBar {
             searchTable.isHidden = true
@@ -240,6 +250,7 @@ extension FrequentDestinationsViewController: MKLocalSearchCompleterDelegate{
     //When text is deleted in search bar, table view will be hidden
     searchTable.isHidden = true
     searchTable2.isHidden = true
+    WorkSearchBar.isHidden = false
     }
 }
 
@@ -270,6 +281,7 @@ extension FrequentDestinationsViewController: UITableViewDelegate {
             let searchResult = searchResults[indexPath.row]
             HomeSearchBar.text = searchResult.subtitle
             searchTable.isHidden = true
+            WorkSearchBar.isHidden = false
         }
         if tableView == searchTable2 {
             let searchResult = searchResults[indexPath.row]
@@ -284,7 +296,6 @@ extension FrequentDestinationsViewController: UITableViewDelegate {
         search.start { (response, error) in
             self.longitudeArray.append(Float( response!.mapItems[0].placemark.coordinate.longitude))
             self.latitudeArray.append(Float( response!.mapItems[0].placemark.coordinate.latitude))
-            
            // print(String(describing: coordinate))
         }
     }
