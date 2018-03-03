@@ -119,8 +119,11 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDelegate
         formatter.timeStyle = .short
          // formatting the time into a string
         let dateString = formatter.string(from: picker.date)
-        
         arrivaltime.text = "\(dateString)"
+         //converting time to 24hr format
+        formatter.dateFormat = "HH:mm"
+        let arrivetime24 = formatter.string(from: picker.date)
+        print(arrivetime24)
         self.view.endEditing(true)
     }
     
@@ -151,6 +154,10 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDelegate
         let dateString = formatter.string(from: picker.date)
         // adding the selected time back to the label
         departtime.text = "\(dateString)"
+        //converting time to 24hr format
+        formatter.dateFormat = "HH:mm"
+        let departtime24 = formatter.string(from: picker.date)
+        print(departtime24)
         
         self.view.endEditing(true)
     }
