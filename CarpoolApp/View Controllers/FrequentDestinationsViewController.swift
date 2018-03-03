@@ -13,7 +13,7 @@ import Firebase
 import FirebaseAuth
 
 class FrequentDestinationsViewController: UIViewController, UIPickerViewDelegate, BEMCheckBoxDelegate  {
-
+    
     var searchCompleter = MKLocalSearchCompleter()
     var searchResults = [MKLocalSearchCompletion]()
     let picker = UIDatePicker()
@@ -61,26 +61,40 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDelegate
     // when this save buttons is pressed, all information will then be transfered to the database
     @IBAction func actionSubmit(_ sender : Any)
     {
+        var actionItem : String=String()
+        var actionTitle : String=String()
+        let exitAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)  // default action to exit out of native alerts.
+        
         dump(options)
-        print(options.joined(separator: ", "))
-        let driver = self.driverSetting.isOn
-        let userID = Auth.auth().currentUser!.uid
-        let routeInfo = ["userID": userID, "departureTime": departtime.text! as Any, "arrivalTime" : arrivaltime.text! as Any, "Days" :  options, "Longitudes": longitudeArray, "Latitudes": latitudeArray, "Driver": driver, "Name": self.routeName.text! as Any] as [String : Any]
-        print (routeInfo)
-        addRoute(routeInfo: routeInfo)
-        //  print(arrivaltime.text)
-        // print(departtime.text)
+        if ((HomeSearchBar.text?.isEmpty)! || (WorkSearchBar.text?.isEmpty)! || (arrivaltime.text?.isEmpty)! || (departtime.text?.isEmpty)! || (routeName.text?.isEmpty)!)  // error handling for if all fields were filled  out.
+        {
+            actionTitle = "Error!"
+            actionItem = "You have not entered all required information."
+            
+            // Activate UIAlertController to display error
+            let alert = UIAlertController(title: actionTitle, message: actionItem, preferredStyle: .alert)
+            alert.addAction(exitAction)
+            self.present(alert, animated: true, completion: nil)  // present error alert.
+        } else {
+            print(options.joined(separator: ", "))
+            let driver = self.driverSetting.isOn
+            let userID = Auth.auth().currentUser!.uid
+            let routeInfo = ["userID": userID, "departureTime": departtime.text! as Any, "arrivalTime" : arrivaltime.text! as Any, "Days" :  options, "Longitudes": longitudeArray, "Latitudes": latitudeArray, "Driver": driver, "Name": self.routeName.text! as Any] as [String : Any]
+            print (routeInfo)
+            addRoute(routeInfo: routeInfo)
+            //  print(arrivaltime.text)
+            // print(departtime.text)
+        }
     }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-     
+        
         //pickerView.isHidden = true
-       // pickerView.delegate = self
-       // pickerView.dataSource = self
-       // placePicker.isHidden = true
-       // placePicker.delegate = self
-       // placePicker.dataSource = self
+        // pickerView.delegate = self
+        // pickerView.dataSource = self
+        // placePicker.isHidden = true
+        // placePicker.delegate = self
+        // placePicker.dataSource = self
         sunday.delegate = self
         monday.delegate = self
         tuesday.delegate = self
@@ -93,6 +107,7 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDelegate
         searchCompleter.delegate = self
         HomeSearchBar.placeholder = "Search for Places"
         WorkSearchBar.placeholder = "Search for Places"
+        
     }
     
     func createDatePicker1() {
@@ -117,10 +132,10 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDelegate
         formatter.dateStyle = .none
         // allows for only HH:MM and am or pm
         formatter.timeStyle = .short
-         // formatting the time into a string
+        // formatting the time into a string
         let dateString = formatter.string(from: picker.date)
         arrivaltime.text = "\(dateString)"
-         //converting time to 24hr format
+        //converting time to 24hr format
         formatter.dateFormat = "HH:mm"
         let arrivetime24 = formatter.string(from: picker.date)
         print(arrivetime24)
@@ -161,7 +176,7 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDelegate
         
         self.view.endEditing(true)
     }
-
+    
     //start switch statement that will check if each box is checked, then print out names of checked days
     func didTap(_ checkBox: BEMCheckBox) {
         switch checkBox {
@@ -248,34 +263,34 @@ extension FrequentDestinationsViewController: UISearchBarDelegate {
 
 extension FrequentDestinationsViewController: MKLocalSearchCompleterDelegate{
     func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
-    searchResults = completer.results
-    searchTable.reloadData()
-    searchTable2.reloadData()
+        searchResults = completer.results
+        searchTable.reloadData()
+        searchTable2.reloadData()
     }
     
     func completer(_ completer: MKLocalSearchCompleter, didFailWithError error: Error) {
-    //When text is deleted in search bar, table view will be hidden
-    searchTable.isHidden = true
-    searchTable2.isHidden = true
-    WorkSearchBar.isHidden = false
+        //When text is deleted in search bar, table view will be hidden
+        searchTable.isHidden = true
+        searchTable2.isHidden = true
+        WorkSearchBar.isHidden = false
     }
 }
 
 extension FrequentDestinationsViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
-}
-
-func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return searchResults.count
-}
-
-func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let searchResult = searchResults[indexPath.row]
-    let cell = UITableViewCell(style: .subtitle, reuseIdentifier: nil)
-    cell.textLabel?.text = searchResult.title
-    cell.detailTextLabel?.text = searchResult.subtitle
-    return cell
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return searchResults.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let searchResult = searchResults[indexPath.row]
+        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: nil)
+        cell.textLabel?.text = searchResult.title
+        cell.detailTextLabel?.text = searchResult.subtitle
+        return cell
     }
 }
 
@@ -303,9 +318,8 @@ extension FrequentDestinationsViewController: UITableViewDelegate {
         search.start { (response, error) in
             self.longitudeArray.append(Float( response!.mapItems[0].placemark.coordinate.longitude))
             self.latitudeArray.append(Float( response!.mapItems[0].placemark.coordinate.latitude))
-           // print(String(describing: coordinate))
+            // print(String(describing: coordinate))
         }
     }
 }
-
 
