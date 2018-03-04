@@ -10,9 +10,8 @@ import UIKit
 import Firebase
 import FirebaseAuth
 import FirebaseDatabase
-import Parse
 
-class EditProfileViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate, UINavigationController {
+class EditProfileViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate {
     
     @IBOutlet weak var lastName: UILabel!
     @IBOutlet weak var firstName: UILabel!
@@ -47,22 +46,22 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate, UITextVi
         let userID = Auth.auth().currentUser!.uid
         
         //Checking to see if all the fields are empty
-        if(lastNameField.text.isEmpty && firstNameField.text.isEmpty && bioField.text.isEmpty && phoneNumberField.text.isEmpty && emailField.text.isEmpty) {
+        if(lastNameField.text!.isEmpty && firstNameField.text!.isEmpty && bioField.text!.isEmpty && phoneNumberField.text!.isEmpty && emailField.text!.isEmpty) {
             
             var myAlert = UIAlertController(title: "Alert", message: "All fields can't be empty", preferredStyle: UIAlertControllerStyle.alert)
             let okAction = UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil)
             myAlert.addAction(okAction)
-            self.presentViewController(myAlert, animated: true, completion: nil)
+            self.present(myAlert, animated: true, completion: nil)
             return
         }
         
         //Making sure that each field is required, checking to see if any is empty
-        if(firstNameField.text.isEmpty || lastNameField.text.isEmpty || bioField.text.isEmpty || emailField.text?.isEmpty || phoneNumberField.text?.isEmpty) {
+        if(firstNameField.text!.isEmpty || lastNameField.text!.isEmpty || bioField.text!.isEmpty || emailField.text!.isEmpty || phoneNumberField.text!.isEmpty) {
             
             var myAlert = UIAlertController(title: "Alert", message: "First name and last name are required fields", preferredStyle: UIAlertControllerStyle.alert)
             let okAction = UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil)
             myAlert.addAction(okAction)
-            self.presentViewController(myAlert, animated: true, completion: nil)
+            self.present(myAlert, animated: true, completion: nil)
             return
         }
         
@@ -72,12 +71,12 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate, UITextVi
         let phoneNumber = phoneNumberField.text
         let email = emailField.text
         let bio = bioField.text
-        
-        userID.setObject(userFirstName, forKey: "")
-        userID.setObject(userLastName, forKey: "")
-        userID.setObject(phoneNumber, forKey: "")
-        userID.setObject(email, forKey: "")
-        userID.setObject(bio, forKey: "")
+    
+        userID.setObject(userFirstName, forKey: "firstName")
+        userID.setObject(userLastName, forKey: "lastName")
+        userID.setObject(phoneNumber, forKey: "Phone")
+        userID.setObject(email, forKey: "Email")
+        userID.setObject(bio, forKey: "Biography")
     
         //Parse responds once saving new fields is complete with success or error
     userID.saveInBackgroundWithBlock { (sucess: Bool, error: NSError?) -> Void in
@@ -143,9 +142,9 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate, UITextVi
                             DispatchQueue.main.async {
                                 self.firstName.text = (userInfo["firstName"] as! String)
                                 self.lastName.text = (userInfo["lastName"] as! String)
-                                //self.phoneNumber.text = (userInfo["phoneNumber"] as! String)
-                                //self.Email.text = (userInfo["Email"] as! String)
-                                //self.Bio.text = (userInfo["Bio"] as! String)
+                                self.phoneNumber.text = (userInfo["Phone"] as! String)
+                                self.Email.text = (userInfo["Email"] as! String)
+                                self.Bio.text = (userInfo["Biography"] as! String)
                             }
                         }
                     } catch let error as NSError {
@@ -161,6 +160,7 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate, UITextVi
         // Dispose of any resources that can be recreated.
     }
     
+    //Only numbers can be inputted in phone number field
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if textField == phoneNumberField {
         let allowedCharacters = CharacterSet.decimalDigits
@@ -196,6 +196,7 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate, UITextVi
         return true
     }
     
+    //Limiting bio field to 150 characters
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         if textView == bioField {
             let currentText = textView.text ?? ""

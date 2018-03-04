@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseAuth
+import FirebaseDatabase
 
 class ViewProfileViewController: UIViewController {
 
@@ -29,22 +32,24 @@ class ViewProfileViewController: UIViewController {
     
     @IBAction func editProfile(_ sender: Any) {
         //Reference storyboard and view controller with identifier we called "EditProfileView" as the edit profile view controller
-        var editProfile = self.storyboard?.instantiateViewController(withIdentifier: "EditProfileView") as! EditProfileViewController
+        let editProfile = self.storyboard?.instantiateViewController(withIdentifier: "EditProfileView") as! EditProfileViewController
        //Reference opener var and set to self which is our editprofileviewcontroller
         editProfile.opener = self
         
         //Go through navigation view controller and then present it
         let editProfileNav = UINavigationController(rootViewController: editProfile)
-        self.presentViewController(editProfileNav, animated: true, completion: nil)
+        self.present(editProfileNav, animated: true, completion: nil)
     }
     
     func loadUserDetails()
     {
-        let userFirstName = Auth.auth().currentUser!.objectForKey("") as! String
-        let userLastName = Auth.auth().currentUser!.objectForKey("") as! String
-        let phoneNumber = Auth.auth().objectForKey("") as! String
-        let email = Auth.auth().currentUser!.objectForKey("") as! String
-        let bio = Auth.auth().currentUser!.objectForKey("") as! String
+        //The parse way was using the setObject
+        
+        let userFirstName = Auth.auth().currentUser!.value(forKey: "firstName") as! String
+        let userLastName = Auth.auth().currentUser!.value(forKey: "lastName") as! String
+        let phoneNumber = Auth.auth().currentUser!.value(forKey: "Phone") as! String
+        let email = Auth.auth().currentUser!.value(forKey: "Email") as! String
+        let bio = Auth.auth().currentUser!.value(forKey: "Biography") as! String
         
         firstNameField.text = userFirstName
         lastNameField.text = userLastName
@@ -52,5 +57,4 @@ class ViewProfileViewController: UIViewController {
         emailField.text = email
         bioField.text = bio
     }
-
 }

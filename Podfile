@@ -10,6 +10,5 @@ pod 'Firebase/Database'
 pod 'Braintree'
 pod 'BraintreeDropIn'
 pod 'M13Checkbox'
-pod 'Parse'
 
 end
