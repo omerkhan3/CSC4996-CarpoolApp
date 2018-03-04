@@ -228,9 +228,9 @@ func addRoute(routeInfo: Dictionary<String, Any>)
 {
     let routeURL = URL(string: "http://localhost:3000/routes/")!
     var request = URLRequest(url: routeURL)
-    let userJSON = try! JSONSerialization.data(withJSONObject: routeInfo, options: .prettyPrinted)
-    let userJSONInfo = NSString(data: userJSON, encoding: String.Encoding.utf8.rawValue)! as String
-    request.httpBody = "userInfo=\(userJSONInfo)".data(using: String.Encoding.utf8)
+    let routeJSON = try! JSONSerialization.data(withJSONObject: routeInfo, options: .prettyPrinted)
+    let routeJSONInfo = NSString(data: routeJSON, encoding: String.Encoding.utf8.rawValue)! as String
+    request.httpBody = "routeInfo=\(routeJSONInfo)".data(using: String.Encoding.utf8)
     request.httpMethod = "POST" // POST method.
     
     URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in

@@ -77,7 +77,7 @@ router.post('/', function(req, res, next) {
  }
 
  else {
- var matchingQuery = "SELECT * FROM carpool.\"driverRoute\" WHERE ST_DWithin(startPoint, Geography(ST_MakePoint($1, $2)),1000) AND ST_DWithin(endPoint, Geography(ST_MakePoint($3, $4)),1000) AND (\"departureTime\" <= ($5 + interval '15 minutes') AND \"departureTime\" >= ($5)) AND (\"arrivalTime\" <= ($6 + interval '15 minutes') AND \"arrivalTime\" >= ($6));";
+ var matchingQuery = "SELECT * FROM carpool.\"driverRoute\" WHERE ST_DWithin(startPoint, Geography(ST_MakePoint($1, $2)),1000) AND ST_DWithin(endPoint, Geography(ST_MakePoint($3, $4)),1000) AND (\"departureTime\" <= ($5) AND \"departureTime\" >= ($5  - interval '15 minutes')) AND (\"arrivalTime\" <= ($6 + interval '15 minutes') AND \"arrivalTime\" >= ($6));";
 
 
 
@@ -105,7 +105,7 @@ router.post('/', function(req, res, next) {
               db.any("INSERT INTO carpool.\"Matches\"(\"riderID\", \"driverID\",  \"driverRouteID\", \"Status\") values($1, $2, $3, $4)",[data.riderID, obj['driverID'], obj['routeID'], "Awaiting rider request."  ] )
 
 }
-            db.any("INSERT INTO carpool.\"notificationLog\"(\"userID\", \"notificationType\", \"Date\", \"Read\") values ($1, $2, $3, $4)", [userID, "Match", 'now', 'false']);
+            db.any("INSERT INTO carpool.\"notificationLog\"(\"userID\", \"notificationType\", \"Date\", \"Read\") values ($1, $2, $3, $4)", [userID, "Match", 'now', 'fals']);
           //  db.any("INSERT INTO carpool.\"Matches\"(\"riderID\", \"driverID\",  \"driverRouteID\", \"Status\") values($1, $2, $3, $4, $5",[data.riderID, result.driverID, result.routeID, "Awaiting rider request."  ] )
           }
        else {
