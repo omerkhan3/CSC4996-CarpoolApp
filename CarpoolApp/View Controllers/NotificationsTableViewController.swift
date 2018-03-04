@@ -12,20 +12,13 @@ import Firebase
 import FirebaseAuth
 
 
-struct NotificationObject {
-    let notificationType: String?
-    let Date: String?
-    let Read: Bool?
-}
-
 class NotificationsTableViewController: UITableViewController {
     
     
     @IBOutlet var notificationsTableView: UITableView!
     
     // array of notifications
-    var notificationsArray = [NotificationObject]()
-    var notificationData = [[String : AnyObject]]()
+    var notificationsArray = [Notifications]()
     
     
     override func viewWillAppear(_ animated: Bool) {
@@ -44,13 +37,9 @@ class NotificationsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // get userID
-        let userID = Auth.auth().currentUser?.uid
-        getNotifications(userID: userID!)
-        // download notifications
-//        readNotificationInfo(userID: userID!) {
-//            self.tableView.reloadData()
-//        }
+        getNotifications {
+            self.tableView.reloadData()
+        }
         
         notificationsTableView.delegate = self
         notificationsTableView.dataSource = self
@@ -58,45 +47,50 @@ class NotificationsTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-            let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
+        let cell = UITableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: "notificationCell")
         
             // set title to notification type
-            cell.textLabel?.text = notificationsArray[indexPath.row].notificationType
+            cell.textLabel?.text = "You have a new " + notificationsArray[indexPath.row].notificationType
+            cell.detailTextLabel?.text = notificationsArray[indexPath.row].Date
             return cell
     }
     
+    // set number of sections
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    // set number of rows
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return notificationsArray.count
     }
     
-    func getNotifications(userID: String){
-        
+    // Download notifications JSON and decode into an array
+    func getNotifications(completed: @escaping () -> ()) {
+        // get userID
+        let userID = Auth.auth().currentUser?.uid
         var viewNotificationComponents = URLComponents(string: "http://localhost:3000/notifications")!
-        viewNotificationComponents.queryItems = [
-            URLQueryItem(name: "userID", value: userID)
-        ]
+        viewNotificationComponents.queryItems = [URLQueryItem(name: "userID", value: userID)]
         var request = URLRequest(url: viewNotificationComponents.url!)  // Pass Parameter in URL
         print (viewNotificationComponents.url!)
         
         request.httpMethod = "GET" // GET METHOD
-        
         URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
             if (error != nil){  // error handling responses.
                 print (error as Any)
-            } else if let data = data {
-                print(data)
-                let userInfoString:NSString = NSString(data: data, encoding: String.Encoding.utf8.rawValue)!
-                if let data = userInfoString.data(using: String.Encoding.utf8.rawValue) {
-                    do {
-                        let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String:Any]
-                        print (json as Any)
-                    } catch let error as NSError {
-                        print (error)
+            } else {
+                    guard let data = data else { return }
+                do {
+                    // decode JSON into Notifications[] array type
+                    self.notificationsArray = try JSONDecoder().decode([Notifications].self, from: data)
+                    print(self.notificationsArray)
+                    DispatchQueue.main.async {
+                        completed()
                     }
+                } catch let jsnErr {
+                    print(jsnErr)
                 }
             }
         }.resume()
     }
-    
 }
-
