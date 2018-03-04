@@ -15,9 +15,8 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var UserFirstName: UILabel!
     @IBOutlet weak var UserLastName: UILabel!
     @IBOutlet weak var UserEmail: UILabel!
-
-    
-    
+    @IBOutlet weak var UserPhoneNumber: UILabel!
+    @IBOutlet weak var UserBio: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,12 +52,13 @@ class ProfileViewController: UIViewController {
                                 self.UserFirstName.text =  (userInfo["firstName"] as! String)
                                 self.UserLastName.text = (userInfo["lastName"] as! String)
                                 self.UserEmail.text = (userInfo["Email"] as! String)
+                                self.UserPhoneNumber.text = (userInfo["Phone"] as! String)
+                                self.UserBio.text = (userInfo["Biography"] as! String)
                             }
                         }
                     } catch let error as NSError {
                         print(error)
                     }
-                    
                 }
             }
             
