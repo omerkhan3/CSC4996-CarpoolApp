@@ -1099,6 +1099,73 @@
             </objects>
             <point key="canvasLocation" x="-569" y="188"/>
         </scene>
+        <!--Notifications-->
+        <scene sceneID="py3-rS-GfL">
+            <objects>
+                <tableViewController id="sgc-Ox-uPe" customClass="NotificationsTableViewController" customModule="CarpoolApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="8Dg-Ar-GC0">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" textLabel="xt9-NA-lyu" detailTextLabel="JfN-Tq-8om" style="IBUITableViewCellStyleSubtitle" id="0Gk-UE-dEq">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="0Gk-UE-dEq" id="emk-Wy-wMX">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.666666666666664"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Notification Type" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="xt9-NA-lyu">
+                                            <rect key="frame" x="16" y="5" width="130" height="20.333333333333332"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="JfN-Tq-8om">
+                                            <rect key="frame" x="16" y="25.333333333333332" width="26.666666666666668" height="14.333333333333334"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="sgc-Ox-uPe" id="zVK-4w-Vz1"/>
+                            <outlet property="delegate" destination="sgc-Ox-uPe" id="RqN-Uj-reC"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Notifications" id="IM3-vQ-G0e"/>
+                    <connections>
+                        <outlet property="notificationsTableView" destination="8Dg-Ar-GC0" id="2az-sz-9kq"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Tdq-Je-cLA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2204" y="-1270"/>
+        </scene>
+        <!--Side Menu Navigation Controller-->
+        <scene sceneID="3IE-QC-uWz">
+            <objects>
+                <navigationController storyboardIdentifier="NotificationsNavigationController" id="riS-bv-gg6" customClass="UISideMenuNavigationController" customModule="SideMenu" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="WK0-xt-1wD">
+                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="leftSide" value="NO"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <segue destination="sgc-Ox-uPe" kind="relationship" relationship="rootViewController" id="cpb-tY-brZ"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xmu-vT-Vo0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1370" y="-1270"/>
+        </scene>
         <!--User Menu-->
         <scene sceneID="XI6-Fr-gfv">
             <objects>
@@ -1293,7 +1360,11 @@
                                 <segue destination="g9G-pI-JJg" kind="presentation" id="gHE-U5-aZe"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Item" image="notification" id="CLc-jd-iQr"/>
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="notification" id="CLc-jd-iQr">
+                            <connections>
+                                <segue destination="riS-bv-gg6" kind="presentation" id="RgA-SE-ouT"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="m7C-dn-nZ7" userLabel="First Responder" sceneMemberID="firstResponder"/>

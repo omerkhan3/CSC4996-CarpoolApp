@@ -14,6 +14,7 @@
 		208A2E8B202829E600393D43 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208A2E8A202829E600393D43 /* MapViewController.swift */; };
 		20DA407D204B2F04003D8473 /* SideMenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DA407C204B2F04003D8473 /* SideMenuTableViewController.swift */; };
 		20DA407F204B49FA003D8473 /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DA407E204B49FA003D8473 /* DashboardViewController.swift */; };
+		20DA4083204B69D4003D8473 /* NotificationsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DA4082204B69D4003D8473 /* NotificationsTableViewController.swift */; };
 		20F47A0420277D4800D79394 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 20F47A0320277D4800D79394 /* GoogleService-Info.plist */; };
 		63917F3C2F967485C2582052 /* Pods_CarpoolApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9320C101773311FB910A13A6 /* Pods_CarpoolApp.framework */; };
 		78241398201D0F3A00F06D99 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78241397201D0F3A00F06D99 /* AppDelegate.swift */; };
@@ -43,6 +44,7 @@
 		208A2E8A202829E600393D43 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		20DA407C204B2F04003D8473 /* SideMenuTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuTableViewController.swift; sourceTree = "<group>"; };
 		20DA407E204B49FA003D8473 /* DashboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewController.swift; sourceTree = "<group>"; };
+		20DA4082204B69D4003D8473 /* NotificationsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsTableViewController.swift; sourceTree = "<group>"; };
 		20F47A0320277D4800D79394 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		78241394201D0F3A00F06D99 /* CarpoolApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CarpoolApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		78241397201D0F3A00F06D99 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -131,18 +133,19 @@
 		C98966FC203A183500521450 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				2018C367202CB38900E28C08 /* LogoutViewController.swift */,
-				208A2E8A202829E600393D43 /* MapViewController.swift */,
-				C9DE0B28203F5C5F00554E9C /* FreqDestination.swift */,
-				C9DE0B29203F5C6100554E9C /* LocationSearchTable.swift */,
 				205A4B42202569DC005AE87C /* LaunchViewController.swift */,
-				D10EFE9D20229ACA00C962E1 /* PasswordResetViewController.swift */,
-				D10EFE9B2022983600C962E1 /* LoginViewController.swift */,
-				2033C2CF2026CE5C0081E53A /* ProfileViewController.swift */,
 				D10EFE992022979700C962E1 /* RegistrationViewController.swift */,
-				C96F4839204A4ACC00363162 /* FrequentDestinationsViewController.swift */,
-				20DA407C204B2F04003D8473 /* SideMenuTableViewController.swift */,
+				D10EFE9B2022983600C962E1 /* LoginViewController.swift */,
+				2018C367202CB38900E28C08 /* LogoutViewController.swift */,
+				C9DE0B28203F5C5F00554E9C /* FreqDestination.swift */,
 				20DA407E204B49FA003D8473 /* DashboardViewController.swift */,
+				C96F4839204A4ACC00363162 /* FrequentDestinationsViewController.swift */,
+				2033C2CF2026CE5C0081E53A /* ProfileViewController.swift */,
+				20DA407C204B2F04003D8473 /* SideMenuTableViewController.swift */,
+				20DA4082204B69D4003D8473 /* NotificationsTableViewController.swift */,
+				D10EFE9D20229ACA00C962E1 /* PasswordResetViewController.swift */,
+				208A2E8A202829E600393D43 /* MapViewController.swift */,
+				C9DE0B29203F5C6100554E9C /* LocationSearchTable.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -314,6 +317,7 @@
 			files = (
 				20DA407F204B49FA003D8473 /* DashboardViewController.swift in Sources */,
 				C9D8928F2033629B005EC683 /* UITextFieldX.swift in Sources */,
+				20DA4083204B69D4003D8473 /* NotificationsTableViewController.swift in Sources */,
 				D10EFE9C2022983600C962E1 /* LoginViewController.swift in Sources */,
 				205A4B43202569DC005AE87C /* LaunchViewController.swift in Sources */,
 				C9A7D7ED2032D6830014861D /* UIViewX.swift in Sources */,
