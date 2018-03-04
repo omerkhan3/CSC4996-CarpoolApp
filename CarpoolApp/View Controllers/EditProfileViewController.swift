@@ -10,10 +10,14 @@ import UIKit
 import Firebase
 import FirebaseAuth
 import FirebaseDatabase
+import Parse
 
-class profile2ViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate {
+class EditProfileViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate, UINavigationController {
+    
     @IBOutlet weak var lastName: UILabel!
     @IBOutlet weak var firstName: UILabel!
+    @IBOutlet weak var firstNameField: UITextField!
+    @IBOutlet weak var lastNameField: UITextField!
     @IBOutlet weak var phoneNumber: UILabel!
     @IBOutlet weak var phoneNumberField: UITextField!
     @IBOutlet weak var emailField: UITextField!
@@ -22,21 +26,7 @@ class profile2ViewController: UIViewController, UITextFieldDelegate, UITextViewD
     @IBOutlet weak var Bio: UILabel!
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var scrollView: UIScrollView!
-    var options = [String]()
     
-    let dist = -190
-    
-    @IBAction func editButton(_ sender: Any) {
-        
-    }
-    
-    @IBAction func SaveButton(_ sender: Any) {
-        dump(options)
-        print(options.joined(separator: ", "))
-        let userID = Auth.auth().currentUser!.uid
-        let userInfo = ["userID": userID, "phoneNumber": phoneNumberField.text! as Any, "email": emailField.text! as Any, "bio": bioField.text! as Any] as [String: Any]
-        print(userInfo)
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,6 +34,88 @@ class profile2ViewController: UIViewController, UITextFieldDelegate, UITextViewD
         readProfileInfo(userID: userID!)
         self.phoneNumberField.delegate = self
     }
+    
+    var options = [String]()
+    
+    //Reference to viewprofilecontroller to be able to instantly edit profile
+    var opener: ViewProfileViewController!
+    
+    let dist = -190
+    
+    @IBAction func saveButton(_ sender: Any) {
+        //Get the current user
+        let userID = Auth.auth().currentUser!.uid
+        
+        //Checking to see if all the fields are empty
+        if(lastNameField.text.isEmpty && firstNameField.text.isEmpty && bioField.text.isEmpty && phoneNumberField.text.isEmpty && emailField.text.isEmpty) {
+            
+            var myAlert = UIAlertController(title: "Alert", message: "All fields can't be empty", preferredStyle: UIAlertControllerStyle.alert)
+            let okAction = UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil)
+            myAlert.addAction(okAction)
+            self.presentViewController(myAlert, animated: true, completion: nil)
+            return
+        }
+        
+        //Making sure that each field is required, checking to see if any is empty
+        if(firstNameField.text.isEmpty || lastNameField.text.isEmpty || bioField.text.isEmpty || emailField.text?.isEmpty || phoneNumberField.text?.isEmpty) {
+            
+            var myAlert = UIAlertController(title: "Alert", message: "First name and last name are required fields", preferredStyle: UIAlertControllerStyle.alert)
+            let okAction = UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil)
+            myAlert.addAction(okAction)
+            self.presentViewController(myAlert, animated: true, completion: nil)
+            return
+        }
+        
+        //Set new values for each of the fields
+        let userFirstName = firstNameField.text
+        let userLastName = lastNameField.text
+        let phoneNumber = phoneNumberField.text
+        let email = emailField.text
+        let bio = bioField.text
+        
+        userID.setObject(userFirstName, forKey: "")
+        userID.setObject(userLastName, forKey: "")
+        userID.setObject(phoneNumber, forKey: "")
+        userID.setObject(email, forKey: "")
+        userID.setObject(bio, forKey: "")
+    
+        //Parse responds once saving new fields is complete with success or error
+    userID.saveInBackgroundWithBlock { (sucess: Bool, error: NSError?) -> Void in
+        
+        //If an error occurs, presents what the alert is
+        if(error != nil)
+        {
+            var myAlert = UIAlertController(title: "Alert", message: error!.localizedDescription, preferredStyle: UIAlertControllerStyle.alert)
+            
+            let okAction = UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil)
+            myAlert.addAction(okAction)
+            self.presentViewController(myAlert, animated: true, completion: nil)
+            return
+        }
+        
+        //Success message
+        if(success)
+        {
+            var userMessage = "Profile details successfully updated"
+            var myAlert = UIAlertController(title: "Alert", message: userMessage, preferredStyle: UIAlertControllerStyle.alert)
+            let okAction = UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: { (action: UIAlertAction!) -> Void in
+                //Dismiss edit view controller and alert and loads user details function
+                self.dismissViewControllerAnimated(true, completion: { () -> Void in
+                    self.opener.loadUserDetails()
+                })
+                })
+            myAlert.addAction(okAction)
+            self.presentViewController(myAlert, animated: true, completion: nil)
+        }
+    }
+    }
+    /*@IBAction func SaveButton(_ sender: Any) {
+        dump(options)
+        print(options.joined(separator: ", "))
+        let userID = Auth.auth().currentUser!.uid
+        let userInfo = ["userID": userID, "phoneNumber": phoneNumberField.text! as Any, "email": emailField.text! as Any, "bio": bioField.text! as Any] as [String: Any]
+        print(userInfo)
+    }*/
     
     func readProfileInfo(userID: String)
     {
