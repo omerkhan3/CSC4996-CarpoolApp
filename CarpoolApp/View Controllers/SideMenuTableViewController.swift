@@ -13,7 +13,7 @@ import SideMenu
 class SideMenuTableViewController: UITableViewController {
     
     @IBOutlet var userMenuTableView: UITableView!
-    let menuOptions = ["User Profile", "Notifications", "Matches", "My Routes", "Settings", "Help", "Logout"]
+    let menuOptions = ["User Profile", "Matches", "My Routes", "Payments", "Settings", "Help", "Logout"]
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -57,20 +57,20 @@ class SideMenuTableViewController: UITableViewController {
         self.performSegue(withIdentifier: "showProfile", sender: self)
         }
         
-        else if indexPath.row == 1
-        {
-            self.performSegue(withIdentifier: "showNotifications", sender: self)
-        }
-        
-//        else if indexPath.row == 2
+//        else if indexPath.row == 1
 //        {
 //            self.performSegue(withIdentifier: "showMatches", sender: self)
 //        }
         
-        else if indexPath.row == 3
+        else if indexPath.row == 2
         {
             self.performSegue(withIdentifier: "showRoutes", sender: self)
         }
+            
+//        else if indexPath.row == 3
+//        {
+//            self.performSegue(withIdentifier: "showPayments", sender: self)
+//        }
         
 //        else if indexPath.row == 4
 //        {

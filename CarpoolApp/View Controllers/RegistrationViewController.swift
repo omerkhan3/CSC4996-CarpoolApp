@@ -65,7 +65,9 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
                 
                 // Activate UIAlertController to display confirmation
                 let alert = UIAlertController(title: actionTitle, message: actionItem, preferredStyle: .alert)
-                alert.addAction(exitAction)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                    self.performSegue(withIdentifier: "showLogin", sender: self)
+                }))
                 self.present(alert, animated: true, completion: nil)
                 
                 let userID = (user?.uid) ?? "Unknown"
@@ -79,6 +81,7 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
 
                 
                 self.storeUserInfo(userInfo: userInfo)
+                
                 // Error handling
             }else{
                 actionTitle = "Error!"

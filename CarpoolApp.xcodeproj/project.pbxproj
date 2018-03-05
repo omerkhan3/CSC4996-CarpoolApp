@@ -12,6 +12,8 @@
 		205A4B43202569DC005AE87C /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205A4B42202569DC005AE87C /* LaunchViewController.swift */; };
 		206736E32026A929008714A7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 206736E52026A929008714A7 /* LaunchScreen.storyboard */; };
 		208A2E8B202829E600393D43 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208A2E8A202829E600393D43 /* MapViewController.swift */; };
+		209EF5CB204CB51B007289FB /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 209EF5CA204CB51B007289FB /* Notifications.swift */; };
+		209EF5CD204CB542007289FB /* NotificationsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 209EF5CC204CB542007289FB /* NotificationsTableViewController.swift */; };
 		20DA407D204B2F04003D8473 /* SideMenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DA407C204B2F04003D8473 /* SideMenuTableViewController.swift */; };
 		20DA407F204B49FA003D8473 /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DA407E204B49FA003D8473 /* DashboardViewController.swift */; };
 		20F47A0420277D4800D79394 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 20F47A0320277D4800D79394 /* GoogleService-Info.plist */; };
@@ -42,6 +44,8 @@
 		205A4B42202569DC005AE87C /* LaunchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
 		206736E42026A929008714A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		208A2E8A202829E600393D43 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		209EF5CA204CB51B007289FB /* Notifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Notifications.swift; path = "../../../../Notifications/CSC4996-CarpoolApp/CarpoolApp/Data/Notifications.swift"; sourceTree = "<group>"; };
+		209EF5CC204CB542007289FB /* NotificationsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NotificationsTableViewController.swift; path = "../../../../Notifications/CSC4996-CarpoolApp/CarpoolApp/View Controllers/NotificationsTableViewController.swift"; sourceTree = "<group>"; };
 		20DA407C204B2F04003D8473 /* SideMenuTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuTableViewController.swift; sourceTree = "<group>"; };
 		20DA407E204B49FA003D8473 /* DashboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewController.swift; sourceTree = "<group>"; };
 		20F47A0320277D4800D79394 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -84,6 +88,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		209EF5C9204CB4F4007289FB /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				209EF5CA204CB51B007289FB /* Notifications.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
 		7824138B201D0F3A00F06D99 = {
 			isa = PBXGroup;
 			children = (
@@ -105,6 +117,7 @@
 		78241396201D0F3A00F06D99 /* CarpoolApp */ = {
 			isa = PBXGroup;
 			children = (
+				209EF5C9204CB4F4007289FB /* Data */,
 				C98966FC203A183500521450 /* View Controllers */,
 				C968E52120366ACF00B137B8 /* Design */,
 				20F47A0320277D4800D79394 /* GoogleService-Info.plist */,
@@ -133,6 +146,7 @@
 		C98966FC203A183500521450 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				209EF5CC204CB542007289FB /* NotificationsTableViewController.swift */,
 				2018C367202CB38900E28C08 /* LogoutViewController.swift */,
 				208A2E8A202829E600393D43 /* MapViewController.swift */,
 				C9DE0B28203F5C5F00554E9C /* FreqDestination.swift */,
@@ -315,6 +329,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				209EF5CD204CB542007289FB /* NotificationsTableViewController.swift in Sources */,
 				20DA407F204B49FA003D8473 /* DashboardViewController.swift in Sources */,
 				C9D8928F2033629B005EC683 /* UITextFieldX.swift in Sources */,
 				D10EFE9C2022983600C962E1 /* LoginViewController.swift in Sources */,
@@ -330,6 +345,7 @@
 				C98BB0A0202A58A8006B054C /* otherlocations.swift in Sources */,
 				2018C368202CB38900E28C08 /* LogoutViewController.swift in Sources */,
 				20DA407D204B2F04003D8473 /* SideMenuTableViewController.swift in Sources */,
+				209EF5CB204CB51B007289FB /* Notifications.swift in Sources */,
 				208A2E8B202829E600393D43 /* MapViewController.swift in Sources */,
 				C968E520203669E400B137B8 /* RoundedButton.swift in Sources */,
 				C9DE0B2A203F5C6100554E9C /* FreqDestination.swift in Sources */,

@@ -13,19 +13,14 @@ const pgp = db.$config.pgp;
 
 router.get('/', function(req, res, next) {
 var userID = req.query.userID;
-db.one("select \"notificationLog\".\"notificationType\", \"notificationLog\".\"Date\", \"notificationLog\".\"Read\" from carpool.\"notificationLog\" where \"notificationLog\".\"userID\" = $1", userID)
+console.log(userID);
+db.query("select \"notificationLog\".\"notificationType\", \"notificationLog\".\"Date\", \"notificationLog\".\"Read\" from carpool.\"notificationLog\" where \"notificationLog\".\"userID\" = $1", userID)
 .then(function(data) {
-  console.log(data);
-  res.status(200).json({
-    status: 'Success',
-    data: data,
-    message:  'Retrieved Notifications.'
-  });
-})
-  .catch(function(err){
-    console.log(err);
-  })
+ console.log("Data:" , data);
+ res.send(data);
 });
+});
+
 
 
 
