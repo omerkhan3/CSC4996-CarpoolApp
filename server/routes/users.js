@@ -49,4 +49,24 @@ db.one("select \"Users\".\"firstName\", \"Users\".\"lastName\", \"Users\".\"Emai
 
 
 
+route.post('/profile', function(req, res, next){
+  var userInfo = req.body.userInfo;
+  var userJSON = JSON.parse(userInfo);
+  var userID = userJSON['userID'];
+
+  db.none("UPDATE carpool.\"Users\" SET \"Biography\" = 'Hi my name is Test.' where \"userID\" = $1) values($1)", [userID])
+    .then(function () {
+      res.status(200)
+        .json({
+          status: 'Success',
+          message: 'User Profile'
+        });
+    })
+    .catch(function (err) {
+      res.send(err);
+    });
+});
+
+
+
 module.exports = router;
