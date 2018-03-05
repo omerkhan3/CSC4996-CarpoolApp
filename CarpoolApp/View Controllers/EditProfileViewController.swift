@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseAuth
 
 class EditProfileViewController: UIViewController {
 
@@ -21,6 +23,9 @@ class EditProfileViewController: UIViewController {
     @IBOutlet weak var bio: UILabel!
     @IBOutlet weak var bioField: UITextView!
     @IBAction func saveButton(_ sender: Any) {
+        let userID = Auth.auth().currentUser!.uid
+        let userInfo = ["userID": userID, "Biography": self.bioField.text] as [String : Any]
+        updateProfile(userInfo: userInfo)
     }
     
     override func viewDidLoad() {
@@ -35,6 +40,26 @@ class EditProfileViewController: UIViewController {
     }
     
 
+    
+    func updateProfile(userInfo: Dictionary<String, Any>)
+    {
+        let editProfileURL = URL(string: "http://localhost:3000/users/profile")!
+        var request = URLRequest(url: editProfileURL)
+        let userJSON = try! JSONSerialization.data(withJSONObject: userInfo, options: .prettyPrinted)
+        let userJSONInfo = NSString(data: userJSON, encoding: String.Encoding.utf8.rawValue)! as String
+        request.httpBody = "userInfo=\(userJSONInfo)".data(using: String.Encoding.utf8)
+        request.httpMethod = "POST" // POST method.
+        
+        URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
+            if (error != nil){  // error handling responses.
+                print ("An error has occured.")
+            }
+            else{
+                print ("Success!")
+            }
+            
+            }.resume()
+    }
     /*
     // MARK: - Navigation
 

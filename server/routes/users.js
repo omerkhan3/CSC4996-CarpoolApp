@@ -49,17 +49,19 @@ db.one("select \"Users\".\"firstName\", \"Users\".\"lastName\", \"Users\".\"Emai
 
 
 
-route.post('/profile', function(req, res, next){
+router.post('/profile', function(req, res, next){
   var userInfo = req.body.userInfo;
   var userJSON = JSON.parse(userInfo);
+  console.log(userJSON);
+  var bio = userJSON['Biography'];
   var userID = userJSON['userID'];
-
-  db.none("UPDATE carpool.\"Users\" SET \"Biography\" = 'Hi my name is Test.' where \"userID\" = $1) values($1)", [userID])
+  console.log("Updating Bio.");
+  db.query("UPDATE carpool.\"Users\" SET \"Biography\" = $1 where \"userID\" = $2", [bio, userID])
     .then(function () {
       res.status(200)
         .json({
           status: 'Success',
-          message: 'User Profile'
+          message: 'User Profile Updated.'
         });
     })
     .catch(function (err) {
