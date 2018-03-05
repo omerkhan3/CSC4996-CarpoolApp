@@ -16,10 +16,6 @@ class EditProfileViewController: UIViewController {
     @IBOutlet weak var lastName: UILabel!
     @IBOutlet weak var firstNameField: UITextField!
     @IBOutlet weak var lastNameField: UITextField!
-    @IBOutlet weak var phoneNumber: UILabel!
-    @IBOutlet weak var phoneNumberField: UITextField!
-    @IBOutlet weak var email: UILabel!
-    @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var bio: UILabel!
     @IBOutlet weak var bioField: UITextView!
     @IBAction func saveButton(_ sender: Any) {
@@ -27,6 +23,8 @@ class EditProfileViewController: UIViewController {
         let userInfo = ["userID": userID, "Biography": self.bioField.text] as [String : Any]
         updateProfile(userInfo: userInfo)
     }
+    
+    let dist = -140
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,8 +36,6 @@ class EditProfileViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-
     
     func updateProfile(userInfo: Dictionary<String, Any>)
     {
@@ -60,14 +56,27 @@ class EditProfileViewController: UIViewController {
             
             }.resume()
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    
+    // Keyboard handling
+    // Begin editing within text field
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        moveScrollView(textField, distance: dist, up: true)
     }
-    */
-
+    
+    // End editing within text field
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        moveScrollView(textField, distance: dist, up: false)
+    }
+    
+    // Hide keyboard if return key is pressed
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    // Move scroll view
+    func moveScrollView(_ textField: UITextField, distance: Int, up: Bool) {
+        let movement: CGFloat = CGFloat(up ? distance: -distance)
+        self.view.frame = self.view.frame.offsetBy(dx: 0, dy: movement)
+    }
 }

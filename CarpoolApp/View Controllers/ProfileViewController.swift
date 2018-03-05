@@ -54,7 +54,6 @@ class ProfileViewController: UIViewController {
                                 self.UserFirstName.text =  (userInfo["firstName"] as! String)
                                 self.UserLastName.text = (userInfo["lastName"] as! String)
                                 self.UserEmail.text = (userInfo["Email"] as! String)
-                                
                                 self.UserBio.text = (userInfo["Biography"] as! String)
                             }
                         }

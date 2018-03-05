@@ -19,9 +19,9 @@
 		78241398201D0F3A00F06D99 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78241397201D0F3A00F06D99 /* AppDelegate.swift */; };
 		7824139D201D0F3A00F06D99 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7824139B201D0F3A00F06D99 /* Main.storyboard */; };
 		7824139F201D0F3A00F06D99 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7824139E201D0F3A00F06D99 /* Assets.xcassets */; };
-		912C7DBE204D01CA00E222A4 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 912C7DBD204D01CA00E222A4 /* Notifications.swift */; };
 		912C7DC0204D02CC00E222A4 /* NotificationsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 912C7DBF204D02CC00E222A4 /* NotificationsTableViewController.swift */; };
 		912C7DC2204D062E00E222A4 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 912C7DC1204D062D00E222A4 /* EditProfileViewController.swift */; };
+		912C7DC4204D16BD00E222A4 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 912C7DC3204D16BD00E222A4 /* Notifications.swift */; };
 		C968E520203669E400B137B8 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C968E51F203669E400B137B8 /* RoundedButton.swift */; };
 		C96F483A204A4ACC00363162 /* FrequentDestinationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96F4839204A4ACC00363162 /* FrequentDestinationsViewController.swift */; };
 		C98BB0A0202A58A8006B054C /* otherlocations.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98BB09F202A58A8006B054C /* otherlocations.swift */; };
@@ -53,9 +53,9 @@
 		7824139C201D0F3A00F06D99 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7824139E201D0F3A00F06D99 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		782413A3201D0F3A00F06D99 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		912C7DBD204D01CA00E222A4 /* Notifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		912C7DBF204D02CC00E222A4 /* NotificationsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationsTableViewController.swift; sourceTree = "<group>"; };
 		912C7DC1204D062D00E222A4 /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
+		912C7DC3204D16BD00E222A4 /* Notifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Notifications.swift; path = CarpoolApp/Data/Notifications.swift; sourceTree = SOURCE_ROOT; };
 		9320C101773311FB910A13A6 /* Pods_CarpoolApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CarpoolApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C968E51F203669E400B137B8 /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		C96F4839204A4ACC00363162 /* FrequentDestinationsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FrequentDestinationsViewController.swift; sourceTree = "<group>"; };
@@ -139,8 +139,8 @@
 		C98966FC203A183500521450 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				912C7DBD204D01CA00E222A4 /* Notifications.swift */,
 				912C7DBF204D02CC00E222A4 /* NotificationsTableViewController.swift */,
+				912C7DC3204D16BD00E222A4 /* Notifications.swift */,
 				2018C367202CB38900E28C08 /* LogoutViewController.swift */,
 				208A2E8A202829E600393D43 /* MapViewController.swift */,
 				C9DE0B28203F5C5F00554E9C /* FreqDestination.swift */,
@@ -326,7 +326,6 @@
 			files = (
 				912C7DC0204D02CC00E222A4 /* NotificationsTableViewController.swift in Sources */,
 				20DA407F204B49FA003D8473 /* DashboardViewController.swift in Sources */,
-				912C7DBE204D01CA00E222A4 /* Notifications.swift in Sources */,
 				C9D8928F2033629B005EC683 /* UITextFieldX.swift in Sources */,
 				D10EFE9C2022983600C962E1 /* LoginViewController.swift in Sources */,
 				205A4B43202569DC005AE87C /* LaunchViewController.swift in Sources */,
@@ -344,6 +343,7 @@
 				20DA407D204B2F04003D8473 /* SideMenuTableViewController.swift in Sources */,
 				208A2E8B202829E600393D43 /* MapViewController.swift in Sources */,
 				C968E520203669E400B137B8 /* RoundedButton.swift in Sources */,
+				912C7DC4204D16BD00E222A4 /* Notifications.swift in Sources */,
 				C9DE0B2A203F5C6100554E9C /* FreqDestination.swift in Sources */,
 				C9B52A8220453F2B00501AAA /* Checkbox.swift in Sources */,
 				C9F4750E204B67F40010232A /* HelpViewController.swift in Sources */,
