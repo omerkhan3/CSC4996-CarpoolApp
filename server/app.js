@@ -18,6 +18,7 @@ var users = require('./routes/users');
 var payment = require('./routes/payment');
 var routes = require('./routes/routes');
 var notifications = require('./routes/notifications');
+var matches = require('./routes/matches');
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
@@ -35,7 +36,7 @@ app.use('/payment', payment);  // using the checkout route we are using to handl
 //app.use('/viewProfile', viewProfile);
 app.use('/routes', routes);
 app.use('/notifications', notifications);
-
+app.use ('/matches', matches);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
