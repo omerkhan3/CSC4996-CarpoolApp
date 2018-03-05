@@ -105,7 +105,7 @@ router.post('/', function(req, res, next) {
               db.any("INSERT INTO carpool.\"Matches\"(\"riderID\", \"driverID\",  \"driverRouteID\", \"Status\") values($1, $2, $3, $4)",[data.riderID, obj['driverID'], obj['routeID'], "Awaiting rider request."  ] )
 
 }
-            db.any("INSERT INTO carpool.\"notificationLog\"(\"userID\", \"notificationType\", \"Date\", \"Read\") values ($1, $2, $3, $4)", [userID, "Match", 'now', 'fals']);
+            db.any("INSERT INTO carpool.\"notificationLog\"(\"userID\", \"notificationType\", \"Date\", \"Read\") values ($1, $2, $3, $4)", [userID, "Match", 'now', 'false']);
           //  db.any("INSERT INTO carpool.\"Matches\"(\"riderID\", \"driverID\",  \"driverRouteID\", \"Status\") values($1, $2, $3, $4, $5",[data.riderID, result.driverID, result.routeID, "Awaiting rider request."  ] )
           }
        else {
