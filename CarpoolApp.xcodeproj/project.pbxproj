@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		2018C368202CB38900E28C08 /* LogoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2018C367202CB38900E28C08 /* LogoutViewController.swift */; };
 		2033C2D02026CE5C0081E53A /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2033C2CF2026CE5C0081E53A /* ProfileViewController.swift */; };
+		20509AD1204D995400B2EFA3 /* Match.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20509AD0204D995400B2EFA3 /* Match.swift */; };
+		20509AD7204D9DA800B2EFA3 /* MatchesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20509AD6204D9DA800B2EFA3 /* MatchesViewController.swift */; };
 		205A4B43202569DC005AE87C /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205A4B42202569DC005AE87C /* LaunchViewController.swift */; };
 		206736E32026A929008714A7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 206736E52026A929008714A7 /* LaunchScreen.storyboard */; };
 		208A2E8B202829E600393D43 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208A2E8A202829E600393D43 /* MapViewController.swift */; };
@@ -43,6 +45,8 @@
 /* Begin PBXFileReference section */
 		2018C367202CB38900E28C08 /* LogoutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogoutViewController.swift; sourceTree = "<group>"; };
 		2033C2CF2026CE5C0081E53A /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		20509AD0204D995400B2EFA3 /* Match.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Match.swift; sourceTree = "<group>"; };
+		20509AD6204D9DA800B2EFA3 /* MatchesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchesViewController.swift; sourceTree = "<group>"; };
 		205A4B42202569DC005AE87C /* LaunchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
 		206736E42026A929008714A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		208A2E8A202829E600393D43 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -56,7 +60,7 @@
 		782413A3201D0F3A00F06D99 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		912C7DBF204D02CC00E222A4 /* NotificationsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationsTableViewController.swift; sourceTree = "<group>"; };
 		912C7DC1204D062D00E222A4 /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
-		912C7DC3204D16BD00E222A4 /* Notifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Notifications.swift; path = CarpoolApp/Data/Notifications.swift; sourceTree = SOURCE_ROOT; };
+		912C7DC3204D16BD00E222A4 /* Notifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Notifications.swift; path = "CarpoolApp/New Group/Notifications.swift"; sourceTree = SOURCE_ROOT; };
 		9320C101773311FB910A13A6 /* Pods_CarpoolApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CarpoolApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C968E51F203669E400B137B8 /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		C96F4839204A4ACC00363162 /* FrequentDestinationsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FrequentDestinationsViewController.swift; sourceTree = "<group>"; };
@@ -92,6 +96,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		20509ACF204D979300B2EFA3 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				912C7DC3204D16BD00E222A4 /* Notifications.swift */,
+				20509AD0204D995400B2EFA3 /* Match.swift */,
+			);
+			name = Data;
+			path = "New Group";
+			sourceTree = "<group>";
+		};
 		7824138B201D0F3A00F06D99 = {
 			isa = PBXGroup;
 			children = (
@@ -113,6 +127,7 @@
 		78241396201D0F3A00F06D99 /* CarpoolApp */ = {
 			isa = PBXGroup;
 			children = (
+				20509ACF204D979300B2EFA3 /* Data */,
 				C98966FC203A183500521450 /* View Controllers */,
 				C968E52120366ACF00B137B8 /* Design */,
 				20F47A0320277D4800D79394 /* GoogleService-Info.plist */,
@@ -142,7 +157,6 @@
 			isa = PBXGroup;
 			children = (
 				912C7DBF204D02CC00E222A4 /* NotificationsTableViewController.swift */,
-				912C7DC3204D16BD00E222A4 /* Notifications.swift */,
 				2018C367202CB38900E28C08 /* LogoutViewController.swift */,
 				208A2E8A202829E600393D43 /* MapViewController.swift */,
 				C9DE0B28203F5C5F00554E9C /* FreqDestination.swift */,
@@ -158,6 +172,7 @@
 				20DA407E204B49FA003D8473 /* DashboardViewController.swift */,
 				C9F4750D204B67F40010232A /* HelpViewController.swift */,
 				912C7DC1204D062D00E222A4 /* EditProfileViewController.swift */,
+				20509AD6204D9DA800B2EFA3 /* MatchesViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -345,6 +360,8 @@
 				2018C368202CB38900E28C08 /* LogoutViewController.swift in Sources */,
 				20DA407D204B2F04003D8473 /* SideMenuTableViewController.swift in Sources */,
 				208A2E8B202829E600393D43 /* MapViewController.swift in Sources */,
+				20509AD7204D9DA800B2EFA3 /* MatchesViewController.swift in Sources */,
+				20509AD1204D995400B2EFA3 /* Match.swift in Sources */,
 				C968E520203669E400B137B8 /* RoundedButton.swift in Sources */,
 				912C7DC4204D16BD00E222A4 /* Notifications.swift in Sources */,
 				C9DE0B2A203F5C6100554E9C /* FreqDestination.swift in Sources */,

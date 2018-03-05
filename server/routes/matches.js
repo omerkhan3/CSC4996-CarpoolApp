@@ -17,15 +17,8 @@ var matchesQuery = " Select \"driverFirstName\", \"driverLastName\", \"driverBio
 db.query(matchesQuery, userID)
 .then(function(data) {
   console.log(data);
-  res.status(200).json({
-    status: 'Success',
-    data: data,
-    message:  'Retrieved User Matches.'
+  res.send(data);
   });
-})
-  .catch(function(err){
-    console.log(err);
-  })
 });
 
 

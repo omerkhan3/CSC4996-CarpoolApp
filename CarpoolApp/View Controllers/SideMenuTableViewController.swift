@@ -57,10 +57,10 @@ class SideMenuTableViewController: UITableViewController {
         self.performSegue(withIdentifier: "showProfile", sender: self)
         }
         
-//        else if indexPath.row == 1
-//        {
-//            self.performSegue(withIdentifier: "showMatches", sender: self)
-//        }
+        else if indexPath.row == 1
+        {
+            self.performSegue(withIdentifier: "showMatches", sender: self)
+        }
         
         else if indexPath.row == 2
         {
