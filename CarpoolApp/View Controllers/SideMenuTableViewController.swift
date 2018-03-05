@@ -72,15 +72,15 @@ class SideMenuTableViewController: UITableViewController {
 //            self.performSegue(withIdentifier: "showPayments", sender: self)
 //        }
         
-//        else if indexPath.row == 4
-//        {
-//            self.performSegue(withIdentifier: "showSettings", sender: self)
-//        }
+        else if indexPath.row == 4
+        {
+            self.performSegue(withIdentifier: "showSettings", sender: self)
+        }
         
-//        else if indexPath.row == 5
-//        {
-//            self.performSegue(withIdentifier: "showHelp", sender: self)
-//        }
+        else if indexPath.row == 5
+        {
+            self.performSegue(withIdentifier: "showHelp", sender: self)
+       }
         
         else if indexPath.row == 6
         {

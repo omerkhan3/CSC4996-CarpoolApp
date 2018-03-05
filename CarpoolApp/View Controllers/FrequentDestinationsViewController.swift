@@ -17,6 +17,7 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDelegate
     var searchCompleter = MKLocalSearchCompleter()
     var searchResults = [MKLocalSearchCompletion]()
     let picker = UIDatePicker()
+    let dist = -140
     
     //let pickerData = ["work", "school", "gym"]
     var longitudeArray: [Float] = []
@@ -222,6 +223,29 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDelegate
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    // Keyboard handling
+    // Begin editing within text field
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        moveScrollView(textField, distance: dist, up: true)
+    }
+    
+    // End editing within text field
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        moveScrollView(textField, distance: dist, up: false)
+    }
+    
+    // Hide keyboard if return key is pressed
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    // Move scroll view
+    func moveScrollView(_ textField: UITextField, distance: Int, up: Bool) {
+        let movement: CGFloat = CGFloat(up ? distance: -distance)
+        self.view.frame = self.view.frame.offsetBy(dx: 0, dy: movement)
+    }
 }
 
 func addRoute(routeInfo: Dictionary<String, Any>)
@@ -321,5 +345,6 @@ extension FrequentDestinationsViewController: UITableViewDelegate {
             // print(String(describing: coordinate))
         }
     }
+    
 }
 
