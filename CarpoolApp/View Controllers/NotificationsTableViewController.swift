@@ -56,6 +56,17 @@ class NotificationsTableViewController: UITableViewController {
         notificationsTableView.dataSource = self
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // Get Notification Type
+        let type = notificationsArray[indexPath.row].notificationType
+        print(type)
+        
+        // Segue to matches view if notifications is type: "Match"
+        if (type == "Match") {
+            self.performSegue(withIdentifier: "showMatches1", sender: self)
+        }
+    }
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         let cell = UITableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: "notificationCell")

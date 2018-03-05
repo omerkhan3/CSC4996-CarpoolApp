@@ -1271,6 +1271,7 @@
                     <navigationItem key="navigationItem" title="Notifications" id="MaP-7u-8UV"/>
                     <connections>
                         <outlet property="notificationsTableView" destination="VCj-ha-hIs" id="QM6-Fh-XWt"/>
+                        <segue destination="Eo4-Lw-gRL" kind="show" identifier="showMatches1" id="pNZ-Z0-IWB"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fMs-M7-6Z7" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2158,6 +2159,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="psr-y6-Rkp"/>
+        <segue reference="pNZ-Z0-IWB"/>
         <segue reference="I6f-lr-UcO"/>
         <segue reference="iBo-OI-WKP"/>
         <segue reference="cOY-IK-lfO"/>
