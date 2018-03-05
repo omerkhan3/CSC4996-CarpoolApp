@@ -29,7 +29,14 @@ class LogoutViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         logoutButton()
+        navigationItem.hidesBackButton = true
+        navigationController?.isNavigationBarHidden = true
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        navigationItem.hidesBackButton = true
+        navigationController?.isNavigationBarHidden = true
     }
 
     override func didReceiveMemoryWarning() {
