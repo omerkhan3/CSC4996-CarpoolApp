@@ -11,7 +11,7 @@ import Firebase
 import FirebaseAuth
 import FirebaseDatabase
 
-class EditProfileViewController: UIViewController {
+class EditProfileViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var firstName: UILabel!
     @IBOutlet weak var firstNameField: UITextField!
@@ -29,12 +29,53 @@ class EditProfileViewController: UIViewController {
     }
     @IBAction func saveButton(_ sender: Any) {
         //Get the current user
-       /* let userID = Auth.auth().currentUser!.uid
+        let userID = Auth.auth().currentUser!.uid
+        
+        func readProfileInfo(userID: String)
+        {
+            var viewProfileComponents = URLComponents(string: "http://localhost:3000/users/profile")!
+            viewProfileComponents.queryItems = [
+                URLQueryItem(name: "userID", value: userID)
+            ]
+            var request = URLRequest(url: viewProfileComponents.url!)  // Pass Parameter in URL
+            print (viewProfileComponents.url!)
+            
+            request.httpMethod = "GET" // GET METHOD
+            
+            URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
+                if (error != nil){  // error handling responses.
+                    print (error as Any)
+                }
+                else if let data = data {
+                    print(data)
+                    let userInfoString:NSString = NSString(data: data, encoding: String.Encoding.utf8.rawValue)!
+                    if let data = userInfoString.data(using: String.Encoding.utf8.rawValue) {
+                        do {
+                            let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String:AnyObject]
+                            print (json as Any)
+                            if let userInfo = json!["data"]
+                            {
+                                DispatchQueue.main.async {
+                                    self.firstNameField.text =  (userInfo["firstName"] as! String)
+                                    self.lastNameField.text = (userInfo["lastName"] as! String)
+                                    self.emailField.text = (userInfo["Email"] as! String)
+                                    self.phoneNumberField.text = (userInfo["Phone"] as! String)
+                                    self.bioField.text = (userInfo["Biography"] as! String)
+                                }
+                            }
+                        } catch let error as NSError {
+                            print(error)
+                        }
+                    }
+                }
+                }.resume()
+        }
+        
         
         //Checking to see if all the fields are empty
         if(lastNameField.text!.isEmpty && firstNameField.text!.isEmpty && bioField.text!.isEmpty && phoneNumberField.text!.isEmpty && emailField.text!.isEmpty) {
             
-            var myAlert = UIAlertController(title: "Alert", message: "All fields can't be empty", preferredStyle: UIAlertControllerStyle.alert)
+            let myAlert = UIAlertController(title: "Alert", message: "All fields can't be empty", preferredStyle: UIAlertControllerStyle.alert)
             let okAction = UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil)
             myAlert.addAction(okAction)
             self.present(myAlert, animated: true, completion: nil)
@@ -44,18 +85,19 @@ class EditProfileViewController: UIViewController {
         //Making sure that each field is required, checking to see if any is empty
         if(firstNameField.text!.isEmpty || lastNameField.text!.isEmpty || bioField.text!.isEmpty || emailField.text!.isEmpty || phoneNumberField.text!.isEmpty) {
             
-            var myAlert = UIAlertController(title: "Alert", message: "First name and last name are required fields", preferredStyle: UIAlertControllerStyle.alert)
+            let myAlert = UIAlertController(title: "Alert", message: "First name and last name are required fields", preferredStyle: UIAlertControllerStyle.alert)
             let okAction = UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil)
             myAlert.addAction(okAction)
             self.present(myAlert, animated: true, completion: nil)
             return
-        }*/
+        }
     }
     
     let dist = -190
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.phoneNumberField.delegate = self
+        
         // Do any additional setup after loading the view.
     }
 
@@ -65,14 +107,14 @@ class EditProfileViewController: UIViewController {
     }
     
     //Only numbers can be inputted in phone number field
-    /*func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if textField == phoneNumberField {
             let allowedCharacters = CharacterSet.decimalDigits
             let characterSet = CharacterSet(charactersIn: string)
             return allowedCharacters.isSuperset(of: characterSet)
         }
         return true
-    }*/
+    }
     
     //Limiting bio field to 150 characters
     /*func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
