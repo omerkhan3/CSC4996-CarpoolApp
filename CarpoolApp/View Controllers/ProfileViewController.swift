@@ -52,8 +52,8 @@ class ProfileViewController: UIViewController {
                                 self.UserFirstName.text =  (userInfo["firstName"] as! String)
                                 self.UserLastName.text = (userInfo["lastName"] as! String)
                                 self.UserEmail.text = (userInfo["Email"] as! String)
-                                self.UserPhoneNumber.text = (userInfo["Phone"] as! String)
-                                self.UserBio.text = (userInfo["Biography"] as! String)
+                                //self.UserPhoneNumber.text = (userInfo["Phone"] as! String)
+                                //self.UserBio.text = (userInfo["Biography"] as! String)
                             }
                         }
                     } catch let error as NSError {

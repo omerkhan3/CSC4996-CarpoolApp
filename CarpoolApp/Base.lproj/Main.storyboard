@@ -718,17 +718,6 @@
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vHI-S1-0Wr">
-                                <rect key="frame" x="243" y="106" width="42" height="40"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="42" id="XgI-Gc-aVd"/>
-                                    <constraint firstAttribute="height" constant="40" id="rwq-xi-fdh"/>
-                                </constraints>
-                                <state key="normal" image="editIcon"/>
-                                <connections>
-                                    <segue destination="vAG-hx-ayw" kind="show" id="OMz-mg-c5z"/>
-                                </connections>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Phone Number" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WP2-oa-hEW">
                                 <rect key="frame" x="114" y="513" width="146.66666666666663" height="25.333333333333314"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
@@ -762,6 +751,17 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="profileIcon" translatesAutoresizingMaskIntoConstraints="NO" id="ubo-88-h1k">
                                 <rect key="frame" x="123" y="230" width="125" height="125"/>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vHI-S1-0Wr">
+                                <rect key="frame" x="255" y="150" width="42" height="40.000000000000014"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="42" id="XgI-Gc-aVd"/>
+                                    <constraint firstAttribute="height" constant="40" id="rwq-xi-fdh"/>
+                                </constraints>
+                                <state key="normal" image="editIcon"/>
+                                <connections>
+                                    <segue destination="vAG-hx-ayw" kind="show" id="OMz-mg-c5z"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.22101655602455139" green="0.93999975919723511" blue="0.58449978298611116" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -783,7 +783,7 @@
                             <constraint firstItem="m2v-PF-IRr" firstAttribute="trailing" secondItem="o1E-s7-BrM" secondAttribute="trailingMargin" id="Q4p-77-UZZ"/>
                             <constraint firstItem="m2v-PF-IRr" firstAttribute="centerX" secondItem="IEn-d3-Ora" secondAttribute="centerX" constant="-2.5" id="RqA-OX-zc6"/>
                             <constraint firstItem="1da-BM-66I" firstAttribute="top" secondItem="g3m-cJ-HSn" secondAttribute="bottom" constant="8" id="T2l-dQ-8q0"/>
-                            <constraint firstItem="m2v-PF-IRr" firstAttribute="top" secondItem="dJY-jr-oZi" secondAttribute="bottom" constant="14" id="TmD-Ib-9Dw"/>
+                            <constraint firstItem="m2v-PF-IRr" firstAttribute="top" secondItem="dJY-jr-oZi" secondAttribute="bottom" constant="58" id="TmD-Ib-9Dw"/>
                             <constraint firstItem="ubo-88-h1k" firstAttribute="top" secondItem="IEn-d3-Ora" secondAttribute="bottom" constant="-12.999999999999972" id="WUK-5r-SzX"/>
                             <constraint firstItem="tGz-uY-w4R" firstAttribute="top" secondItem="H0k-W9-Qmd" secondAttribute="bottom" id="XfX-gA-XdS"/>
                             <constraint firstItem="8vF-lv-9c9" firstAttribute="centerX" secondItem="9hX-Xo-R7i" secondAttribute="centerX" constant="2.6699999999999999" id="bW1-3k-Two"/>
@@ -800,7 +800,7 @@
                             <constraint firstItem="dJY-jr-oZi" firstAttribute="centerX" secondItem="m2v-PF-IRr" secondAttribute="centerX" constant="-2" id="mmf-5D-6Ie"/>
                             <constraint firstItem="IEn-d3-Ora" firstAttribute="centerX" secondItem="ubo-88-h1k" secondAttribute="centerX" constant="2" id="oHR-sZ-1Z5"/>
                             <constraint firstItem="WP2-oa-hEW" firstAttribute="centerX" secondItem="8vF-lv-9c9" secondAttribute="centerX" id="sHm-vP-m4f"/>
-                            <constraint firstItem="vHI-S1-0Wr" firstAttribute="leading" secondItem="m2v-PF-IRr" secondAttribute="trailing" constant="-116" id="tuk-u8-HSi"/>
+                            <constraint firstItem="vHI-S1-0Wr" firstAttribute="leading" secondItem="m2v-PF-IRr" secondAttribute="trailing" constant="-106" id="tuk-u8-HSi"/>
                             <constraint firstItem="g3m-cJ-HSn" firstAttribute="trailing" secondItem="H0k-W9-Qmd" secondAttribute="trailing" id="tzS-DC-vzE"/>
                             <constraint firstItem="ubo-88-h1k" firstAttribute="centerX" secondItem="Hah-2I-D6b" secondAttribute="centerX" constant="-5" id="vNf-Vy-ciH"/>
                             <constraint firstItem="Hah-2I-D6b" firstAttribute="leading" secondItem="1da-BM-66I" secondAttribute="leading" constant="2" id="wXq-q8-HOR"/>
@@ -2129,6 +2129,7 @@
         <image name="user" width="20" height="20"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="OMz-mg-c5z"/>
         <segue reference="psr-y6-Rkp"/>
         <segue reference="I6f-lr-UcO"/>
         <segue reference="SlS-Nt-508"/>
