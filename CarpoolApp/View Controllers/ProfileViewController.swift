@@ -15,9 +15,10 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var UserFirstName: UILabel!
     @IBOutlet weak var UserLastName: UILabel!
     @IBOutlet weak var UserEmail: UILabel!
-
-    
-    
+    @IBOutlet weak var UserPhoneNumber: UILabel!
+    @IBOutlet weak var UserBio: UILabel!
+    @IBAction func editButton(_ sender: Any) {
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
