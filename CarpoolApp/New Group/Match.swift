@@ -12,16 +12,16 @@ struct Match: Decodable{
     let driverFirstName: String
     let driverLastName: String
     let driverBiography: String? // biography is optional
-    let driverID: Int
+    let driverID: String
     let driverEndPointLat: Double
     let driverEndPointLong: Double
-    let driverRouteUserID: Int
+    let driverRouteUserID: String
     let driverArrival: String
     let driverDeparture: String
     let driverRouteName: String
     let driverRouteID: Int
     let matchID: Int
-    let riderID: Int
+    let riderID: String
     
     // Constructor
     init(json: [String: Any]) {
