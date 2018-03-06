@@ -8,12 +8,16 @@
 
 import UIKit
 import MapKit
+import FirebaseAuth
+
 
 class FreqDestinations: UIViewController {
     
     //Used for search results being shown in table view and for table view to autocomplete address results
     var searchCompleter = MKLocalSearchCompleter()
     var searchResults = [MKLocalSearchCompletion]()
+   // var longitudeArray: [Float] = []
+    //var latitudeArray: [Float] = []
     
     //Linking each table view and search bar
     @IBOutlet weak var searchTable: UITableView!
@@ -27,6 +31,8 @@ class FreqDestinations: UIViewController {
     @IBOutlet weak var SchoolSearchBar: UISearchBar!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBAction func saveButton(_ sender: Any) {
+        //let userID = Auth.auth().currentUser!.uid
+       // let routeInfo = ["userID": userID,  "Longitudes": longitudeArray, "Latitudes": latitudeArray] as [String : Any]
     }
     
     @IBAction func addInput(_ sender: UIButton) {
@@ -125,7 +131,27 @@ class FreqDestinations: UIViewController {
             return cell
         }
     }
+
+/*func addFreqDest(destinationInfo: Dictionary<String, Any>)
+{
+    let destURL = URL(string: "http://localhost:3000/routes/freqdest")!
+    var request = URLRequest(url: destURL)
+    let destinationJSON = try! JSONSerialization.data(withJSONObject: destinationInfo, options: .prettyPrinted)
+    let destinationJSONInfo = NSString(data: destinationJSON, encoding: String.Encoding.utf8.rawValue)! as String
+    request.httpBody = "destinationInfo=\(destinationJSONInfo)".data(using: String.Encoding.utf8)
+    request.httpMethod = "POST" // POST method.
     
+    URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
+        if (error != nil){  // error handling responses.
+            print ("An error has occured.")
+        }
+        else{
+            print ("Success!")
+        }
+        
+        }.resume()
+}
+*/
     extension FreqDestinations: UITableViewDelegate {
         
         func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -160,6 +186,9 @@ class FreqDestinations: UIViewController {
             search.start { (response, error) in
                 let coordinate = response?.mapItems[0].placemark.coordinate
                 print(String(describing: coordinate))
+                //self.longitudeArray.append(Float( response!.mapItems[0].placemark.coordinate.longitude))
+                //self.latitudeArray.append(Float( response!.mapItems[0].placemark.coordinate.latitude))
+                
             }
         }
     }

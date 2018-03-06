@@ -98,9 +98,23 @@ router.post('/', function(req, res, next) {
  }
 
 });
+/*
+router.post('/freqdest', function(req, res, next) {
+  var routeInfo = req.body.destinationInfo;
+  var routeJSON = JSON.parse(routeInfo);
+  var userID = routeJSON['userID'];
 
+  if (routeJSON.length > 0){
+       //console.log('Match Found: ', result);
+       for (var key in routeJSON) {
+         if (!result.hasOwnProperty(key)) continue;
+         var obj = result[key];
+         db.any("INSERT INTO carpool.\"frequentDestinations\"(\"userID\", \"Name\", \"Coordinates\") values($1, $2, $3)",[userID, obj['driverID'], obj['routeID'], "Awaiting rider request."  ] )
 
+}
+     }
 
-
+});
+*/
 
 module.exports = router;
