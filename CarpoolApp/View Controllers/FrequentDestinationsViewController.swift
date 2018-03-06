@@ -17,7 +17,7 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDelegate
     var searchCompleter = MKLocalSearchCompleter()
     var searchResults = [MKLocalSearchCompletion]()
     let picker = UIDatePicker()
-    let dist = -140
+    let dist = -190
     
     //let pickerData = ["work", "school", "gym"]
     var longitudeArray: [Float] = []

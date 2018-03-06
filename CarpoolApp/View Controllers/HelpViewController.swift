@@ -12,8 +12,9 @@ class HelpViewController: UIViewController,UITextFieldDelegate {
     
     let dist = -140
 
-  @IBOutlet weak var subject: UITextField!
-    @IBOutlet weak var message: UITextView!
+    
+    @IBOutlet weak var subjectField: UITextField!
+    @IBOutlet weak var messageField: UITextView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
