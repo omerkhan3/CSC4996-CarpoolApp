@@ -240,6 +240,7 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDelegate
         textField.resignFirstResponder()
         return true
     }
+
     
     // Move scroll view
     func moveScrollView(_ textField: UITextField, distance: Int, up: Bool) {
