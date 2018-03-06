@@ -28,15 +28,15 @@ struct Match: Decodable{
         driverFirstName = json["driverFirstName"] as? String ?? ""
         driverLastName = json["driverLastName"] as? String ?? ""
         driverBiography = json["driverBiography"] as? String ?? ""
-        driverID = json["driverID"] as? Int ?? -1
+        driverID = json["driverID"] as? String ?? ""
         driverEndPointLat = json["driverEndPointLat"] as? Double ?? 0.0
         driverEndPointLong = json["driverEndPointLong"] as? Double ?? 0.0
-        driverRouteUserID = json["driverRouteUserID"] as? Int ?? -1
+        driverRouteUserID = json["driverRouteUserID"] as? String ?? ""
         driverArrival = json["driverArrival"] as? String ?? ""
         driverDeparture = json["driverDeparture"] as? String ?? ""
         driverRouteName = json["driverRouteName"] as? String ?? ""
         driverRouteID = json["driverRouteID"] as? Int ?? -1
         matchID = json["matchID"] as? Int ?? -1
-        riderID = json["riderID"] as? Int ?? -1
+        riderID = json["riderID"] as? String ?? ""
     }
 }
