@@ -25,6 +25,9 @@ class FreqDestinations: UIViewController {
     @IBOutlet weak var HomeSearchBar: UISearchBar!
     @IBOutlet weak var WorkSearchBar: UISearchBar!
     @IBOutlet weak var SchoolSearchBar: UISearchBar!
+    @IBOutlet weak var scrollView: UIScrollView!
+    @IBAction func saveButton(_ sender: Any) {
+    }
     
     @IBAction func addInput(_ sender: UIButton) {
         otherInput.isHidden = false
@@ -66,6 +69,7 @@ class FreqDestinations: UIViewController {
                     searchTable2.isHidden = false
                     searchTable3.isHidden = true
                     searchTable4.isHidden = true
+                    otherInput.isHidden = true
                 }
                 if searchBar == SchoolSearchBar {
                     searchTable.isHidden = true
