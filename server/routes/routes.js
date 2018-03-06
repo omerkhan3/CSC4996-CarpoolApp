@@ -32,23 +32,8 @@ router.post('/', function(req, res, next) {
 
  if (routeJSON['Driver'] == true)
  {
-   var driverID;
-  /* var addDriverQuery = "INSERT INTO carpool.\"Drivers\"(\"userID\") values ($1)";
-   db.one(addDriverQuery, userID)
-   .then(function () {
-     console.log("Driver added.");
-   })
-   .catch(function (err) {
-     console.log("Driver already exists.");
-   });
-/*/
-
-
-   var getDriverIDQuery = "Select \"driverID\" from carpool.\"Users\" where \"userID\" = $1";
-   db.one(getDriverIDQuery, userID)
-   .then(function(data){
      var addDriverRouteQuery = "INSERT INTO carpool.\"Routes\"(\"driverID\", \"departureTime\", \"arrivalTime\", \"startPointLong\", \"startPointLat\", \"endPointLong\", \"endPointLat\", \"Name\", \"Days\", \"Matched\", \"Driver\") values($1, $2, $3, $4, $5, $6, $7, $8, $9, 'false', 'true')";
-     db.any(addDriverRouteQuery, [data.driverID, routeJSON['departureTime'], routeJSON['arrivalTime'], routeJSON['Longitudes'][0], routeJSON['Latitudes'][0], routeJSON['Longitudes'][1], routeJSON['Latitudes'][1], routeJSON['Name'], routeJSON['Days']])
+     db.any(addDriverRouteQuery, [userID, routeJSON['departureTime'], routeJSON['arrivalTime'], routeJSON['Longitudes'][0], routeJSON['Latitudes'][0], routeJSON['Longitudes'][1], routeJSON['Latitudes'][1], routeJSON['Name'], routeJSON['Days']])
       .then(function () {
         console.log("Driver route added.");
         var setGeographyQuery = "UPDATE carpool.\"Routes\" SET startPoint = ST_POINT (\"startPointLat\", \"startPointLong\"), endPoint = ST_POINT (\"endPointLat\", \"endPointLong\")";
@@ -62,7 +47,6 @@ router.post('/', function(req, res, next) {
             message: 'Driver Route Stored'
           });
       })
-   })
    .catch(function(error){
        console.log('error selecting driverID:', error)
    });
@@ -73,23 +57,6 @@ router.post('/', function(req, res, next) {
 
  else {
  var matchingQuery = "SELECT * FROM carpool.\"Routes\" WHERE ST_DWithin(startPoint, Geography(ST_MakePoint($1, $2)),1000) AND ST_DWithin(endPoint, Geography(ST_MakePoint($3, $4)),1000) AND (\"departureTime\" <= ($5) AND \"departureTime\" >= ($5  - interval '15 minutes')) AND (\"arrivalTime\" <= ($6 + interval '15 minutes') AND \"arrivalTime\" >= ($6)) AND \"Matched\" = 'false' AND \"Driver\" = 'true'";
-
-
-
-   var riderID;
-   /*
-   var addRiderQuery = "INSERT INTO carpool.\"Riders\"(\"userID\") values ($1)";
-   db.one(addRiderQuery, userID)
-   .then(function () {
-     console.log("Rider added.");
-   })
-   .catch(function (err) {
-     console.log("Rider already exists.");
-   });
-/*/
-   var getRiderIDQuery = "Select \"riderID\" from carpool.\"Users\" where \"userID\" = $1";
-   db.one(getRiderIDQuery, userID)
-   .then(function(data){
      db.any(matchingQuery, [routeJSON['Latitudes'][0], routeJSON['Longitudes'][0], routeJSON['Latitudes'][1], routeJSON['Longitudes'][1], convertTo24Hour(routeJSON['departureTime']), convertTo24Hour(routeJSON['arrivalTime'])])
      .then(function(result) {
        if (result.length > 0){
@@ -98,11 +65,10 @@ router.post('/', function(req, res, next) {
               // skip loop if the property is from prototype
               if (!result.hasOwnProperty(key)) continue;
               var obj = result[key];
-              db.any("INSERT INTO carpool.\"Matches\"(\"riderID\", \"driverID\",  \"driverRouteID\", \"Status\") values($1, $2, $3, $4)",[data.riderID, obj['driverID'], obj['routeID'], "Awaiting rider request."  ] )
+              db.any("INSERT INTO carpool.\"Matches\"(\"riderID\", \"driverID\",  \"driverRouteID\", \"Status\") values($1, $2, $3, $4)",[userID, obj['driverID'], obj['routeID'], "Awaiting rider request."  ] )
 
 }
             db.any("INSERT INTO carpool.\"notificationLog\"(\"userID\", \"notificationType\", \"Date\", \"Read\") values ($1, $2, $3, $4)", [userID, "Match", 'now', 'false']);
-          //  db.any("INSERT INTO carpool.\"Matches\"(\"riderID\", \"driverID\",  \"driverRouteID\", \"Status\") values($1, $2, $3, $4, $5",[data.riderID, result.driverID, result.routeID, "Awaiting rider request."  ] )
           }
        else {
           console.log("No match found.");
@@ -110,7 +76,7 @@ router.post('/', function(req, res, next) {
      });
      var addRiderRouteQuery = "INSERT INTO carpool.\"Routes\"(\"riderID\", \"departureTime\", \"arrivalTime\", \"startPointLong\", \"startPointLat\", \"endPointLong\", \"endPointLat\", \"Name\", \"Days\", \"Matched\", \"Driver\") values($1, $2, $3, $4, $5, $6, $7, $8, $9, 'false', 'false')";
      db.any(addRiderRouteQuery, [
-      data.riderID, routeJSON['departureTime'], routeJSON['arrivalTime'], routeJSON['Longitudes'][0], routeJSON['Latitudes'][0], routeJSON['Longitudes'][1], routeJSON['Latitudes'][1], routeJSON['Name'], routeJSON['Days']])
+      userID, routeJSON['departureTime'], routeJSON['arrivalTime'], routeJSON['Longitudes'][0], routeJSON['Latitudes'][0], routeJSON['Longitudes'][1], routeJSON['Latitudes'][1], routeJSON['Name'], routeJSON['Days']])
       .then(function () {
         console.log("Succesfully added route.");
         var setGeographyQuery = "UPDATE carpool.\"Routes\" SET startPoint = ST_POINT (\"startPointLat\", \"startPointLong\"), endPoint = ST_POINT (\"endPointLat\", \"endPointLong\")";
@@ -127,14 +93,6 @@ router.post('/', function(req, res, next) {
       .catch(function (err) {
         console.log('error adding route:', err);
       });
-   })
-   .catch(function(err){
-       console.log('error getting riderID:', err)
-   });
-
-
-
-
  }
 
 });
