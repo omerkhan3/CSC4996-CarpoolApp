@@ -32,12 +32,12 @@
 		C995C78E201D5DD400B8CB3E /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C995C78D201D5DD400B8CB3E /* MapKit.framework */; };
 		C995C790201D615E00B8CB3E /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C995C78F201D615D00B8CB3E /* CoreLocation.framework */; };
 		C9A7D7ED2032D6830014861D /* UIViewX.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A7D7EC2032D6830014861D /* UIViewX.swift */; };
+		C9A8E121204E8500004C45ED /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A8E120204E8500004C45ED /* HelpViewController.swift */; };
 		C9B52A8220453F2B00501AAA /* Checkbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B52A8120453F2B00501AAA /* Checkbox.swift */; };
 		C9D8928F2033629B005EC683 /* UITextFieldX.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D8928E2033629B005EC683 /* UITextFieldX.swift */; };
 		C9DE0B2A203F5C6100554E9C /* FreqDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DE0B28203F5C5F00554E9C /* FreqDestination.swift */; };
 		C9DE0B2B203F5C6100554E9C /* LocationSearchTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DE0B29203F5C6100554E9C /* LocationSearchTable.swift */; };
 		C9E8631F204D40BF008F6158 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E8631E204D40BF008F6158 /* SettingsViewController.swift */; };
-		C9F4750E204B67F40010232A /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F4750D204B67F40010232A /* HelpViewController.swift */; };
 		D10EFE9A2022979700C962E1 /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10EFE992022979700C962E1 /* RegistrationViewController.swift */; };
 		D10EFE9C2022983600C962E1 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10EFE9B2022983600C962E1 /* LoginViewController.swift */; };
 		D10EFE9E20229ACA00C962E1 /* PasswordResetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10EFE9D20229ACA00C962E1 /* PasswordResetViewController.swift */; };
@@ -72,12 +72,12 @@
 		C995C78D201D5DD400B8CB3E /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		C995C78F201D615D00B8CB3E /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		C9A7D7EC2032D6830014861D /* UIViewX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewX.swift; sourceTree = "<group>"; };
+		C9A8E120204E8500004C45ED /* HelpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpViewController.swift; sourceTree = "<group>"; };
 		C9B52A8120453F2B00501AAA /* Checkbox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Checkbox.swift; sourceTree = "<group>"; };
 		C9D8928E2033629B005EC683 /* UITextFieldX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITextFieldX.swift; sourceTree = "<group>"; };
 		C9DE0B28203F5C5F00554E9C /* FreqDestination.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FreqDestination.swift; sourceTree = "<group>"; };
 		C9DE0B29203F5C6100554E9C /* LocationSearchTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationSearchTable.swift; sourceTree = "<group>"; };
 		C9E8631E204D40BF008F6158 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
-		C9F4750D204B67F40010232A /* HelpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpViewController.swift; sourceTree = "<group>"; };
 		D10EFE992022979700C962E1 /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
 		D10EFE9B2022983600C962E1 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		D10EFE9D20229ACA00C962E1 /* PasswordResetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordResetViewController.swift; sourceTree = "<group>"; };
@@ -162,6 +162,7 @@
 			isa = PBXGroup;
 			children = (
 				912C7DBF204D02CC00E222A4 /* NotificationsTableViewController.swift */,
+				C9A8E120204E8500004C45ED /* HelpViewController.swift */,
 				2018C367202CB38900E28C08 /* LogoutViewController.swift */,
 				208A2E8A202829E600393D43 /* MapViewController.swift */,
 				C9DE0B28203F5C5F00554E9C /* FreqDestination.swift */,
@@ -175,7 +176,6 @@
 				C96F4839204A4ACC00363162 /* FrequentDestinationsViewController.swift */,
 				20DA407C204B2F04003D8473 /* SideMenuTableViewController.swift */,
 				20DA407E204B49FA003D8473 /* DashboardViewController.swift */,
-				C9F4750D204B67F40010232A /* HelpViewController.swift */,
 				912C7DC1204D062D00E222A4 /* EditProfileViewController.swift */,
 				20509AD6204D9DA800B2EFA3 /* MatchesViewController.swift */,
 				917C54B7204E18FE00F2BBDC /* PaymentsViewController.swift */,
@@ -355,6 +355,7 @@
 				205A4B43202569DC005AE87C /* LaunchViewController.swift in Sources */,
 				C9A7D7ED2032D6830014861D /* UIViewX.swift in Sources */,
 				C96F483A204A4ACC00363162 /* FrequentDestinationsViewController.swift in Sources */,
+				C9A8E121204E8500004C45ED /* HelpViewController.swift in Sources */,
 				D10EFE9A2022979700C962E1 /* RegistrationViewController.swift in Sources */,
 				78241398201D0F3A00F06D99 /* AppDelegate.swift in Sources */,
 				912C7DC2204D062E00E222A4 /* EditProfileViewController.swift in Sources */,
@@ -374,7 +375,6 @@
 				C9DE0B2A203F5C6100554E9C /* FreqDestination.swift in Sources */,
 				C9B52A8220453F2B00501AAA /* Checkbox.swift in Sources */,
 				917C54B8204E18FE00F2BBDC /* PaymentsViewController.swift in Sources */,
-				C9F4750E204B67F40010232A /* HelpViewController.swift in Sources */,
 				C9E8631F204D40BF008F6158 /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -12,7 +12,7 @@ import MapKit
 import Firebase
 import FirebaseAuth
 
-class FrequentDestinationsViewController: UIViewController, UIPickerViewDelegate, BEMCheckBoxDelegate  {
+class FrequentDestinationsViewController: UIViewController, UIPickerViewDelegate, BEMCheckBoxDelegate, UITextFieldDelegate  {
     
     var searchCompleter = MKLocalSearchCompleter()
     var searchResults = [MKLocalSearchCompletion]()
@@ -42,6 +42,8 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDelegate
     @IBOutlet weak var WorkSearchBar: UISearchBar!
     @IBOutlet weak var searchTable: UITableView!
     @IBOutlet weak var searchTable2: UITableView!
+    // label that will allow the driver to save the name of a route
+    @IBOutlet weak var routeName: UITextField!
     
     //label press action that brings up the time picker for arrival
     @IBAction func arrivalpress(_ sender: UITextField) {
@@ -56,8 +58,6 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDelegate
     //switch for deciding if the user is going to be a driver or no
     @IBOutlet weak var driverSetting: UISwitch!
     
-    // label that will allow the driver to save the name of a route
-    @IBOutlet weak var routeName: UITextField!
     
     // when this save buttons is pressed, all information will then be transfered to the database
     @IBAction func actionSubmit(_ sender : Any)
@@ -106,8 +106,8 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDelegate
         searchTable.isHidden = true
         searchTable2.isHidden = true
         searchCompleter.delegate = self
-        HomeSearchBar.placeholder = "Search for Places"
-        WorkSearchBar.placeholder = "Search for Places"
+       // HomeSearchBar.placeholder = "Search for Places"
+        //WorkSearchBar.placeholder = "Search for Places"
         
     }
     
