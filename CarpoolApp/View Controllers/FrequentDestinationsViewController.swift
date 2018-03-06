@@ -76,13 +76,22 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDelegate
             let alert = UIAlertController(title: actionTitle, message: actionItem, preferredStyle: .alert)
             alert.addAction(exitAction)
             self.present(alert, animated: true, completion: nil)  // present error alert.
-        } else {
+        }
+        else {
+            
             print(options.joined(separator: ", "))
             let driver = self.driverSetting.isOn
             let userID = Auth.auth().currentUser!.uid
             let routeInfo = ["userID": userID, "departureTime": departtime.text! as Any, "arrivalTime" : arrivaltime.text! as Any, "Days" :  options, "Longitudes": longitudeArray, "Latitudes": latitudeArray, "Driver": driver, "Name": self.routeName.text! as Any] as [String : Any]
             print (routeInfo)
             addRoute(routeInfo: routeInfo)
+            actionTitle = "Success"
+            actionItem = "Your route information has been saved"
+            
+            // Activate UIAlertController to display error
+            let alert = UIAlertController(title: actionTitle, message: actionItem, preferredStyle: .alert)
+            alert.addAction(exitAction)
+            self.present(alert, animated: true, completion: nil)
             //  print(arrivaltime.text)
             // print(departtime.text)
         }

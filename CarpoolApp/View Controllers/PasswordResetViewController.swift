@@ -15,7 +15,7 @@ class PasswordResetViewController: UIViewController, UITextFieldDelegate {
     // UI components
     @IBOutlet weak var emailField: UITextField!
     
-    let dist = -200 // distance to adjust for keyboard
+    let dist = -20 // distance to adjust for keyboard
     
     // Reset button isPressed method
     @IBAction func resetButton(_ sender: UIButton) {
