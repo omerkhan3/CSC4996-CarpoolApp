@@ -24,6 +24,7 @@
 		912C7DC0204D02CC00E222A4 /* NotificationsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 912C7DBF204D02CC00E222A4 /* NotificationsTableViewController.swift */; };
 		912C7DC2204D062E00E222A4 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 912C7DC1204D062D00E222A4 /* EditProfileViewController.swift */; };
 		912C7DC4204D16BD00E222A4 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 912C7DC3204D16BD00E222A4 /* Notifications.swift */; };
+		917C54B8204E18FE00F2BBDC /* PaymentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 917C54B7204E18FE00F2BBDC /* PaymentsViewController.swift */; };
 		C968E520203669E400B137B8 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C968E51F203669E400B137B8 /* RoundedButton.swift */; };
 		C96F483A204A4ACC00363162 /* FrequentDestinationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96F4839204A4ACC00363162 /* FrequentDestinationsViewController.swift */; };
 		C98BB0A0202A58A8006B054C /* otherlocations.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98BB09F202A58A8006B054C /* otherlocations.swift */; };
@@ -61,6 +62,7 @@
 		912C7DBF204D02CC00E222A4 /* NotificationsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationsTableViewController.swift; sourceTree = "<group>"; };
 		912C7DC1204D062D00E222A4 /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		912C7DC3204D16BD00E222A4 /* Notifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Notifications.swift; path = "CarpoolApp/New Group/Notifications.swift"; sourceTree = SOURCE_ROOT; };
+		917C54B7204E18FE00F2BBDC /* PaymentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentsViewController.swift; sourceTree = "<group>"; };
 		9320C101773311FB910A13A6 /* Pods_CarpoolApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CarpoolApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C968E51F203669E400B137B8 /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		C96F4839204A4ACC00363162 /* FrequentDestinationsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FrequentDestinationsViewController.swift; sourceTree = "<group>"; };
@@ -173,6 +175,7 @@
 				C9F4750D204B67F40010232A /* HelpViewController.swift */,
 				912C7DC1204D062D00E222A4 /* EditProfileViewController.swift */,
 				20509AD6204D9DA800B2EFA3 /* MatchesViewController.swift */,
+				917C54B7204E18FE00F2BBDC /* PaymentsViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -366,6 +369,7 @@
 				912C7DC4204D16BD00E222A4 /* Notifications.swift in Sources */,
 				C9DE0B2A203F5C6100554E9C /* FreqDestination.swift in Sources */,
 				C9B52A8220453F2B00501AAA /* Checkbox.swift in Sources */,
+				917C54B8204E18FE00F2BBDC /* PaymentsViewController.swift in Sources */,
 				C9F4750E204B67F40010232A /* HelpViewController.swift in Sources */,
 				C9E8631F204D40BF008F6158 /* SettingsViewController.swift in Sources */,
 			);
