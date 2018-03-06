@@ -84,8 +84,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         
         // Hard code user's start point until we get the query
         let startName = "Home"
-        let startLat = 42.5471954345703
-        let startLong = -83.3664779663086
+        let startLat = 42.6543464660645
+        let startLong = -83.1790237426758
         
         // Set up Map
         mapView.delegate = self
