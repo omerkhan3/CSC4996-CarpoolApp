@@ -250,7 +250,7 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDelegate
 
 func addRoute(routeInfo: Dictionary<String, Any>)
 {
-    let routeURL = URL(string: "http://localhost:3000/routes/")!
+    let routeURL = URL(string: "http://141.217.48.15:3000/routes/")!
     var request = URLRequest(url: routeURL)
     let routeJSON = try! JSONSerialization.data(withJSONObject: routeInfo, options: .prettyPrinted)
     let routeJSONInfo = NSString(data: routeJSON, encoding: String.Encoding.utf8.rawValue)! as String

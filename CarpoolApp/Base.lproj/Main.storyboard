@@ -2088,15 +2088,6 @@
                                                 <color key="textColor" red="0.0" green="0.58980089430000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Select Time" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hRT-c0-0ed">
-                                                <rect key="frame" x="122" y="434" width="98" height="28"/>
-                                                <nil key="textColor"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
-                                                <connections>
-                                                    <action selector="departpress:" destination="Wnq-9p-acd" eventType="editingDidBegin" id="IT0-Mj-3r5"/>
-                                                </connections>
-                                            </textField>
                                             <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Fb9-m2-edQ" userLabel="SearchTable">
                                                 <rect key="frame" x="0.0" y="47" width="343" height="93"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -2379,6 +2370,15 @@
                                                 <color key="textColor" red="0.0" green="0.58980089430000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Select Time" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hRT-c0-0ed">
+                                                <rect key="frame" x="122" y="443" width="98" height="28"/>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                                <connections>
+                                                    <action selector="departpress:" destination="Wnq-9p-acd" eventType="editingDidBegin" id="IT0-Mj-3r5"/>
+                                                </connections>
+                                            </textField>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
@@ -2398,7 +2398,7 @@
                                             <constraint firstItem="uJU-T2-fSF" firstAttribute="leading" secondItem="8Ku-Bg-eRt" secondAttribute="trailing" constant="15" id="Fhg-YE-0al"/>
                                             <constraint firstItem="uJU-T2-fSF" firstAttribute="top" secondItem="Ml3-98-RIU" secondAttribute="bottom" constant="55" id="GhB-aJ-hya"/>
                                             <constraint firstItem="lYn-LN-6GH" firstAttribute="centerX" secondItem="8Cl-Yw-oiO" secondAttribute="centerX" constant="-3.5" id="HlS-Ie-rTB"/>
-                                            <constraint firstItem="uJU-T2-fSF" firstAttribute="top" secondItem="hRT-c0-0ed" secondAttribute="bottom" constant="36" id="IrU-bm-g3m"/>
+                                            <constraint firstItem="uJU-T2-fSF" firstAttribute="top" secondItem="hRT-c0-0ed" secondAttribute="bottom" constant="27" id="IrU-bm-g3m"/>
                                             <constraint firstItem="heA-iM-PMv" firstAttribute="baseline" secondItem="QkJ-ge-uz7" secondAttribute="baseline" id="Isc-su-puZ"/>
                                             <constraint firstItem="3ta-7J-mAf" firstAttribute="top" secondItem="xTW-wl-V0t" secondAttribute="bottom" constant="7" id="Lwn-dR-swV"/>
                                             <constraint firstAttribute="trailing" secondItem="XVy-qp-tYf" secondAttribute="trailing" id="MLi-qL-Qeo"/>
@@ -2495,7 +2495,7 @@
                                     <constraint firstItem="VqH-nY-JSJ" firstAttribute="centerX" secondItem="8vp-ok-Q03" secondAttribute="centerX" id="IhH-Uq-exK"/>
                                     <constraint firstItem="wce-Di-QgR" firstAttribute="top" secondItem="8vp-ok-Q03" secondAttribute="top" constant="328" id="K3J-Cx-hTD"/>
                                     <constraint firstItem="VqH-nY-JSJ" firstAttribute="leading" secondItem="8vp-ok-Q03" secondAttribute="leading" constant="16" id="KTP-9d-RW1"/>
-                                    <constraint firstItem="hRT-c0-0ed" firstAttribute="top" secondItem="wce-Di-QgR" secondAttribute="bottom" constant="70" id="KXV-7y-IAC"/>
+                                    <constraint firstItem="hRT-c0-0ed" firstAttribute="top" secondItem="wce-Di-QgR" secondAttribute="bottom" constant="79" id="KXV-7y-IAC"/>
                                     <constraint firstItem="lSY-mc-6cp" firstAttribute="top" secondItem="VqH-nY-JSJ" secondAttribute="bottom" constant="8" symbolic="YES" id="MrI-e8-mni"/>
                                     <constraint firstAttribute="height" constant="724" id="N1B-Tv-laM"/>
                                     <constraint firstItem="wce-Di-QgR" firstAttribute="trailing" secondItem="Kbi-bd-iWR" secondAttribute="trailing" constant="-54" id="Ufe-WN-Qhj"/>
