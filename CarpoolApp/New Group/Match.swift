@@ -16,6 +16,7 @@ struct Match: Decodable{
     let driverEndPointLat: Double
     let driverEndPointLong: Double
     let driverRouteUserID: String
+    //let driverDays: [String]
     let driverArrival: String
     let driverDeparture: String
     let driverRouteName: String
@@ -23,7 +24,7 @@ struct Match: Decodable{
     let matchID: Int
     let riderID: String
     
-    // Constructor
+    // JSON Constructor
     init(json: [String: Any]) {
         driverFirstName = json["driverFirstName"] as? String ?? ""
         driverLastName = json["driverLastName"] as? String ?? ""
@@ -32,11 +33,29 @@ struct Match: Decodable{
         driverEndPointLat = json["driverEndPointLat"] as? Double ?? 0.0
         driverEndPointLong = json["driverEndPointLong"] as? Double ?? 0.0
         driverRouteUserID = json["driverRouteUserID"] as? String ?? ""
+        //driverRouteUserID = json["driverDays"] as? [String] ?? [""]
         driverArrival = json["driverArrival"] as? String ?? ""
         driverDeparture = json["driverDeparture"] as? String ?? ""
         driverRouteName = json["driverRouteName"] as? String ?? ""
         driverRouteID = json["driverRouteID"] as? Int ?? -1
         matchID = json["matchID"] as? Int ?? -1
         riderID = json["riderID"] as? String ?? ""
+    }
+    
+    init(){
+        driverFirstName =  ""
+        driverLastName =  ""
+        driverBiography = ""
+        driverID =  ""
+        driverEndPointLat = 0.0
+        driverEndPointLong =  0.0
+        driverRouteUserID =  ""
+        //driverRouteUserID = json["driverDays"] as? [String] ?? [""]
+        driverArrival =  ""
+        driverDeparture =  ""
+        driverRouteName =  ""
+        driverRouteID =  -1
+        matchID =  -1
+        riderID =  ""
     }
 }

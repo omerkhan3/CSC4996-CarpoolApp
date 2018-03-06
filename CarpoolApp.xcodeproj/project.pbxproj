@@ -12,6 +12,7 @@
 		20509AD1204D995400B2EFA3 /* Match.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20509AD0204D995400B2EFA3 /* Match.swift */; };
 		20509AD7204D9DA800B2EFA3 /* MatchesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20509AD6204D9DA800B2EFA3 /* MatchesViewController.swift */; };
 		20509AD9204E2C5600B2EFA3 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20509AD8204E2C5600B2EFA3 /* Profile.swift */; };
+		20509ADB204EEE9200B2EFA3 /* RiderMatchDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20509ADA204EEE9200B2EFA3 /* RiderMatchDetailViewController.swift */; };
 		205A4B43202569DC005AE87C /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205A4B42202569DC005AE87C /* LaunchViewController.swift */; };
 		206736E32026A929008714A7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 206736E52026A929008714A7 /* LaunchScreen.storyboard */; };
 		208A2E8B202829E600393D43 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208A2E8A202829E600393D43 /* MapViewController.swift */; };
@@ -50,6 +51,7 @@
 		20509AD0204D995400B2EFA3 /* Match.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Match.swift; sourceTree = "<group>"; };
 		20509AD6204D9DA800B2EFA3 /* MatchesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchesViewController.swift; sourceTree = "<group>"; };
 		20509AD8204E2C5600B2EFA3 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
+		20509ADA204EEE9200B2EFA3 /* RiderMatchDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiderMatchDetailViewController.swift; sourceTree = "<group>"; };
 		205A4B42202569DC005AE87C /* LaunchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
 		206736E42026A929008714A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		208A2E8A202829E600393D43 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -178,6 +180,7 @@
 				20DA407E204B49FA003D8473 /* DashboardViewController.swift */,
 				912C7DC1204D062D00E222A4 /* EditProfileViewController.swift */,
 				20509AD6204D9DA800B2EFA3 /* MatchesViewController.swift */,
+				20509ADA204EEE9200B2EFA3 /* RiderMatchDetailViewController.swift */,
 				917C54B7204E18FE00F2BBDC /* PaymentsViewController.swift */,
 			);
 			path = "View Controllers";
@@ -362,6 +365,7 @@
 				2033C2D02026CE5C0081E53A /* ProfileViewController.swift in Sources */,
 				D10EFE9E20229ACA00C962E1 /* PasswordResetViewController.swift in Sources */,
 				D16EC1522023AD8800D56CF2 /* DataService.swift in Sources */,
+				20509ADB204EEE9200B2EFA3 /* RiderMatchDetailViewController.swift in Sources */,
 				C9DE0B2B203F5C6100554E9C /* LocationSearchTable.swift in Sources */,
 				C98BB0A0202A58A8006B054C /* otherlocations.swift in Sources */,
 				2018C368202CB38900E28C08 /* LogoutViewController.swift in Sources */,

@@ -67,10 +67,10 @@ class SideMenuTableViewController: UITableViewController {
             self.performSegue(withIdentifier: "showRoutes", sender: self)
         }
             
-//        else if indexPath.row == 3
-//        {
-//            self.performSegue(withIdentifier: "showPayments", sender: self)
-//        }
+        else if indexPath.row == 3
+        {
+            self.performSegue(withIdentifier: "showPayments", sender: self)
+        }
         
         else if indexPath.row == 4
         {
@@ -84,7 +84,13 @@ class SideMenuTableViewController: UITableViewController {
         
         else if indexPath.row == 6
         {
-            self.performSegue(withIdentifier: "showLogout", sender: self)
+            let logoutAlert = UIAlertController(title: "Logout", message: "Are you sure you want to log out?", preferredStyle: UIAlertControllerStyle.alert)
+            logoutAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                self.performSegue(withIdentifier: "showLogout", sender: self)
+            }))
+            
+            logoutAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            self.present(logoutAlert, animated: true)
         }
     }
 

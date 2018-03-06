@@ -15,6 +15,7 @@ class MatchesViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         // array of matches
         var matchesArray = [Match]()
+        var match = Match()
         
     @IBOutlet weak var matchesTableView: UITableView!
     
@@ -44,6 +45,21 @@ class MatchesViewController: UIViewController, UITableViewDelegate, UITableViewD
             self.matchesTableView.delegate = self
             self.matchesTableView.dataSource = self
         }
+    
+        override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+            if segue.identifier == "showRiderMatchDetail" {
+                if let riderMatchDetailViewController = segue.destination as? RiderMatchDetailViewController {
+                    riderMatchDetailViewController.matchDetail = match
+                }
+            }
+        }
+    
+        func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // Get row data
+        match = matchesArray[indexPath.row]
+            print(match)
+        self.performSegue(withIdentifier: "showRiderMatchDetail", sender: self)
+    }
         
         func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
             
