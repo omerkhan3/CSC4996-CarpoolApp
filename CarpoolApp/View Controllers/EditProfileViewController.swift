@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 import FirebaseAuth
 
-class EditProfileViewController: UIViewController {
+class EditProfileViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var firstName: UILabel!
     @IBOutlet weak var lastName: UILabel!
@@ -24,7 +24,7 @@ class EditProfileViewController: UIViewController {
         updateProfile(userInfo: userInfo)
     }
     
-    let dist = -140
+    let dist = -20
     
     override func viewDidLoad() {
         super.viewDidLoad()
