@@ -18,7 +18,7 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var emailField: UITextField! // email text field.
     @IBOutlet weak var passwordField: UITextField! // password text field.
     @IBOutlet weak var confirmPasswordField: UITextField! // confirm password text field.
- 
+    @IBOutlet weak var phoneNumberField: UITextField! // phone number text field
     
     let dist = -140 // distance to adjust for keyboard
     
@@ -32,9 +32,10 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
         let firstName = firstNameField.text
         let lastName = lastNameField.text
         let confirmPassword = confirmPasswordField.text
+        let phoneNumber = phoneNumberField.text
         
         // Error handling for if the user has not filled out all fields.
-        if ((email?.isEmpty)! || (password?.isEmpty)!||(firstName?.isEmpty)! || (lastName?.isEmpty)! || (confirmPassword?.isEmpty)!)
+        if ((email?.isEmpty)! || (password?.isEmpty)!||(firstName?.isEmpty)! || (lastName?.isEmpty)! || (confirmPassword?.isEmpty)! || (phoneNumber?.isEmpty)!)
         {
             actionTitle = "Error!"
             actionItem = "You have not entered all required information."
@@ -79,7 +80,6 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
                 let userInfo = ["userID": userID,   "provider": provider, "firstName": firstName, "lastName": lastName, "email": email] as [String:Any] // store information that user has submitted in a dictionary.
                // DataService.inst.createUser(id: (user?.uid)!, userInfo: userInfo)  // we userInfo to store data in the DB under the user's unique identifier.
 
-                
                 self.storeUserInfo(userInfo: userInfo)
                 
                 // Error handling
@@ -114,11 +114,8 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
                     }
                     
                     }.resume()
-        
-
-
-        
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

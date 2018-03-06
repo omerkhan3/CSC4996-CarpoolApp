@@ -39,8 +39,8 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="was-cx-GKo" userLabel="Content View">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="741"/>
                                         <subviews>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="First Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="znP-8g-3nf" customClass="UITextFieldX" customModule="CarpoolApp" customModuleProvider="target">
-                                                <rect key="frame" x="16" y="245" width="164" height="40"/>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="First Name" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="znP-8g-3nf" customClass="UITextFieldX" customModule="CarpoolApp" customModuleProvider="target">
+                                                <rect key="frame" x="16" y="243" width="164" height="40"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="164" id="oRf-Q9-NII"/>
                                                     <constraint firstAttribute="height" constant="40" id="ytt-lD-Y0D"/>
@@ -57,8 +57,8 @@
                                                     <outlet property="delegate" destination="BYZ-38-t0r" id="Rb2-8D-9ym"/>
                                                 </connections>
                                             </textField>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Last Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QgW-kR-L6I" customClass="UITextFieldX" customModule="CarpoolApp" customModuleProvider="target">
-                                                <rect key="frame" x="188" y="245" width="171" height="40"/>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Last Name" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="QgW-kR-L6I" customClass="UITextFieldX" customModule="CarpoolApp" customModuleProvider="target">
+                                                <rect key="frame" x="188" y="243" width="171" height="40"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="wuU-am-u3N"/>
                                                 </constraints>
@@ -74,8 +74,8 @@
                                                     <outlet property="delegate" destination="BYZ-38-t0r" id="u5F-3K-55b"/>
                                                 </connections>
                                             </textField>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Email" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="LZv-4b-P4p" customClass="UITextFieldX" customModule="CarpoolApp" customModuleProvider="target">
-                                                <rect key="frame" x="16" y="293" width="343" height="40"/>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Email Address" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="LZv-4b-P4p" customClass="UITextFieldX" customModule="CarpoolApp" customModuleProvider="target">
+                                                <rect key="frame" x="16" y="339" width="343" height="40"/>
                                                 <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="RO2-5L-nJU"/>
@@ -94,7 +94,7 @@
                                                 </connections>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Confirm Password" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="LzU-66-RPC" customClass="UITextFieldX" customModule="CarpoolApp" customModuleProvider="target">
-                                                <rect key="frame" x="16" y="389" width="343" height="40"/>
+                                                <rect key="frame" x="16" y="435" width="343" height="40"/>
                                                 <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="WtU-IV-xLr"/>
@@ -112,8 +112,8 @@
                                                     <outlet property="delegate" destination="BYZ-38-t0r" id="GlB-rU-YCH"/>
                                                 </connections>
                                             </textField>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="M8r-cr-ehA" customClass="UITextFieldX" customModule="CarpoolApp" customModuleProvider="target">
-                                                <rect key="frame" x="16" y="341" width="343" height="40"/>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Password" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="M8r-cr-ehA" customClass="UITextFieldX" customModule="CarpoolApp" customModuleProvider="target">
+                                                <rect key="frame" x="16" y="387" width="343" height="40"/>
                                                 <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="1Yb-KN-p0l"/>
@@ -131,20 +131,8 @@
                                                     <outlet property="delegate" destination="BYZ-38-t0r" id="SLx-ZN-hpk"/>
                                                 </connections>
                                             </textField>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w0K-KS-wZt">
-                                                <rect key="frame" x="16" y="518" width="343" height="30"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="30" id="tNC-cG-zhd"/>
-                                                </constraints>
-                                                <state key="normal" title="Login">
-                                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                </state>
-                                                <connections>
-                                                    <segue destination="mgs-n6-XJs" kind="presentation" identifier="showLogin" id="P6H-22-ef1"/>
-                                                </connections>
-                                            </button>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You will use your email to login next time " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qZq-J0-Sbn">
-                                                <rect key="frame" x="31" y="204" width="313" height="21"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="You will use your email to login next time " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qZq-J0-Sbn">
+                                                <rect key="frame" x="31" y="203" width="313" height="21"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="21" id="j5d-GE-Zbl"/>
                                                 </constraints>
@@ -153,7 +141,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="saX-K2-d5y" customClass="RoundedButton" customModule="CarpoolApp" customModuleProvider="target">
-                                                <rect key="frame" x="37" y="450" width="300" height="43"/>
+                                                <rect key="frame" x="37" y="531" width="300" height="43"/>
                                                 <color key="backgroundColor" red="0.0" green="0.58980089430000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="43" id="JlG-N3-TSE"/>
@@ -173,7 +161,7 @@
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="By creating an account you agree to our Terms and Service and Privacy Policy" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hNW-J5-Y1Y">
-                                                <rect key="frame" x="37" y="572" width="300" height="53"/>
+                                                <rect key="frame" x="37" y="634" width="300" height="53"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="53" id="MAr-Qo-0xl"/>
                                                 </constraints>
@@ -181,44 +169,77 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Phone Number" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="QbA-aT-NW9" customClass="UITextFieldX" customModule="CarpoolApp" customModuleProvider="target">
+                                                <rect key="frame" x="16" y="291" width="343" height="40"/>
+                                                <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="HoB-Ex-9vy"/>
+                                                </constraints>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="image" keyPath="leftImage" value="phone"/>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="leftPadding">
+                                                        <real key="value" value="7"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </textField>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstItem="w0K-KS-wZt" firstAttribute="centerX" secondItem="was-cx-GKo" secondAttribute="centerX" id="1LC-So-YWc"/>
-                                            <constraint firstItem="LzU-66-RPC" firstAttribute="top" secondItem="was-cx-GKo" secondAttribute="top" constant="389" id="1p3-4h-eQK"/>
-                                            <constraint firstItem="LZv-4b-P4p" firstAttribute="top" secondItem="znP-8g-3nf" secondAttribute="bottom" constant="8" symbolic="YES" id="4ny-rh-0n3"/>
+                                            <constraint firstItem="LzU-66-RPC" firstAttribute="top" secondItem="was-cx-GKo" secondAttribute="top" constant="435" id="1p3-4h-eQK"/>
+                                            <constraint firstItem="LZv-4b-P4p" firstAttribute="top" secondItem="znP-8g-3nf" secondAttribute="bottom" constant="56" id="4ny-rh-0n3"/>
                                             <constraint firstItem="QgW-kR-L6I" firstAttribute="leading" secondItem="znP-8g-3nf" secondAttribute="trailing" constant="8" id="6ZF-Md-YrZ"/>
-                                            <constraint firstItem="w0K-KS-wZt" firstAttribute="top" secondItem="saX-K2-d5y" secondAttribute="bottom" constant="25" id="8OI-Ub-8XA"/>
-                                            <constraint firstItem="LzU-66-RPC" firstAttribute="leading" secondItem="w0K-KS-wZt" secondAttribute="leading" id="8ee-4v-iFZ"/>
                                             <constraint firstItem="LzU-66-RPC" firstAttribute="trailing" secondItem="M8r-cr-ehA" secondAttribute="trailing" id="D9S-yg-gPJ"/>
                                             <constraint firstItem="LzU-66-RPC" firstAttribute="trailing" secondItem="LZv-4b-P4p" secondAttribute="trailing" id="DWb-iB-tIo"/>
-                                            <constraint firstItem="saX-K2-d5y" firstAttribute="top" secondItem="LzU-66-RPC" secondAttribute="bottom" constant="21" id="Kh6-1u-6RV"/>
+                                            <constraint firstItem="saX-K2-d5y" firstAttribute="top" secondItem="LzU-66-RPC" secondAttribute="bottom" constant="56" id="Kh6-1u-6RV"/>
                                             <constraint firstItem="LzU-66-RPC" firstAttribute="trailing" secondItem="saX-K2-d5y" secondAttribute="trailing" constant="22" id="L76-Qn-7QO"/>
                                             <constraint firstItem="LzU-66-RPC" firstAttribute="leading" secondItem="znP-8g-3nf" secondAttribute="leading" id="MUh-GG-ICT"/>
                                             <constraint firstItem="M8r-cr-ehA" firstAttribute="top" secondItem="LZv-4b-P4p" secondAttribute="bottom" constant="8" symbolic="YES" id="NBN-kO-IAE"/>
+                                            <constraint firstItem="LZv-4b-P4p" firstAttribute="top" secondItem="QbA-aT-NW9" secondAttribute="bottom" constant="8" id="Ovw-wy-taT"/>
+                                            <constraint firstItem="QbA-aT-NW9" firstAttribute="leading" secondItem="was-cx-GKo" secondAttribute="leading" constant="16" id="QEN-vV-dU0"/>
                                             <constraint firstItem="hNW-J5-Y1Y" firstAttribute="trailing" secondItem="saX-K2-d5y" secondAttribute="trailing" id="QV6-og-oP7"/>
+                                            <constraint firstAttribute="trailing" secondItem="QbA-aT-NW9" secondAttribute="trailing" constant="16" id="RWs-aM-TTu"/>
                                             <constraint firstItem="hNW-J5-Y1Y" firstAttribute="leading" secondItem="saX-K2-d5y" secondAttribute="leading" id="SGR-mV-FTQ"/>
                                             <constraint firstItem="LzU-66-RPC" firstAttribute="trailing" secondItem="QgW-kR-L6I" secondAttribute="trailing" id="T9Z-Tt-xiN"/>
                                             <constraint firstItem="qZq-J0-Sbn" firstAttribute="leading" secondItem="was-cx-GKo" secondAttribute="leading" constant="31" id="X7f-00-JUH"/>
                                             <constraint firstItem="qZq-J0-Sbn" firstAttribute="centerX" secondItem="LZv-4b-P4p" secondAttribute="centerX" id="Z5c-mi-IL4"/>
-                                            <constraint firstItem="LzU-66-RPC" firstAttribute="trailing" secondItem="w0K-KS-wZt" secondAttribute="trailing" id="bjt-FW-c7j"/>
+                                            <constraint firstItem="QbA-aT-NW9" firstAttribute="centerX" secondItem="LZv-4b-P4p" secondAttribute="centerX" id="cfQ-NG-s1g"/>
                                             <constraint firstAttribute="height" constant="741" id="ksn-lT-mAf"/>
                                             <constraint firstItem="znP-8g-3nf" firstAttribute="baseline" secondItem="QgW-kR-L6I" secondAttribute="baseline" id="oBb-AO-dYu"/>
                                             <constraint firstItem="LzU-66-RPC" firstAttribute="leading" secondItem="was-cx-GKo" secondAttribute="leading" constant="16" id="pes-1x-oGV"/>
                                             <constraint firstItem="LzU-66-RPC" firstAttribute="leading" secondItem="M8r-cr-ehA" secondAttribute="leading" id="rpj-NR-O2z"/>
                                             <constraint firstItem="LzU-66-RPC" firstAttribute="top" secondItem="M8r-cr-ehA" secondAttribute="bottom" constant="8" symbolic="YES" id="vOl-l4-9rU"/>
                                             <constraint firstItem="znP-8g-3nf" firstAttribute="top" secondItem="qZq-J0-Sbn" secondAttribute="bottom" constant="20" id="w61-lV-PA8"/>
-                                            <constraint firstItem="hNW-J5-Y1Y" firstAttribute="top" secondItem="w0K-KS-wZt" secondAttribute="bottom" constant="24" id="xFA-lX-47S"/>
                                             <constraint firstItem="LzU-66-RPC" firstAttribute="leading" secondItem="LZv-4b-P4p" secondAttribute="leading" id="zcp-CM-aD3"/>
                                             <constraint firstItem="LzU-66-RPC" firstAttribute="leading" secondItem="saX-K2-d5y" secondAttribute="leading" constant="-21" id="zto-F9-svS"/>
                                         </constraints>
                                     </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w0K-KS-wZt">
+                                        <rect key="frame" x="16" y="587" width="343" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="tNC-cG-zhd"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                        <state key="normal" title="Login">
+                                            <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        </state>
+                                        <connections>
+                                            <segue destination="mgs-n6-XJs" kind="presentation" identifier="showLogin" id="P6H-22-ef1"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="was-cx-GKo" firstAttribute="centerX" secondItem="oLz-pL-mgF" secondAttribute="centerX" id="74d-Ae-beC"/>
+                                    <constraint firstItem="LzU-66-RPC" firstAttribute="trailing" secondItem="w0K-KS-wZt" secondAttribute="trailing" id="Dbh-vn-m1h"/>
+                                    <constraint firstItem="w0K-KS-wZt" firstAttribute="top" secondItem="saX-K2-d5y" secondAttribute="bottom" constant="13" id="JUQ-rO-qv5"/>
+                                    <constraint firstItem="w0K-KS-wZt" firstAttribute="centerX" secondItem="oLz-pL-mgF" secondAttribute="centerX" id="Ke6-wc-gN2"/>
+                                    <constraint firstItem="LzU-66-RPC" firstAttribute="leading" secondItem="w0K-KS-wZt" secondAttribute="leading" id="Lpf-i2-CMK"/>
                                     <constraint firstItem="was-cx-GKo" firstAttribute="leading" secondItem="oLz-pL-mgF" secondAttribute="leading" id="ZoH-T7-qgM"/>
                                     <constraint firstAttribute="trailing" secondItem="was-cx-GKo" secondAttribute="trailing" id="fKs-VX-37d"/>
                                     <constraint firstItem="was-cx-GKo" firstAttribute="top" secondItem="oLz-pL-mgF" secondAttribute="top" id="kJT-Xf-GnP"/>
+                                    <constraint firstItem="hNW-J5-Y1Y" firstAttribute="top" secondItem="w0K-KS-wZt" secondAttribute="bottom" constant="17" id="rpq-zs-5Zo"/>
                                     <constraint firstAttribute="bottom" secondItem="was-cx-GKo" secondAttribute="bottom" constant="-7" id="yp2-jQ-DQ2"/>
                                 </constraints>
                             </scrollView>
@@ -252,6 +273,7 @@
                         <outlet property="firstNameField" destination="znP-8g-3nf" id="yOL-Cc-iM1"/>
                         <outlet property="lastNameField" destination="QgW-kR-L6I" id="XHO-tF-RJr"/>
                         <outlet property="passwordField" destination="LzU-66-RPC" id="uQW-U0-f0H"/>
+                        <outlet property="phoneNumberField" destination="QbA-aT-NW9" id="buP-25-Fzs"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -2321,6 +2343,7 @@
         <image name="lock" width="20" height="20"/>
         <image name="menu 2" width="50" height="50"/>
         <image name="notification" width="50" height="50"/>
+        <image name="phone" width="90" height="90"/>
         <image name="profileIcon" width="90" height="90"/>
         <image name="rounded" width="341" height="341"/>
         <image name="user" width="20" height="20"/>
