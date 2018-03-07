@@ -62,7 +62,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 }))
                 self.present(alert, animated: true, completion: nil)
                 
-                DataService.inst.setUserLocation(location: CLLocation(latitude: 37.7853889, longitude: -122.4056973)) //use the dataservice GeoFire method to store the location from which the user logs in from.
+                //DataService.inst.setUserLocation(location: CLLocation(latitude: 37.7853889, longitude: -122.4056973)) //use the dataservice GeoFire method to store the location from which the user logs in from.
                 
             } else {
                 // Login error handling
