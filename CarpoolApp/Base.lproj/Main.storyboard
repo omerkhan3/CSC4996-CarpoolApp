@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="0i7-ux-gCo">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="c8J-yT-xIz">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -1702,13 +1702,16 @@
                         <outlet property="HomeSearchBar" destination="Puy-Yp-mOp" id="7Zo-O5-acp"/>
                         <outlet property="SchoolSearchBar" destination="Z3o-rz-XL3" id="tck-rN-8bI"/>
                         <outlet property="WorkSearchBar" destination="dGT-Qq-uTP" id="gUy-cC-aD6"/>
+                        <outlet property="homeLabel" destination="zTF-1I-fLX" id="BGt-Bz-9y1"/>
                         <outlet property="otherInput" destination="Q4i-MF-l7b" id="cc5-3f-lee"/>
                         <outlet property="otherSearchBar" destination="VkS-6X-88S" id="3jc-Xc-2Rz"/>
+                        <outlet property="schoolLabel" destination="fkv-Pa-fnl" id="9CB-SI-UJ4"/>
                         <outlet property="scrollView" destination="AyH-fR-rZl" id="fhD-ej-SlJ"/>
                         <outlet property="searchTable" destination="dDJ-GJ-MOj" id="DNG-eu-CcD"/>
                         <outlet property="searchTable2" destination="0FR-M1-ok5" id="InM-QF-pQA"/>
                         <outlet property="searchTable3" destination="eZJ-DT-e0C" id="Gad-3p-f8G"/>
                         <outlet property="searchTable4" destination="Qv3-ob-P2d" id="ztC-NV-Mp8"/>
+                        <outlet property="workLabel" destination="NOw-e0-AKY" id="Wkk-CQ-98d"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AJA-5h-fUJ" userLabel="First Responder" sceneMemberID="firstResponder"/>

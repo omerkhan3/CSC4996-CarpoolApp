@@ -16,6 +16,9 @@ class FreqDestinations: UIViewController {
     var searchResults = [MKLocalSearchCompletion]()
     
     //Linking each table view and search bar
+    @IBOutlet weak var homeLabel: UILabel!
+    @IBOutlet weak var workLabel: UILabel!
+    @IBOutlet weak var schoolLabel: UILabel!
     @IBOutlet weak var searchTable: UITableView!
     @IBOutlet weak var searchTable2: UITableView!
     @IBOutlet weak var searchTable3: UITableView!
@@ -26,7 +29,10 @@ class FreqDestinations: UIViewController {
     @IBOutlet weak var WorkSearchBar: UISearchBar!
     @IBOutlet weak var SchoolSearchBar: UISearchBar!
     @IBOutlet weak var scrollView: UIScrollView!
+    
     @IBAction func saveButton(_ sender: Any) {
+        let userInfo = ["HomeAddress": HomeSearchBar, "SchoolAddress": SchoolSearchBar, "WorkAddress": WorkSearchBar, "CustomAddress": otherSearchBar, "HomeLabel": homeLabel, "WorkLabel": workLabel, "SchoolLabel": schoolLabel, "Custom": otherInput] as [String: Any]
+        saveFreqDestinations(userInfo: userInfo)
     }
     
     @IBAction func addInput(_ sender: UIButton) {
@@ -51,6 +57,26 @@ class FreqDestinations: UIViewController {
         WorkSearchBar.placeholder = "Search for Places"
         SchoolSearchBar.placeholder = "Search for Places"
         otherSearchBar.placeholder = "Search for Places"
+    }
+    
+    func saveFreqDestinations(userInfo: Dictionary<String, Any>)
+    {
+        let editProfileURL = URL(string: "http://localhost/users/profile")!
+        var request = URLRequest(url: editProfileURL)
+        let userJSON = try! JSONSerialization.data(withJSONObject: userInfo, options: .prettyPrinted)
+        let userJSONInfo = NSString(data: userJSON, encoding: String.Encoding.utf8.rawValue)! as String
+        request.httpBody = "userInfo=\(userJSONInfo)".data(using: String.Encoding.utf8)
+        request.httpMethod = "POST" // POST method.
+        
+        URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
+            if (error != nil){  // error handling responses.
+                print ("An error has occured.")
+            }
+            else{
+                print ("Success!")
+            }
+            
+            }.resume()
     }
 }
     extension FreqDestinations: UISearchBarDelegate {
