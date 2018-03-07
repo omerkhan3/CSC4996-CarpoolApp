@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class MyRoutesViewController: UIViewController {
 
@@ -24,9 +25,51 @@ class MyRoutesViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        let userID = Auth.auth().currentUser?.uid
+        readMyRoutes(userID: userID!)
         // Do any additional setup after loading the view.
     }
+    
+    func readMyRoutes(userID: String)
+    {
+        var viewProfileComponents = URLComponents(string: "http://localhost/users/profile")!
+        viewProfileComponents.queryItems = [
+            URLQueryItem(name: "userID", value: userID)
+        ]
+        var request = URLRequest(url: viewProfileComponents.url!)  // Pass Parameter in URL
+        print (viewProfileComponents.url!)
+        
+        request.httpMethod = "GET" // GET METHOD
+        
+        URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
+            if (error != nil){  // error handling responses.
+                print (error as Any)
+            }
+            else if let data = data {
+                print(data)
+                let userInfoString:NSString = NSString(data: data, encoding: String.Encoding.utf8.rawValue)!
+                if let data = userInfoString.data(using: String.Encoding.utf8.rawValue) {
+                    do {
+                        let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String:AnyObject]
+                        print (json as Any)
+                        if let userInfo = json!["data"]
+                        {
+                            DispatchQueue.main.async {
+                               self.homeAddress.text = (userInfo["HomeAddress"] as! String)
+                               self.schoolAddress.text = (userInfo["SchoolAddress"] as! String)
+                               self.workAddress.text = (userInfo["WorkAddress"] as! String)
+                            }
+                        }
+                    } catch let error as NSError {
+                        print(error)
+                    }
+                    
+                }
+            }
+            
+            }.resume()
+    }
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

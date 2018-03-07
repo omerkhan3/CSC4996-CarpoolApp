@@ -8,6 +8,7 @@
 
 import UIKit
 import MapKit
+import FirebaseAuth
 
 class FreqDestinations: UIViewController {
     
@@ -31,7 +32,8 @@ class FreqDestinations: UIViewController {
     @IBOutlet weak var scrollView: UIScrollView!
     
     @IBAction func saveButton(_ sender: Any) {
-        let userInfo = ["HomeAddress": HomeSearchBar, "SchoolAddress": SchoolSearchBar, "WorkAddress": WorkSearchBar, "CustomAddress": otherSearchBar, "HomeLabel": homeLabel, "WorkLabel": workLabel, "SchoolLabel": schoolLabel, "Custom": otherInput] as [String: Any]
+        let userID = Auth.auth().currentUser!.uid
+        let userInfo = ["userID": userID, "HomeAddress": self.HomeSearchBar.text as Any, "SchoolAddress": self.SchoolSearchBar.text as Any, "WorkAddress": self.WorkSearchBar.text as Any, "CustomAddress": self.otherSearchBar.text as Any, "HomeLabel": homeLabel, "WorkLabel": workLabel, "SchoolLabel": schoolLabel, "Custom": self.otherInput.text as Any]
         saveFreqDestinations(userInfo: userInfo)
     }
     
