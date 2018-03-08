@@ -11,14 +11,14 @@ const pgp = db.$config.pgp;
 
 
 router.post('/approval', function(req, res, next) {
- var userInfo = req.body.userInfo;
- var userJSON = JSON.parse(userInfo);
- var userID = userJSON['userID'];
-
-if (userJSON['reqeuestType'] == 'riderRequest')
+ var requestInfo = req.body.requestInfo
+ var requestJSON = JSON.parse(requestInfo);
+ var userID = requestJSON['userID'];
+ var matchID = requestJSON['matchID'];
+if (requestJSON['requestType'] == 'riderRequest')
 {
 
-  db.query("UPDATE carpool.\"Users\" SET \"Status\" = 'Driver Requested' where \"matchID\" = $1", [userJSON[matchID]])
+  db.query("UPDATE carpool.\"Matches\" SET \"Status\" = 'driverRequested' where \"matchID\" = $1", [matchID])
    .then(function () {
      res.status(200)
        .json({
