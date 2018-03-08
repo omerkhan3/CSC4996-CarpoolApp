@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 import FirebaseAuth
 
 class MyRoutesViewController: UIViewController {
@@ -32,7 +33,7 @@ class MyRoutesViewController: UIViewController {
     
     func readMyRoutes(userID: String)
     {
-        var viewProfileComponents = URLComponents(string: "http://localhost/users/profile")!
+        var viewProfileComponents = URLComponents(string: "http://localhost/frequentDestinations/")!
         viewProfileComponents.queryItems = [
             URLQueryItem(name: "userID", value: userID)
         ]
@@ -47,34 +48,29 @@ class MyRoutesViewController: UIViewController {
             }
             else if let data = data {
                 print(data)
-                let userInfoString:NSString = NSString(data: data, encoding: String.Encoding.utf8.rawValue)!
-                if let data = userInfoString.data(using: String.Encoding.utf8.rawValue) {
+                let routeInfoString:NSString = NSString(data: data, encoding: String.Encoding.utf8.rawValue)!
+                if let data = routeInfoString.data(using: String.Encoding.utf8.rawValue) {
                     do {
                         let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String:AnyObject]
                         print (json as Any)
-                        if let userInfo = json!["data"]
+                        if let routeInfo = json!["data"]
                         {
                             DispatchQueue.main.async {
-                               self.homeAddress.text = (userInfo["HomeAddress"] as! String)
-                               self.schoolAddress.text = (userInfo["SchoolAddress"] as! String)
-                               self.workAddress.text = (userInfo["WorkAddress"] as! String)
+                               self.homeAddress.text = (routeInfo["homeAddress"] as! String)
+                               self.schoolAddress.text = (routeInfo["schoolAddress"] as! String)
+                               self.workAddress.text = (routeInfo["workAddress"] as! String)
                             }
                         }
                     } catch let error as NSError {
                         print(error)
                     }
-                    
                 }
             }
-            
             }.resume()
     }
-    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
 }
-
-

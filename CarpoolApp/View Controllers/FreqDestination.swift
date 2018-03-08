@@ -8,6 +8,7 @@
 
 import UIKit
 import MapKit
+import Firebase
 import FirebaseAuth
 
 class FreqDestinations: UIViewController {
@@ -31,12 +32,30 @@ class FreqDestinations: UIViewController {
     @IBOutlet weak var SchoolSearchBar: UISearchBar!
     @IBOutlet weak var scrollView: UIScrollView!
     
+    //Array used for storing longitudes and latitudes
+    var longitudeArray: [Float] = []
+    var latitudeArray: [Float] = []
+    
+    //Save button for frequent destinations
     @IBAction func saveButton(_ sender: Any) {
+        
+        var actionItem: String=String()
+        var actionTitle: String=String()
+        let exitAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+        
         let userID = Auth.auth().currentUser!.uid
-        let userInfo = ["userID": userID, "HomeAddress": self.HomeSearchBar.text as Any, "SchoolAddress": self.SchoolSearchBar.text as Any, "WorkAddress": self.WorkSearchBar.text as Any, "CustomAddress": self.otherSearchBar.text as Any, "HomeLabel": homeLabel, "WorkLabel": workLabel, "SchoolLabel": schoolLabel, "Custom": self.otherInput.text as Any]
-        saveFreqDestinations(userInfo: userInfo)
+        let routeInfo = ["userID": userID, "homeAddress": self.HomeSearchBar.text as Any, "schoolAddress": self.SchoolSearchBar.text as Any, "workAddress": self.WorkSearchBar.text as Any, "CustomAddress": self.otherSearchBar.text as Any, "Custom": self.otherInput.text as Any, "Longitudes": longitudeArray, "Latitudes": latitudeArray]
+        print(routeInfo)
+        saveFreqDestinations(routeInfo: routeInfo)
+        actionTitle = "Success"
+        actionItem = "Your frequent destinations have been saved"
+        
+        let alert = UIAlertController(title: actionTitle, message: actionItem, preferredStyle: .alert)
+        alert.addAction(exitAction)
+        self.present(alert, animated: true, completion: nil)
     }
     
+    //Adding the extra input field when add button is pressed
     @IBAction func addInput(_ sender: UIButton) {
         otherInput.isHidden = false
         otherSearchBar.isHidden = false
@@ -61,13 +80,14 @@ class FreqDestinations: UIViewController {
         otherSearchBar.placeholder = "Search for Places"
     }
     
-    func saveFreqDestinations(userInfo: Dictionary<String, Any>)
+    //Posts the new inputted frequent destinations addresses in the database
+    func saveFreqDestinations(routeInfo: Dictionary<String, Any>)
     {
-        let editProfileURL = URL(string: "http://localhost/users/profile")!
+        let editProfileURL = URL(string: "http://localhost/frequentDestinations/")!
         var request = URLRequest(url: editProfileURL)
-        let userJSON = try! JSONSerialization.data(withJSONObject: userInfo, options: .prettyPrinted)
-        let userJSONInfo = NSString(data: userJSON, encoding: String.Encoding.utf8.rawValue)! as String
-        request.httpBody = "userInfo=\(userJSONInfo)".data(using: String.Encoding.utf8)
+        let routeJSON = try! JSONSerialization.data(withJSONObject: routeInfo, options: .prettyPrinted)
+        let routeJSONInfo = NSString(data: routeJSON, encoding: String.Encoding.utf8.rawValue)! as String
+        request.httpBody = "userInfo=\(routeJSONInfo)".data(using: String.Encoding.utf8)
         request.httpMethod = "POST" // POST method.
         
         URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
@@ -81,6 +101,7 @@ class FreqDestinations: UIViewController {
             }.resume()
     }
 }
+
     extension FreqDestinations: UISearchBarDelegate {
         
             func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
@@ -186,8 +207,9 @@ class FreqDestinations: UIViewController {
             let searchRequest = MKLocalSearchRequest(completion: completion)
             let search = MKLocalSearch(request: searchRequest)
             search.start { (response, error) in
-                let coordinate = response?.mapItems[0].placemark.coordinate
-                print(String(describing: coordinate))
+                self.longitudeArray.append(Float( response!.mapItems[0].placemark.coordinate.longitude))
+                self.latitudeArray.append(Float( response!.mapItems[0].placemark.coordinate.latitude))
+                //print(String(describing: coordinate))
             }
         }
     }
