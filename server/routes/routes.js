@@ -64,7 +64,11 @@ router.post('/', function(req, res, next) {
             for (var key in result) {
               if (!result.hasOwnProperty(key)) continue;
               var obj = result[key];
-              db.any("INSERT INTO carpool.\"Matches\"(\"riderID\", \"driverID\",  \"driverRouteID\", \"Status\") values($1, $2, $3, $4)",[userID, obj['driverID'], obj['routeID'], "Awaiting rider request."  ] )
+              db.one("SELECT last_value as \"currval\" from \"riderRoutes_routeID_seq\"")
+              .then(function(data){
+              var riderID = (data.currval)++;
+              db.any("INSERT INTO carpool.\"Matches\"(\"riderID\", \"driverID\",  \"driverRouteID\", \"Status\", \"riderRouteID\") values($1, $2, $3, $4, $5)",[userID, obj['driverID'], obj['routeID'], "Awaiting rider request.", riderID ] )
+            });
 
 }
            db.any("INSERT INTO carpool.\"notificationLog\"(\"userID\", \"notificationType\", \"Date\", \"Read\") values ($1, $2, $3, $4)", [userID, "Match", 'now', 'false']);

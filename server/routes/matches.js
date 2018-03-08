@@ -41,10 +41,7 @@ if (userJSON['reqeuestType'] == 'riderRequest')
             .catch(function (err) {
               res.send(err);
             });
-            .catch(function (err) {
-              res.send(err);
-            });
-        })
+
 
       res.status(200)
         .json({
@@ -52,6 +49,7 @@ if (userJSON['reqeuestType'] == 'riderRequest')
           message: 'Match Updated.'
         });
       })
+              })
 
     .catch(function (err) {
       res.send(err);
