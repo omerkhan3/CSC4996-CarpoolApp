@@ -34,8 +34,10 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDelegate
     @IBOutlet weak var saturday: BEMCheckBox!
     
     //labels for arrive and depart time
-    @IBOutlet weak var arrivaltime: UITextField!
-    @IBOutlet weak var departtime: UITextField!
+    @IBOutlet weak var arrivaltime1: UITextField!
+    @IBOutlet weak var arrivaltime2: UITextField!
+    @IBOutlet weak var departtime1: UITextField!
+    @IBOutlet weak var departtime2: UITextField!
     
     //buttons for search bars and tables up top
     @IBOutlet weak var HomeSearchBar: UISearchBar!
@@ -46,13 +48,19 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDelegate
     @IBOutlet weak var routeName: UITextField!
     
     //label press action that brings up the time picker for arrival
-    @IBAction func arrivalpress(_ sender: UITextField) {
+    @IBAction func arrivalpress1(_ sender: UITextField) {
         createDatePicker1()
+    }
+    @IBAction func arrivalpress2(_ sender: UITextField) {
+        createDatePicker3()
     }
     
     //label press action that brings up the time picker for depart
-    @IBAction func departpress(_ sender: UITextField) {
+    @IBAction func departpress1(_ sender: UITextField) {
         createDatePicker2()
+    }
+    @IBAction func departpress2(_ sender: UITextField) {
+        createDatePicker4()
     }
     
     //switch for deciding if the user is going to be a driver or no
@@ -67,7 +75,7 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDelegate
         let exitAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)  // default action to exit out of native alerts.
         
         dump(options)
-        if ((HomeSearchBar.text?.isEmpty)! || (WorkSearchBar.text?.isEmpty)! || (arrivaltime.text?.isEmpty)! || (departtime.text?.isEmpty)! || (routeName.text?.isEmpty)!)  // error handling for if all fields were filled  out.
+        if ((HomeSearchBar.text?.isEmpty)! || (WorkSearchBar.text?.isEmpty)! || (arrivaltime1.text?.isEmpty)! || (departtime1.text?.isEmpty)! || (arrivaltime2.text?.isEmpty)! || (departtime1.text?.isEmpty)! || (routeName.text?.isEmpty)!)  // error handling for if all fields were filled  out.
         {
             actionTitle = "Error!"
             actionItem = "You have not entered all required information."
@@ -82,7 +90,7 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDelegate
             print(options.joined(separator: ", "))
             let driver = self.driverSetting.isOn
             let userID = Auth.auth().currentUser!.uid
-            let routeInfo = ["userID": userID, "departureTime": departtime.text! as Any, "arrivalTime" : arrivaltime.text! as Any, "Days" :  options, "Longitudes": longitudeArray, "Latitudes": latitudeArray, "Driver": driver, "Name": self.routeName.text! as Any] as [String : Any]
+            let routeInfo = ["userID": userID, "departureTime": departtime1.text! as Any, "arrivalTime" : arrivaltime1.text! as Any, "Days" :  options, "Longitudes": longitudeArray, "Latitudes": latitudeArray, "Driver": driver, "Name": self.routeName.text! as Any] as [String : Any]
             print (routeInfo)
             addRoute(routeInfo: routeInfo)
             actionTitle = "Success"
@@ -129,8 +137,8 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDelegate
         let done = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(donePressed1))
         toolbar.setItems([done], animated: false)
         
-        arrivaltime.inputAccessoryView = toolbar
-        arrivaltime.inputView = picker
+        arrivaltime1.inputAccessoryView = toolbar
+        arrivaltime1.inputView = picker
         
         // format picker for date
         picker.datePickerMode = .time
@@ -144,11 +152,11 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDelegate
         formatter.timeStyle = .short
         // formatting the time into a string
         let dateString = formatter.string(from: picker.date)
-        arrivaltime.text = "\(dateString)"
+        arrivaltime1.text = "\(dateString)"
         //converting time to 24hr format
         formatter.dateFormat = "HH:mm"
-        let arrivetime24 = formatter.string(from: picker.date)
-        print(arrivetime24)
+        let arrivetime124 = formatter.string(from: picker.date)
+        print(arrivetime124)
         self.view.endEditing(true)
     }
     
@@ -162,8 +170,8 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDelegate
         let done = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(donePressed2))
         toolbar.setItems([done], animated: false)
         
-        departtime.inputAccessoryView = toolbar
-        departtime.inputView = picker
+        departtime1.inputAccessoryView = toolbar
+        departtime1.inputView = picker
         
         // format second picker for time
         picker.datePickerMode = .time
@@ -178,12 +186,76 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDelegate
         // formatting the time into a string
         let dateString = formatter.string(from: picker.date)
         // adding the selected time back to the label
-        departtime.text = "\(dateString)"
+        departtime1.text = "\(dateString)"
         //converting time to 24hr format
         formatter.dateFormat = "HH:mm"
-        let departtime24 = formatter.string(from: picker.date)
-        print(departtime24)
+        let departtime124 = formatter.string(from: picker.date)
+        print(departtime124)
         
+        self.view.endEditing(true)
+    }
+    
+    func createDatePicker3() {
+        // toolbar
+        let toolbar = UIToolbar()
+        toolbar.sizeToFit()
+        
+        // done button for toolbar
+        let done = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(donePressed3))
+        toolbar.setItems([done], animated: false)
+        
+        arrivaltime2.inputAccessoryView = toolbar
+        arrivaltime2.inputView = picker
+        
+        // format picker for date
+        picker.datePickerMode = .time
+    }
+    @objc func donePressed3() {
+        // format time using dateformatter
+        let formatter = DateFormatter()
+        // takes date off of the picker
+        formatter.dateStyle = .none
+        // allows for only HH:MM and am or pm
+        formatter.timeStyle = .short
+        // formatting the time into a string
+        let dateString = formatter.string(from: picker.date)
+        arrivaltime2.text = "\(dateString)"
+        //converting time to 24hr format
+        formatter.dateFormat = "HH:mm"
+        let arrivaltime224 = formatter.string(from: picker.date)
+        print(arrivaltime224)
+        self.view.endEditing(true)
+    }
+    
+    func createDatePicker4() {
+        // toolbar
+        let toolbar = UIToolbar()
+        toolbar.sizeToFit()
+        
+        // done button for toolbar
+        let done = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(donePressed4))
+        toolbar.setItems([done], animated: false)
+        
+        departtime2.inputAccessoryView = toolbar
+        departtime2.inputView = picker
+        
+        // format picker for date
+        picker.datePickerMode = .time
+    }
+    @objc func donePressed4() {
+        // format time using dateformatter
+        let formatter = DateFormatter()
+        // takes date off of the picker
+        formatter.dateStyle = .none
+        // allows for only HH:MM and am or pm
+        formatter.timeStyle = .short
+        // formatting the time into a string
+        let dateString = formatter.string(from: picker.date)
+        departtime2.text = "\(dateString)"
+        //converting time to 24hr format
+        formatter.dateFormat = "HH:mm"
+        let departtime224 = formatter.string(from: picker.date)
+        print(departtime224)
         self.view.endEditing(true)
     }
     
