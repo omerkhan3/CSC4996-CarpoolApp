@@ -7,14 +7,30 @@
 //
 
 import UIKit
+import BEMCheckBox
 
 class RiderMatchDetailViewController: UIViewController {
     
     var matchDetail: Match?
 
-    @IBOutlet weak var driverName: UILabel!
+    @IBOutlet weak var profilePicture: UIImageView!
+    @IBOutlet weak var firstName: UILabel!
+    @IBOutlet weak var pickupTime: UILabel!
+    @IBOutlet weak var pickupLocation: UILabel!
     @IBOutlet weak var destination: UILabel!
-    @IBOutlet weak var time: UILabel!
+    @IBOutlet weak var departureTime: UILabel!
+    @IBOutlet weak var cost: UILabel!
+    
+    // Check boxes
+    @IBOutlet weak var sunday: BEMCheckBox!
+    @IBOutlet weak var monday: BEMCheckBox!
+    @IBOutlet weak var tuesday: BEMCheckBox!
+    @IBOutlet weak var wednesday: BEMCheckBox!
+    @IBOutlet weak var thursday: BEMCheckBox!
+    @IBOutlet weak var friday: BEMCheckBox!
+    @IBOutlet weak var saturday: BEMCheckBox!
+    
+
     
     @IBAction func requestRide(_ sender: Any) {
         let actionTitle = "Ride Request"
@@ -30,10 +46,11 @@ class RiderMatchDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(matchDetail)
-        self.driverName.text = matchDetail?.driverFirstName
+        print(matchDetail!)
+        fillCheckBoxes()
+        self.firstName.text = matchDetail?.driverFirstName
         self.destination.text = matchDetail?.driverRouteName
-        self.time.text = matchDetail?.driverArrival
+        //self.time.text = matchDetail?.driverArrival
 
         // Do any additional setup after loading the view.
     }
@@ -51,15 +68,31 @@ class RiderMatchDetailViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func fillCheckBoxes() {
+        let array = matchDetail?.driverDays
+        for item in array! {
+            if item == "sunday" {
+                self.sunday.on = true
+            }
+            else if item == "monday" {
+                self.monday.on = true
+            }
+            else if item == "tuesday" {
+                self.tuesday.on = true
+            }
+            else if item == "wednesday" {
+                self.wednesday.on = true
+            }
+            else if item == "thursday" {
+                self.thursday.on = true
+            }
+            else if item == "friday" {
+                self.friday.on = true
+            }
+            else if item == "saturday" {
+                self.saturday.on = true
+            }
+        }
     }
-    */
 
 }

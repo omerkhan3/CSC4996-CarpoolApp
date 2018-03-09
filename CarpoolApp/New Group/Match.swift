@@ -16,7 +16,7 @@ struct Match: Decodable{
     let driverEndPointLat: Double
     let driverEndPointLong: Double
     let driverRouteUserID: String
-    //let driverDays: [String]
+    let driverDays: [String]
     let driverArrival: String
     let driverDeparture: String
     let driverRouteName: String
@@ -33,7 +33,7 @@ struct Match: Decodable{
         driverEndPointLat = json["driverEndPointLat"] as? Double ?? 0.0
         driverEndPointLong = json["driverEndPointLong"] as? Double ?? 0.0
         driverRouteUserID = json["driverRouteUserID"] as? String ?? ""
-        //driverRouteUserID = json["driverDays"] as? [String] ?? [""]
+        driverDays = json["driverDays"] as? [String] ?? [""]
         driverArrival = json["driverArrival"] as? String ?? ""
         driverDeparture = json["driverDeparture"] as? String ?? ""
         driverRouteName = json["driverRouteName"] as? String ?? ""
@@ -50,7 +50,7 @@ struct Match: Decodable{
         driverEndPointLat = 0.0
         driverEndPointLong =  0.0
         driverRouteUserID =  ""
-        //driverRouteUserID = json["driverDays"] as? [String] ?? [""]
+        driverDays = [""]
         driverArrival =  ""
         driverDeparture =  ""
         driverRouteName =  ""

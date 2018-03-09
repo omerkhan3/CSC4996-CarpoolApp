@@ -42,7 +42,6 @@
 		D10EFE9A2022979700C962E1 /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10EFE992022979700C962E1 /* RegistrationViewController.swift */; };
 		D10EFE9C2022983600C962E1 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10EFE9B2022983600C962E1 /* LoginViewController.swift */; };
 		D10EFE9E20229ACA00C962E1 /* PasswordResetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10EFE9D20229ACA00C962E1 /* PasswordResetViewController.swift */; };
-		D16EC1522023AD8800D56CF2 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D16EC1512023AD8800D56CF2 /* DataService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -83,7 +82,6 @@
 		D10EFE992022979700C962E1 /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
 		D10EFE9B2022983600C962E1 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		D10EFE9D20229ACA00C962E1 /* PasswordResetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordResetViewController.swift; sourceTree = "<group>"; };
-		D16EC1512023AD8800D56CF2 /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
 		F030565275DC7FB77646828A /* Pods-CarpoolApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarpoolApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-CarpoolApp/Pods-CarpoolApp.release.xcconfig"; sourceTree = "<group>"; };
 		F95DAD1A528A8524339BF3C3 /* Pods-CarpoolApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarpoolApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CarpoolApp/Pods-CarpoolApp.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -138,7 +136,6 @@
 				C98966FC203A183500521450 /* View Controllers */,
 				C968E52120366ACF00B137B8 /* Design */,
 				20F47A0320277D4800D79394 /* GoogleService-Info.plist */,
-				D16EC1512023AD8800D56CF2 /* DataService.swift */,
 				78241397201D0F3A00F06D99 /* AppDelegate.swift */,
 				7824139E201D0F3A00F06D99 /* Assets.xcassets */,
 				782413A3201D0F3A00F06D99 /* Info.plist */,
@@ -362,7 +359,6 @@
 				912C7DC2204D062E00E222A4 /* EditProfileViewController.swift in Sources */,
 				2033C2D02026CE5C0081E53A /* ProfileViewController.swift in Sources */,
 				D10EFE9E20229ACA00C962E1 /* PasswordResetViewController.swift in Sources */,
-				D16EC1522023AD8800D56CF2 /* DataService.swift in Sources */,
 				20509ADB204EEE9200B2EFA3 /* RiderMatchDetailViewController.swift in Sources */,
 				C9DE0B2B203F5C6100554E9C /* LocationSearchTable.swift in Sources */,
 				C98BB0A0202A58A8006B054C /* otherlocations.swift in Sources */,
