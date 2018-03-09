@@ -44,4 +44,13 @@ class MyRoutesTableViewController: UITableViewController {
 
         return cell
     }
+    
+    //Will be used for being able to delete a row in table
+    /*override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if (editingStyle == .delete) {
+        //MyRoutes will be the data source
+        MyRoutes.remove(at: indexPath.row)
+        tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+    }*/
 }

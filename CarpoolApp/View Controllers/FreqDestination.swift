@@ -35,6 +35,7 @@ class FreqDestinations: UIViewController {
     //Array used for storing longitudes and latitudes
     var longitudeArray: [Float] = []
     var latitudeArray: [Float] = []
+    var texts = [String]()
     
     //Save button for frequent destinations
     @IBAction func saveButton(_ sender: Any) {
@@ -42,9 +43,10 @@ class FreqDestinations: UIViewController {
         var actionItem: String=String()
         var actionTitle: String=String()
         let exitAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-        
+
+        //print(option.joined(separator: ", "))
         let userID = Auth.auth().currentUser!.uid
-        let routeInfo = ["userID": userID, "homeAddress": self.HomeSearchBar.text as Any, "schoolAddress": self.SchoolSearchBar.text as Any, "workAddress": self.WorkSearchBar.text as Any, "CustomAddress": self.otherSearchBar.text as Any, "Custom": self.otherInput.text as Any, "Longitudes": longitudeArray, "Latitudes": latitudeArray]
+        let routeInfo = ["userID": userID, "homeAddress": self.HomeSearchBar.text! as Any, "schoolAddress": self.SchoolSearchBar.text! as Any, "workAddress": self.WorkSearchBar.text! as Any, "CustomAddress": self.otherSearchBar.text! as Any, "Custom": self.otherInput.text! as Any, "Longitudes": longitudeArray, "Latitudes": latitudeArray]
         print(routeInfo)
         saveFreqDestinations(routeInfo: routeInfo)
         actionTitle = "Success"
@@ -96,6 +98,7 @@ class FreqDestinations: UIViewController {
             }
             else{
                 print ("Success!")
+                print(routeInfo)
             }
             
             }.resume()
