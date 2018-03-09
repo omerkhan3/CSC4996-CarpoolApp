@@ -43,11 +43,7 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDataSour
     @IBOutlet weak var departtime1: UITextField!
     @IBOutlet weak var departtime2: UITextField!
     
-    //buttons for search bars and tables up top
-    @IBOutlet weak var HomeSearchBar: UISearchBar!
-    @IBOutlet weak var WorkSearchBar: UISearchBar!
-    @IBOutlet weak var searchTable: UITableView!
-    @IBOutlet weak var searchTable2: UITableView!
+
     // label that will allow the driver to save the name of a route
     @IBOutlet weak var routeName: UITextField!
     @IBOutlet weak var placeButton: UIButton!
@@ -86,7 +82,7 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDataSour
         let exitAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)  // default action to exit out of native alerts.
         
         dump(options)
-        if ((HomeSearchBar.text?.isEmpty)! || (WorkSearchBar.text?.isEmpty)! || (arrivaltime1.text?.isEmpty)! || (departtime1.text?.isEmpty)! || (arrivaltime2.text?.isEmpty)! || (departtime1.text?.isEmpty)! || (routeName.text?.isEmpty)!)  // error handling for if all fields were filled  out.
+        if ((arrivaltime1.text?.isEmpty)! || (departtime1.text?.isEmpty)! || (arrivaltime2.text?.isEmpty)! || (departtime1.text?.isEmpty)! || (routeName.text?.isEmpty)!)  // error handling for if all fields were filled  out.
         {
             actionTitle = "Error!"
             actionItem = "You have not entered all required information."
@@ -131,11 +127,6 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDataSour
         thursday.delegate = self
         friday.delegate = self
         saturday.delegate = self
-        searchTable.isHidden = true
-        searchTable2.isHidden = true
-        searchCompleter.delegate = self
-       // HomeSearchBar.placeholder = "Search for Places"
-        //WorkSearchBar.placeholder = "Search for Places"
         placePicker.isHidden = true
         placePicker.delegate = self
         placePicker.dataSource = self
@@ -380,85 +371,5 @@ func addRoute(routeInfo: Dictionary<String, Any>)
         }
         
         }.resume()
-}
-
-extension FrequentDestinationsViewController: UISearchBarDelegate {
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        
-        //When text is being inputted into search bar, table view will not be hidden depending on which search bar is clicked on
-        if searchBar == HomeSearchBar {
-            searchTable.isHidden = false
-            searchTable2.isHidden = true
-            WorkSearchBar.isHidden = true
-        }
-        if searchBar == WorkSearchBar {
-            searchTable.isHidden = true
-            searchTable2.isHidden = false
-        }
-        searchCompleter.queryFragment = searchText
-    }
-}
-
-extension FrequentDestinationsViewController: MKLocalSearchCompleterDelegate{
-    func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
-        searchResults = completer.results
-        searchTable.reloadData()
-        searchTable2.reloadData()
-    }
-    
-    func completer(_ completer: MKLocalSearchCompleter, didFailWithError error: Error) {
-        //When text is deleted in search bar, table view will be hidden
-        searchTable.isHidden = true
-        searchTable2.isHidden = true
-        WorkSearchBar.isHidden = false
-    }
-}
-
-extension FrequentDestinationsViewController: UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return searchResults.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let searchResult = searchResults[indexPath.row]
-        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: nil)
-        cell.textLabel?.text = searchResult.title
-        cell.detailTextLabel?.text = searchResult.subtitle
-        return cell
-    }
-}
-
-extension FrequentDestinationsViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        
-        //If statements for selecting an address from table view and it showing up in search bar field as well as the table view disappearing after selection
-        if tableView == searchTable {
-            let searchResult = searchResults[indexPath.row]
-            HomeSearchBar.text = searchResult.subtitle
-            searchTable.isHidden = true
-            WorkSearchBar.isHidden = false
-        }
-        if tableView == searchTable2 {
-            let searchResult = searchResults[indexPath.row]
-            WorkSearchBar.text = searchResult.subtitle
-            searchTable2.isHidden = true
-        }
-        
-        //Outputs latitude and longtitude of selected place
-        let completion = searchResults[indexPath.row]
-        let searchRequest = MKLocalSearchRequest(completion: completion)
-        let search = MKLocalSearch(request: searchRequest)
-        search.start { (response, error) in
-            self.longitudeArray.append(Float( response!.mapItems[0].placemark.coordinate.longitude))
-            self.latitudeArray.append(Float( response!.mapItems[0].placemark.coordinate.latitude))
-            // print(String(describing: coordinate))
-        }
-    }
-    
 }
 

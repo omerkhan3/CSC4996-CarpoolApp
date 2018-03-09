@@ -21,7 +21,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     
     
-    let dist = -190 // distance to adjust for keyboard
+    let dist = 0 // distance to adjust for keyboard
     
     // Login button isPressed method
     @IBAction func loginButton(_ sender: Any) {
