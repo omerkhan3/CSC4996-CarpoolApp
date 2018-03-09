@@ -2402,11 +2402,11 @@
                                                     <constraint firstAttribute="width" constant="95" id="F70-jD-y64"/>
                                                     <constraint firstAttribute="height" constant="30" id="Q8W-Q0-gqD"/>
                                                 </constraints>
-                                                <nil key="textColor"/>
+                                                <color key="textColor" red="0.0" green="0.58980089430000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                                 <connections>
-                                                    <action selector="arrivalpress1:" destination="Wnq-9p-acd" eventType="editingDidEnd" id="jXt-Wv-CBg"/>
+                                                    <action selector="arrivalpress1:" destination="Wnq-9p-acd" eventType="editingDidBegin" id="VJ5-dp-FwY"/>
                                                 </connections>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Select Time" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Cmh-fH-T4d">
@@ -2415,11 +2415,11 @@
                                                     <constraint firstAttribute="height" constant="30" id="Q8S-5n-cuP"/>
                                                     <constraint firstAttribute="width" constant="95" id="RYL-ZI-h0V"/>
                                                 </constraints>
-                                                <nil key="textColor"/>
+                                                <color key="textColor" red="0.0" green="0.58980089430000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                                 <connections>
-                                                    <action selector="arrivalpress2:" destination="Wnq-9p-acd" eventType="editingDidBegin" id="Jv9-Au-4Ql"/>
+                                                    <action selector="arrivalpress2:" destination="Wnq-9p-acd" eventType="editingDidBegin" id="b1Z-Ac-9cX"/>
                                                 </connections>
                                             </textField>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="to" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="579-me-lDA">
@@ -2433,20 +2433,20 @@
                                             </label>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Select Time" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hRT-c0-0ed">
                                                 <rect key="frame" x="44" y="451" width="95" height="28"/>
-                                                <nil key="textColor"/>
+                                                <color key="textColor" red="0.0" green="0.58980089430000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                                 <connections>
-                                                    <action selector="departpress1:" destination="Wnq-9p-acd" eventType="editingDidEnd" id="A7O-pK-fVv"/>
+                                                    <action selector="departpress1:" destination="Wnq-9p-acd" eventType="editingDidBegin" id="tiG-Vb-5bM"/>
                                                 </connections>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Select Time" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YgF-sn-KVK">
                                                 <rect key="frame" x="208" y="451" width="95" height="28"/>
-                                                <nil key="textColor"/>
+                                                <color key="textColor" red="0.0" green="0.58980089430000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                                 <connections>
-                                                    <action selector="departpress2:" destination="Wnq-9p-acd" eventType="editingDidBegin" id="CBf-w0-K72"/>
+                                                    <action selector="departpress2:" destination="Wnq-9p-acd" eventType="editingDidBegin" id="3uJ-Ft-Kdc"/>
                                                 </connections>
                                             </textField>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="to" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S00-Dp-Nbk">
