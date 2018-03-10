@@ -25,6 +25,8 @@ class PaymentsViewController: UIViewController {
     }
     @IBOutlet weak var tableView: UITableView!
     
+    //var myPayments = [Payments]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -34,7 +36,6 @@ class PaymentsViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
     
     //Shows the braintree Drop-In UI
     func showDropIn(clientTokenOrTokenizationKey: String) {
@@ -96,7 +97,7 @@ class TableViewCell: UITableViewCell {
     
     func paymentInfo(userID: String)
     {
-        var viewProfileComponents = URLComponents(string: "http://localhost:3000/users/profile")!
+        var viewProfileComponents = URLComponents(string: "http://localhost:3000/paymentHistory")!
         viewProfileComponents.queryItems = [
             URLQueryItem(name: "userID", value: userID)
         ]
@@ -118,7 +119,7 @@ class TableViewCell: UITableViewCell {
                         if let userInfo = json
                         {
                             DispatchQueue.main.async {
-                                self.contactLabel.text = (userInfo["Contact"] as! String)
+                                self.contactLabel.text = (userInfo["userID"] as! String)
                                 self.dateLabel.text = (userInfo["Date"] as! String)
                                 self.amountLabel.text = (userInfo["Amount"] as! String)
                             }
@@ -130,4 +131,35 @@ class TableViewCell: UITableViewCell {
             }
         }
     }
+    
+    //Decoding payments
+    /*func paymentInfo(completed: @escaping () -> ()) {
+        let userID = Auth.auth().currentUser?.uid
+        var viewPaymentComponents = URLComponents(string: "http://localhost:3000/paymentHistory")!
+        viewPaymentComponents.queryItems = [URLQueryItem(name: "userID", value: userID)]
+        var request = URLRequest(url: viewPaymentComponents.url!)  // Pass Parameter in URL
+        print (viewPaymentComponents.url!)
+        
+        request.httpMethod = "GET" // GET METHOD
+        
+        URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
+            if (error != nil){  // error handling responses.
+                print (error as Any)
+            } else {
+                guard let data = data else {return}
+                do {
+                    self.myPayments = try JSONDecoder().decode([Payments].self, from: data)
+                    print(self.myPayments)
+                    DispatchQueue.main.async {
+                        self.amountLabel.text = self.myPayments[0].amount
+                        self.contactLabel.text = self.myPayments[0].userID
+                        self.dateLabel.text = self.myPayments[0].time
+                        completed()
+                    }
+                }catch let jsnErr {
+                    print(jsnErr)
+                }
+            }
+        }.resume()
+    }*/
 }

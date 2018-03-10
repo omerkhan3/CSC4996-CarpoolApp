@@ -620,14 +620,6 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HIh-Ao-fJz">
-                                                <rect key="frame" x="195" y="189" width="68" height="30"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <state key="normal" title="Payments"/>
-                                                <connections>
-                                                    <segue destination="zP8-3N-nds" kind="show" id="uxq-mm-Hd4"/>
-                                                </connections>
-                                            </button>
                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="68W-Bx-ex6">
                                                 <rect key="frame" x="183" y="241" width="135" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1437,6 +1429,14 @@
                                 <color key="textColor" red="0.18485060019999999" green="0.80917368020000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FdL-i6-ZFT">
+                                <rect key="frame" x="276" y="94" width="68" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Payments"/>
+                                <connections>
+                                    <segue destination="zP8-3N-nds" kind="show" id="bAe-WZ-DeR"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.78871760589999995" green="0.88867136609999997" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="JQL-5w-ldh"/>
@@ -1639,7 +1639,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="P6H-22-ef1"/>
-        <segue reference="rpR-hM-Ar1"/>
+        <segue reference="Z2h-3S-Lqv"/>
         <segue reference="cOY-IK-lfO"/>
     </inferredMetricsTieBreakers>
 </document>
