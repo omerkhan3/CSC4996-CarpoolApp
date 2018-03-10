@@ -24,6 +24,8 @@ class MyRoutesViewController: UIViewController {
     @IBAction func addRoute(_ sender: Any) {
     }
     
+    //var myRoutes = [Routes]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let userID = Auth.auth().currentUser?.uid
@@ -68,6 +70,38 @@ class MyRoutesViewController: UIViewController {
             }
             }.resume()
     }
+    
+    //Decoding frequent destinations
+    /*func readMyDestinations(completed: @escaping () -> ()) {
+        let userID = Auth.auth().currentUser?.uid
+        var viewDestinationComponents = URLComponents(string: "http://localhost:3000/frequentDestinations")!
+        viewDestinationComponents.queryItems = [URLQueryItem(name: "userID", value: userID)]
+        var request = URLRequest(url: viewDestinationComponents.url!)  // Pass Parameter in URL
+        print (viewDestinationComponents.url!)
+        
+        request.httpMethod = "GET" // GET METHOD
+        
+        URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
+        if (error != nil){  // error handling responses.
+        print (error as Any)
+        } else {
+        guard let data = data else {return}
+        do {
+            self.myRoutes = try JSONDecoder().decode([Routes].self, from: data)
+            print(self.myRoutes)
+            DispatchQueue.main.async {
+                self.homeAddress.text = self.myRoutes[0].homeAddress
+                self.schoolAddress.text = self.myRoutes[0].schoolAddress
+                self.workAddress.text = self.myRoutes[0].workAddress
+                completed()
+            }
+            }catch let jsnErr {
+                print(jsnErr)
+            }
+            }
+        }.resume()
+    }*/
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

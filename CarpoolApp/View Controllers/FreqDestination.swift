@@ -85,8 +85,8 @@ class FreqDestinations: UIViewController {
     //Posts the new inputted frequent destinations addresses in the database
     func saveFreqDestinations(routeInfo: Dictionary<String, Any>)
     {
-        let editFreqDestinationURL = URL(string: "http://localhost:3000/frequentDestinations")!
-        var request = URLRequest(url: editFreqDestinationURL)
+        let editFreqDestinationURL = URLComponents(string: "http://localhost:3000/frequentDestinations")!
+        var request = URLRequest(url: editFreqDestinationURL.url!)
         let routeJSON = try! JSONSerialization.data(withJSONObject: routeInfo, options: .prettyPrinted)
         let routeJSONInfo = NSString(data: routeJSON, encoding: String.Encoding.utf8.rawValue)! as String
         request.httpBody = "routeInfo=\(routeJSONInfo)".data(using: String.Encoding.utf8)
