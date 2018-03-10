@@ -98,7 +98,7 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
     
     func storeUserInfo(userInfo: Dictionary<String, Any>)
     {
-        let registrationURL = URL(string: "http://141.217.48.15:3000/users/register")!
+        let registrationURL = URL(string: "http://localhost:3000/users/register")!
         var request = URLRequest(url: registrationURL)
         let userJSON = try! JSONSerialization.data(withJSONObject: userInfo, options: .prettyPrinted)
         let userJSONInfo = NSString(data: userJSON, encoding: String.Encoding.utf8.rawValue)! as String

@@ -65,7 +65,7 @@ class PaymentsViewController: UIViewController {
             }
             let userToken = idToken!
             //URL endpoint of our local node server
-            let paymentURL = URL(string: "http://141.217.48.15:3000/payment/")!
+            let paymentURL = URL(string: "http://localhost:3000/payment/")!
             var request = URLRequest(url: paymentURL)
             //payment_method_nonce is the field that the server will be looking for to receive the nonce
             request.httpBody = "payment_method_nonce=\(paymentMethodNonce)&idToken=\(userToken)".data(using: String.Encoding.utf8)

@@ -35,7 +35,7 @@ class FreqDestinations: UIViewController {
     //Array used for storing longitudes and latitudes
     var longitudeArray: [Float] = []
     var latitudeArray: [Float] = []
-    var texts = [String]()
+    var texts: [String] = []
     
     //Save button for frequent destinations
     @IBAction func saveButton(_ sender: Any) {
@@ -47,7 +47,7 @@ class FreqDestinations: UIViewController {
         //print(option.joined(separator: ", "))
         let userID = Auth.auth().currentUser!.uid
         let routeInfo = ["userID": userID, "homeAddress": self.HomeSearchBar.text! as Any, "schoolAddress": self.SchoolSearchBar.text! as Any, "workAddress": self.WorkSearchBar.text! as Any, "CustomAddress": self.otherSearchBar.text! as Any, "Custom": self.otherInput.text! as Any, "Longitudes": longitudeArray, "Latitudes": latitudeArray]
-        print(routeInfo)
+        //print(routeInfo)
         saveFreqDestinations(routeInfo: routeInfo)
         actionTitle = "Success"
         actionItem = "Your frequent destinations have been saved"
@@ -85,11 +85,11 @@ class FreqDestinations: UIViewController {
     //Posts the new inputted frequent destinations addresses in the database
     func saveFreqDestinations(routeInfo: Dictionary<String, Any>)
     {
-        let editProfileURL = URL(string: "http://localhost/frequentDestinations/")!
-        var request = URLRequest(url: editProfileURL)
+        let editFreqDestinationURL = URL(string: "http://localhost:3000/frequentDestinations")!
+        var request = URLRequest(url: editFreqDestinationURL)
         let routeJSON = try! JSONSerialization.data(withJSONObject: routeInfo, options: .prettyPrinted)
         let routeJSONInfo = NSString(data: routeJSON, encoding: String.Encoding.utf8.rawValue)! as String
-        request.httpBody = "userInfo=\(routeJSONInfo)".data(using: String.Encoding.utf8)
+        request.httpBody = "routeInfo=\(routeJSONInfo)".data(using: String.Encoding.utf8)
         request.httpMethod = "POST" // POST method.
         
         URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
@@ -212,6 +212,10 @@ class FreqDestinations: UIViewController {
             search.start { (response, error) in
                 self.longitudeArray.append(Float( response!.mapItems[0].placemark.coordinate.longitude))
                 self.latitudeArray.append(Float( response!.mapItems[0].placemark.coordinate.latitude))
+                
+                self.texts.append(String(self.HomeSearchBar.description))
+                self.texts.append(String(self.SchoolSearchBar.description))
+                self.texts.append(String(self.WorkSearchBar.description))
                 //print(String(describing: coordinate))
             }
         }

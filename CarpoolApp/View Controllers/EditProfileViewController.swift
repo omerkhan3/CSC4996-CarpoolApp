@@ -39,7 +39,7 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate {
     
     func updateProfile(userInfo: Dictionary<String, Any>)
     {
-        let editProfileURL = URL(string: "http://141.217.48.15:3000/users/profile")!
+        let editProfileURL = URL(string: "http://localhost:3000/users/profile")!
         var request = URLRequest(url: editProfileURL)
         let userJSON = try! JSONSerialization.data(withJSONObject: userInfo, options: .prettyPrinted)
         let userJSONInfo = NSString(data: userJSON, encoding: String.Encoding.utf8.rawValue)! as String

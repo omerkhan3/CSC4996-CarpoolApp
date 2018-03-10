@@ -27,18 +27,18 @@ class MyRoutesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         let userID = Auth.auth().currentUser?.uid
-        readMyRoutes(userID: userID!)
+        readMyDestinations(userID: userID!)
         // Do any additional setup after loading the view.
     }
     
-    func readMyRoutes(userID: String)
+    func readMyDestinations(userID: String)
     {
-        var viewProfileComponents = URLComponents(string: "http://localhost/frequentDestinations/")!
-        viewProfileComponents.queryItems = [
+        var viewDestinationComponents = URLComponents(string: "http://localhost:3000/frequentDestinations")!
+        viewDestinationComponents.queryItems = [
             URLQueryItem(name: "userID", value: userID)
         ]
-        var request = URLRequest(url: viewProfileComponents.url!)  // Pass Parameter in URL
-        print (viewProfileComponents.url!)
+        var request = URLRequest(url: viewDestinationComponents.url!)  // Pass Parameter in URL
+        print (viewDestinationComponents.url!)
         
         request.httpMethod = "GET" // GET METHOD
         

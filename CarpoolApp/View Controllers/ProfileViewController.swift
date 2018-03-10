@@ -30,7 +30,7 @@ class ProfileViewController: UIViewController {
 
     func readProfileInfo(userID: String)
     {
-        var viewProfileComponents = URLComponents(string: "http://141.217.48.15:3000/users/profile")!
+        var viewProfileComponents = URLComponents(string: "http://localhost:3000/users/profile")!
         viewProfileComponents.queryItems = [
             URLQueryItem(name: "userID", value: userID)
         ]
