@@ -25,8 +25,6 @@ class PaymentsViewController: UIViewController {
     }
     @IBOutlet weak var tableView: UITableView!
     
-    //var myPayments = [Payments]()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -94,8 +92,20 @@ class TableViewCell: UITableViewCell {
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var amountLabel: UILabel!
     
+    var myPayments = [Payments]()
+    struct Payments: Decodable {
+        let amount: String
+        let time: String
+        let contact: String
+        
+        init(json: [String: Any]) {
+            amount = json["Amount"] as? String ?? ""
+            contact = json["userID"] as? String ?? ""
+            time = json["Time"] as? String ?? ""
+        }
+    }
     
-    func paymentInfo(userID: String)
+    /*func paymentInfo(userID: String)
     {
         var viewProfileComponents = URLComponents(string: "http://localhost:3000/paymentHistory")!
         viewProfileComponents.queryItems = [
@@ -130,10 +140,10 @@ class TableViewCell: UITableViewCell {
                 }
             }
         }
-    }
+    }*/
     
     //Decoding payments
-    /*func paymentInfo(completed: @escaping () -> ()) {
+    func paymentInfo(completed: @escaping () -> ()) {
         let userID = Auth.auth().currentUser?.uid
         var viewPaymentComponents = URLComponents(string: "http://localhost:3000/paymentHistory")!
         viewPaymentComponents.queryItems = [URLQueryItem(name: "userID", value: userID)]
@@ -152,7 +162,7 @@ class TableViewCell: UITableViewCell {
                     print(self.myPayments)
                     DispatchQueue.main.async {
                         self.amountLabel.text = self.myPayments[0].amount
-                        self.contactLabel.text = self.myPayments[0].userID
+                        self.contactLabel.text = self.myPayments[0].contact
                         self.dateLabel.text = self.myPayments[0].time
                         completed()
                     }
@@ -161,5 +171,5 @@ class TableViewCell: UITableViewCell {
                 }
             }
         }.resume()
-    }*/
+    }
 }
