@@ -15,10 +15,10 @@ router.post('/approval', function(req, res, next) {
  var requestJSON = JSON.parse(requestInfo);
  var userID = requestJSON['userID'];
  var matchID = requestJSON['matchID'];
-if (requestJSON['requestType'] == 'riderRequest')
+if (requestJSON['requestType'] == 'riderRequest') // If the rider has requested a driver
 {
 
-  db.query("UPDATE carpool.\"Matches\" SET \"Status\" = 'driverRequested' where \"matchID\" = $1", [matchID])
+  db.query("UPDATE carpool.\"Matches\" SET \"Status\" = 'driverRequested' where \"matchID\" = $1", [matchID]) // update match to driver requested.
    .then(function () {
      res.status(200)
        .json({
@@ -33,11 +33,11 @@ if (requestJSON['requestType'] == 'riderRequest')
  }
 
  else {
-   db.query("UPDATE carpool.\"Users\" SET \"Status\" = 'Matched' where \"matchID\" = $1", [userJSON[matchID]])
+   db.query("UPDATE carpool.\"Users\" SET \"Status\" = 'Matched' where \"matchID\" = $1", [userJSON[matchID]]) // If the request was a driver approving a request, switch the request status to matched.
     .then(function () {
-      db.query("UPDATE carpool.\"Routes\" SET \"Matched\" = 'true' where \"routeID\" = $1", [userJSON['driverRouteID']])
+      db.query("UPDATE carpool.\"Routes\" SET \"Matched\" = 'true' where \"routeID\" = $1", [userJSON['driverRouteID']]) // Update the matched column in driver route.
       .then(function() {
-            db.query("UPDATE carpool.\"Routes\" SET \"Matched\" = 'true' where \"routeID\" = $1", [userJSON['riderRouteID']])
+            db.query("UPDATE carpool.\"Routes\" SET \"Matched\" = 'true' where \"routeID\" = $1", [userJSON['riderRouteID']]) // Update the matched column in rider route.
             .catch(function (err) {
               res.send(err);
             });
@@ -63,7 +63,7 @@ if (requestJSON['requestType'] == 'riderRequest')
 router.get('/', function(req, res, next) {
 var userID = req.query.userID;
 
-var matchesQuery = "select \"driverFirstName\", \"driverLastName\", \"driverBiography\", \"driverID\", \"driverEndPointLat\", \"driverEndPointLong\", \"driverRouteUserID\", \"driverDays\", \"driverArrival\", \"driverDeparture\", \"driverRouteName\", \"driverRouteID\", \"matchID\", \"riderID\" from (select \"endPointLat\" as \"driverEndPointLat\", \"endPointLong\" as \"driverEndPointLong\", \"driverID\" as \"driverRouteUserID\", \"Days\" as \"driverDays\", \"arrivalTime\" as \"driverArrival\", \"departureTime\" as \"driverDeparture\", \"Name\" as \"driverRouteName\", \"routeID\" from carpool.\"Routes\") d JOIN ((select * from carpool.\"Matches\" where \"riderID\" = $1) a JOIN (select \"firstName\" as \"driverFirstName\", \"lastName\" as \"driverLastName\", \"Biography\" as \"driverBiography\", \"userID\" from carpool.\"Users\")b ON a.\"driverID\" = b.\"userID\")c ON c.\"driverRouteID\" = d.\"routeID\"";
+var matchesQuery = "select \"driverFirstName\", \"driverLastName\", \"driverBiography\", \"driverID\", \"driverEndPointLat\", \"driverEndPointLong\", \"driverRouteUserID\", \"driverDays\", \"driverArrival\", \"driverDeparture\", \"driverRouteName\", \"driverRouteID\", \"matchID\", \"riderID\" from (select \"endPointLat\" as \"driverEndPointLat\", \"endPointLong\" as \"driverEndPointLong\", \"driverID\" as \"driverRouteUserID\", \"Days\" as \"driverDays\", \"arrivalTime\" as \"driverArrival\", \"departureTime\" as \"driverDeparture\", \"Name\" as \"driverRouteName\", \"routeID\" from carpool.\"Routes\") d JOIN ((select * from carpool.\"Matches\" where \"riderID\" = $1) a JOIN (select \"firstName\" as \"driverFirstName\", \"lastName\" as \"driverLastName\", \"Biography\" as \"driverBiography\", \"userID\" from carpool.\"Users\")b ON a.\"driverID\" = b.\"userID\")c ON c.\"driverRouteID\" = d.\"routeID\""; // Select all drivers the rider has matched with so they can request one.
 db.query(matchesQuery, userID)
 .then(function(data) {
   console.log(data);
