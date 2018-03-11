@@ -24,16 +24,27 @@ class MyRoutesViewController: UIViewController {
     @IBAction func addRoute(_ sender: Any) {
     }
     
-    //var myRoutes = [Routes]()
+    var myRoutes = [Destinations]()
+    struct Destinations: Decodable {
+        let homeAddress: String
+        let schoolAddress: String
+        let workAddress: String
+        
+        init(json: [String: Any]) {
+            homeAddress = json["homeAddress"] as? String ?? ""
+            schoolAddress = json["schoolAddress"] as? String ?? ""
+            workAddress = json["workAddress"] as? String ?? ""
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         let userID = Auth.auth().currentUser?.uid
-        readMyDestinations(userID: userID!)
+        //readMyDestinations(userID: userID!)
         // Do any additional setup after loading the view.
     }
     
-    func readMyDestinations(userID: String)
+    /*func readMyDestinations(userID: String)
     {
         var viewDestinationComponents = URLComponents(string: "http://localhost:3000/frequentDestinations")!
         viewDestinationComponents.queryItems = [
@@ -69,10 +80,10 @@ class MyRoutesViewController: UIViewController {
                 }
             }
             }.resume()
-    }
+    }*/
     
     //Decoding frequent destinations
-    /*func readMyDestinations(completed: @escaping () -> ()) {
+    func readMyDestinations(completed: @escaping () -> ()) {
         let userID = Auth.auth().currentUser?.uid
         var viewDestinationComponents = URLComponents(string: "http://localhost:3000/frequentDestinations")!
         viewDestinationComponents.queryItems = [URLQueryItem(name: "userID", value: userID)]
@@ -83,24 +94,24 @@ class MyRoutesViewController: UIViewController {
         
         URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
         if (error != nil){  // error handling responses.
-        print (error as Any)
+            print (error as Any)
         } else {
-        guard let data = data else {return}
-        do {
-            self.myRoutes = try JSONDecoder().decode([Routes].self, from: data)
-            print(self.myRoutes)
-            DispatchQueue.main.async {
-                self.homeAddress.text = self.myRoutes[0].homeAddress
-                self.schoolAddress.text = self.myRoutes[0].schoolAddress
-                self.workAddress.text = self.myRoutes[0].workAddress
-                completed()
-            }
-            }catch let jsnErr {
+            guard let data = data else {return}
+            do {
+                self.myRoutes = try JSONDecoder().decode([Destinations].self, from: data)
+                print(self.myRoutes)
+                DispatchQueue.main.async {
+                    self.homeAddress.text = self.myRoutes[0].homeAddress
+                    self.schoolAddress.text = self.myRoutes[0].schoolAddress
+                    self.workAddress.text = self.myRoutes[0].workAddress
+                    completed()
+                    }
+                }catch let jsnErr {
                 print(jsnErr)
-            }
+                }
             }
         }.resume()
-    }*/
+    }
     
 
     override func didReceiveMemoryWarning() {

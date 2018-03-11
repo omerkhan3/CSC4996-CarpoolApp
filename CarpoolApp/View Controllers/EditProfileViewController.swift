@@ -19,9 +19,19 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var bio: UILabel!
     @IBOutlet weak var bioField: UITextView!
     @IBAction func saveButton(_ sender: Any) {
+        var actionItem: String=String()
+        var actionTitle: String=String()
+        let exitAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+        
         let userID = Auth.auth().currentUser!.uid
         let userInfo = ["userID": userID, "Biography": self.bioField.text] as [String : Any]
         updateProfile(userInfo: userInfo)
+        actionTitle = "Success!"
+        actionItem = "Your profile information has been saved"
+        
+        let alert = UIAlertController(title: actionTitle, message: actionItem, preferredStyle: .alert)
+        alert.addAction(exitAction)
+        self.present(alert, animated: true, completion: nil)
     }
     
     let dist = -20

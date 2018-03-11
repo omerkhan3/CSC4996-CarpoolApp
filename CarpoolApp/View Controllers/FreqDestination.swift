@@ -35,7 +35,7 @@ class FreqDestinations: UIViewController {
     //Array used for storing longitudes and latitudes
     var longitudeArray: [Float] = []
     var latitudeArray: [Float] = []
-    var texts: [String] = []
+    //var texts: [String] = []
     
     //Save button for frequent destinations
     @IBAction func saveButton(_ sender: Any) {
@@ -49,7 +49,7 @@ class FreqDestinations: UIViewController {
         let routeInfo = ["userID": userID, "homeAddress": self.HomeSearchBar.text! as Any, "schoolAddress": self.SchoolSearchBar.text! as Any, "workAddress": self.WorkSearchBar.text! as Any, "CustomAddress": self.otherSearchBar.text! as Any, "Custom": self.otherInput.text! as Any, "Longitudes": longitudeArray, "Latitudes": latitudeArray]
         //print(routeInfo)
         saveFreqDestinations(routeInfo: routeInfo)
-        actionTitle = "Success"
+        actionTitle = "Success!"
         actionItem = "Your frequent destinations have been saved"
         
         let alert = UIAlertController(title: actionTitle, message: actionItem, preferredStyle: .alert)
@@ -82,7 +82,7 @@ class FreqDestinations: UIViewController {
         otherSearchBar.placeholder = "Search for Places"
     }
     
-    //Posts the new inputted frequent destinations addresses in the database
+    //Posts the new inputted frequent destinations addresses in the database, encoding frequent destinations
     func saveFreqDestinations(routeInfo: Dictionary<String, Any>)
     {
         let editFreqDestinationURL = URLComponents(string: "http://localhost:3000/frequentDestinations")!
@@ -213,9 +213,9 @@ class FreqDestinations: UIViewController {
                 self.longitudeArray.append(Float( response!.mapItems[0].placemark.coordinate.longitude))
                 self.latitudeArray.append(Float( response!.mapItems[0].placemark.coordinate.latitude))
                 
-                self.texts.append(String(self.HomeSearchBar.description))
-                self.texts.append(String(self.SchoolSearchBar.description))
-                self.texts.append(String(self.WorkSearchBar.description))
+                //self.texts.append(String(self.HomeSearchBar.description))
+                //self.texts.append(String(self.SchoolSearchBar.description))
+                //self.texts.append(String(self.WorkSearchBar.description))
                 //print(String(describing: coordinate))
             }
         }
