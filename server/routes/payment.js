@@ -16,7 +16,7 @@ router.post('/', function(req, res, next) {
   // Use the payment method nonce here
   var nonceFromTheClient = req.body.payment_method_nonce;
   var idToken = req.body.idToken;
-
+  var clientToken = response.clientToken
 
   admin.auth().verifyIdToken(idToken)
     .then(function(decodedToken) {
