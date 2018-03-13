@@ -33,9 +33,11 @@ class FreqDestinations: UIViewController {
     @IBOutlet weak var scrollView: UIScrollView!
     
     //Array used for storing longitudes and latitudes
-    var longitudeArray: [Float] = []
-    var latitudeArray: [Float] = []
-    //var texts: [String] = []
+    var longitudeArray: [Double] = []
+    var latitudeArray: [Double] = []
+    var destinationArray: [String] = []
+    //var destinationsArray = [Destinations]()
+    //var destinations = Destinations()
     
     //Save button for frequent destinations
     @IBAction func saveButton(_ sender: Any) {
@@ -44,9 +46,8 @@ class FreqDestinations: UIViewController {
         var actionTitle: String=String()
         let exitAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
 
-        //print(option.joined(separator: ", "))
         let userID = Auth.auth().currentUser!.uid
-        let routeInfo = ["userID": userID, "homeAddress": self.HomeSearchBar.text! as Any, "schoolAddress": self.SchoolSearchBar.text! as Any, "workAddress": self.WorkSearchBar.text! as Any, "CustomAddress": self.otherSearchBar.text! as Any, "Custom": self.otherInput.text! as Any, "Longitudes": longitudeArray, "Latitudes": latitudeArray]
+        let routeInfo = ["userID": userID, "homeAddress": self.HomeSearchBar.text! as Any, "schoolAddress": self.SchoolSearchBar.text! as Any, "workAddress": self.WorkSearchBar.text! as Any, "CustomAddress": self.otherSearchBar.text! as Any, "Custom": self.otherInput.text! as Any]
         //print(routeInfo)
         saveFreqDestinations(routeInfo: routeInfo)
         actionTitle = "Success!"
@@ -85,8 +86,8 @@ class FreqDestinations: UIViewController {
     //Posts the new inputted frequent destinations addresses in the database, encoding frequent destinations
     func saveFreqDestinations(routeInfo: Dictionary<String, Any>)
     {
-        let editFreqDestinationURL = URLComponents(string: "http://localhost:3000/frequentDestinations")!
-        var request = URLRequest(url: editFreqDestinationURL.url!)
+        let editFreqDestinationURL = URL(string: "http://localhost:3000/frequentDestinations")!
+        var request = URLRequest(url: editFreqDestinationURL)
         let routeJSON = try! JSONSerialization.data(withJSONObject: routeInfo, options: .prettyPrinted)
         let routeJSONInfo = NSString(data: routeJSON, encoding: String.Encoding.utf8.rawValue)! as String
         request.httpBody = "routeInfo=\(routeJSONInfo)".data(using: String.Encoding.utf8)
@@ -98,7 +99,7 @@ class FreqDestinations: UIViewController {
             }
             else{
                 print ("Success!")
-                print(routeInfo)
+                //print(routeInfo)
             }
             
             }.resume()
@@ -210,13 +211,11 @@ class FreqDestinations: UIViewController {
             let searchRequest = MKLocalSearchRequest(completion: completion)
             let search = MKLocalSearch(request: searchRequest)
             search.start { (response, error) in
-                self.longitudeArray.append(Float( response!.mapItems[0].placemark.coordinate.longitude))
-                self.latitudeArray.append(Float( response!.mapItems[0].placemark.coordinate.latitude))
+                self.longitudeArray.append(Double( response!.mapItems[0].placemark.coordinate.longitude))
+                self.latitudeArray.append(Double( response!.mapItems[0].placemark.coordinate.latitude))
                 
-                //self.texts.append(String(self.HomeSearchBar.description))
-                //self.texts.append(String(self.SchoolSearchBar.description))
-                //self.texts.append(String(self.WorkSearchBar.description))
-                //print(String(describing: coordinate))
+                    //Not sure how to append the type i.e school, work, home address when new address is typed in
+                self.destinationArray.append(String(describing: Destinations.self))
             }
         }
     }

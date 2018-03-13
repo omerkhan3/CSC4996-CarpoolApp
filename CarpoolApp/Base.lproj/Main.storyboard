@@ -1140,12 +1140,9 @@
                     </view>
                     <connections>
                         <outlet property="homeAddress" destination="0jd-GM-uMo" id="0dl-dG-8kQ"/>
-                        <outlet property="homeLabel" destination="bxk-eF-WB5" id="tvG-7Q-wk1"/>
                         <outlet property="schoolAddress" destination="Pyk-6O-W9R" id="q5N-CC-baF"/>
-                        <outlet property="schoolLabel" destination="19e-Er-4hU" id="MrP-ux-OIJ"/>
                         <outlet property="scrollView" destination="cxA-bi-pgH" id="Ofb-eE-p6s"/>
                         <outlet property="workAddress" destination="9ew-Ly-PtI" id="4Zo-hi-FRL"/>
-                        <outlet property="workLabel" destination="yrC-aB-0q8" id="l49-yY-vzD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Uvo-Ou-ci7" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2837,7 +2834,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="tF4-NT-uTN"/>
         <segue reference="asS-Az-c3C"/>
-        <segue reference="Anb-wQ-ofz"/>
+        <segue reference="6qw-qR-Y9z"/>
         <segue reference="mYj-vK-0VR"/>
         <segue reference="cOY-IK-lfO"/>
     </inferredMetricsTieBreakers>

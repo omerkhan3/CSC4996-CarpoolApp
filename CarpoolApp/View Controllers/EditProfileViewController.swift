@@ -49,6 +49,7 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate {
     
     func updateProfile(userInfo: Dictionary<String, Any>)
     {
+        //Users folder is on database but /profile isn't, where is this URL location
         let editProfileURL = URL(string: "http://localhost:3000/users/profile")!
         var request = URLRequest(url: editProfileURL)
         let userJSON = try! JSONSerialization.data(withJSONObject: userInfo, options: .prettyPrinted)
