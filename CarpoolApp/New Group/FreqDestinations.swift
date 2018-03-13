@@ -27,11 +27,11 @@ struct Destinations: Codable {
         latitudes = json["Latitudes"] as? Double ?? 0.0
     }
     
-    init() {
+    /*init() {
         home = ""
         school = ""
         work = ""
         longitudes = 0.0
         latitudes = 0.0
-    }
+    }*/
 }

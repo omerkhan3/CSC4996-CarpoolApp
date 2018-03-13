@@ -35,7 +35,7 @@ class FreqDestinations: UIViewController {
     //Array used for storing longitudes and latitudes
     var longitudeArray: [Double] = []
     var latitudeArray: [Double] = []
-    var destinationArray: [String] = []
+    //var destinationArray: [String] = []
     //var destinationsArray = [Destinations]()
     //var destinations = Destinations()
     
@@ -86,7 +86,7 @@ class FreqDestinations: UIViewController {
     //Posts the new inputted frequent destinations addresses in the database, encoding frequent destinations
     func saveFreqDestinations(routeInfo: Dictionary<String, Any>)
     {
-        let editFreqDestinationURL = URL(string: "http://localhost:3000/frequentDestinations")!
+        let editFreqDestinationURL = URL(string: "http://localhost:3000/freqDestinations/frequentDestinations")!
         var request = URLRequest(url: editFreqDestinationURL)
         let routeJSON = try! JSONSerialization.data(withJSONObject: routeInfo, options: .prettyPrinted)
         let routeJSONInfo = NSString(data: routeJSON, encoding: String.Encoding.utf8.rawValue)! as String
@@ -215,7 +215,7 @@ class FreqDestinations: UIViewController {
                 self.latitudeArray.append(Double( response!.mapItems[0].placemark.coordinate.latitude))
                 
                     //Not sure how to append the type i.e school, work, home address when new address is typed in
-                self.destinationArray.append(String(describing: Destinations.self))
+                //self.destinationArray.append(String(describing: Destinations.self))
             }
         }
     }

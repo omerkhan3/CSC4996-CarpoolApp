@@ -34,11 +34,11 @@ router.post('/frequentDestinations', function(req, res, next) {
 	var routeJSON = JSON.parse(routeInfo);
 	console.log(routeJSON);
 	var userID = routeJSON['userID'];
-	var home = routeJSON['homeAddress'];
-	var school = routeJSON['schoolAddress'];
-	var work = routeJSON['workAddress'];
+	var homeAddress = routeJSON['homeAddress'];
+	var schoolAddress = routeJSON['schoolAddress'];
+	var workAddress = routeJSON['workAddress'];
 	console.log("Updating Frequent Destinations.");
-	db.query("UPDATE carpool.\"Users\" SET \"homeAddress\" = $1, \"schoolAddress\" = $2, \"workAddress\" = $3 where \"userID\" = $4", [home, school, work, userID])
+	db.query("UPDATE carpool.\"Users\" SET \"homeAddress\" = $1, \"schoolAddress\" = $2, \"workAddress\" = $3 where \"userID\" = $4", [homeAddress, schoolAddress, workAddress, userID])
 	.then(function() {
 		res.status(200)
 			.json({

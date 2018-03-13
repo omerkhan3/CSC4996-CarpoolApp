@@ -31,7 +31,7 @@ class MyRoutesViewController: UIViewController {
     
     func readMyDestinations(userID: String)
     {
-        var viewDestinationComponents = URLComponents(string: "http://localhost:3000/frequentDestinations")!
+        var viewDestinationComponents = URLComponents(string: "http://localhost:3000/freqDestinations/frequentDestinations")!
         viewDestinationComponents.queryItems = [
             URLQueryItem(name: "userID", value: userID)
         ]
