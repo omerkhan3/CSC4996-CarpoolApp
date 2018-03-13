@@ -15,11 +15,11 @@ struct Destinations: Codable {
     let longitudes: Double
     let latitudes: Double
     
-    func getString() -> String {
+    /*func getString() -> String {
         return "Home: \(home), School: \(school), Work: \(work), Longitudes: \(longitudes), Latitudes: \(latitudes)"
-    }
+    }*/
     
-    /*init(json: [String: Any]) {
+    init(json: [String: Any]) {
         home = json["homeAddress"] as? String ?? ""
         school = json["schoolAddress"] as? String ?? ""
         work = json["workAddress"] as? String ?? ""
@@ -33,5 +33,5 @@ struct Destinations: Codable {
         work = ""
         longitudes = 0.0
         latitudes = 0.0
-    }*/
+    }
 }

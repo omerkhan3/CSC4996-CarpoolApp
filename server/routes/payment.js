@@ -13,9 +13,20 @@ router.post('/', function(req, res, next) {
     privateKey:   '7160689f99a110ba0d3950c0e0c56863'
 });
 
+  app.post("/payment", function (req, res) {
   // Use the payment method nonce here
   var nonceFromTheClient = req.body.payment_method_nonce;
   var idToken = req.body.idToken;
+  });
+  
+  app.get('/payment', function (request, response) {
+  gateway.clientToken.generate({
+  customerId: aCustomerId
+}, function (err, response) {
+  res.send(response.clientToken)
+  //var clientToken = response.clientToken
+});
+});
 
 
   admin.auth().verifyIdToken(idToken)
