@@ -62,14 +62,27 @@ if (requestJSON['requestType'] == 'riderRequest') // If the rider has requested 
 
 router.get('/', function(req, res, next) {
 var userID = req.query.userID;
-
-var matchesQuery = "select \"driverFirstName\", \"driverLastName\", \"driverBiography\", \"driverID\", \"driverEndPointLat\", \"driverEndPointLong\", \"driverRouteUserID\", \"driverDays\", \"driverArrival\", \"driverDeparture\", \"driverRouteName\", \"driverRouteID\", \"matchID\", \"riderID\" from (select \"endPointLat\" as \"driverEndPointLat\", \"endPointLong\" as \"driverEndPointLong\", \"driverID\" as \"driverRouteUserID\", \"Days\" as \"driverDays\", \"arrivalTime\" as \"driverArrival\", \"departureTime\" as \"driverDeparture\", \"Name\" as \"driverRouteName\", \"routeID\" from carpool.\"Routes\") d JOIN ((select * from carpool.\"Matches\" where \"riderID\" = $1) a JOIN (select \"firstName\" as \"driverFirstName\", \"lastName\" as \"driverLastName\", \"Biography\" as \"driverBiography\", \"userID\" from carpool.\"Users\")b ON a.\"driverID\" = b.\"userID\")c ON c.\"driverRouteID\" = d.\"routeID\""; // Select all drivers the rider has matched with so they can request one.
+ // Select all drivers the rider has matched with so they can request one.
+var matchesQuery = "select \"driverFirstName\", \"driverLastName\", \"driverBiography\", \"driverID\", \"driverEndPointLat\", \"driverEndPointLong\", \"driverRouteUserID\", \"driverDays\", \"driverArrival\", \"driverDeparture\", \"driverRouteName\", \"driverRouteID\", \"matchID\", \"riderID\" from (select \"endPointLat\" as \"driverEndPointLat\", \"endPointLong\" as \"driverEndPointLong\", \"driverID\" as \"driverRouteUserID\", \"Days\" as \"driverDays\", \"arrivalTime\" as \"driverArrival\", \"departureTime\" as \"driverDeparture\", \"Name\" as \"driverRouteName\", \"routeID\" from carpool.\"Routes\") d JOIN ((select * from carpool.\"Matches\" where \"riderID\" = $1) a JOIN (select \"firstName\" as \"driverFirstName\", \"lastName\" as \"driverLastName\", \"Biography\" as \"driverBiography\", \"userID\" from carpool.\"Users\")b ON a.\"driverID\" = b.\"userID\")c ON c.\"driverRouteID\" = d.\"routeID\"";
 db.query(matchesQuery, userID)
 .then(function(data) {
   console.log(data);
   res.send(data);
   });
 });
+
+
+router.get('/riderReqests', function(req, res, next){
+  var userID = req.query.userID;
+
+  // Select all requests a driver has from a rider
+  var matchesQuery =  "select \"riderFirstName\", \"riderLastName\", \"riderBiography\", \"riderID\", \"riderEndPointLat\", \"riderEndPointLong\", \"riderRouteUserID\", \"riderDays\", \"riderArrival\", \"riderDeparture\", \"riderRouteName\", \"riderRouteID\", \"matchID\", \"riderID\"  from  (select \"endPointLat\" as \"riderEndPointLat\", \"endPointLong\" as \"riderEndPointLong\", \"riderID\" as \"riderRouteUserID\", \"Days\" as \"riderDays\", \"arrivalTime\" as \"riderArrival\", \"departureTime\" as \"riderDeparture\", \"Name\" as \"riderRouteName\", \"routeID\" from carpool.\"Routes\") d JOIN  ((select * from carpool.\"Matches\" where \"riderID\" = 'XJKTmWm63iNCa3FGVSemwWezSYv1' AND \"Status\" = 'driverRequested') a JOIN (select \"firstName\" as \"riderFirstName\", \"lastName\" as \"riderLastName\", \"Biography\" as \"riderBiography\", \"userID\" from carpool.\"Users\")b  ON a.\"riderID\" = b.\"userID\")c  ON c.\"riderRouteID\" = d.\"routeID\"";
+  db.query(matchesQuery, userID)
+  .then(function(data) {
+    console.log(data);
+    res.send(data);
+    });
+  });
 
 
 
