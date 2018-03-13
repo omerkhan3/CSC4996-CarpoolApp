@@ -14,8 +14,8 @@ router.post('/frequentDestinations', function(req, res, next) {
 	var routeJSON = JSON.parse(routeInfo);
 	var userID = routeJSON['userID'];
 	
-	db.one("INSERT INTO carpool.\"Users\"(\"userID\", \"homeAddress\", \"schoolAddress\", \"workAddress\") values($1, $2, $3, $4)", [
-	userID, routeJSON['homeAddress'], routeJSON['schoolAddress'], routeJSON['workAddress']])
+	db.one("INSERT INTO carpool.\"Users\"(\"userID\", \"homeAddress\", \"schoolAddress\", \"workAddress\", \"CustomAddress\", \"Custom\") values($1, $2, $3, $4, $5, $6)", [
+	userID, routeJSON['homeAddress'], routeJSON['schoolAddress'], routeJSON['workAddress'], routeJSON['CustomAddress'], routeJSON['Custom']])
 	.then(function() {
 		res.status(200)
 			.json({
@@ -37,8 +37,10 @@ router.post('/frequentDestinations', function(req, res, next) {
 	var homeAddress = routeJSON['homeAddress'];
 	var schoolAddress = routeJSON['schoolAddress'];
 	var workAddress = routeJSON['workAddress'];
+	var customAddress = routeJSON['CustomAddress'];
+	var custom = routeJSON['Custom'];
 	console.log("Updating Frequent Destinations.");
-	db.query("UPDATE carpool.\"Users\" SET \"homeAddress\" = $1, \"schoolAddress\" = $2, \"workAddress\" = $3 where \"userID\" = $4", [homeAddress, schoolAddress, workAddress, userID])
+	db.query("UPDATE carpool.\"Users\" SET \"homeAddress\" = $1, \"schoolAddress\" = $2, \"workAddress\" = $3, \"CustomAddress\" = $4, \"Custom\" = $5 where \"userID\" = $6", [homeAddress, schoolAddress, workAddress, customAddress. custom, userID])
 	.then(function() {
 		res.status(200)
 			.json({
