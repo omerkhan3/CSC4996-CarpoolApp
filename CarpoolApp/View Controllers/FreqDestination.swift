@@ -99,9 +99,8 @@ class FreqDestinations: UIViewController {
             }
             else{
                 print ("Success!")
-                print(routeInfo)
+                //print(routeInfo)
             }
-            
             }.resume()
     }
 }

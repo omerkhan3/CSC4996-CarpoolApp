@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CarpoolApp/View Controllers/ProfileViewController.swift"
-            timestampString = "542591164.442803"
+            timestampString = "542701692.0608571"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "56"
-            endingLineNumber = "56"
+            startingLineNumber = "54"
+            endingLineNumber = "54"
             landmarkName = "readProfileInfo(userID:)"
             landmarkType = "7">
          </BreakpointContent>

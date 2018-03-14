@@ -8,34 +8,22 @@
 
 import Foundation
 
-struct Destinations: Codable {
-    let homeAddress: String
-    let schoolAddress: String
-    let workAddress: String
-    let CustomAddress: String
-    let Custom: String
+struct Destinations: Decodable {
+    let home: String
+    let school: String
+    let work: String
+    let customAddress: String
+    let custom: String
     let longitudes: Double
     let latitudes: Double
     
-    /*func getString() -> String {
-        return "Home: \(home), School: \(school), Work: \(work), Longitudes: \(longitudes), Latitudes: \(latitudes)"
-    }*/
-    
     init(json: [String: Any]) {
-        homeAddress = json["homeAddress"] as? String ?? ""
-        schoolAddress = json["schoolAddress"] as? String ?? ""
-        workAddress = json["workAddress"] as? String ?? ""
-        CustomAddress = json["CustomAddress"] as? String ?? ""
-        Custom = json["Custom"] as? String ?? ""
+        home = json["homeAddress"] as? String ?? ""
+        school = json["schoolAddress"] as? String ?? ""
+        work = json["workAddress"] as? String ?? ""
+        customAddress = json["CustomAddress"] as? String ?? ""
+        custom = json["Custom"] as? String ?? ""
         longitudes = json["Longitudes"] as? Double ?? 0.0
         latitudes = json["Latitudes"] as? Double ?? 0.0
     }
-    
-    /*init() {
-        home = ""
-        school = ""
-        work = ""
-        longitudes = 0.0
-        latitudes = 0.0
-    }*/
 }

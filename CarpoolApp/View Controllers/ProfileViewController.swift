@@ -20,8 +20,6 @@ class ProfileViewController: UIViewController {
     @IBAction func editButton(_ sender: Any) {
     }
     
-    //var userProfile = [Profile]()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         let userID = Auth.auth().currentUser?.uid
@@ -63,66 +61,21 @@ class ProfileViewController: UIViewController {
                     } catch let error as NSError {
                         print(error)
                     }
-                    
                 }
             }
-            
             }.resume()
     }
-    
-//    // Download notifications JSON and decode into an array
-//    func getProfile(completed: @escaping () -> ()) {
-//        // get userID
-//        let userID = Auth.auth().currentUser?.uid
-//        var viewProfileComponents = URLComponents(string: "http://localhost:3000/users/profile")!
-//        viewProfileComponents.queryItems = [URLQueryItem(name: "userID", value: userID)]
-//        var request = URLRequest(url: viewProfileComponents.url!)  // Pass Parameter in URL
-//        print (viewProfileComponents.url!)
-//
-//        request.httpMethod = "GET" // GET METHOD
-//        URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
-//            if (error != nil){  // error handling responses.
-//                print (error as Any)
-//            } else {
-//                guard let data = data else { return }
-//                do {
-//                    // decode JSON into Notifications[] array type
-//                    self.userProfile = try JSONDecoder().decode([Profile].self, from: data)
-//                    print(self.userProfile)
-//                    DispatchQueue.main.async {
-//                        self.UserFirstName.text = self.userProfile[0].firstName
-//                        self.UserLastName.text = self.userProfile[0].lastName
-//                        self.UserEmail.text = self.userProfile[0].email
-//                        self.UserPhoneNumber.text = self.userProfile[0].phone
-//                        self.UserBio.text = self.userProfile[0].biography
-//                        completed()
-//                    }
-//                } catch let jsnErr {
-//                    print(jsnErr)
-//                }
-//            }
-//            }.resume()
-//    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-    // Attach listener to each view that needs sign-in user information
-    // Listens for auth state
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        // Attatch listener
-//        let handle = Auth.auth().addStateDidChangeListener { (auth, user) in
-//
-//        }
     }
     
-    // Detatch listener
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-//        Auth.auth().removeStateDidChangeListener(handle!)
     }
 }

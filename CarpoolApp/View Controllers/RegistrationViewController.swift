@@ -76,8 +76,9 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
                 let firstName = self.firstNameField.text ?? "Unknown"
                 let lastName = self.lastNameField.text ?? "Unknown"
                 let email = self.emailField.text ?? "Unknown"
+                let phone = self.phoneNumberField.text ?? "Unknown"
                 // Create new user entry in database
-                let userInfo = ["userID": userID,   "provider": provider, "firstName": firstName, "lastName": lastName, "email": email] as [String:Any] // store information that user has submitted in a dictionary.
+                let userInfo = ["userID": userID,   "provider": provider, "firstName": firstName, "lastName": lastName, "email": email, "phone": phone] as [String:Any] // store information that user has submitted in a dictionary.
                // DataService.inst.createUser(id: (user?.uid)!, userInfo: userInfo)  // we userInfo to store data in the DB under the user's unique identifier.
 
                 self.storeUserInfo(userInfo: userInfo)

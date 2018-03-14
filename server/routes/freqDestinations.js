@@ -15,7 +15,7 @@ router.post('/frequentDestinations/add', function(req, res, next) {
 	var userID = routeJSON['userID'];
 	
 	db.none("INSERT INTO carpool.\"frequentDestinations\"(\"userID\", \"homeAddress\", \"schoolAddress\", \"workAddress\", \"CustomAddress\", \"Custom\", \"Longitudes\", \"Latitudes\") values($1, $2, $3, $4, $5, $6, $7, $8)", [
-	userID, routeJSON['homeAddress'], routeJSON['schoolAddress'], routeJSON['workAddress'], routeJSON['CustomAddress'], routeJSON['Custom'], routeJSON['Longitudes'][0], routeJSON['Latitudes'][0]])
+	userID, routeJSON['home'], routeJSON['school'], routeJSON['work'], routeJSON['customAddress'], routeJSON['custom'], routeJSON['longitudes'][0], routeJSON['latitudes'][0]])
 	.then(function() {
 		res.status(200)
 			.json({

@@ -12,8 +12,8 @@ struct Profile: Decodable{
     let firstName: String
     let lastName: String
     let email: String
-    let phone: String?
-    let biography: String?
+    let phone: String
+    let biography: String
     
     init(json: [String: Any]) {
         firstName = json["firstName"] as? String ?? ""

@@ -12,21 +12,18 @@ import FirebaseAuth
 
 class MyRoutesViewController: UIViewController {
     @IBOutlet weak var scrollView: UIScrollView!
-    @IBOutlet weak var homeAddress: UILabel!
-    @IBOutlet weak var schoolAddress: UILabel!
-    @IBOutlet weak var workAddress: UILabel!
+    @IBOutlet weak var UserHomeAddress: UILabel!
+    @IBOutlet weak var UserSchoolAddress: UILabel!
+    @IBOutlet weak var UserWorkAddress: UILabel!
     @IBAction func editButton(_ sender: Any) {
     }
     @IBAction func addRoute(_ sender: Any) {
     }
     
-    //var destinationsArray = [Destinations]()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         let userID = Auth.auth().currentUser?.uid
         readMyDestinations(userID: userID!)
-        // Do any additional setup after loading the view.
     }
     
     func readMyDestinations(userID: String)
@@ -54,9 +51,9 @@ class MyRoutesViewController: UIViewController {
                         if let routeInfo = json!["data"]
                         {
                             DispatchQueue.main.async {
-                               self.homeAddress.text = (routeInfo["homeAddress"] as! String)
-                               self.schoolAddress.text = (routeInfo["schoolAddress"] as! String)
-                               self.workAddress.text = (routeInfo["workAddress"] as! String)
+                               self.UserHomeAddress.text = (routeInfo["homeAddress"] as! String)
+                               self.UserSchoolAddress.text = (routeInfo["schoolAddress"] as! String)
+                               self.UserWorkAddress.text = (routeInfo["workAddress"] as! String)
                             }
                         }
                     } catch let error as NSError {

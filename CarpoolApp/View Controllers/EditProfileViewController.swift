@@ -24,7 +24,7 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate {
         let exitAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
         
         let userID = Auth.auth().currentUser!.uid
-        let userInfo = ["userID": userID, "Biography": self.bioField.text] as [String : Any]
+        let userInfo = ["userID": userID, "Biography": self.bioField.text! as Any, "firstName": self.firstNameField.text! as Any, "lastName": self.lastNameField.text! as Any]
         updateProfile(userInfo: userInfo)
         actionTitle = "Success!"
         actionItem = "Your profile information has been saved"
@@ -64,7 +64,6 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate {
             else{
                 print ("Success!")
             }
-            
             }.resume()
     }
     
