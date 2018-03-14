@@ -14,8 +14,8 @@ router.post('/frequentDestinations/add', function(req, res, next) {
 	var routeJSON = JSON.parse(routeInfo);
 	var userID = routeJSON['userID'];
 	
-	db.none("INSERT INTO carpool.\"frequentDestinations\"(\"userID\", \"homeAddress\", \"schoolAddress\", \"workAddress\", \"CustomAddress\", \"Custom\") values($1, $2, $3, $4, $5, $6)", [
-	userID, routeJSON['homeAddress'], routeJSON['schoolAddress'], routeJSON['workAddress'], routeJSON['CustomAddress'], routeJSON['Custom']])
+	db.none("INSERT INTO carpool.\"frequentDestinations\"(\"userID\", \"homeAddress\", \"schoolAddress\", \"workAddress\", \"CustomAddress\", \"Custom\", \"Longitudes\", \"Latitudes\") values($1, $2, $3, $4, $5, $6, $7, $8)", [
+	userID, routeJSON['homeAddress'], routeJSON['schoolAddress'], routeJSON['workAddress'], routeJSON['CustomAddress'], routeJSON['Custom'], routeJSON['Longitudes'][0], routeJSON['Latitudes'][0]])
 	.then(function() {
 		res.status(200)
 			.json({
@@ -55,8 +55,10 @@ router.post('/frequentDestinations', function(req, res, next) {
 	var workAddress = routeJSON['workAddress'];
 	var CustomAddress = routeJSON['CustomAddress'];
 	var Custom = routeJSON['Custom'];
+	var Longitudes = routeJSON['Longitudes'][0];
+	var Latitudes = routeJSON['Latitudes'][0];
 	console.log("Updating Frequent Destinations.");
-	db.query("UPDATE carpool.\"frequentDestinations\" SET \"homeAddress\" = $1, \"schoolAddress\" = $2, \"workAddress\" = $3, \"CustomAddress\" = $4, \"Custom\" = $5 where \"userID\" = $6", [homeAddress, schoolAddress, workAddress, CustomAddress, Custom, userID])
+	db.query("UPDATE carpool.\"frequentDestinations\" SET \"homeAddress\" = $1, \"schoolAddress\" = $2, \"workAddress\" = $3, \"CustomAddress\" = $4, \"Custom\" = $5, \"Latitudes\" = $6, \"Longitudes\" = $7 where \"userID\" = $8", [homeAddress, schoolAddress, workAddress, CustomAddress, Custom, Latitudes, Longitudes, userID])
 	.then(function() {
 		res.status(200)
 			.json({
