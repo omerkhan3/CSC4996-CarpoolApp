@@ -9,9 +9,11 @@
 import Foundation
 
 struct Destinations: Codable {
-    let home: String
-    let school: String
-    let work: String
+    let homeAddress: String
+    let schoolAddress: String
+    let workAddress: String
+    let CustomAddress: String
+    let Custom: String
     let longitudes: Double
     let latitudes: Double
     
@@ -20,9 +22,11 @@ struct Destinations: Codable {
     }*/
     
     init(json: [String: Any]) {
-        home = json["homeAddress"] as? String ?? ""
-        school = json["schoolAddress"] as? String ?? ""
-        work = json["workAddress"] as? String ?? ""
+        homeAddress = json["homeAddress"] as? String ?? ""
+        schoolAddress = json["schoolAddress"] as? String ?? ""
+        workAddress = json["workAddress"] as? String ?? ""
+        CustomAddress = json["CustomAddress"] as? String ?? ""
+        Custom = json["Custom"] as? String ?? ""
         longitudes = json["Longitudes"] as? Double ?? 0.0
         latitudes = json["Latitudes"] as? Double ?? 0.0
     }
