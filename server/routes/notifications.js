@@ -10,21 +10,9 @@ var admin = require('firebase-admin');
 var router = express.Router();
 const db = require('../routes/db');
 const pgp = db.$config.pgp;
-
-
-const apn = require('apn');
-
-let options = {
-   token: {
-     key: "cert_notifications.p8",
-    // Replace keyID and teamID with the values you've previously saved.
-     keyId: "3KL4446N4D",
-     teamId: "3Z83W2KF98"
-  },
-   production: false
- };
-
- let apnProvider = new apn.Provider(options);
+const apnModule = require('../routes/apn');
+const apn = apnModule.apn;
+const apnProvider = apnModule.apnProvider;
 
  // Replace deviceToken with your particular token:
  let deviceToken = "2E008C45EBC2562C1C0F0467294C10C794D11CBB98F4CDF5D2C9185BF33A8C3F";
@@ -34,7 +22,7 @@ let notification = new apn.Notification();
  notification.expiry = Math.floor(Date.now() / 1000) + 24 * 3600; // will expire in 24 hours from now
 notification.badge = 2;
 notification.sound = "ping.aiff";
-notification.alert = "Hello from Omer";
+notification.alert = "You have a new match!";
 notification.payload = {'messageFrom': 'Notifications are working!'};
 
  // Replace this with your app bundle ID:
