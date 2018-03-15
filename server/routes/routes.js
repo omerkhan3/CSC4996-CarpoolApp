@@ -8,6 +8,9 @@ var admin = require('firebase-admin');
 var router = express.Router();
 const db = require('../routes/db');
 const pgp = db.$config.pgp;
+const apnModule = require('../routes/apn');
+const apn = apnModule.apn;
+const apnProvider = apnModule.apnProvider;
 
 function convertTo24Hour(time) { // concert to military time, we will eventually do this client-side.
     time = time.toUpperCase();
@@ -33,7 +36,7 @@ router.post('/', function(req, res, next) {
  if (routeJSON['Driver'] == true) // if user marked "Driver" as true.
   {
      var addDriverRouteQuery = "INSERT INTO carpool.\"Routes\"(\"driverID\", \"departureTime\", \"arrivalTime\", \"startPointLong\", \"startPointLat\", \"endPointLong\", \"endPointLat\", \"Name\", \"Days\", \"Matched\", \"Driver\") values($1, $2, $3, $4, $5, $6, $7, $8, $9, 'false', 'true')"; // this is the query to add driver's route.
-     db.any(addDriverRouteQuery, [userID, routeJSON['departureTime'], routeJSON['arrivalTime'], routeJSON['Longitudes'][0], routeJSON['Latitudes'][0], routeJSON['Longitudes'][1], routeJSON['Latitudes'][1], routeJSON['Name'], routeJSON['Days']]) 
+     db.any(addDriverRouteQuery, [userID, routeJSON['departureTime'], routeJSON['arrivalTime'], routeJSON['Longitudes'][0], routeJSON['Latitudes'][0], routeJSON['Longitudes'][1], routeJSON['Latitudes'][1], routeJSON['Name'], routeJSON['Days']])
       .then(function () {
         console.log("Driver route added.");
         var setGeographyQuery = "UPDATE carpool.\"Routes\" SET startPoint = ST_POINT (\"startPointLat\", \"startPointLong\"), endPoint = ST_POINT (\"endPointLat\", \"endPointLong\")"; // Set geography object based on coordinates added by user.
@@ -72,6 +75,24 @@ router.post('/', function(req, res, next) {
 
 }
            db.any("INSERT INTO carpool.\"notificationLog\"(\"userID\", \"notificationType\", \"Date\", \"Read\") values ($1, $2, $3, $4)", [userID, "Match", 'now', 'false']); // Insert a notification into table when there is a match.
+           db.one("SELECT \"deviceToken\" from carpool.\"Users\" where \"userID\" = $1", [userID])
+           .then(function(result) {
+             let notification = new apn.Notification();
+              notification.expiry = Math.floor(Date.now() / 1000) + 24 * 3600; // will expire in 24 hours from now
+             notification.badge = 2;
+             notification.sound = "ping.aiff";
+             notification.alert = "You have a new match!";
+             notification.payload = {'messageFrom': 'Notifications are working!'};
+
+              // Replace this with your app bundle ID:
+              notification.topic = "com.CSC4996.CarpoolApp";
+
+              // Send the actual notification
+             apnProvider.send(notification, result.deviceToken).then( result => {
+             // Show the result of the send operation:
+                console.log(result);
+             });
+           })
           }
        else {
           console.log("No match found.");
