@@ -6,11 +6,11 @@ var admin = require('firebase-admin');
 
 router.post('/payment/', function(req, res, next) {
 console.log(req.body);
- var gateway = braintree.connect({
-    environment:  braintree.Environment.Sandbox,  
-    merchantId:   'kjjqnn2gj7vbds9g',  
-    publicKey:    'hcvtbjyp4kmzv96d',
-    privateKey:   '7160689f99a110ba0d3950c0e0c56863'
+var gateway = braintree.connect({
+    environment:  braintree.Environment.Sandbox,
+    merchantId:   '263226vjm82nytf2',
+    publicKey:    'zprfpjrj64cpz4hr',
+    privateKey:   '' //Got rid of private key for screenshot
 });
 
   // Use the payment method nonce here

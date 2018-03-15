@@ -47,6 +47,7 @@ class FreqDestinations: UIViewController {
         let exitAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
 
         let userID = Auth.auth().currentUser!.uid
+        //self.homeLabel.text! = "Home"
         let routeInfo = ["userID": userID, "Name": self.homeLabel.text! as Any, "Address": self.HomeSearchBar.text! as Any]
         //print(routeInfo)
         saveFreqDestinations(routeInfo: routeInfo)

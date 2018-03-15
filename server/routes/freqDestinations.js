@@ -9,13 +9,14 @@ var router = express.Router();
 const db = require('../routes/db');
 const pgp = db.$config.pgp;
 
-router.post('/frequentDestinations/add', function(req, res, next) {
+router.post('/frequentDestinations', function(req, res, next) {
 	var routeInfo = req.body.routeInfo;
 	var routeJSON = JSON.parse(routeInfo);
 	var userID = routeJSON['userID'];
-	
+	console.log(routeJSON)
 	db.none("INSERT INTO carpool.\"frequentDestinations\"(\"userID\", \"Name\", \"Address\") values($1, $2, $3)", [
-	userID, routeJSON['name'], routeJSON['address']])
+	userID, routeJSON['Name'], routeJSON['Address']])
+	console.log("Inserting values.")
 	.then(function() {
 		res.status(200)
 			.json({
@@ -45,7 +46,7 @@ router.get('/frequentDestinations', function(req, res, next) {
 		})
 	});
 
-router.post('/frequentDestinations', function(req, res, next) {
+router.post('/frequentDestinations/update', function(req, res, next) {
 	var routeInfo = req.body.routeInfo;
 	var routeJSON = JSON.parse(routeInfo);
 	console.log(routeJSON);
