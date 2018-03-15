@@ -32,7 +32,7 @@ router.post('/frequentDestinations/add', function(req, res, next) {
 router.get('/frequentDestinations', function(req, res, next) {
 	var userID = req.query.userID;
 	console.log(userID);
-	db.one("select \"frequentDestinations\".\"Address\" from carpool.\"frequentDestinations\" where \"frequentDestinations\".\"userID\" = $1", userID)
+	db.one("select \"frequentDestinations\".\"Address\", \"frequentDestinations\".\"schoolAddress\", \"frequentDestinations\".\"workAddress\" from carpool.\"frequentDestinations\" where \"frequentDestinations\".\"userID\" = $1", userID)
 	.then(function(data) {
 		console.log(data);
 		res.status(200).json({
@@ -53,7 +53,9 @@ router.post('/frequentDestinations', function(req, res, next) {
 	var userID = routeJSON['userID'];
 	var Name = routeJSON['Name'];
 	var Address = routeJSON['Address'];
-	console.log("Updating Frequent Destinations.");
+	var school = routeJSON['schoolAddress'];
+	var work = routeJSON['workAddress'];
+	//console.log("Updating Frequent Destinations.");
 	
 	//if (Name == null)
 	//{
@@ -63,6 +65,14 @@ router.post('/frequentDestinations', function(req, res, next) {
 	{
 		db.none("INSERT INTO carpool.\"frequentDestinations\"(\"Address\") values($1)", [userID, routeJSON['address']])
 	}
+	if (work == null)
+	{
+		db.none("INSERT INTO carpool.\"frequentDestinations\"(\"workAddress\") values($1)", [userID, routeJSON['workaddress']])	
+	}
+	if (school == null)
+	{
+		db.none("INSERT INTO carpool.\"frequentDestinations\"(\"schoolAddress\") values($1)", [userID, routeJSON['schooladdress']])
+	}
 	//else if (Name != null) 
 	//{
 	//	db.query("UPDATE carpool.\"frequentDestinations\" SET \"Name\" = $1 where \"userID\" = $2", [Name, userID])
@@ -71,6 +81,26 @@ router.post('/frequentDestinations', function(req, res, next) {
 	{
 		db.query("UPDATE carpool.\"frequentDestinations\" SET \"Address\" = $1 where \"userID\" = $2", [Address, userID])
 	}
+	else if (work != null)
+	{
+		db.query("UPDATE carpool.\"frequentDestinations\" SET \"workAddress\" = $1 where \"userID\" = $2", [work, userID])
+	}
+	else (school != null)
+	{
+		db.query("UPDATE carpool.\"frequentDestinations\" SET \"schoolAddress\" = $1 where \"userID\" = $2", [school, userID])
+	}
+	console.log("Updating Frequent Destinations.")
+	.then(function(data) {
+		console.log(data);
+		res.status(200).json({
+			status: 'Success',
+			data: data,
+			message: 'Updated Route Info.'
+		});
+	})
+		.catch(function(err) {
+			console.log(err);
+		})
 });
 	
 module.exports = router;

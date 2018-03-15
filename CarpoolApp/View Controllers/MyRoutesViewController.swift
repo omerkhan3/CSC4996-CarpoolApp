@@ -52,8 +52,8 @@ class MyRoutesViewController: UIViewController {
                         {
                             DispatchQueue.main.async {
                                self.UserHomeAddress.text = (routeInfo["Address"] as! String)
-                               //self.UserSchoolAddress.text = (routeInfo["Address"] as! String)
-                               //self.UserWorkAddress.text = (routeInfo["Address"] as! String)
+                               self.UserSchoolAddress.text = (routeInfo["schoolAddress"] as? String)
+                               self.UserWorkAddress.text = (routeInfo["workAddress"] as? String)
                             }
                         }
                     } catch let error as NSError {
