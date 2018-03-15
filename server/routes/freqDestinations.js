@@ -14,8 +14,8 @@ router.post('/frequentDestinations/add', function(req, res, next) {
 	var routeJSON = JSON.parse(routeInfo);
 	var userID = routeJSON['userID'];
 	
-	db.none("INSERT INTO carpool.\"frequentDestinations\"(\"userID\", \"homeAddress\", \"schoolAddress\", \"workAddress\", \"CustomAddress\", \"Custom\", \"Longitudes\", \"Latitudes\") values($1, $2, $3, $4, $5, $6, $7, $8)", [
-	userID, routeJSON['home'], routeJSON['school'], routeJSON['work'], routeJSON['customAddress'], routeJSON['custom'], routeJSON['longitudes'][0], routeJSON['latitudes'][0]])
+	db.none("INSERT INTO carpool.\"frequentDestinations\"(\"userID\", \"Name\", \"Address\") values($1, $2, $3)", [
+	userID, routeJSON['name'], routeJSON['address']])
 	.then(function() {
 		res.status(200)
 			.json({
@@ -31,7 +31,7 @@ router.post('/frequentDestinations/add', function(req, res, next) {
 router.get('/frequentDestinations', function(req, res, next) {
 	var userID = req.query.userID;
 	console.log(userID);
-	db.one("select \"frequentDestinations\".\"homeAddress\",\"frequentDestinations\".\"schoolAddress\",\"frequentDestinations\".\"workAddress\" from carpool.\"frequentDestinations\" where \"frequentDestinations\".\"userID\" = $1", userID)
+	db.one("select \"frequentDestinations\".\"Address\" from carpool.\"frequentDestinations\" where \"frequentDestinations\".\"userID\" = $1", userID)
 	.then(function(data) {
 		console.log(data);
 		res.status(200).json({
@@ -50,26 +50,26 @@ router.post('/frequentDestinations', function(req, res, next) {
 	var routeJSON = JSON.parse(routeInfo);
 	console.log(routeJSON);
 	var userID = routeJSON['userID'];
-	var homeAddress = routeJSON['homeAddress'];
-	var schoolAddress = routeJSON['schoolAddress'];
-	var workAddress = routeJSON['workAddress'];
-	var CustomAddress = routeJSON['CustomAddress'];
-	var Custom = routeJSON['Custom'];
-	var Longitudes = routeJSON['Longitudes'][0];
-	var Latitudes = routeJSON['Latitudes'][0];
+	var Name = routeJSON['Name'];
+	var Address = routeJSON['Address'];
 	console.log("Updating Frequent Destinations.");
-	db.query("UPDATE carpool.\"frequentDestinations\" SET \"homeAddress\" = $1, \"schoolAddress\" = $2, \"workAddress\" = $3, \"CustomAddress\" = $4, \"Custom\" = $5, \"Latitudes\" = $6, \"Longitudes\" = $7 where \"userID\" = $8", [homeAddress, schoolAddress, workAddress, CustomAddress, Custom, Latitudes, Longitudes, userID])
-	.then(function() {
-		res.status(200)
-			.json({
-				status: 'Success',
-				message: 'User Routes Updated.'
-			});
-		})
-		.catch(function(err) {
-			res.send(err);
-		});
-	});
+	
+	if (Name == null)
+	{
+		db.none("INSERT INTO carpool.\"frequentDestinations\"(\"Name\") values($1)", [userID, routeJSON['name']])
+	}
+	if (Address == null)
+	{
+		db.none("INSERT INTO carpool.\"frequentDestinations\"(\"Address\") values($1)", [userID, routeJSON['address']])
+	}
+	else if (Name != null) 
+	{
+		db.query("UPDATE carpool.\"frequentDestinations\" SET \"Name\" = $1 where \"userID\" = $2", [Name, userID])
+	}
+	else if (Address != null)
+	{
+		db.query("UPDATE carpool.\"frequentDestinations\" SET \"Address\" = $1 where \"userID\" = $2", [Address, userID])
+	}
+});
 	
 module.exports = router;
-	

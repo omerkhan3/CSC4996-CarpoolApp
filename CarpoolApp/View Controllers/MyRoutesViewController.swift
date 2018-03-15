@@ -51,9 +51,9 @@ class MyRoutesViewController: UIViewController {
                         if let routeInfo = json!["data"]
                         {
                             DispatchQueue.main.async {
-                               self.UserHomeAddress.text = (routeInfo["homeAddress"] as! String)
-                               self.UserSchoolAddress.text = (routeInfo["schoolAddress"] as! String)
-                               self.UserWorkAddress.text = (routeInfo["workAddress"] as! String)
+                               self.UserHomeAddress.text = (routeInfo["Address"] as! String)
+                               //self.UserSchoolAddress.text = (routeInfo["Address"] as! String)
+                               //self.UserWorkAddress.text = (routeInfo["Address"] as! String)
                             }
                         }
                     } catch let error as NSError {
