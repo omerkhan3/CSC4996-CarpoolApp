@@ -32,7 +32,7 @@ router.post('/frequentDestinations/add', function(req, res, next) {
 router.get('/frequentDestinations', function(req, res, next) {
 	var userID = req.query.userID;
 	console.log(userID);
-	db.one("select \"frequentDestinations\".\"Address\", \"frequentDestinations\".\"schoolAddress\", \"frequentDestinations\".\"workAddress\" from carpool.\"frequentDestinations\" where \"frequentDestinations\".\"userID\" = $1", userID)
+	db.one("select \"frequentDestinations\".\"Address\",\"frequentDestinations\".\"workAddress\",\"frequentDestinations\".\"schoolAddress\" from carpool.\"frequentDestinations\" where \"frequentDestinations\".\"userID\" = $1", userID)
 	.then(function(data) {
 		console.log(data);
 		res.status(200).json({
@@ -77,17 +77,17 @@ router.post('/frequentDestinations', function(req, res, next) {
 	//{
 	//	db.query("UPDATE carpool.\"frequentDestinations\" SET \"Name\" = $1 where \"userID\" = $2", [Name, userID])
 	//}
-	else if (Address != null)
+	else (Address != null)
 	{
 		db.query("UPDATE carpool.\"frequentDestinations\" SET \"Address\" = $1 where \"userID\" = $2", [Address, userID])
 	}
-	else if (work != null)
-	{
-		db.query("UPDATE carpool.\"frequentDestinations\" SET \"workAddress\" = $1 where \"userID\" = $2", [work, userID])
-	}
-	else (school != null)
+	if (school != null)
 	{
 		db.query("UPDATE carpool.\"frequentDestinations\" SET \"schoolAddress\" = $1 where \"userID\" = $2", [school, userID])
+	}
+	else (work != null)
+	{
+		db.query("UPDATE carpool.\"frequentDestinations\" SET \"workAddress\" = $1 where \"userID\" = $2", [work, userID])
 	}
 	console.log("Updating Frequent Destinations.")
 	.then(function(data) {
