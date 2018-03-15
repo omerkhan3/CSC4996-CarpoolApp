@@ -29,12 +29,13 @@ notification.payload = {'messageFrom': 'Notifications are working!'};
  notification.topic = "com.CSC4996.CarpoolApp";
 
  // Send the actual notification
+ /*
 apnProvider.send(notification, deviceToken).then( result => {
 // Show the result of the send operation:
  	console.log(result);
 });
 
-
+/*/
  // Close the server
 apnProvider.shutdown();
 

@@ -8,7 +8,9 @@ var admin = require('firebase-admin');
 var router = express.Router();
 const db = require('../routes/db');
 const pgp = db.$config.pgp;
-
+const apnModule = require('../routes/apn');
+const apn = apnModule.apn;
+const apnProvider = apnModule.apnProvider;
 
 router.post('/approval', function(req, res, next) {
  var requestInfo = req.body.requestInfo
@@ -20,6 +22,30 @@ if (requestJSON['requestType'] == 'riderRequest') // If the rider has requested 
 
   db.query("UPDATE carpool.\"Matches\" SET \"Status\" = 'driverRequested' where \"matchID\" = $1", [matchID]) // update match to driver requested.
    .then(function () {
+     db.one("SELECT \"driverID\" from carpool.\"Matches\" where \"matchID\" = $1", [matchID])
+     .then(function(data) {
+        db.any("INSERT INTO carpool.\"notificationLog\"(\"userID\", \"notificationType\", \"Date\", \"Read\") values ($1, $2, $3, $4)", [data.driverID, "Match", 'now', 'false']);
+        db.one("SELECT \"deviceToken\" from carpool.\"Users\" where \"userID\" = $1", [data.driverID])
+        .then(function(result) {
+          let notification = new apn.Notification();
+           notification.expiry = Math.floor(Date.now() / 1000) + 24 * 3600; // will expire in 24 hours from now
+          notification.badge = 2;
+          notification.sound = "ping.aiff";
+          notification.alert = "You have a new match!";
+          notification.payload = {'messageFrom': 'Notifications are working!'};
+
+           // Replace this with your app bundle ID:
+           notification.topic = "com.CSC4996.CarpoolApp";
+
+           // Send the actual notification
+          apnProvider.send(notification, result.deviceToken).then( result => {
+          // Show the result of the send operation:
+           	console.log(result);
+          });
+        })
+
+
+     })
      res.status(200)
        .json({
          status: 'Success',
