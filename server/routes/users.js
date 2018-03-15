@@ -56,7 +56,28 @@ router.post('/profile', function(req, res, next){
   var bio = userJSON['Biography'];
   var userID = userJSON['userID'];
   console.log("Updating Bio.");
-  db.query("UPDATE carpool.\"Users\" SET \"Biography\" = $1 where \"userID\" = $2", [bio, userID]) // Update profile query to update biography 
+  db.query("UPDATE carpool.\"Users\" SET \"Biography\" = $1 where \"userID\" = $2", [bio, userID]) // Update profile query to update biography
+    .then(function () {
+      res.status(200)
+        .json({
+          status: 'Success',
+          message: 'User Profile Updated.'
+        });
+    })
+    .catch(function (err) {
+      res.send(err);
+    });
+});
+
+
+router.post('/device', function(req, res, next){
+  var userInfo = req.body.userInfo;
+  var userJSON = JSON.parse(userInfo);
+  console.log(userJSON);
+  var deviceToken= userJSON['deviceToken'];
+  var userID = userJSON['userID'];
+  console.log("Updating Bio.");
+  db.query("UPDATE carpool.\"Users\" SET \"deviceToken\" = $1 where \"userID\" = $2", [deviceToken, userID]) // Update profile query to update biography
     .then(function () {
       res.status(200)
         .json({

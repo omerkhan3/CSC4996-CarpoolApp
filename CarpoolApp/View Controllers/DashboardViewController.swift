@@ -8,13 +8,51 @@
 
 import UIKit
 import SideMenu
+import FirebaseAuth
 
 class DashboardViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         setupSideMenu()
+       registerDeviceToken()
+    }
+    
+    func registerDeviceToken()
+    {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        //print("Device Token:", appDelegate.deviceToken)
+        if ((appDelegate.deviceToken?.isEmpty)!)
+        {
+            print ("Device already registered.")
+        }
+        else
+        {
+            let userInfo = ["userID": Auth.auth().currentUser?.uid as Any,   "deviceToken" : appDelegate.deviceToken] as [String:Any]
+            updateDevice(userInfo : userInfo)
+        }
+        
+    }
+    
+    
+    func updateDevice(userInfo: Dictionary<String, Any>)
+    {
+        let editDeviceURL = URL(string: "http://141.217.48.15:3000/users/device")!
+        var request = URLRequest(url: editDeviceURL)
+        let userJSON = try! JSONSerialization.data(withJSONObject: userInfo, options: .prettyPrinted)
+        let userJSONInfo = NSString(data: userJSON, encoding: String.Encoding.utf8.rawValue)! as String
+        request.httpBody = "userInfo=\(userJSONInfo)".data(using: String.Encoding.utf8)
+        request.httpMethod = "POST" // POST method.
+        
+        URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
+            if (error != nil){  // error handling responses.
+                print ("An error has occured.")
+            }
+            else{
+                print ("Success!")
+            }
+            
+            }.resume()
     }
 
     fileprivate func setupSideMenu() {
