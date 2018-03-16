@@ -15,8 +15,10 @@ class MyRoutesViewController: UIViewController {
     @IBOutlet weak var UserHomeAddress: UILabel!
     @IBOutlet weak var UserSchoolAddress: UILabel!
     @IBOutlet weak var UserWorkAddress: UILabel!
+    @IBOutlet weak var UserOtherAddress: UILabel!
     @IBAction func editButton(_ sender: Any) {
     }
+    @IBOutlet weak var newLabel: UILabel!
     @IBAction func addRoute(_ sender: Any) {
     }
     
@@ -54,6 +56,8 @@ class MyRoutesViewController: UIViewController {
                                self.UserHomeAddress.text = (routeInfo["Address"] as! String)
                                self.UserSchoolAddress.text = (routeInfo["schoolAddress"] as? String)
                                self.UserWorkAddress.text = (routeInfo["workAddress"] as? String)
+                               self.UserOtherAddress.text = (routeInfo["otherAddress"] as? String)
+                               self.newLabel.text = (routeInfo["Name5"] as? String)
                             }
                         }
                     } catch let error as NSError {
