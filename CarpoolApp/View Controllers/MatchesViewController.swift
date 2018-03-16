@@ -65,9 +65,14 @@ class MatchesViewController: UIViewController, UITableViewDelegate, UITableViewD
             
             let cell = UITableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: "matchCell")
             
-            // set title to notification type
-            cell.textLabel?.text = "Driver:  " + matchesArray[indexPath.row].driverFirstName
-            cell.detailTextLabel?.text = "Riding to: " + matchesArray[indexPath.row].driverRouteName.capitalized
+            // set title based on notification type
+            if matchesArray[indexPath.row].Status == "Awaiting rider request." {
+                cell.textLabel?.text = "Matched with driver:  " + matchesArray[indexPath.row].driverFirstName
+                cell.detailTextLabel?.text = "Riding to: " + matchesArray[indexPath.row].driverRouteName.capitalized
+            } else if matchesArray[indexPath.row].Status == "driverRequested" {
+                cell.textLabel?.text = "Matched with rider:  " + matchesArray[indexPath.row].riderFirstName
+                cell.detailTextLabel?.text = "Riding to: " + matchesArray[indexPath.row].driverRouteName.capitalized
+            }
             return cell
         }
         
@@ -85,7 +90,7 @@ class MatchesViewController: UIViewController, UITableViewDelegate, UITableViewD
         func getMatches(completed: @escaping () -> ()) {
             // get userID
             let userID = Auth.auth().currentUser?.uid
-            var viewMatchComponents = URLComponents(string: "http://141.217.48.15:3000/matches")!
+            var viewMatchComponents = URLComponents(string: "http://localhost:3000/matches")!
             viewMatchComponents.queryItems = [URLQueryItem(name: "userID", value: userID)]
             var request = URLRequest(url: viewMatchComponents.url!)  // Pass Parameter in URL
             print (viewMatchComponents.url!)
@@ -97,7 +102,7 @@ class MatchesViewController: UIViewController, UITableViewDelegate, UITableViewD
                 } else {
                     guard let data = data else { return }
                     do {
-                        // decode JSON into Notifications[] array type
+                        // decode JSON into Match[] array type
                         self.matchesArray = try JSONDecoder().decode([Match].self, from: data)
                         print(self.matchesArray)
                         DispatchQueue.main.async {
