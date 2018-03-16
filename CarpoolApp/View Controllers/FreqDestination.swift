@@ -48,7 +48,7 @@ class FreqDestinations: UIViewController {
 
         let userID = Auth.auth().currentUser!.uid
         //self.homeLabel.text! = "Home"
-        let routeInfo = ["userID": userID, "Name": self.homeLabel.text! as Any, "Address": self.HomeSearchBar.text! as Any, "Name2": self.schoolLabel.text! as Any, "schoolAddress": self.SchoolSearchBar.text! as Any, "Name3": self.workLabel.text! as Any, "workAddress": self.WorkSearchBar.text! as Any]
+        let routeInfo = ["userID": userID, "Name": self.homeLabel.text! as Any, "Address": self.HomeSearchBar.text! as Any, "Name2": self.schoolLabel.text! as Any, "schoolAddress": self.SchoolSearchBar.text! as Any, "Name3": self.workLabel.text! as Any, "workAddress": self.WorkSearchBar.text! as Any, "Longitudes": longitudeArray, "Latitudes": latitudeArray]
         //print(routeInfo)
         saveFreqDestinations(routeInfo: routeInfo)
         actionTitle = "Success!"

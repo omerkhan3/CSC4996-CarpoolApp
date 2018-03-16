@@ -15,8 +15,8 @@ struct Destinations: Decodable {
     let address: String
     let schooladdress: String
     let workaddress: String
-    //let longitudes: Double
-    //let latitudes: Double
+    let longitudes: Double
+    let latitudes: Double
     
     init(json: [String: Any]) {
         name = json["Name"] as? String ?? ""
@@ -25,7 +25,7 @@ struct Destinations: Decodable {
         address = json["Address"] as? String ?? ""
         schooladdress = json["schoolAddress"] as? String ?? ""
         workaddress = json["workAddress"] as? String ?? ""
-        //longitudes = json["Longitudes"] as? Double ?? 0.0
-        //latitudes = json["Latitudes"] as? Double ?? 0.0
+        longitudes = json["Longitudes"] as? Double ?? 0.0
+        latitudes = json["Latitudes"] as? Double ?? 0.0
     }
 }

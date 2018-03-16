@@ -10,19 +10,25 @@ var gateway = braintree.connect({
     environment:  braintree.Environment.Sandbox,
     merchantId:   '263226vjm82nytf2',
     publicKey:    'zprfpjrj64cpz4hr',
-    privateKey:   '' //Got rid of private key for screenshot
+    privateKey:   '06195f7e1a9007cc81e2ad48899682da'
 });
 
+
+  app.post("/checkout", function (req, res) {
   // Use the payment method nonce here
   var nonceFromTheClient = req.body.payment_method_nonce;
+});
   //var idToken = req.body.idToken;
   
+  app.get("/client_token",function (req, res) {
   gateway.clientToken.generate({
   customerId: aCustomerId
   }, function (err, response) {
   var clientToken = response.clientToken
+  res.send(response.clientToken);
   });
-
+  });
+  
   //admin.auth().verifyIdToken(idToken)
    // .then(function(decodedToken) {
       //var uid = decodedToken.uid;
