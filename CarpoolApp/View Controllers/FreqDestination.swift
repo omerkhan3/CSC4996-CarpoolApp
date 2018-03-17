@@ -78,10 +78,10 @@ class FreqDestinations: UIViewController {
         otherSearchBar.isHidden = true
         searchCompleter.delegate = self
         //Placeholder text for each search bar
-        HomeSearchBar.placeholder = "Search for Places"
-        WorkSearchBar.placeholder = "Search for Places"
-        SchoolSearchBar.placeholder = "Search for Places"
-        otherSearchBar.placeholder = "Search for Places"
+       // HomeSearchBar.placeholder = "Search for Places"
+       // WorkSearchBar.placeholder = "Search for Places"
+        //SchoolSearchBar.placeholder = "Search for Places"
+        //otherSearchBar.placeholder = "Search for Places"
     }
     
     //Posts the new inputted frequent destinations addresses in the database, encoding frequent destinations
