@@ -10,6 +10,55 @@ const db = require('../routes/db');
 const pgp = db.$config.pgp;
 
 
+router.post('/approval', function(req, res, next) {
+ var requestInfo = req.body.requestInfo
+ var requestJSON = JSON.parse(requestInfo);
+ var userID = requestJSON['userID'];
+ var matchID = requestJSON['matchID'];
+if (requestJSON['requestType'] == 'riderRequest')
+{
+
+  db.query("UPDATE carpool.\"Matches\" SET \"Status\" = 'driverRequested' where \"matchID\" = $1", [matchID])
+   .then(function () {
+     res.status(200)
+       .json({
+         status: 'Success',
+         message: 'Match Updated.'
+       });
+   })
+   .catch(function (err) {
+     res.send(err);
+   });
+
+ }
+
+ else {
+   db.query("UPDATE carpool.\"Users\" SET \"Status\" = 'Matched' where \"matchID\" = $1", [userJSON[matchID]])
+    .then(function () {
+      db.query("UPDATE carpool.\"Routes\" SET \"Matched\" = 'true' where \"routeID\" = $1", [userJSON['driverRouteID']])
+      .then(function() {
+            db.query("UPDATE carpool.\"Routes\" SET \"Matched\" = 'true' where \"routeID\" = $1", [userJSON['riderRouteID']])
+            .catch(function (err) {
+              res.send(err);
+            });
+
+
+      res.status(200)
+        .json({
+          status: 'Success',
+          message: 'Match Updated.'
+        });
+      })
+              })
+
+    .catch(function (err) {
+      res.send(err);
+    });
+
+ }
+});
+
+
 
 router.get('/', function(req, res, next) {
 var userID = req.query.userID;
