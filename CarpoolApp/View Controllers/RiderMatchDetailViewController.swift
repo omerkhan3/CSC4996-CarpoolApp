@@ -68,7 +68,7 @@ class RiderMatchDetailViewController: UIViewController {
                     }
                     
                     }.resume()
-                self.performSegue(withIdentifier: "showMatches2", sender: self)
+                self.performSegue(withIdentifier: "showMatches3", sender: self)
             }))
             self.present(alert, animated: true, completion: nil)
         }
@@ -103,7 +103,7 @@ class RiderMatchDetailViewController: UIViewController {
                     }
                     
                     }.resume()
-                self.performSegue(withIdentifier: "showMatches2", sender: self)
+                self.performSegue(withIdentifier: "showMatches3", sender: self)
             }))
             self.present(alert, animated: true, completion: nil)
         }
@@ -136,7 +136,7 @@ class RiderMatchDetailViewController: UIViewController {
             array = matchDetail?.driverDays
         } else {
             // Driver has been requested by rider
-            //array = matchDetail?.riderDays
+            array = matchDetail?.riderDays
         }
         for item in array! {
             if item == "sunday" {
@@ -179,7 +179,7 @@ class RiderMatchDetailViewController: UIViewController {
         else if matchDetail?.Status == "driverRequested" {
             //Custom buttons and fields
             self.matchScript.text = "You have been requested as a driver on the following days:"
-            self.requestButton.setTitle("Confirm Ride", for: .normal)
+            self.requestButton.setTitle("CONFIRM RIDE", for: .normal)
             self.costLabel.text = "Earnings (One way)"
             
             // Populate ride info
