@@ -28,7 +28,7 @@ const pgp = db.$config.pgp;
 //			res.send(err);
 //		});
 //	});
-	
+
 router.get('/frequentDestinations', function(req, res, next) {
 	var userID = req.query.userID;
 	console.log(userID);
@@ -52,6 +52,9 @@ router.post('/frequentDestinations', function(req, res, next) {
 	console.log(routeJSON);
 	var userID = routeJSON['userID'];
 	var Name = routeJSON['Name'];
+	var name2 = routeJSON['Name2']
+	var name3 = routeJSON['Name3']
+	var name4 = routeJSON['Name4']
 	var Address = routeJSON['Address'];
 	var school = routeJSON['schoolAddress'];
 	var work = routeJSON['workAddress'];
@@ -64,18 +67,18 @@ router.post('/frequentDestinations', function(req, res, next) {
 	//{
 	//	db.none("INSERT INTO carpool.\"frequentDestinations\"(\"Name\") values($1)", [userID, routeJSON['name']])
 	//}
-	//else if (Name != null) 
+	//else if (Name != null)
 	//{
 	//	db.query("UPDATE carpool.\"frequentDestinations\" SET \"Name\" = $1 where \"userID\" = $2", [Name, userID])
 	//}
-	
+
 	if (Address == null)
 	{
 		db.none("INSERT INTO carpool.\"frequentDestinations\"(\"Address\") values($1)", [userID, routeJSON['address']])
 	}
 	if (work == null)
 	{
-		db.none("INSERT INTO carpool.\"frequentDestinations\"(\"workAddress\") values($1)", [userID, routeJSON['workaddress']])	
+		db.none("INSERT INTO carpool.\"frequentDestinations\"(\"workAddress\") values($1)", [userID, routeJSON['workaddress']])
 	}
 	if (school == null)
 	{
@@ -97,7 +100,7 @@ router.post('/frequentDestinations', function(req, res, next) {
 	{
 		db.none("INSERT INTO carpool.\"frequentDestinations\"(\"Longitudes\") values($1)", [userID, routeJSON['longitudes'][0]])
 	}
-	else (Address != null)
+	if (Address != null)
 	{
 		db.query("UPDATE carpool.\"frequentDestinations\" SET \"Address\" = $1 where \"userID\" = $2", [Address, userID])
 	}
@@ -105,7 +108,7 @@ router.post('/frequentDestinations', function(req, res, next) {
 	{
 		db.query("UPDATE carpool.\"frequentDestinations\" SET \"schoolAddress\" = $1 where \"userID\" = $2", [school, userID])
 	}
-	else (work != null)
+	if (work != null)
 	{
 		db.query("UPDATE carpool.\"frequentDestinations\" SET \"workAddress\" = $1 where \"userID\" = $2", [work, userID])
 	}
@@ -113,7 +116,7 @@ router.post('/frequentDestinations', function(req, res, next) {
 	{
 		db.query("UPDATE carpool.\"frequentDestinations\" SET \"otherAddress\" = $1 where \"userID\" = $2", [otherAddress, userID])
 	}
-	else (longitudes != null)
+	if (longitudes != null)
 	{
 		db.query("UPDATE carpool.\"frequentDestinations\" SET \"Longitudes\" = $1 where \"userID\" = $2", [longitudes, userID])
 	}
@@ -121,7 +124,7 @@ router.post('/frequentDestinations', function(req, res, next) {
 	{
 		db.query("UPDATE carpool.\"frequentDestinations\" SET \"Latitudes\" = $1 where \"userID\" = $2", [latitudes, userID])
 	}
-	else (otherName != null)
+	if (otherName != null)
 	{
 		db.query("UPDATE carpool.\"frequentDestinations\" SET \"Name5\" = $1 where \"userID\" = $2", [otherName, userID])
 	}
@@ -138,5 +141,5 @@ router.post('/frequentDestinations', function(req, res, next) {
 			console.log(err);
 		})
 });
-	
+
 module.exports = router;
