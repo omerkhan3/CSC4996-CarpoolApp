@@ -48,7 +48,7 @@ class FreqDestinations: UIViewController {
 
         let userID = Auth.auth().currentUser!.uid
         //self.homeLabel.text! = "Home"
-        let routeInfo = ["userID": userID, "Name": self.homeLabel.text! as Any, "Address": self.HomeSearchBar.text! as Any, "Name2": self.workLabel.text! as Any, "schoolAddress": self.SchoolSearchBar.text! as Any, "Name3": self.schoolLabel.text! as Any, "workAddress": self.WorkSearchBar.text! as Any, "Name4": self.otherInput.text! as Any, "otherAddress": self.otherSearchBar.text! as Any, "Name5": self.otherInput.text! as Any, "Longitudes": longitudeArray, "Latitudes": latitudeArray]
+        let routeInfo = ["userID": userID, "Name": self.homeLabel.text! as Any, "Address": self.HomeSearchBar.text! as Any, "Name2": self.schoolLabel.text! as Any, "schoolAddress": self.SchoolSearchBar.text! as Any, "Name3": self.workLabel.text! as Any, "workAddress": self.WorkSearchBar.text! as Any, "Name4": self.otherInput.text! as Any, "otherAddress": self.otherSearchBar.text! as Any, "Longitudes": longitudeArray, "Latitudes": latitudeArray]
         //print(routeInfo)
         saveFreqDestinations(routeInfo: routeInfo)
         actionTitle = "Success!"
@@ -117,7 +117,7 @@ class FreqDestinations: UIViewController {
                                 self.SchoolSearchBar.text = (routeInfo["schoolAddress"] as? String)
                                 self.WorkSearchBar.text = (routeInfo["workAddress"] as? String)
                                 self.otherSearchBar.text = (routeInfo["otherAddress"] as? String)
-                               
+                                self.otherInput.text = (routeInfo["Name4"] as? String)
                             }
                         }
                     } catch let error as NSError {
@@ -148,7 +148,6 @@ class FreqDestinations: UIViewController {
             }
             }.resume()
     }
-   
 }
 
 
@@ -168,7 +167,6 @@ class FreqDestinations: UIViewController {
                     searchTable2.isHidden = false
                     searchTable3.isHidden = true
                     searchTable4.isHidden = true
-                    otherInput.isHidden = true
                 }
                 if searchBar == SchoolSearchBar {
                     searchTable.isHidden = true
@@ -233,22 +231,22 @@ class FreqDestinations: UIViewController {
             //If statements for selecting an address from table view and it showing up in search bar field as well as the table view disappearing after selection
             if tableView == searchTable {
                 let searchResult = searchResults[indexPath.row]
-                HomeSearchBar.text = searchResult.title
+                HomeSearchBar.text = searchResult.subtitle
                 searchTable.isHidden = true
             }
             if tableView == searchTable2 {
                 let searchResult = searchResults[indexPath.row]
-                WorkSearchBar.text = searchResult.title
+                WorkSearchBar.text = searchResult.subtitle
                 searchTable2.isHidden = true
             }
             if tableView == searchTable3 {
                 let searchResult = searchResults[indexPath.row]
-                SchoolSearchBar.text = searchResult.title
+                SchoolSearchBar.text = searchResult.subtitle
                 searchTable3.isHidden = true
             }
             if tableView == searchTable4 {
                 let searchResult = searchResults[indexPath.row]
-                otherSearchBar.text = searchResult.title
+                otherSearchBar.text = searchResult.subtitle
                 searchTable4.isHidden = true
             }
             
@@ -259,9 +257,6 @@ class FreqDestinations: UIViewController {
             search.start { (response, error) in
                 self.longitudeArray.append(Double( response!.mapItems[0].placemark.coordinate.longitude))
                 self.latitudeArray.append(Double( response!.mapItems[0].placemark.coordinate.latitude))
-                
-                    //Not sure how to append the type i.e school, work, home address when new address is typed in
-                //self.destinationArray.append(String(describing: Destinations.self))
             }
         }
     }

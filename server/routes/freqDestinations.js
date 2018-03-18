@@ -32,7 +32,7 @@ const pgp = db.$config.pgp;
 router.get('/frequentDestinations', function(req, res, next) {
 	var userID = req.query.userID;
 	console.log(userID);
-	db.one("select \"frequentDestinations\".\"Address\",\"frequentDestinations\".\"workAddress\",\"frequentDestinations\".\"schoolAddress\", \"frequentDestinations\".\"otherAddress\", \"frequentDestinations\".\"Name5\" from carpool.\"frequentDestinations\" where \"frequentDestinations\".\"userID\" = $1", userID)
+	db.one("select \"frequentDestinations\".\"Address\",\"frequentDestinations\".\"workAddress\",\"frequentDestinations\".\"schoolAddress\", \"frequentDestinations\".\"otherAddress\", \"frequentDestinations\".\"Name4\" from carpool.\"frequentDestinations\" where \"frequentDestinations\".\"userID\" = $1", userID)
 	.then(function(data) {
 		console.log(data);
 		res.status(200).json({
@@ -51,15 +51,14 @@ router.post('/frequentDestinations', function(req, res, next) {
 	var routeJSON = JSON.parse(routeInfo);
 	console.log(routeJSON);
 	var userID = routeJSON['userID'];
-	var Name = routeJSON['Name'];
+	var name = routeJSON['Name'];
 	var name2 = routeJSON['Name2']
 	var name3 = routeJSON['Name3']
-	var name4 = routeJSON['Name4']
+	var name4 = routeJSON['Name4'];
 	var Address = routeJSON['Address'];
 	var school = routeJSON['schoolAddress'];
 	var work = routeJSON['workAddress'];
 	var otherAddress = routeJSON['otherAddress'];
-	var otherName = routeJSON['Name5'];
 	var longitudes = routeJSON['Longitudes'][0];
 	var latitudes = routeJSON['Latitudes'][0];
 	//console.log("Updating Frequent Destinations.");
@@ -84,9 +83,9 @@ router.post('/frequentDestinations', function(req, res, next) {
 	{
 		db.none("INSERT INTO carpool.\"frequentDestinations\"(\"schoolAddress\") values($1)", [userID, routeJSON['schooladdress']])
 	}
-	if (otherName == null)
+	if (name4 == null)
 	{
-		db.none("INSERT INTO carpool.\"frequentDestinations\"(\"Name5\") values($1)", [userID, routeJSON['name5']])
+		db.none("INSERT INTO carpool.\"frequentDestinations\"(\"Name4\") values($1)", [userID, routeJSON['name4']])
 	}
 	if (otherAddress == null)
 	{
@@ -100,7 +99,7 @@ router.post('/frequentDestinations', function(req, res, next) {
 	{
 		db.none("INSERT INTO carpool.\"frequentDestinations\"(\"Longitudes\") values($1)", [userID, routeJSON['longitudes'][0]])
 	}
-	if (Address != null)
+	else (Address != null)
 	{
 		db.query("UPDATE carpool.\"frequentDestinations\" SET \"Address\" = $1 where \"userID\" = $2", [Address, userID])
 	}
@@ -108,7 +107,7 @@ router.post('/frequentDestinations', function(req, res, next) {
 	{
 		db.query("UPDATE carpool.\"frequentDestinations\" SET \"schoolAddress\" = $1 where \"userID\" = $2", [school, userID])
 	}
-	if (work != null)
+	else (work != null)
 	{
 		db.query("UPDATE carpool.\"frequentDestinations\" SET \"workAddress\" = $1 where \"userID\" = $2", [work, userID])
 	}
@@ -116,7 +115,7 @@ router.post('/frequentDestinations', function(req, res, next) {
 	{
 		db.query("UPDATE carpool.\"frequentDestinations\" SET \"otherAddress\" = $1 where \"userID\" = $2", [otherAddress, userID])
 	}
-	if (longitudes != null)
+	else (longitudes != null)
 	{
 		db.query("UPDATE carpool.\"frequentDestinations\" SET \"Longitudes\" = $1 where \"userID\" = $2", [longitudes, userID])
 	}
@@ -124,9 +123,9 @@ router.post('/frequentDestinations', function(req, res, next) {
 	{
 		db.query("UPDATE carpool.\"frequentDestinations\" SET \"Latitudes\" = $1 where \"userID\" = $2", [latitudes, userID])
 	}
-	if (otherName != null)
+	else (name4 != null)
 	{
-		db.query("UPDATE carpool.\"frequentDestinations\" SET \"Name5\" = $1 where \"userID\" = $2", [otherName, userID])
+		db.query("UPDATE carpool.\"frequentDestinations\" SET \"Name4\" = $1 where \"userID\" = $2", [name4, userID])
 	}
 	console.log("Updating Frequent Destinations.")
 	.then(function(data) {

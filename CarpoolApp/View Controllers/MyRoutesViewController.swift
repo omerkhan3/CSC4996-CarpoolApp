@@ -57,7 +57,7 @@ class MyRoutesViewController: UIViewController {
                                self.UserSchoolAddress.text = (routeInfo["schoolAddress"] as? String)
                                self.UserWorkAddress.text = (routeInfo["workAddress"] as? String)
                                self.UserOtherAddress.text = (routeInfo["otherAddress"] as? String)
-                               self.newLabel.text = (routeInfo["Name5"] as? String)
+                               self.newLabel.text = (routeInfo["Name4"] as? String)
                             }
                         }
                     } catch let error as NSError {
