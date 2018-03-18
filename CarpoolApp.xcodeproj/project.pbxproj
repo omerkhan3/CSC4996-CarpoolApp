@@ -31,6 +31,7 @@
 		9175E564205079C200DB0AA2 /* MyRoutesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9175E563205079C200DB0AA2 /* MyRoutesTableViewController.swift */; };
 		917C54B8204E18FE00F2BBDC /* PaymentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 917C54B7204E18FE00F2BBDC /* PaymentsViewController.swift */; };
 		91F90A2A20571781001A8AB0 /* FreqDestinations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F90A2920571781001A8AB0 /* FreqDestinations.swift */; };
+		91FD76FD205DFFB900E93C6F /* RecentPayments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91FD76FC205DFFB900E93C6F /* RecentPayments.swift */; };
 		C968E520203669E400B137B8 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C968E51F203669E400B137B8 /* RoundedButton.swift */; };
 		C96F483A204A4ACC00363162 /* FrequentDestinationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96F4839204A4ACC00363162 /* FrequentDestinationsViewController.swift */; };
 		C98BB0A0202A58A8006B054C /* otherlocations.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98BB09F202A58A8006B054C /* otherlocations.swift */; };
@@ -75,6 +76,7 @@
 		9175E563205079C200DB0AA2 /* MyRoutesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRoutesTableViewController.swift; sourceTree = "<group>"; };
 		917C54B7204E18FE00F2BBDC /* PaymentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentsViewController.swift; sourceTree = "<group>"; };
 		91F90A2920571781001A8AB0 /* FreqDestinations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreqDestinations.swift; sourceTree = "<group>"; };
+		91FD76FC205DFFB900E93C6F /* RecentPayments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentPayments.swift; sourceTree = "<group>"; };
 		9320C101773311FB910A13A6 /* Pods_CarpoolApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CarpoolApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C968E51F203669E400B137B8 /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		C96F4839204A4ACC00363162 /* FrequentDestinationsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FrequentDestinationsViewController.swift; sourceTree = "<group>"; };
@@ -117,6 +119,7 @@
 				20509AD0204D995400B2EFA3 /* Match.swift */,
 				20509AD8204E2C5600B2EFA3 /* Profile.swift */,
 				91F90A2920571781001A8AB0 /* FreqDestinations.swift */,
+				91FD76FC205DFFB900E93C6F /* RecentPayments.swift */,
 			);
 			name = Data;
 			path = "New Group";
@@ -370,6 +373,7 @@
 				205A4B43202569DC005AE87C /* LaunchViewController.swift in Sources */,
 				C9A7D7ED2032D6830014861D /* UIViewX.swift in Sources */,
 				C96F483A204A4ACC00363162 /* FrequentDestinationsViewController.swift in Sources */,
+				91FD76FD205DFFB900E93C6F /* RecentPayments.swift in Sources */,
 				C9A8E121204E8500004C45ED /* HelpViewController.swift in Sources */,
 				D10EFE9A2022979700C962E1 /* RegistrationViewController.swift in Sources */,
 				78241398201D0F3A00F06D99 /* AppDelegate.swift in Sources */,
