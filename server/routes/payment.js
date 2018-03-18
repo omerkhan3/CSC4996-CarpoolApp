@@ -4,7 +4,7 @@ var braintree = require('braintree');
 var firebase = require('firebase');
 var admin = require('firebase-admin'); 
 
-router.post('/payment/', function(req, res, next) {
+router.post('/Payments/', function(req, res, next) {
 console.log(req.body);
 var gateway = braintree.connect({
     environment:  braintree.Environment.Sandbox,
@@ -12,7 +12,6 @@ var gateway = braintree.connect({
     publicKey:    'zprfpjrj64cpz4hr',
     privateKey:   '06195f7e1a9007cc81e2ad48899682da'
 });
-
 
   app.post("/checkout", function (req, res) {
   // Use the payment method nonce here
@@ -56,5 +55,16 @@ var gateway = braintree.connect({
       console.log ("Invalid User.");
     });
 });
+
+router.get('/Payments', function(req, res, next) {
+	var userID = req.query,userID;
+	//var paymentsQuery = "select         //will be added
+	db.query(paymentsQuery, userID)
+	.then(function(data) {
+	console.log(data);
+	res.send(data);
+	});
+});
+
 
 module.exports = router;
