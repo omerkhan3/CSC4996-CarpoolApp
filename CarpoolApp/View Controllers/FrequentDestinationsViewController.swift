@@ -24,6 +24,7 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDataSour
     var latitudeArray: [Float] = []
     var options = [String]()
     let pickerData = ["work", "school", "gym"]
+    var names: [AnyObject] = []
     
     // Starting of buttons and outlets
     @IBOutlet weak var sunday: BEMCheckBox!

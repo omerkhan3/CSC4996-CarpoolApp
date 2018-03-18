@@ -77,14 +77,58 @@ class FreqDestinations: UIViewController {
         otherInput.isHidden = true
         otherSearchBar.isHidden = true
         searchCompleter.delegate = self
+        let userID = Auth.auth().currentUser?.uid
+        readMyDestinations(userID: userID!)
         //Placeholder text for each search bar
-       // HomeSearchBar.placeholder = "Search for Places"
+        //HomeSearchBar.text =
        // WorkSearchBar.placeholder = "Search for Places"
         //SchoolSearchBar.placeholder = "Search for Places"
         //otherSearchBar.placeholder = "Search for Places"
     }
     
     //Posts the new inputted frequent destinations addresses in the database, encoding frequent destinations
+   
+    func readMyDestinations(userID: String)
+    {
+        var viewDestinationComponents = URLComponents(string: "http://localhost:3000/freqDestinations/frequentDestinations")!
+        viewDestinationComponents.queryItems = [
+            URLQueryItem(name: "userID", value: userID)
+        ]
+        var request = URLRequest(url: viewDestinationComponents.url!)  // Pass Parameter in URL
+        print (viewDestinationComponents.url!)
+        
+        request.httpMethod = "GET" // GET METHOD
+        
+        URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
+            if (error != nil){  // error handling responses.
+                print (error as Any)
+            }
+            else if let data = data {
+                print(data)
+                let routeInfoString:NSString = NSString(data: data, encoding: String.Encoding.utf8.rawValue)!
+                if let data = routeInfoString.data(using: String.Encoding.utf8.rawValue) {
+                    do {
+                        let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String:AnyObject]
+                        print (json as Any)
+                        if let routeInfo = json!["data"]
+                        {
+                            DispatchQueue.main.async {
+                                self.HomeSearchBar.text = (routeInfo["Address"] as! String)
+                                self.SchoolSearchBar.text = (routeInfo["schoolAddress"] as? String)
+                                self.WorkSearchBar.text = (routeInfo["workAddress"] as? String)
+                                self.otherSearchBar.text = (routeInfo["otherAddress"] as? String)
+                               
+                            }
+                        }
+                    } catch let error as NSError {
+                        print(error)
+                    }
+                }
+            }
+            }.resume()
+    }
+    
+    
     func saveFreqDestinations(routeInfo: Dictionary<String, Any>)
     {
         let editFreqDestinationURL = URL(string: "http://localhost:3000/freqDestinations/frequentDestinations")!
@@ -104,7 +148,9 @@ class FreqDestinations: UIViewController {
             }
             }.resume()
     }
+   
 }
+
 
     extension FreqDestinations: UISearchBarDelegate {
         
@@ -187,22 +233,22 @@ class FreqDestinations: UIViewController {
             //If statements for selecting an address from table view and it showing up in search bar field as well as the table view disappearing after selection
             if tableView == searchTable {
                 let searchResult = searchResults[indexPath.row]
-                HomeSearchBar.text = searchResult.subtitle
+                HomeSearchBar.text = searchResult.title
                 searchTable.isHidden = true
             }
             if tableView == searchTable2 {
                 let searchResult = searchResults[indexPath.row]
-                WorkSearchBar.text = searchResult.subtitle
+                WorkSearchBar.text = searchResult.title
                 searchTable2.isHidden = true
             }
             if tableView == searchTable3 {
                 let searchResult = searchResults[indexPath.row]
-                SchoolSearchBar.text = searchResult.subtitle
+                SchoolSearchBar.text = searchResult.title
                 searchTable3.isHidden = true
             }
             if tableView == searchTable4 {
                 let searchResult = searchResults[indexPath.row]
-                otherSearchBar.text = searchResult.subtitle
+                otherSearchBar.text = searchResult.title
                 searchTable4.isHidden = true
             }
             
