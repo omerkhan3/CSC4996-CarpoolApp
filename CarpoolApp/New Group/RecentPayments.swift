@@ -16,7 +16,7 @@ struct RecentPayments: Decodable {
     init(json: [String: Any]) {
         Contact = json["userID"] as? String ?? ""
         Date = json["Time"] as? String ?? ""
-        Amount = json["Amoubt"] as? String ?? ""
+        Amount = json["Amount"] as? String ?? ""
     }
     
     init() {
