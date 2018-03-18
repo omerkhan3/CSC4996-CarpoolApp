@@ -67,7 +67,7 @@ class PaymentsViewController: UIViewController, UITableViewDataSource, UITableVi
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = UITableView(style: UITableViewCellStyle.subtitle, reuseIdentifier: "TableViewCell")
+        let cell = UITableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: "TableViewCell")
         
         return cell
     }
