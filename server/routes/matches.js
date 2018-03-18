@@ -40,7 +40,7 @@ if (requestJSON['requestType'] == 'riderRequest') // If the rider has requested 
            // Send the actual notification
           apnProvider.send(notification, result.deviceToken).then( result => {
           // Show the result of the send operation:
-           	console.log(result);
+               console.log(result);
           });
         })
 
