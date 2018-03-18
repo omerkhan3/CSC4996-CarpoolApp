@@ -13,13 +13,31 @@ class RiderMatchDetailViewController: UIViewController {
     
     var matchDetail: Match?
 
-    @IBOutlet weak var driverName: UILabel!
+    @IBOutlet weak var profilePicture: UIImageView!
+    @IBOutlet weak var firstName: UILabel!
+    @IBOutlet weak var pickupTime: UILabel!
+    @IBOutlet weak var pickupLocation: UILabel!
     @IBOutlet weak var destination: UILabel!
-    @IBOutlet weak var time: UILabel!
+    @IBOutlet weak var departureTime: UILabel!
+    @IBOutlet weak var cost: UILabel!
+    @IBOutlet weak var requestButton: RoundedButton!
+    @IBOutlet weak var costLabel: UILabel!
+    @IBOutlet weak var matchScript: UILabel!
     
+    // Check boxes
+    @IBOutlet weak var sunday: BEMCheckBox!
+    @IBOutlet weak var monday: BEMCheckBox!
+    @IBOutlet weak var tuesday: BEMCheckBox!
+    @IBOutlet weak var wednesday: BEMCheckBox!
+    @IBOutlet weak var thursday: BEMCheckBox!
+    @IBOutlet weak var friday: BEMCheckBox!
+    @IBOutlet weak var saturday: BEMCheckBox!
+    
+
+    // Used for both ride request or confirmation
     @IBAction func requestRide(_ sender: Any) {
-        let actionTitle = "Ride Request"
-        let actionItem = "Your ride request has been sent to the driver! You will be notified if your ride is confirmed."
+        let userID = Auth.auth().currentUser!.uid
+        let matchID = self.matchDetail?.matchID
         
         let userID = Auth.auth().currentUser!.uid
         let matchInfo = ["userID": userID, "matchID" : matchDetail?.matchID as Any, "requestType":  "riderRequest"] as [String : Any]
@@ -57,12 +75,9 @@ class RiderMatchDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(matchDetail)
-        self.driverName.text = matchDetail?.driverFirstName
-        self.destination.text = matchDetail?.driverRouteName
-        self.time.text = matchDetail?.driverArrival
-
-        // Do any additional setup after loading the view.
+        print(matchDetail!)
+        fillCheckBoxes()
+        setView()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -78,15 +93,68 @@ class RiderMatchDetailViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func fillCheckBoxes() {
+        var array: [String]?
+        if matchDetail?.Status == "Awaiting rider request." {
+            // Rider has been matched with driver
+            array = matchDetail?.driverDays
+        } else {
+            // Driver has been requested by rider
+            array = matchDetail?.riderDays
+        }
+        for item in array! {
+            if item == "sunday" {
+                self.sunday.on = true
+            }
+            else if item == "monday" {
+                self.monday.on = true
+            }
+            else if item == "tuesday" {
+                self.tuesday.on = true
+            }
+            else if item == "wednesday" {
+                self.wednesday.on = true
+            }
+            else if item == "thursday" {
+                self.thursday.on = true
+            }
+            else if item == "friday" {
+                self.friday.on = true
+            }
+            else if item == "saturday" {
+                self.saturday.on = true
+            }
+        }
     }
-    */
+    
+    func setView(){
+        // Set view if rider has been matched with driver
+        if matchDetail?.Status == "Awaiting rider request." {
+            // Populate ride info
+            //self.profilePicture ==
+            self.firstName.text = matchDetail?.driverFirstName
+            //self.pickupTime.text =
+            //self.pickupLocation =
+            self.destination.text = matchDetail?.driverRouteName
+            //self.departureTime.text =
+            //self.cost.text =
+        }
+        // Set view if driver has been requested by rider
+        else if matchDetail?.Status == "driverRequested" {
+            //Custom buttons and fields
+            self.matchScript.text = "You have been requested as a driver on the following days:"
+            self.requestButton.setTitle("CONFIRM RIDE", for: .normal)
+            self.costLabel.text = "Earnings (One way)"
+            
+            // Populate ride info
+            //self.profilePicture ==
+            self.firstName.text = matchDetail?.driverFirstName
+            //self.pickupTime.text =
+            //self.pickupLocation =
+            self.destination.text = matchDetail?.driverRouteName
+            //self.departureTime.text =
+            //self.cost.text =
+        }
+    }
 
 }
