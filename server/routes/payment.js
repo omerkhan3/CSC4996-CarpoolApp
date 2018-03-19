@@ -2,7 +2,6 @@
 var express = require('express');
 var router = express.Router();
 var braintree = require('braintree');
-var firebase = require('firebase');
 var admin = require('firebase-admin');  // we create an instance of the module "braintree"
 
 router.post('/', function(req, res, next) {

@@ -1,7 +1,6 @@
 var express = require('express');
 var path = require('path');
 var logger = require('morgan');
-var firebase = require('firebase');
 var admin = require('firebase-admin');
 var index = require('./routes/index');
 
