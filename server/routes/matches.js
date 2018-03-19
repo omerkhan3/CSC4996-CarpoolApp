@@ -61,22 +61,47 @@ if (requestJSON['requestType'] == 'riderRequest') // If the rider has requested 
 
  else {
    db.query("UPDATE carpool.\"Matches\" SET \"Status\" = 'Matched' where \"matchID\" = $1", [matchID]) // If the request was a driver approving a request, switch the request status to matched.
-    .then(function () {
-      db.query("UPDATE carpool.\"Routes\" SET \"Matched\" = 'true' where \"routeID\" = $1", [requestJSON['driverRouteID']]) // Update the matched column in driver route.
-      .then(function() {
-            db.query("UPDATE carpool.\"Routes\" SET \"Matched\" = 'true' where \"routeID\" = $1", [requestJSON['riderRouteID']]) // Update the matched column in rider route.
-            .catch(function (err) {
-              res.send(err);
-            });
+   .then(function () {
+     db.one("SELECT \"riderID\" from carpool.\"Matches\" where \"matchID\" = $1", [matchID])
+     .then(function(data) {
+        db.any("INSERT INTO carpool.\"notificationLog\"(\"userID\", \"notificationType\", \"Date\", \"Read\") values ($1, $2, $3, $4)", [data.riderID, "Match", 'now', 'false']);
+        db.one("SELECT \"deviceToken\" from carpool.\"Users\" where \"userID\" = $1", [data.riderID])
+        .then(function(result) {
+          let notification = new apn.Notification();
+           notification.expiry = Math.floor(Date.now() / 1000) + 24 * 3600; // will expire in 24 hours from now
+          notification.badge = 2;
+          notification.sound = "ping.aiff";
+          notification.alert = "Your ride request has been approved!";
+          notification.payload = {'messageFrom': 'CarPool'};
+
+           // Replace this with your app bundle ID:
+           notification.topic = "com.CSC4996.CarpoolApp";
+
+           // Send the actual notification
+          apnProvider.send(notification, result.deviceToken).then( result => {
+          // Show the result of the send operation:
+             console.log(result);
+          });
 
 
-      res.status(200)
-        .json({
-          status: 'Success',
-          message: 'Match Updated.'
-        });
-      })
-              })
+          db.query("UPDATE carpool.\"Routes\" SET \"Matched\" = 'true' where \"routeID\" = $1", [requestJSON['driverRouteID']]) // Update the matched column in driver route.
+          .then(function() {
+                db.query("UPDATE carpool.\"Routes\" SET \"Matched\" = 'true' where \"routeID\" = $1", [requestJSON['riderRouteID']]) // Update the matched column in rider route.
+                .catch(function (err) {
+                  res.send(err);
+                });
+        })
+
+
+     })
+   })
+
+     res.status(200)
+       .json({
+         status: 'Success',
+         message: 'Match Stored.'
+       });
+ })
 
     .catch(function (err) {
       res.send(err);
