@@ -35,9 +35,7 @@ class FreqDestinations: UIViewController {
     //Array used for storing longitudes and latitudes
     var longitudeArray: [Double] = []
     var latitudeArray: [Double] = []
-    //var destinationArray: [String] = []
-    //var destinationsArray = [Destinations]()
-    //var destinations = Destinations()
+    var destinationsArray = [Destinations]()
     
     //Save button for frequent destinations
     @IBAction func saveButton(_ sender: Any) {
@@ -48,9 +46,18 @@ class FreqDestinations: UIViewController {
 
         let userID = Auth.auth().currentUser!.uid
         //self.homeLabel.text! = "Home"
-        let routeInfo = ["userID": userID, "Name": self.homeLabel.text! as Any, "Address": self.HomeSearchBar.text! as Any, "Name2": self.schoolLabel.text! as Any, "schoolAddress": self.SchoolSearchBar.text! as Any, "Name3": self.workLabel.text! as Any, "workAddress": self.WorkSearchBar.text! as Any, "Name4": self.otherInput.text! as Any, "otherAddress": self.otherSearchBar.text! as Any, "Longitudes": longitudeArray, "Latitudes": latitudeArray]
-        //print(routeInfo)
-        saveFreqDestinations(routeInfo: routeInfo)
+        //let routeInfo = ["userID": userID, "Name": self.homeLabel.text! as Any, "Address": self.HomeSearchBar.text! as Any, "Name2": self.schoolLabel.text! as Any, "schoolAddress": self.SchoolSearchBar.text! as Any, "Name3": self.workLabel.text! as Any, "workAddress": self.WorkSearchBar.text! as Any, "Name4": self.otherInput.text! as Any, "otherAddress": self.otherSearchBar.text! as Any, "Longitudes": longitudeArray, "Latitudes": latitudeArray]
+        
+        let homeInfo = ["userID": userID, "Name": self.homeLabel.text! as Any, "Address": self.HomeSearchBar.text! as Any, "Longitudes": longitudeArray, "Latitudes": latitudeArray]
+        let schoolInfo = ["userID": userID, "Name": self.schoolLabel.text! as Any, "Address": self.SchoolSearchBar.text! as Any, "Longitudes": longitudeArray, "Latitudes": latitudeArray]
+        let workInfo = ["userID": userID, "Name": self.workLabel.text! as Any, "Address": self.WorkSearchBar.text! as Any, "Longitudes": longitudeArray, "Latitudes": latitudeArray]
+        let customInfo = ["userID": userID, "Name": self.otherInput.text! as Any, "Address": self.otherSearchBar.text! as Any, "Longitudes": longitudeArray, "Latitudes": latitudeArray]
+        
+        //saveFreqDestinations(routeInfo: routeInfo)
+        saveHomeDestination(homeInfo: homeInfo)
+        saveWorkDestination(workInfo: workInfo)
+        saveSchoolDestination(schoolInfo: schoolInfo)
+        saveCustomDestination(customInfo: customInfo)
         actionTitle = "Success!"
         actionItem = "Your frequent destinations have been saved"
         
@@ -78,11 +85,15 @@ class FreqDestinations: UIViewController {
         otherSearchBar.isHidden = true
         searchCompleter.delegate = self
         let userID = Auth.auth().currentUser?.uid
-        readMyDestinations(userID: userID!)
+        //readMyDestinations(userID: userID!)
+        readHomeDestination(userID: userID!)
+        readSchoolDestination(userID: userID!)
+        readWorkDestination(userID: userID!)
+        readCustomDestination(userID: userID!)
     }
     
     //Posts the new inputted frequent destinations addresses in the database, encoding frequent destinations
-    func readMyDestinations(userID: String)
+    /*func readMyDestinations(userID: String)
     {
         var viewDestinationComponents = URLComponents(string: "http://localhost:3000/freqDestinations/frequentDestinations")!
         viewDestinationComponents.queryItems = [
@@ -120,10 +131,153 @@ class FreqDestinations: UIViewController {
                 }
             }
             }.resume()
+    }*/
+    
+    func readHomeDestination(userID: String)
+    {
+        var viewHomeDestinationComponents = URLComponents(string: "http://localhost:3000/freqDestinations/homeDestination")!
+        viewHomeDestinationComponents.queryItems = [
+            URLQueryItem(name: "userID", value: userID)
+        ]
+        var request = URLRequest(url: viewHomeDestinationComponents.url!)  // Pass Parameter in URL
+        print (viewHomeDestinationComponents.url!)
+        
+        request.httpMethod = "GET" // GET METHOD
+        
+        URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
+            if (error != nil){  // error handling responses.
+                print (error as Any)
+            }
+            else if let data = data {
+                print(data)
+                let homeInfoString:NSString = NSString(data: data, encoding: String.Encoding.utf8.rawValue)!
+                if let data = homeInfoString.data(using: String.Encoding.utf8.rawValue) {
+                    do {
+                        let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String:AnyObject]
+                        print (json as Any)
+                        if let homeInfo = json!["data"]
+                        {
+                            DispatchQueue.main.async {
+                                self.HomeSearchBar.text = (homeInfo["Address"] as! String)
+                            }
+                        }
+                    } catch let error as NSError {
+                        print(error)
+                    }
+                }
+            }
+            }.resume()
     }
     
+    func readSchoolDestination(userID: String)
+    {
+        var viewSchoolDestinationComponents = URLComponents(string: "http://localhost:3000/freqDestinations/schoolDestination")!
+        viewSchoolDestinationComponents.queryItems = [
+            URLQueryItem(name: "userID", value: userID)
+        ]
+        var request = URLRequest(url: viewSchoolDestinationComponents.url!)  // Pass Parameter in URL
+        print (viewSchoolDestinationComponents.url!)
+        
+        request.httpMethod = "GET" // GET METHOD
+        
+        URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
+            if (error != nil){  // error handling responses.
+                print (error as Any)
+            }
+            else if let data = data {
+                print(data)
+                let schoolInfoString:NSString = NSString(data: data, encoding: String.Encoding.utf8.rawValue)!
+                if let data = schoolInfoString.data(using: String.Encoding.utf8.rawValue) {
+                    do {
+                        let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String:AnyObject]
+                        print (json as Any)
+                        if let schoolInfo = json!["data"]
+                        {
+                            DispatchQueue.main.async {
+                                self.SchoolSearchBar.text = (schoolInfo["Address"] as! String)
+                            }
+                        }
+                    } catch let error as NSError {
+                        print(error)
+                    }
+                }
+            }
+            }.resume()
+    }
     
-    func saveFreqDestinations(routeInfo: Dictionary<String, Any>)
+    func readWorkDestination(userID: String)
+    {
+        var viewWorkDestinationComponents = URLComponents(string: "http://localhost:3000/freqDestinations/workDestination")!
+        viewWorkDestinationComponents.queryItems = [
+            URLQueryItem(name: "userID", value: userID)
+        ]
+        var request = URLRequest(url: viewWorkDestinationComponents.url!)  // Pass Parameter in URL
+        print (viewWorkDestinationComponents.url!)
+        
+        request.httpMethod = "GET" // GET METHOD
+        
+        URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
+            if (error != nil){  // error handling responses.
+                print (error as Any)
+            }
+            else if let data = data {
+                print(data)
+                let workInfoString:NSString = NSString(data: data, encoding: String.Encoding.utf8.rawValue)!
+                if let data = workInfoString.data(using: String.Encoding.utf8.rawValue) {
+                    do {
+                        let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String:AnyObject]
+                        print (json as Any)
+                        if let workInfo = json!["data"]
+                        {
+                            DispatchQueue.main.async {
+                                self.WorkSearchBar.text = (workInfo["Address"] as! String)
+                            }
+                        }
+                    } catch let error as NSError {
+                        print(error)
+                    }
+                }
+            }
+            }.resume()
+    }
+    
+    func readCustomDestination(userID: String)
+    {
+        var viewCustomDestinationComponents = URLComponents(string: "http://localhost:3000/freqDestinations/customDestination")!
+        viewCustomDestinationComponents.queryItems = [
+            URLQueryItem(name: "userID", value: userID)
+        ]
+        var request = URLRequest(url: viewCustomDestinationComponents.url!)  // Pass Parameter in URL
+        print (viewCustomDestinationComponents.url!)
+        
+        request.httpMethod = "GET" // GET METHOD
+        
+        URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
+            if (error != nil){  // error handling responses.
+                print (error as Any)
+            }
+            else if let data = data {
+                print(data)
+                let customInfoString:NSString = NSString(data: data, encoding: String.Encoding.utf8.rawValue)!
+                if let data = customInfoString.data(using: String.Encoding.utf8.rawValue) {
+                    do {
+                        let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String:AnyObject]
+                        print (json as Any)
+                        if let customInfo = json!["data"]
+                        {
+                            DispatchQueue.main.async {
+                                self.otherSearchBar.text = (customInfo["Address"] as! String)
+                            }
+                        }
+                    } catch let error as NSError {
+                        print(error)
+                    }
+                }
+            }
+            }.resume()
+    }
+    
+    /*func saveFreqDestinations(routeInfo: Dictionary<String, Any>)
     {
         let editFreqDestinationURL = URL(string: "http://localhost:3000/freqDestinations/frequentDestinations")!
         var request = URLRequest(url: editFreqDestinationURL)
@@ -140,9 +294,84 @@ class FreqDestinations: UIViewController {
                 print ("Success!")
             }
             }.resume()
+    }*/
+    
+    func saveHomeDestination(homeInfo: Dictionary<String, Any>)
+    {
+        let editHomeDestinationURL = URL(string: "http://localhost:3000/freqDestinations/homeDestination")!
+        var request = URLRequest(url: editHomeDestinationURL)
+        let homeJSON = try! JSONSerialization.data(withJSONObject: homeInfo, options: .prettyPrinted)
+        let homeJSONInfo = NSString(data: homeJSON, encoding: String.Encoding.utf8.rawValue)! as String
+        request.httpBody = "homeInfo=\(homeJSONInfo)".data(using: String.Encoding.utf8)
+        request.httpMethod = "POST" // POST method.
+        
+        URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
+            if (error != nil){  // error handling responses.
+                print ("An error has occured.")
+            }
+            else{
+                print ("Success!")
+            }
+            }.resume()
+    }
+    
+    func saveSchoolDestination(schoolInfo: Dictionary<String, Any>)
+    {
+        let editSchoolDestinationURL = URL(string: "http://localhost:3000/freqDestinations/schoolDestination")!
+        var request = URLRequest(url: editSchoolDestinationURL)
+        let schoolJSON = try! JSONSerialization.data(withJSONObject: schoolInfo, options: .prettyPrinted)
+        let schoolJSONInfo = NSString(data: schoolJSON, encoding: String.Encoding.utf8.rawValue)! as String
+        request.httpBody = "schoolInfo=\(schoolJSONInfo)".data(using: String.Encoding.utf8)
+        request.httpMethod = "POST" // POST method.
+        
+        URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
+            if (error != nil){  // error handling responses.
+                print ("An error has occured.")
+            }
+            else{
+                print ("Success!")
+            }
+            }.resume()
+    }
+    
+    func saveWorkDestination(workInfo: Dictionary<String, Any>)
+    {
+        let editWorkDestinationURL = URL(string: "http://localhost:3000/freqDestinations/workDestination")!
+        var request = URLRequest(url: editWorkDestinationURL)
+        let workJSON = try! JSONSerialization.data(withJSONObject: workInfo, options: .prettyPrinted)
+        let workJSONInfo = NSString(data: workJSON, encoding: String.Encoding.utf8.rawValue)! as String
+        request.httpBody = "workInfo=\(workJSONInfo)".data(using: String.Encoding.utf8)
+        request.httpMethod = "POST" // POST method.
+        
+        URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
+            if (error != nil){  // error handling responses.
+                print ("An error has occured.")
+            }
+            else{
+                print ("Success!")
+            }
+            }.resume()
+    }
+    
+    func saveCustomDestination(customInfo: Dictionary<String, Any>)
+    {
+        let editCustomDestinationURL = URL(string: "http://localhost:3000/freqDestinations/customDestination")!
+        var request = URLRequest(url: editCustomDestinationURL)
+        let customJSON = try! JSONSerialization.data(withJSONObject: customInfo, options: .prettyPrinted)
+        let customJSONInfo = NSString(data: customJSON, encoding: String.Encoding.utf8.rawValue)! as String
+        request.httpBody = "customInfo=\(customJSONInfo)".data(using: String.Encoding.utf8)
+        request.httpMethod = "POST" // POST method.
+        
+        URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
+            if (error != nil){  // error handling responses.
+                print ("An error has occured.")
+            }
+            else{
+                print ("Success!")
+            }
+            }.resume()
     }
 }
-
 
     extension FreqDestinations: UISearchBarDelegate {
         
