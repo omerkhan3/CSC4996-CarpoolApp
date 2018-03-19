@@ -68,37 +68,6 @@ class MyRoutesViewController: UIViewController {
             }.resume()
     }
     
-    //Decoding frequent destinations
-    /*func readMyDestinations(completed: @escaping () -> ()) {
-        let userID = Auth.auth().currentUser?.uid
-        var viewDestinationComponents = URLComponents(string: "http://localhost:3000/frequentDestinations")!
-        viewDestinationComponents.queryItems = [URLQueryItem(name: "userID", value: userID)]
-        var request = URLRequest(url: viewDestinationComponents.url!)  // Pass Parameter in URL
-        print (viewDestinationComponents.url!)
-        
-        request.httpMethod = "GET" // GET METHOD
-        
-        URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
-        if (error != nil){  // error handling responses.
-            print (error as Any)
-        } else {
-            guard let data = data else {return}
-            do {
-                self.destinationsArray = try JSONDecoder().decode([Destinations].self, from: data)
-                print(self.destinationsArray)
-                DispatchQueue.main.async {
-                    self.homeAddress.text = (routeInfo["homeAddress"] as! String)
-                    self.schoolAddress.text = (routeInfo["schoolAddress"] as! String)
-                    self.workAddress.text = (routeInfo["workAddress"] as! String)
-                    completed()
-                    }
-                }catch let jsnErr {
-                print(jsnErr)
-                }
-            }
-        }.resume()
-    }*/
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

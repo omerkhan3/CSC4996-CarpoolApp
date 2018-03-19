@@ -79,15 +79,9 @@ class FreqDestinations: UIViewController {
         searchCompleter.delegate = self
         let userID = Auth.auth().currentUser?.uid
         readMyDestinations(userID: userID!)
-        //Placeholder text for each search bar
-        //HomeSearchBar.text =
-       // WorkSearchBar.placeholder = "Search for Places"
-        //SchoolSearchBar.placeholder = "Search for Places"
-        //otherSearchBar.placeholder = "Search for Places"
     }
     
     //Posts the new inputted frequent destinations addresses in the database, encoding frequent destinations
-   
     func readMyDestinations(userID: String)
     {
         var viewDestinationComponents = URLComponents(string: "http://localhost:3000/freqDestinations/frequentDestinations")!
@@ -144,7 +138,6 @@ class FreqDestinations: UIViewController {
             }
             else{
                 print ("Success!")
-                //print(routeInfo)
             }
             }.resume()
     }
@@ -180,7 +173,6 @@ class FreqDestinations: UIViewController {
                     searchTable3.isHidden = true
                     searchTable4.isHidden = false
                 }
-                
             searchCompleter.queryFragment = searchText
         }
     }

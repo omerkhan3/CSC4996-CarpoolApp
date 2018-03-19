@@ -32,7 +32,7 @@ const pgp = db.$config.pgp;
 router.get('/frequentDestinations', function(req, res, next) {
 	var userID = req.query.userID;
 	console.log(userID);
-	db.one("select \"frequentDestinations\".\"Address\",\"frequentDestinations\".\"workAddress\",\"frequentDestinations\".\"schoolAddress\", \"frequentDestinations\".\"otherAddress\", \"frequentDestinations\".\"Name4\" from carpool.\"frequentDestinations\" where \"frequentDestinations\".\"userID\" = $1", userID)
+	db.one("select \"frequentDestinations\".\"Address\",\"frequentDestinations\".\"workAddress\",\"frequentDestinations\".\"schoolAddress\",\"frequentDestinations\".\"otherAddress\",\"frequentDestinations\".\"Name4\" from carpool.\"frequentDestinations\" where \"frequentDestinations\".\"userID\" = $1", userID)
 	.then(function(data) {
 		console.log(data);
 		res.status(200).json({
@@ -61,15 +61,6 @@ router.post('/frequentDestinations', function(req, res, next) {
 	var otherAddress = routeJSON['otherAddress'];
 	var longitudes = routeJSON['Longitudes'][0];
 	var latitudes = routeJSON['Latitudes'][0];
-	//console.log("Updating Frequent Destinations.");
-	//if (Name == null)
-	//{
-	//	db.none("INSERT INTO carpool.\"frequentDestinations\"(\"Name\") values($1)", [userID, routeJSON['name']])
-	//}
-	//else if (Name != null)
-	//{
-	//	db.query("UPDATE carpool.\"frequentDestinations\" SET \"Name\" = $1 where \"userID\" = $2", [Name, userID])
-	//}
 
 	if (Address == null)
 	{

@@ -1539,7 +1539,7 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
-                                            <searchBar contentMode="redraw" fixedFrame="YES" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="Puy-Yp-mOp" userLabel="HomeSearchBar">
+                                            <searchBar contentMode="redraw" fixedFrame="YES" searchBarStyle="minimal" placeholder="Search for Places" translatesAutoresizingMaskIntoConstraints="NO" id="Puy-Yp-mOp" userLabel="HomeSearchBar">
                                                 <rect key="frame" x="8" y="119" width="341" height="56"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1549,7 +1549,7 @@
                                                     <outlet property="delegate" destination="c8J-yT-xIz" id="U2w-Wx-sua"/>
                                                 </connections>
                                             </searchBar>
-                                            <searchBar contentMode="redraw" fixedFrame="YES" searchBarStyle="minimal" text="" translatesAutoresizingMaskIntoConstraints="NO" id="dGT-Qq-uTP" userLabel="WorkSchoolBar">
+                                            <searchBar contentMode="redraw" fixedFrame="YES" searchBarStyle="minimal" text="" placeholder="Search for Places" translatesAutoresizingMaskIntoConstraints="NO" id="dGT-Qq-uTP" userLabel="WorkSchoolBar">
                                                 <rect key="frame" x="8" y="213" width="333" height="56"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                                 <color key="barTintColor" red="0.9655521373" green="0.9655521373" blue="0.9655521373" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1558,7 +1558,7 @@
                                                     <outlet property="delegate" destination="c8J-yT-xIz" id="Hs9-lz-gaW"/>
                                                 </connections>
                                             </searchBar>
-                                            <searchBar contentMode="redraw" fixedFrame="YES" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="Z3o-rz-XL3" userLabel="SchoolSearchBar">
+                                            <searchBar contentMode="redraw" fixedFrame="YES" searchBarStyle="minimal" placeholder="Search for Places" translatesAutoresizingMaskIntoConstraints="NO" id="Z3o-rz-XL3" userLabel="SchoolSearchBar">
                                                 <rect key="frame" x="8" y="308" width="333" height="56"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                                 <color key="barTintColor" red="0.9655521373" green="0.9655521373" blue="0.9655521373" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1597,7 +1597,7 @@
                                                     <outlet property="delegate" destination="c8J-yT-xIz" id="3MS-gW-pIu"/>
                                                 </connections>
                                             </tableView>
-                                            <searchBar contentMode="redraw" fixedFrame="YES" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="VkS-6X-88S" userLabel="OtherSearchBar">
+                                            <searchBar contentMode="redraw" fixedFrame="YES" searchBarStyle="minimal" placeholder="Search for Places" translatesAutoresizingMaskIntoConstraints="NO" id="VkS-6X-88S" userLabel="OtherSearchBar">
                                                 <rect key="frame" x="8" y="412" width="333" height="56"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                                 <color key="barTintColor" red="0.9655521373" green="0.9655521373" blue="0.9655521373" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1613,8 +1613,8 @@
                                                     <action selector="addInput:" destination="c8J-yT-xIz" eventType="touchUpInside" id="FVw-8u-Rkw"/>
                                                 </connections>
                                             </button>
-                                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Q4i-MF-l7b">
-                                                <rect key="frame" x="19" y="382" width="99" height="30"/>
+                                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="New Destination" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Q4i-MF-l7b">
+                                                <rect key="frame" x="19" y="382" width="136" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
