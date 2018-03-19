@@ -17,6 +17,7 @@ router.post('/approval', function(req, res, next) {
  var requestJSON = JSON.parse(requestInfo);
  var userID = requestJSON['userID'];
  var matchID = requestJSON['matchID'];
+
 if (requestJSON['requestType'] == 'riderRequest') // If the rider has requested a driver
 {
 
@@ -40,7 +41,7 @@ if (requestJSON['requestType'] == 'riderRequest') // If the rider has requested 
            // Send the actual notification
           apnProvider.send(notification, result.deviceToken).then( result => {
           // Show the result of the send operation:
-               console.log(result);
+           	console.log(result);
           });
         })
 
@@ -59,11 +60,11 @@ if (requestJSON['requestType'] == 'riderRequest') // If the rider has requested 
  }
 
  else {
-   db.query("UPDATE carpool.\"Users\" SET \"Status\" = 'Matched' where \"matchID\" = $1", [userJSON[matchID]]) // If the request was a driver approving a request, switch the request status to matched.
+   db.query("UPDATE carpool.\"Matches\" SET \"Status\" = 'Matched' where \"matchID\" = $1", [matchID]) // If the request was a driver approving a request, switch the request status to matched.
     .then(function () {
-      db.query("UPDATE carpool.\"Routes\" SET \"Matched\" = 'true' where \"routeID\" = $1", [userJSON['driverRouteID']]) // Update the matched column in driver route.
+      db.query("UPDATE carpool.\"Routes\" SET \"Matched\" = 'true' where \"routeID\" = $1", [requestJSON['driverRouteID']]) // Update the matched column in driver route.
       .then(function() {
-            db.query("UPDATE carpool.\"Routes\" SET \"Matched\" = 'true' where \"routeID\" = $1", [userJSON['riderRouteID']]) // Update the matched column in rider route.
+            db.query("UPDATE carpool.\"Routes\" SET \"Matched\" = 'true' where \"routeID\" = $1", [requestJSON['riderRouteID']]) // Update the matched column in rider route.
             .catch(function (err) {
               res.send(err);
             });
@@ -89,26 +90,15 @@ if (requestJSON['requestType'] == 'riderRequest') // If the rider has requested 
 router.get('/', function(req, res, next) {
 var userID = req.query.userID;
  // Select all drivers the rider has matched with so they can request one.
-var matchesQuery = "select distinct on (\"matchID\") * from (select \"firstName\" as \"riderFirstName\", \"lastName\" as \"riderLastName\", \"Biography\" as \"riderBiography\", \"userID\" from carpool.\"Users\")g JOIN ((select \"endPointLat\" as \"riderEndPointLat\", \"endPointLong\" as \"riderEndPointLong\", \"riderID\" as \"riderRouteUserID\", \"Days\" as \"riderDays\", \"arrivalTime\" as \"riderArrival\", \"departureTime\" as \"riderDeparture\", \"Name\" as \"riderRouteName\", \"routeID\" from carpool.\"Routes\")e JOIN ((select \"endPointLat\" as \"driverEndPointLat\", \"endPointLong\" as \"driverEndPointLong\",\"driverID\" as \"driverRouteUserID\",\"Days\" as \"driverDays\",\"arrivalTime\" as \"driverArrival\",\"departureTime\" as \"driverDeparture\",\"Name\" as \"driverRouteName\",\"routeID\" from carpool.\"Routes\") d  JOIN ((select * from carpool.\"Matches\" where (\"riderID\" = $1 AND \"Status\" = 'Awaiting rider request.') OR (\"driverID\" = $1 AND \"Status\" = 'driverRequested')) a  JOIN (select \"firstName\" as \"driverFirstName\", \"lastName\" as \"driverLastName\",\"Biography\" as \"driverBiography\",\"userID\" from carpool.\"Users\")b  ON a.\"driverID\" = b.\"userID\")c  ON c.\"driverRouteID\" = d.\"routeID\")f ON e.\"riderRouteUserID\" = f.\"riderID\")h ON g.\"userID\" = h.\"riderID\"";
+var matchesQuery = "select distinct on (\"matchID\") * from (select \"firstName\" as \"riderFirstName\", \"lastName\" as \"riderLastName\", \"Biography\" as \"riderBiography\", \"userID\" from carpool.\"Users\")g JOIN ((select \"endPointLat\" as \"riderEndPointLat\", \"endPointLong\" as \"riderEndPointLong\", \"riderID\" as \"riderRouteUserID\", \"Days\" as \"riderDays\", \"arrivalTime\" as \"riderArrival\", \"departureTime\" as \"riderDeparture\", \"Name\" as \"riderRouteName\", \"routeID\" from carpool.\"Routes\")e JOIN ((select \"endPointLat\" as \"driverEndPointLat\", \"endPointLong\" as \"driverEndPointLong\",\"driverID\" as \"driverRouteUserID\",\"Days\" as \"driverDays\",\"arrivalTime\" as \"driverArrival\",\"departureTime\" as \"driverDeparture\",\"Name\" as \"driverRouteName\",\"routeID\" from carpool.\"Routes\") d  JOIN ((select * from carpool.\"Matches\" where (\"riderID\" = $1 AND \"Status\" = 'Awaiting rider request.') OR (\"driverID\" = $1 AND \"Status\" = 'driverRequested') ) a  JOIN (select \"firstName\" as \"driverFirstName\", \"lastName\" as \"driverLastName\",\"Biography\" as \"driverBiography\",\"userID\" from carpool.\"Users\")b  ON a.\"driverID\" = b.\"userID\")c  ON c.\"driverRouteID\" = d.\"routeID\")f ON e.\"riderRouteUserID\" = f.\"riderID\")h ON g.\"userID\" = h.\"riderID\"";
 db.query(matchesQuery, userID)
 .then(function(data) {
- console.log(data);
- res.send(data);
- });
+  res.send(data);
+  });
 });
 
 
-router.get('/riderRequests', function(req, res, next){
-  var userID = req.query.userID;
 
-  // Select all requests a driver has from a rider
-  var matchesQuery =  "select \"riderFirstName\", \"riderLastName\", \"riderBiography\", \"riderID\", \"riderEndPointLat\", \"riderEndPointLong\", \"riderRouteUserID\", \"riderDays\", \"riderArrival\", \"riderDeparture\", \"riderRouteName\", \"riderRouteID\", \"matchID\", \"riderID\"  from  (select \"endPointLat\" as \"riderEndPointLat\", \"endPointLong\" as \"riderEndPointLong\", \"riderID\" as \"riderRouteUserID\", \"Days\" as \"riderDays\", \"arrivalTime\" as \"riderArrival\", \"departureTime\" as \"riderDeparture\", \"Name\" as \"riderRouteName\", \"routeID\" from carpool.\"Routes\") d JOIN  ((select * from carpool.\"Matches\" where \"riderID\" = $1 AND \"Status\" = 'driverRequested') a JOIN (select \"firstName\" as \"riderFirstName\", \"lastName\" as \"riderLastName\", \"Biography\" as \"riderBiography\", \"userID\" from carpool.\"Users\")b  ON a.\"riderID\" = b.\"userID\")c  ON c.\"riderRouteID\" = d.\"routeID\"";
-  db.query(matchesQuery, userID)
-  .then(function(data) {
-    console.log(data);
-    res.send(data);
-    });
-  });
 
 
 

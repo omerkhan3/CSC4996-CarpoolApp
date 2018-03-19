@@ -39,6 +39,8 @@ class RiderMatchDetailViewController: UIViewController {
     @IBAction func requestRide(_ sender: Any) {
         let userID = Auth.auth().currentUser!.uid
         let matchID = self.matchDetail?.matchID
+        let driverRouteID = self.matchDetail?.driverRouteID
+        let riderRouteID = self.matchDetail?.riderRouteID
         
         // Rider request
         if matchDetail?.Status == "Awaiting rider request." {
@@ -51,23 +53,7 @@ class RiderMatchDetailViewController: UIViewController {
             let alert = UIAlertController(title: actionTitle, message: actionItem, preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
                 // update match status
-                let updateMatchURL = URL(string: "http://localhost:3000/matches/approval")!
-                var request = URLRequest(url: updateMatchURL)
-                print(request)
-                let statusJSON = try! JSONSerialization.data(withJSONObject: statusUpdate, options: .prettyPrinted)
-                let statusJSONInfo = NSString(data: statusJSON, encoding: String.Encoding.utf8.rawValue)! as String
-                request.httpBody = "requestInfo=\(statusJSONInfo)".data(using: String.Encoding.utf8)
-                request.httpMethod = "POST" // POST method.
-                
-                URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
-                    if (error != nil){  // error handling responses.
-                        print ("An error has occured.")
-                    }
-                    else{
-                        print ("Success!")
-                    }
-                    
-                    }.resume()
+                self.riderRequest(matchInfo: statusUpdate)
                 self.performSegue(withIdentifier: "showMatches3", sender: self)
             }))
             self.present(alert, animated: true, completion: nil)
@@ -76,7 +62,7 @@ class RiderMatchDetailViewController: UIViewController {
         // Driver ride confirmation
         else {
             // Create POST dictionary
-            let statusUpdate = ["userID": userID, "matchID": matchID!, "requestType": "driverRequested"] as [String : Any]
+            let statusUpdate = ["userID": userID, "matchID": matchID!, "requestType": "driverRequested", "riderRouteID": riderRouteID as Any, "driverRouteID": driverRouteID as Any] as [String : Any]
             
             // Alert: have driver confirm ride request
             let actionTitle = "Confirm Ride"
@@ -86,23 +72,7 @@ class RiderMatchDetailViewController: UIViewController {
             let alert = UIAlertController(title: actionTitle, message: actionItem, preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
                 // update match status
-                let updateMatchURL = URL(string: "http://localhost:3000/matches/approval")!
-                var request = URLRequest(url: updateMatchURL)
-                print(request)
-                let statusJSON = try! JSONSerialization.data(withJSONObject: statusUpdate, options: .prettyPrinted)
-                let statusJSONInfo = NSString(data: statusJSON, encoding: String.Encoding.utf8.rawValue)! as String
-                request.httpBody = "requestInfo=\(statusJSONInfo)".data(using: String.Encoding.utf8)
-                request.httpMethod = "POST" // POST method.
-                
-                URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
-                    if (error != nil){  // error handling responses.
-                        print ("An error has occured.")
-                    }
-                    else{
-                        print ("Success!")
-                    }
-                    
-                    }.resume()
+                self.riderRequest(matchInfo: statusUpdate)
                 self.performSegue(withIdentifier: "showMatches3", sender: self)
             }))
             self.present(alert, animated: true, completion: nil)
