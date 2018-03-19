@@ -15,6 +15,8 @@ struct Match: Decodable{
     //let driverLastName: String
     let driverBiography: String? // biography is optional
     let driverID: String
+    let driverStartPointLat: Double
+    let driverStartPointLong: Double
     let driverEndPointLat: Double
     let driverEndPointLong: Double
     let driverRouteUserID: String
@@ -30,6 +32,8 @@ struct Match: Decodable{
     //let riderLastName:String
     let riderBiography: String?
     let riderID: String
+    let riderStartPointLat: Double
+    let riderStartPointLong: Double
     let riderEndPointLat: Double
     let riderEndPointLong: Double
     let riderRouteUserID: String
@@ -50,6 +54,8 @@ struct Match: Decodable{
         //driverLastName = json["driverLastName"] as? String ?? ""
         driverBiography = json["driverBiography"] as? String ?? ""
         driverID = json["driverID"] as? String ?? ""
+        driverStartPointLat = json["driverStartPointLat"] as? Double ?? 0.0
+        driverStartPointLong = json["driverStartPointLong"] as? Double ?? 0.0
         driverEndPointLat = json["driverEndPointLat"] as? Double ?? 0.0
         driverEndPointLong = json["driverEndPointLong"] as? Double ?? 0.0
         driverRouteUserID = json["driverRouteUserID"] as? String ?? ""
@@ -63,6 +69,8 @@ struct Match: Decodable{
         riderFirstName = json["riderFirstName"] as? String ?? ""
         riderBiography = json["riderBiography"] as? String ?? ""
         riderID = json["riderID"] as? String ?? ""
+        riderStartPointLat = json["riderStartPointLat"] as? Double ?? 0.0
+        riderStartPointLong = json["riderStartPointLong"] as? Double ?? 0.0
         riderEndPointLat = json["riderEndPointLat"] as? Double ?? 0.0
         riderEndPointLong = json["riderEndPointLong"] as? Double ?? 0.0
         riderRouteUserID = json["riderRouteUserID"] as? String ?? ""
@@ -83,6 +91,8 @@ struct Match: Decodable{
         //driverLastName =  ""
         driverBiography = ""
         driverID =  ""
+        driverStartPointLat = 0.0
+        driverStartPointLong = 0.0
         driverEndPointLat = 0.0
         driverEndPointLong =  0.0
         driverRouteUserID =  ""
@@ -96,6 +106,8 @@ struct Match: Decodable{
         riderFirstName = ""
         riderBiography = ""
         riderID =  ""
+        riderStartPointLat = 0.0
+        riderStartPointLong = 0.0
         riderEndPointLat = 0.0
         riderEndPointLong = 0.0
         riderRouteUserID = ""

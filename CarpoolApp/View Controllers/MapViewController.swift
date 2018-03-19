@@ -28,7 +28,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     
     // Class variables
     let locationManager = CLLocationManager()
-    var ref: DatabaseReference! // Creates database reference
     var currentPlacemark:CLPlacemark?
     // var centerMapped = false
     
@@ -37,88 +36,55 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     @IBOutlet weak var mapView: MKMapView!
     
     
-//    @IBAction func showDirection(_ sender: Any) {
-//        //makes sure to get location from destination location rather than users current location
-//        guard let currentPlacemark = currentPlacemark else{
-//            print("returning")
-//            return
-//        }
-//
-//        let directionRequest = MKDirectionsRequest()
-//        let destinationPlacemark = MKPlacemark(placemark:currentPlacemark)
-//        print(destinationPlacemark)
-//
-//
-//        //set source of the direction request
-//        directionRequest.source = MKMapItem.forCurrentLocation()
-//        directionRequest.destination = MKMapItem(placemark: destinationPlacemark)
-//        directionRequest.transportType = .automobile
-//
-//        // determine the directions/route, and check for any errors along the way
-//        let directions = MKDirections(request: directionRequest)
-//        directions.calculate { (directionsResponse, error) in
-//            //if directions response is nil, else case gets called
-//            guard let directionsResponse = directionsResponse else {
-//                if let error = error{
-//                    print("Error getting directions: \(error.localizedDescription)")
-//                }
-//                return
-//            }
-//            //selecting 0 means will choose shortest route
-//            let route = directionsResponse.routes[0]
-//            //show the line above the roads and remove each overlay when different annotation is selected
-//            self.mapView.removeOverlays(self.mapView.overlays)
-//            self.mapView.add(route.polyline, level: .aboveRoads)
-//
-//            //zoom in on route once polyline is drawn
-//            let routeRect = route.polyline.boundingMapRect
-//            self.mapView.setRegion(MKCoordinateRegionForMapRect(routeRect), animated: true)
-//        }
-//    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        let destionationName = mapMatchDetail?.driverRouteName
-        let destinationLat = mapMatchDetail?.driverEndPointLat
-        let destinationLong = mapMatchDetail?.driverEndPointLong
         
-        // Hard code user's start point until we get the query
-        let startName = "Home"
-        let startLat = 42.6543464660645
-        let startLong = -83.1790237426758
+        // Driver points
+        let driverStartLat = mapMatchDetail?.driverStartPointLat
+        let driverStartLong = mapMatchDetail?.driverStartPointLong
+        let driverDestinationName = mapMatchDetail?.driverRouteName
+        let driverDestinationLat = mapMatchDetail?.driverEndPointLat
+        let driverDestinationLong = mapMatchDetail?.driverEndPointLong
+        let driverStartCoord = CLLocationCoordinate2D(latitude: driverStartLat!, longitude: driverStartLong!)
+        let driverEndCoord = CLLocationCoordinate2D(latitude: driverDestinationLat!, longitude: driverDestinationLong!)
+        
+        // Rider points
+        let riderStartLat = mapMatchDetail?.riderStartPointLat
+        let riderStartLong = mapMatchDetail?.riderStartPointLong
+        let riderDestinationLat = mapMatchDetail?.riderEndPointLat
+        let riderDestinationLong = mapMatchDetail?.riderEndPointLong
+        let riderStartCoord = CLLocationCoordinate2D(latitude: riderStartLat!, longitude: riderStartLong!)
+        let riderEndCoord = CLLocationCoordinate2D(latitude: riderDestinationLat!, longitude: riderDestinationLong!)
+        
         
         // Set up Map
         mapView.delegate = self
         mapView.userTrackingMode = MKUserTrackingMode.follow
         mapView.showsUserLocation = true
-        //first sample location
-        let destination = otherlocations(title: destionationName!,
-                                         locationName: "Destination",
-                                         coordinate: CLLocationCoordinate2D(latitude: destinationLat!, longitude: destinationLong!))
-        self.mapView.addAnnotation(destination)
         
-        let startingPoint = otherlocations(title: startName, locationName: "Start", coordinate: CLLocationCoordinate2D(latitude: startLat, longitude: startLong))
-        self.mapView.addAnnotation(startingPoint)
-        
-        let startingCoordinate = CLLocationCoordinate2D(latitude: startLat, longitude: startLong)
-        let destinationcoordinate = CLLocationCoordinate2D(latitude: destinationLat!, longitude: destinationLong!)
-        
-        showRouteOnMap(start: startingCoordinate, destination: destinationcoordinate)
+        if (mapMatchDetail?.Status == "Awaiting rider request.") {
+            let start = otherlocations(title: "Start", locationName: "Start", coordinate: riderStartCoord)
+            let end = otherlocations(title: "End", locationName: "End", coordinate: riderEndCoord)
+            self.mapView.addAnnotation(start)
+            self.mapView.addAnnotation(end)
+            showRiderRouteOnMap(start: riderStartCoord, destination: riderEndCoord)
+        } else {
+            showDriverRouteOnMap(start: driverStartCoord, riderPickup: riderStartCoord, riderDropoff: riderEndCoord, destination: driverEndCoord)
+        }
     }
 
     //Brings up the user on the map after authorization
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        locationAuthStatus()
     }
     
-    func showRouteOnMap(start: CLLocationCoordinate2D, destination: CLLocationCoordinate2D) {
+    func showRiderRouteOnMap(start: CLLocationCoordinate2D, destination: CLLocationCoordinate2D) {
         
         let startPlacemark = MKPlacemark(coordinate: start, addressDictionary: nil)
         let destinationPlacemark = MKPlacemark(coordinate: destination, addressDictionary: nil)
         
-        let sourceMapItem = MKMapItem(placemark: startPlacemark)
-        let destinationMapItem = MKMapItem(placemark: destinationPlacemark)
+        let startMapItem = MKMapItem(placemark: startPlacemark)
+        let endMapItem = MKMapItem(placemark: destinationPlacemark)
         
         let sourceAnnotation = MKPointAnnotation()
         
@@ -133,10 +99,11 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         }
         
         self.mapView.showAnnotations([sourceAnnotation, destinationAnnotation], animated: true)
+        self.mapView.showAnnotations(self.mapView.annotations, animated: true)
         
         let directionRequest = MKDirectionsRequest()
-        directionRequest.source = sourceMapItem
-        directionRequest.destination = destinationMapItem
+        directionRequest.source = startMapItem
+        directionRequest.destination = endMapItem
         directionRequest.transportType = .automobile
         
         // Get directions
@@ -147,21 +114,163 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             
             guard let response = response else {
                 if let error = error {
-                    print("error")
+                    print("error: \(error)")
                 }
-                
                 return
             }
             
             let route = response.routes[0]
             
             self.mapView.add((route.polyline), level: MKOverlayLevel.aboveRoads)
-            
             let rect = route.polyline.boundingMapRect
             self.mapView.setRegion(MKCoordinateRegionForMapRect(rect), animated: true)
             
         }
         
+    }
+    
+    func showDriverRouteOnMap(start: CLLocationCoordinate2D, riderPickup: CLLocationCoordinate2D, riderDropoff: CLLocationCoordinate2D, destination: CLLocationCoordinate2D) {
+        
+        // Route from driver start to rider pickup
+        let startPlacemark = MKPlacemark(coordinate: start, addressDictionary: nil)
+        let destinationPlacemark = MKPlacemark(coordinate: riderPickup, addressDictionary: nil)
+        
+        let startMapItem = MKMapItem(placemark: startPlacemark)
+        let endMapItem = MKMapItem(placemark: destinationPlacemark)
+        
+        let sourceAnnotation = MKPointAnnotation()
+        
+        if let location = startPlacemark.location {
+            sourceAnnotation.coordinate = location.coordinate
+        }
+        
+        let destinationAnnotation = MKPointAnnotation()
+        
+        if let location = destinationPlacemark.location {
+            destinationAnnotation.coordinate = location.coordinate
+        }
+        
+        self.mapView.showAnnotations([sourceAnnotation, destinationAnnotation], animated: true)
+        self.mapView.showAnnotations(self.mapView.annotations, animated: true)
+        
+        let directionRequest = MKDirectionsRequest()
+        directionRequest.source = startMapItem
+        directionRequest.destination = endMapItem
+        directionRequest.transportType = .automobile
+        
+        // Get directions
+        let directions = MKDirections(request: directionRequest)
+        
+        directions.calculate {
+            (response, error) -> Void in
+            
+            guard let response = response else {
+                if let error = error {
+                    print("error: \(error)")
+                }
+                return
+            }
+            
+            let route = response.routes[0]
+            
+            self.mapView.add((route.polyline), level: MKOverlayLevel.aboveRoads)
+            let rect = route.polyline.boundingMapRect
+            self.mapView.setRegion(MKCoordinateRegionForMapRect(rect), animated: true)
+        }
+            
+        // Route from rider pickup to rider dropoff
+            let startPlacemark1 = MKPlacemark(coordinate: riderPickup, addressDictionary: nil)
+            let destinationPlacemark1 = MKPlacemark(coordinate: riderDropoff, addressDictionary: nil)
+        
+            let startMapItem1 = MKMapItem(placemark: startPlacemark1)
+            let endMapItem1 = MKMapItem(placemark: destinationPlacemark1)
+        
+            let sourceAnnotation1 = MKPointAnnotation()
+            
+            if let location = startPlacemark1.location {
+                sourceAnnotation1.coordinate = location.coordinate
+            }
+            
+            let destinationAnnotation1 = MKPointAnnotation()
+        
+            if let location1 = destinationPlacemark.location {
+                destinationAnnotation1.coordinate = location1.coordinate
+            }
+        
+            self.mapView.showAnnotations([sourceAnnotation1, destinationAnnotation1], animated: true)
+            self.mapView.showAnnotations(self.mapView.annotations, animated: true)
+        
+            let directionRequest1 = MKDirectionsRequest()
+            directionRequest1.source = startMapItem1
+            directionRequest1.destination = endMapItem1
+            directionRequest1.transportType = .automobile
+            
+            // Get directions
+            let directions1 = MKDirections(request: directionRequest1)
+        
+            directions1.calculate {
+                (response, error) -> Void in
+                
+                guard let response = response else {
+                    if let error = error {
+                        print("error: \(error)")
+                    }
+                    return
+                }
+                
+                let route1 = response.routes[0]
+                
+                self.mapView.add((route1.polyline), level: MKOverlayLevel.aboveRoads)
+                let rect1 = route1.polyline.boundingMapRect
+                self.mapView.setRegion(MKCoordinateRegionForMapRect(rect1), animated: true)
+            }
+        
+            // Route from rider dropoff to driver destination
+                let startPlacemark2 = MKPlacemark(coordinate: riderDropoff, addressDictionary: nil)
+                let destinationPlacemark2 = MKPlacemark(coordinate: destination, addressDictionary: nil)
+                
+                let startMapItem2 = MKMapItem(placemark: startPlacemark2)
+                let endMapItem2 = MKMapItem(placemark: destinationPlacemark2)
+                
+                let sourceAnnotation2 = MKPointAnnotation()
+                
+                if let location2 = startPlacemark2.location {
+                    sourceAnnotation2.coordinate = location2.coordinate
+                }
+                
+                let destinationAnnotation2 = MKPointAnnotation()
+                
+                if let location2 = destinationPlacemark2.location {
+                    destinationAnnotation2.coordinate = location2.coordinate
+                }
+                
+                self.mapView.showAnnotations([sourceAnnotation2, destinationAnnotation2], animated: true)
+                self.mapView.showAnnotations(self.mapView.annotations, animated: true)
+                
+                let directionRequest2 = MKDirectionsRequest()
+                directionRequest2.source = startMapItem2
+                directionRequest2.destination = endMapItem2
+                directionRequest2.transportType = .automobile
+                
+                // Get directions
+                let directions2 = MKDirections(request: directionRequest2)
+                
+                directions2.calculate {
+                    (response, error) -> Void in
+                    
+                    guard let response = response else {
+                        if let error = error {
+                            print("error: \(error)")
+                        }
+                        return
+                    }
+                    
+                    let route2 = response.routes[0]
+                    
+                    self.mapView.add((route2.polyline), level: MKOverlayLevel.aboveRoads)
+                    let rect2 = route2.polyline.boundingMapRect
+                    self.mapView.setRegion(MKCoordinateRegionForMapRect(rect2), animated: true)
+                }
     }
     
     //selecting an annotation will call this method
@@ -182,41 +291,27 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         
         return renderer
     }
-
-    
-    //make sure user accepts location request, if they havent already, then prompt them to
-    func locationAuthStatus ()
-    {
-        locationManager.delegate = self
-        if CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
-            mapView.showsUserLocation = true
-            locationManager.startUpdatingLocation()
-        } else {
-           locationManager.requestWhenInUseAuthorization()
-            locationManager.startUpdatingLocation()
-        }
-    }
 }
 
-//Uses the protocol we created mapsearch, clears map of any other annotations on it, and mkpointannotation has the coordinate, subtitle(city, state), and title of the place(ex. H&M)
-extension MapViewController: MapSearch {
-    func dropPinZoomIn(placemark:MKPlacemark) {
-        selectedPin = placemark
-        // clear existing pins
-        mapView.removeAnnotations(mapView.annotations)
-        let annotation = MKPointAnnotation()
-        annotation.coordinate = placemark.coordinate
-        annotation.title = placemark.name
-        if let city = placemark.locality,
-            let state = placemark.administrativeArea {
-            annotation.subtitle = "(city) (state)"
-        }
-        //Add the annotation stated above(city, state)
-        mapView.addAnnotation(annotation)
-        let span = MKCoordinateSpanMake(0.05, 0.05)
-        //Will zoom in the map to the coordinate of the place chosen
-        let region = MKCoordinateRegionMake(placemark.coordinate, span)
-        mapView.setRegion(region, animated: true)
-    }
-}
+////Uses the protocol we created mapsearch, clears map of any other annotations on it, and mkpointannotation has the coordinate, subtitle(city, state), and title of the place(ex. H&M)
+//extension MapViewController: MapSearch {
+//    func dropPinZoomIn(placemark:MKPlacemark) {
+//        selectedPin = placemark
+//        // clear existing pins
+//        mapView.removeAnnotations(mapView.annotations)
+//        let annotation = MKPointAnnotation()
+//        annotation.coordinate = placemark.coordinate
+//        annotation.title = placemark.name
+//        if let city = placemark.locality,
+//            let state = placemark.administrativeArea {
+//            annotation.subtitle = "(city) (state)"
+//        }
+//        //Add the annotation stated above(city, state)
+//        mapView.addAnnotation(annotation)
+//        let span = MKCoordinateSpanMake(0.05, 0.05)
+//        //Will zoom in the map to the coordinate of the place chosen
+//        let region = MKCoordinateRegionMake(placemark.coordinate, span)
+//        mapView.setRegion(region, animated: true)
+//    }
+//}
 

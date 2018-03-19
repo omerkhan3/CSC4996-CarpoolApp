@@ -106,6 +106,7 @@
 			children = (
 				912C7DC3204D16BD00E222A4 /* Notifications.swift */,
 				20509AD0204D995400B2EFA3 /* Match.swift */,
+				C9DE0B29203F5C6100554E9C /* LocationSearchTable.swift */,
 				20509AD8204E2C5600B2EFA3 /* Profile.swift */,
 			);
 			name = Data;
@@ -162,25 +163,24 @@
 		C98966FC203A183500521450 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				912C7DBF204D02CC00E222A4 /* NotificationsTableViewController.swift */,
-				C9A8E120204E8500004C45ED /* HelpViewController.swift */,
-				2018C367202CB38900E28C08 /* LogoutViewController.swift */,
-				208A2E8A202829E600393D43 /* MapViewController.swift */,
-				C9DE0B28203F5C5F00554E9C /* FreqDestination.swift */,
-				C9DE0B29203F5C6100554E9C /* LocationSearchTable.swift */,
 				205A4B42202569DC005AE87C /* LaunchViewController.swift */,
+				D10EFE992022979700C962E1 /* RegistrationViewController.swift */,
 				D10EFE9B2022983600C962E1 /* LoginViewController.swift */,
 				D10EFE9D20229ACA00C962E1 /* PasswordResetViewController.swift */,
-				2033C2CF2026CE5C0081E53A /* ProfileViewController.swift */,
-				D10EFE992022979700C962E1 /* RegistrationViewController.swift */,
-				C9E8631E204D40BF008F6158 /* SettingsViewController.swift */,
-				C96F4839204A4ACC00363162 /* FrequentDestinationsViewController.swift */,
+				2018C367202CB38900E28C08 /* LogoutViewController.swift */,
 				20DA407E204B49FA003D8473 /* DashboardViewController.swift */,
 				20DA407C204B2F04003D8473 /* SideMenuTableViewController.swift */,
+				912C7DBF204D02CC00E222A4 /* NotificationsTableViewController.swift */,
+				2033C2CF2026CE5C0081E53A /* ProfileViewController.swift */,
+				912C7DC1204D062D00E222A4 /* EditProfileViewController.swift */,
+				C9DE0B28203F5C5F00554E9C /* FreqDestination.swift */,
+				C96F4839204A4ACC00363162 /* FrequentDestinationsViewController.swift */,
 				20509AD6204D9DA800B2EFA3 /* MatchesViewController.swift */,
 				20509ADA204EEE9200B2EFA3 /* RiderMatchDetailViewController.swift */,
-				912C7DC1204D062D00E222A4 /* EditProfileViewController.swift */,
+				208A2E8A202829E600393D43 /* MapViewController.swift */,
 				917C54B7204E18FE00F2BBDC /* PaymentsViewController.swift */,
+				C9E8631E204D40BF008F6158 /* SettingsViewController.swift */,
+				C9A8E120204E8500004C45ED /* HelpViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
