@@ -1,8 +1,6 @@
 var express = require('express');
 var path = require('path');
 var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
 var firebase = require('firebase');
 var admin = require('firebase-admin');
 var index = require('./routes/index');
@@ -22,18 +20,10 @@ var matches = require('./routes/matches');
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
-
 app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
-
 app.use('/', index);
 app.use('/users', users);
 app.use('/payment', payment);  // using the checkout route we are using to handle nonce.
-//app.use('/registerUser', registerUser);
-//app.use('/viewProfile', viewProfile);
 app.use('/routes', routes);
 app.use('/notifications', notifications);
 app.use ('/matches', matches);

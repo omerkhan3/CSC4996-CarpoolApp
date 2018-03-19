@@ -1,11 +1,6 @@
 var express = require('express');
-var path = require('path');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var firebase = require('firebase');
-var admin = require('firebase-admin');
 var router = express.Router();
+
 const db = require('../routes/db');
 const pgp = db.$config.pgp;
 const apnModule = require('../routes/apn');
@@ -29,7 +24,7 @@ if (requestJSON['requestType'] == 'riderRequest') // If the rider has requested 
         db.one("SELECT \"deviceToken\" from carpool.\"Users\" where \"userID\" = $1", [data.driverID])
         .then(function(result) {
           let notification = new apn.Notification();
-           notification.expiry = Math.floor(Date.now() / 1000) + 24 * 3600; // will expire in 24 hours from now
+          notification.expiry = Math.floor(Date.now() / 1000) + 24 * 3600; // will expire in 24 hours from now
           notification.badge = 2;
           notification.sound = "ping.aiff";
           notification.alert = "You have a new match!";

@@ -1,11 +1,6 @@
 var express = require('express');
-var path = require('path');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var firebase = require('firebase');
-var admin = require('firebase-admin');
 var router = express.Router();
+
 const db = require('../routes/db'); // this is our route to initialize DB connection.
 const pgp = db.$config.pgp;
 
