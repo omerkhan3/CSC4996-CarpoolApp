@@ -13,6 +13,7 @@ router.post('/approval', function(req, res, next) {
  var userID = requestJSON['userID'];
  var matchID = requestJSON['matchID'];
 
+
 if (requestJSON['requestType'] == 'riderRequest') // If the rider has requested a driver
 {
 
@@ -81,7 +82,131 @@ if (requestJSON['requestType'] == 'riderRequest') // If the rider has requested 
 
           db.query("UPDATE carpool.\"Routes\" SET \"Matched\" = 'true' where \"routeID\" = $1", [requestJSON['driverRouteID']]) // Update the matched column in driver route.
           .then(function() {
-                db.query("UPDATE carpool.\"Routes\" SET \"Matched\" = 'true' where \"routeID\" = $1", [requestJSON['riderRouteID']]) // Update the matched column in rider route.
+                db.query("UPDATE carpool.\"Routes\" SET \"Matched\" = 'true' where \"routeID\" = $1", [requestJSON['riderRouteID']])
+                .then(function() {
+                  var numOfDays =  requestJSON['Days'].length;
+                  console.log("Number of Days", numOfDays);
+                  for (var i = 0; i < numOfDays; i++) {
+                    if (requestJSON['Days'][i] == 'sunday')
+                    {
+                      db.query("select d::date from generate_series(current_date + cast(abs(extract(dow from current_date) - 7) as int), current_date + cast(abs(extract(dow from current_date) - 7) as int) + interval '1 year', '1 week'::interval) d")
+                        .then(function(result) {
+                          var resultDates = result.length;
+                          console.log("Results Length", resultDates);
+                          for (var y = 0; y < resultDates; y++)
+                          {
+                            db.query("INSERT INTO carpool.\"scheduledRoutes\"(\"Day\", \"matchID\", \"Status\", \"Date\") values ('sunday', $1, 'Scheduled', $2)", [matchID, result[y].d])
+                            .catch(function (err) {
+                              console.log(err);
+                            });
+
+                          }
+                        })
+                    }
+                      if (requestJSON['Days'][i] == 'monday')
+                      {
+                        db.query("select d::date from generate_series(current_date + cast(abs(extract(dow from current_date) - 7) + 1 as int), current_date + cast(abs(extract(dow from current_date) - 7) + 1 as int) + interval '1 year', '1 week'::interval) d")
+                          .then(function(result) {
+                            var resultDates = result.length;
+                            console.log("Results Length", resultDates);
+                            for (var y = 0; y < resultDates; y++)
+                            {
+                              db.query("INSERT INTO carpool.\"scheduledRoutes\"(\"Day\", \"matchID\", \"Status\", \"Date\") values ('monday', $1, 'Scheduled', $2)", [matchID, result[y].d])
+                              .catch(function (err) {
+                                console.log(err);
+                              });
+
+                            }
+                          })
+                      }
+                      if (requestJSON['Days'][i] == 'tuesday')
+                      {
+                        db.query("select d::date from generate_series(current_date + cast(abs(extract(dow from current_date) - 7) + 2 as int), current_date + cast(abs(extract(dow from current_date) - 7) + 2 as int) + interval '1 year', '1 week'::interval) d")
+                          .then(function(result) {
+                            var resultDates = result.length;
+                            console.log("Results Length", resultDates);
+                            for (var y = 0; y < resultDates; y++)
+                            {
+                              db.query("INSERT INTO carpool.\"scheduledRoutes\"(\"Day\", \"matchID\", \"Status\", \"Date\") values ('tuesday', $1, 'Scheduled', $2)", [matchID, result[y].d])
+                              .catch(function (err) {
+                                console.log(err);
+                              });
+
+                            }
+                          })
+                      }
+
+
+                      if (requestJSON['Days'][i] == 'wednesday')
+                      {
+                        db.query("select d::date from generate_series(current_date + cast(abs(extract(dow from current_date) - 7) + 3 as int), current_date + cast(abs(extract(dow from current_date) - 7) + 3 as int) + interval '1 year', '1 week'::interval) d")
+                          .then(function(result) {
+                            var resultDates = result.length;
+                            console.log("Results Length", resultDates);
+                            for (var y = 0; y < resultDates; y++)
+                            {
+                              db.query("INSERT INTO carpool.\"scheduledRoutes\"(\"Day\", \"matchID\", \"Status\", \"Date\") values ('wednesday', $1, 'Scheduled', $2)", [matchID, result[y].d])
+                              .catch(function (err) {
+                                console.log(err);
+                              });
+
+                            }
+                          })
+                      }
+
+                      if (requestJSON['Days'][i] == 'thursday')
+                      {
+                        db.query("select d::date from generate_series(current_date + cast(abs(extract(dow from current_date) - 7) + 4 as int), current_date + cast(abs(extract(dow from current_date) - 7) + 4 as int) + interval '1 year', '1 week'::interval) d")
+                          .then(function(result) {
+                            var resultDates = result.length;
+                            console.log("Results Length", resultDates);
+                            for (var y = 0; y < resultDates; y++)
+                            {
+                              db.query("INSERT INTO carpool.\"scheduledRoutes\"(\"Day\", \"matchID\", \"Status\", \"Date\") values ('thursday', $1, 'Scheduled', $2)", [matchID, result[y].d])
+                              .catch(function (err) {
+                                console.log(err);
+                              });
+
+                            }
+                          })
+                      }
+
+                      if (requestJSON['Days'][i] == 'friday')
+                      {
+                        db.query("select d::date from generate_series(current_date + cast(abs(extract(dow from current_date) - 7) + 5 as int), current_date + cast(abs(extract(dow from current_date) - 7) + 5 as int) + interval '1 year', '1 week'::interval) d")
+                          .then(function(result) {
+                            var resultDates = result.length;
+                            console.log("Results Length", resultDates);
+                            for (var y = 0; y < resultDates; y++)
+                            {
+                              db.query("INSERT INTO carpool.\"scheduledRoutes\"(\"Day\", \"matchID\", \"Status\", \"Date\") values ('friday', $1, 'Scheduled', $2)", [matchID, result[y].d])
+                              .catch(function (err) {
+                                console.log(err);
+                              });
+
+                            }
+                          })
+                      }
+
+                      if (requestJSON['Days'][i] == 'saturday')
+                      {
+                        db.query("select d::date from generate_series(current_date + cast(abs(extract(dow from current_date) - 7) + 6 as int), current_date + cast(abs(extract(dow from current_date) - 7) + 6 as int) + interval '1 year', '1 week'::interval) d")
+                          .then(function(result) {
+                            var resultDates = result.length;
+                            console.log("Results Length", resultDates);
+                            for (var y = 0; y < resultDates; y++)
+                            {
+                              db.query("INSERT INTO carpool.\"scheduledRoutes\"(\"Day\", \"matchID\", \"Status\", \"Date\") values ('saturday', $1, 'Scheduled', $2)", [matchID, result[y].d])
+                              .catch(function (err) {
+                                console.log(err);
+                              });
+
+                            }
+                          })
+                      }
+
+                  }
+                }) // Update the matched column in rider route.
                 .catch(function (err) {
                   res.send(err);
                 });

@@ -41,6 +41,8 @@ class RiderMatchDetailViewController: UIViewController {
         let matchID = self.matchDetail?.matchID
         let driverRouteID = self.matchDetail?.driverRouteID
         let riderRouteID = self.matchDetail?.riderRouteID
+        let days = self.matchDetail?.riderDays
+        
         
         // Rider request
         if matchDetail?.Status == "Awaiting rider request." {
@@ -62,7 +64,7 @@ class RiderMatchDetailViewController: UIViewController {
         // Driver ride confirmation
         else {
             // Create POST dictionary
-            let statusUpdate = ["userID": userID, "matchID": matchID!, "requestType": "driverRequested", "riderRouteID": riderRouteID as Any, "driverRouteID": driverRouteID as Any] as [String : Any]
+            let statusUpdate = ["userID": userID, "matchID": matchID!, "requestType": "driverRequested", "riderRouteID": riderRouteID as Any, "driverRouteID": driverRouteID as Any, "Days": days as Any] as [String : Any]
             
             // Alert: have driver confirm ride request
             let actionTitle = "Confirm Ride"
