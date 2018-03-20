@@ -35,7 +35,6 @@ class FreqDestinations: UIViewController {
     //Array used for storing longitudes and latitudes
     var longitudeArray: [Double] = []
     var latitudeArray: [Double] = []
-    var destinationsArray = [Destinations]()
     
     //Save button for frequent destinations
     @IBAction func saveButton(_ sender: Any) {
@@ -54,6 +53,10 @@ class FreqDestinations: UIViewController {
         let customInfo = ["userID": userID, "Name": self.otherInput.text! as Any, "Address": self.otherSearchBar.text! as Any, "Longitudes": longitudeArray, "Latitudes": latitudeArray]
         
         //saveFreqDestinations(routeInfo: routeInfo)
+        
+        //Added the two below
+        //var destinationsArray = [homeInfo, schoolInfo, workInfo, customInfo]
+        //saveDestinations(destinationsArray: destinationsArray)
         saveHomeDestination(homeInfo: homeInfo)
         saveWorkDestination(workInfo: workInfo)
         saveSchoolDestination(schoolInfo: schoolInfo)
@@ -295,6 +298,28 @@ class FreqDestinations: UIViewController {
             }
             }.resume()
     }*/
+    
+    
+    //Added commented code below for new way(the new traversing way server side)
+    /*func saveDestinations(destinationsArray: Dictionary<String, Any>)
+     {
+     let editDestinationURL = URL(string: "http://localhost:3000/freqDestinations/addDestination")!
+     var request = URLRequest(url: editDestinationURL)
+     let destinationJSON = try! JSONSerialization.data(withJSONObject: destinationsArray, options: .prettyPrinted)
+     let destinationJSONInfo = NSString(data: destinationJSON, encoding: String.Encoding.utf8.rawValue)! as String
+     request.httpBody = "homeInfo=\(destinationJSONInfo)".data(using: String.Encoding.utf8)
+     request.httpMethod = "POST" // POST method.
+     
+     URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
+     if (error != nil){  // error handling responses.
+     print ("An error has occured.")
+     }
+     else{
+     print ("Success!")
+     }
+     }.resume()
+     
+     }*/
     
     func saveHomeDestination(homeInfo: Dictionary<String, Any>)
     {

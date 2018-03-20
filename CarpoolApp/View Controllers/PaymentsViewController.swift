@@ -34,6 +34,9 @@ class PaymentsViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        makeRequest() { clientToken in
+            self.clientToken = clientToken
+        }
         
         /*getPayments {
             self.tableView.reloadData()
@@ -111,20 +114,20 @@ class PaymentsViewController: UIViewController, UITableViewDataSource, UITableVi
     }*/
     
     
-    func fetchClientToken() {
-        let clientToken = URL(string: "http://localhost:3000/payment/client_token")!
-        var clientTokenRequest = URLRequest(url: clientToken as URL)
+    func makeRequest(completion: @escaping (String) -> Void) {
+        let clientTokenURL = URL(string: "http://localhost:3000/payment/client_token")!
+        var clientTokenRequest = URLRequest(url: clientTokenURL as URL)
         clientTokenRequest.setValue("text/plain", forHTTPHeaderField: "Accept")
         
-        URLSession.shared.dataTask(with: clientTokenRequest as URLRequest) { (data, response, error) -> Void in
+        URLSession.shared.dataTask(with: clientTokenRequest) { (data, response, error) -> Void in
             //Error handling response
-            if (error != nil){
-                print ("An error has occured.")
+            guard let responseData = data, error == nil else {
+                print("error=\(String(describing: error))")
+                return
             }
-            else{
-                print ("Success!")
-            }
-            //let clientToken = String(data: data!, encoding: String.Encoding.utf8)!
+            print ("Success!")
+            let clientToken = String(data: responseData, encoding: .utf8) ?? ""
+            completion(clientToken)
             }.resume()
     }
     
