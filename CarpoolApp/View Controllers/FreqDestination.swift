@@ -54,10 +54,10 @@ class FreqDestinations: UIViewController {
         let customInfo = ["userID": userID, "Name": self.otherInput.text! as Any, "Address": self.otherSearchBar.text! as Any, "Longitudes": longitudeArray, "Latitudes": latitudeArray]
         
         //saveFreqDestinations(routeInfo: routeInfo)
-        saveHomeDestination(homeInfo: homeInfo)
-        saveWorkDestination(workInfo: workInfo)
-        saveSchoolDestination(schoolInfo: schoolInfo)
-        saveCustomDestination(customInfo: customInfo)
+        //saveHomeDestination(homeInfo: homeInfo)
+        //saveWorkDestination(workInfo: workInfo)
+        //saveSchoolDestination(schoolInfo: schoolInfo)
+        //saveCustomDestination(customInfo: customInfo)
         actionTitle = "Success!"
         actionItem = "Your frequent destinations have been saved"
         
@@ -296,7 +296,16 @@ class FreqDestinations: UIViewController {
             }.resume()
     }*/
     
-    func saveHomeDestination(homeInfo: Dictionary<String, Any>)
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    /*func saveHomeDestination(homeInfo: Dictionary<String, Any>)
     {
         let editHomeDestinationURL = URL(string: "http://localhost:3000/freqDestinations/homeDestination")!
         var request = URLRequest(url: editHomeDestinationURL)
@@ -370,7 +379,7 @@ class FreqDestinations: UIViewController {
                 print ("Success!")
             }
             }.resume()
-    }
+    }*/
 }
 
     extension FreqDestinations: UISearchBarDelegate {

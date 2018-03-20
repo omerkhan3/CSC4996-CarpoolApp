@@ -111,7 +111,16 @@ router.get('/customDestination', function(req, res, next) {
 		})
 	});
 
-router.post('/homeDestination', function(req, res, next) {
+router.post('/addDestination', function(req, res, next) {
+	var destinationsArray = [homeInfo, schoolInfo, workInfo, customInfo];
+	var destinationsInfo = req.body.destinationsArray;
+	var arrayLength = destinationsInfo.length;
+	for (var i = 0; i < arrayLength; i++) {
+		db.none("INSERT INTO carpool.\"frequentDestinations\"(\"userID\", \"Name\", \"Address\", \"Longitudes\", \"Latitudes\") values ($1, $2, $3, $4, $5))" ON CONFLICT ("userID", "Name") DO UPDATE SET (\"frequentDestinations\".\"Name\", \"frequentDestinations\".\"Address\", \"frequentDestinations\".\"Longitudes\", \"frequentDestinations\".\"Latitudes\")", [userID, Name, Address, Longitudes, Latitudes]));
+		
+		}
+		
+/*router.post('/homeDestination', function(req, res, next) {
 	var homeInfo = req.body.homeInfo;
 	var homeJSON = JSON.parse(homeInfo);
 	console.log(homeJSON);
@@ -121,19 +130,19 @@ router.post('/homeDestination', function(req, res, next) {
 	var longitudes = homeJSON['Longitudes'][0];
 	var latitudes = homeJSON['Latitudes'][0];
 	
-	if (name == null)
+	if (homeInfo.homeLabel == 'Home')
 	{
 		db.none("INSERT INTO carpool.\"frequentDestinations\"(\"Name\") values($1)", [userID, homeJSON['name']])
 	}
-	if (address == null)
+	if (address == 'Address')
 	{
 		db.none("INSERT INTO carpool.\"frequentDestinations\"(\"Address\") values($1)", [userID, homeJSON['address']])
 	}
-	if (latitudes == null)
+	if (latitudes == 'Latitudes')
 	{
 		db.none("INSERT INTO carpool.\"frequentDestinations\"(\"Latitudes\") values($1)", [userID, homeJSON['latitudes'][0]])
 	}
-	if (longitudes == null)
+	if (longitudes == 'Longitudes')
 	{
 		db.none("INSERT INTO carpool.\"frequentDestinations\"(\"Longitudes\") values($1)", [userID, homeJSON['longitudes'][0]])
 	}
@@ -141,7 +150,7 @@ router.post('/homeDestination', function(req, res, next) {
 	{
 		db.query("UPDATE carpool.\"frequentDestinations\" SET \"Name\" = $1 where \"userID\" = $2", [name, userID])
 	}
-	else (address != null)
+	if (address != null)
 	{
 		db.query("UPDATE carpool.\"frequentDestinations\" SET \"Address\" = $1 where \"userID\" = $2", [address, userID])
 	}
@@ -149,7 +158,7 @@ router.post('/homeDestination', function(req, res, next) {
 	{
 		db.query("UPDATE carpool.\"frequentDestinations\" SET \"Latitudes\" = $1 where \"userID\" = $2", [latitudes, userID])
 	}
-	else (longitudes != null)
+	if (longitudes != null)
 	{
 		db.query("UPDATE carpool.\"frequentDestinations\" SET \"Longitudes\" = $1 where \"userID\" = $2", [longitudes, userID])
 	}
@@ -178,19 +187,19 @@ router.post('/schoolDestination', function(req, res, next) {
 	var longitudes = schoolJSON['Longitudes'][0];
 	var latitudes = schoolJSON['Latitudes'][0];
 	
-	if (name == null)
+	if (name == 'Name')
 	{
 		db.none("INSERT INTO carpool.\"frequentDestinations\"(\"Name\") values($1)", [userID, schoolJSON['name']])
 	}
-	if (address == null)
+	if (address == 'Address')
 	{
 		db.none("INSERT INTO carpool.\"frequentDestinations\"(\"Address\") values($1)", [userID, schoolJSON['address']])
 	}
-	if (latitudes == null)
+	if (latitudes == 'Latitudes')
 	{
 		db.none("INSERT INTO carpool.\"frequentDestinations\"(\"Latitudes\") values($1)", [userID, schoolJSON['latitudes'][0]])
 	}
-	if (longitudes == null)
+	if (longitudes == 'Longitudes')
 	{
 		db.none("INSERT INTO carpool.\"frequentDestinations\"(\"Longitudes\") values($1)", [userID, schoolJSON['longitudes'][0]])
 	}
@@ -198,7 +207,7 @@ router.post('/schoolDestination', function(req, res, next) {
 	{
 		db.query("UPDATE carpool.\"frequentDestinations\" SET \"Name\" = $1 where \"userID\" = $2", [name, userID])
 	}
-	else (address != null)
+	if (address != null)
 	{
 		db.query("UPDATE carpool.\"frequentDestinations\" SET \"Address\" = $1 where \"userID\" = $2", [address, userID])
 	}
@@ -206,7 +215,7 @@ router.post('/schoolDestination', function(req, res, next) {
 	{
 		db.query("UPDATE carpool.\"frequentDestinations\" SET \"Latitudes\" = $1 where \"userID\" = $2", [latitudes, userID])
 	}
-	else (longitudes != null)
+	if (longitudes != null)
 	{
 		db.query("UPDATE carpool.\"frequentDestinations\" SET \"Longitudes\" = $1 where \"userID\" = $2", [longitudes, userID])
 	}
@@ -231,30 +240,30 @@ router.post('/workDestination', function(req, res, next) {
 	var userID = workJSON['userID'];
 	var name = workJSON['Name'];
 	var address = workJSON['Address'];
-	var longitudes = workJSON['Longitudes'][0];
-	var latitudes = workJSON['Latitudes'][0];
+	var longitudes = workJSON['Longitudes'];
+	var latitudes = workJSON['Latitudes'];
 	
-	if (name == null)
+	if (name == 'Name')
 	{
 		db.none("INSERT INTO carpool.\"frequentDestinations\"(\"Name\") values($1)", [userID, workJSON['name']])
 	}
-	if (address == null)
+	if (address == 'Address')
 	{
 		db.none("INSERT INTO carpool.\"frequentDestinations\"(\"Address\") values($1)", [userID, workJSON['address']])
 	}
-	if (latitudes == null)
+	if (latitudes == 'Latitudes')
 	{
-		db.none("INSERT INTO carpool.\"frequentDestinations\"(\"Latitudes\") values($1)", [userID, workJSON['latitudes'][0]])
+		db.none("INSERT INTO carpool.\"frequentDestinations\"(\"Latitudes\") values($1)", [userID, workJSON['latitudes']])
 	}
-	if (longitudes == null)
+	if (longitudes == 'Longitudes')
 	{
-		db.none("INSERT INTO carpool.\"frequentDestinations\"(\"Longitudes\") values($1)", [userID, workJSON['longitudes'][0]])
+		db.none("INSERT INTO carpool.\"frequentDestinations\"(\"Longitudes\") values($1)", [userID, workJSON['longitudes']])
 	}
 	if (name != null)
 	{
 		db.query("UPDATE carpool.\"frequentDestinations\" SET \"Name\" = $1 where \"userID\" = $2", [name, userID])
 	}
-	else (address != null)
+	if (address != null)
 	{
 		db.query("UPDATE carpool.\"frequentDestinations\" SET \"Address\" = $1 where \"userID\" = $2", [address, userID])
 	}
@@ -262,7 +271,7 @@ router.post('/workDestination', function(req, res, next) {
 	{
 		db.query("UPDATE carpool.\"frequentDestinations\" SET \"Latitudes\" = $1 where \"userID\" = $2", [latitudes, userID])
 	}
-	else (longitudes != null)
+	if (longitudes != null)
 	{
 		db.query("UPDATE carpool.\"frequentDestinations\" SET \"Longitudes\" = $1 where \"userID\" = $2", [longitudes, userID])
 	}
@@ -290,19 +299,19 @@ router.post('/customDestination', function(req, res, next) {
 	var longitudes = customJSON['Longitudes'][0];
 	var latitudes = customJSON['Latitudes'][0];
 	
-	if (name == null)
+	if (name == 'Name')
 	{
 		db.none("INSERT INTO carpool.\"frequentDestinations\"(\"Name\") values($1)", [userID, customJSON['name']])
 	}
-	if (address == null)
+	if (address == 'Address')
 	{
 		db.none("INSERT INTO carpool.\"frequentDestinations\"(\"Address\") values($1)", [userID, customJSON['address']])
 	}
-	if (latitudes == null)
+	if (latitudes == 'Latitudes')
 	{
 		db.none("INSERT INTO carpool.\"frequentDestinations\"(\"Latitudes\") values($1)", [userID, customJSON['latitudes'][0]])
 	}
-	if (longitudes == null)
+	if (longitudes == 'Longitudes')
 	{
 		db.none("INSERT INTO carpool.\"frequentDestinations\"(\"Longitudes\") values($1)", [userID, customJSON['longitudes'][0]])
 	}
@@ -310,7 +319,7 @@ router.post('/customDestination', function(req, res, next) {
 	{
 		db.query("UPDATE carpool.\"frequentDestinations\" SET \"Name\" = $1 where \"userID\" = $2", [name, userID])
 	}
-	else (address != null)
+	if (address != null)
 	{
 		db.query("UPDATE carpool.\"frequentDestinations\" SET \"Address\" = $1 where \"userID\" = $2", [address, userID])
 	}
@@ -318,7 +327,7 @@ router.post('/customDestination', function(req, res, next) {
 	{
 		db.query("UPDATE carpool.\"frequentDestinations\" SET \"Latitudes\" = $1 where \"userID\" = $2", [latitudes, userID])
 	}
-	else (longitudes != null)
+	if (longitudes != null)
 	{
 		db.query("UPDATE carpool.\"frequentDestinations\" SET \"Longitudes\" = $1 where \"userID\" = $2", [longitudes, userID])
 	}
@@ -334,7 +343,7 @@ router.post('/customDestination', function(req, res, next) {
 		.catch(function(err) {
 			console.log(err);
 		})
-});
+});*/
 	
 //router.post('/frequentDestinations', function(req, res, next) {
 //	var routeInfo = req.body.routeInfo;

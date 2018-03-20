@@ -13,7 +13,7 @@ var gateway = braintree.connect({
 
 router.get("/client_token",function (req, res) {
   gateway.clientToken.generate({
-  customerId: aCustomerId
+  customerId: "12345"
   }, function (err, result) {
   res.send(result.clientToken)
   });
