@@ -44,23 +44,15 @@ class FreqDestinations: UIViewController {
         let exitAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
 
         let userID = Auth.auth().currentUser!.uid
-        //self.homeLabel.text! = "Home"
-        //let routeInfo = ["userID": userID, "Name": self.homeLabel.text! as Any, "Address": self.HomeSearchBar.text! as Any, "Name2": self.schoolLabel.text! as Any, "schoolAddress": self.SchoolSearchBar.text! as Any, "Name3": self.workLabel.text! as Any, "workAddress": self.WorkSearchBar.text! as Any, "Name4": self.otherInput.text! as Any, "otherAddress": self.otherSearchBar.text! as Any, "Longitudes": longitudeArray, "Latitudes": latitudeArray]
-
         let homeInfo = ["userID": userID, "Name": self.homeLabel.text! as Any, "Address": self.HomeSearchBar.text! as Any]
         let schoolInfo = ["userID": userID, "Name": self.schoolLabel.text! as Any, "Address": self.SchoolSearchBar.text! as Any]
         let workInfo = ["userID": userID, "Name": self.workLabel.text! as Any, "Address": self.WorkSearchBar.text! as Any]
         let customInfo = ["userID": userID, "Name": self.otherInput.text! as Any, "Address": self.otherSearchBar.text! as Any]
         
-        
         let destinations: [Dictionary<String, Any>] = [homeInfo, schoolInfo, workInfo, customInfo]
         
         print(destinations)
-        //saveFreqDestinations(routeInfo: routeInfo)
         
-        //Added the two below
-        //var destinationsArray = [homeInfo, schoolInfo, workInfo, customInfo]
-        //saveDestinations(destinationsArray: destinationsArray)
         saveDestinations(destinationInfo: destinations)
         actionTitle = "Success!"
         actionItem = "Your frequent destinations have been saved"
@@ -88,15 +80,13 @@ class FreqDestinations: UIViewController {
         otherInput.isHidden = true
         otherSearchBar.isHidden = true
         searchCompleter.delegate = self
+        
         let userID = Auth.auth().currentUser?.uid
-        //readMyDestinations(userID: userID!)
         readHomeDestination(userID: userID!)
         readSchoolDestination(userID: userID!)
         readWorkDestination(userID: userID!)
         readCustomDestination(userID: userID!)
     }
-    
-  
     
     func readHomeDestination(userID: String)
     {
@@ -242,9 +232,6 @@ class FreqDestinations: UIViewController {
             }.resume()
     }
     
-
-
-    
     func saveDestinations(destinationInfo: [Dictionary<String, Any>])
     {
         let editDestinationURL = URL(string: "http://localhost:3000/freqDestinations/saveDestination")!
@@ -263,12 +250,6 @@ class FreqDestinations: UIViewController {
             }
             }.resume()
     }
-    
-
-    
-
-    
-
 }
 
     extension FreqDestinations: UISearchBarDelegate {
