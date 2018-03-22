@@ -19,7 +19,7 @@
 		20DA407D204B2F04003D8473 /* SideMenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DA407C204B2F04003D8473 /* SideMenuTableViewController.swift */; };
 		20DA407F204B49FA003D8473 /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DA407E204B49FA003D8473 /* DashboardViewController.swift */; };
 		20F47A0420277D4800D79394 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 20F47A0320277D4800D79394 /* GoogleService-Info.plist */; };
-		63917F3C2F967485C2582052 /* Pods_CarpoolApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9320C101773311FB910A13A6 /* Pods_CarpoolApp.framework */; };
+		63917F3C2F967485C2582052 /* Pods_CarpoolApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9320C101773311FB910A13A6 /* Pods_CarpoolApp.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		78241398201D0F3A00F06D99 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78241397201D0F3A00F06D99 /* AppDelegate.swift */; };
 		7824139D201D0F3A00F06D99 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7824139B201D0F3A00F06D99 /* Main.storyboard */; };
 		7824139F201D0F3A00F06D99 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7824139E201D0F3A00F06D99 /* Assets.xcassets */; };
