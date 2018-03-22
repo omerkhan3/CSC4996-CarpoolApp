@@ -104,33 +104,40 @@ class FreqDestinations: UIViewController {
                 let destinationInfoString:NSString = NSString(data: data, encoding: String.Encoding.utf8.rawValue)!
                 if let data = destinationInfoString.data(using: String.Encoding.utf8.rawValue) {
                     do {
-                        let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String:AnyObject]
+                        let json = try JSONSerialization.jsonObject(with: data, options: []) as! [[String:AnyObject]]
                         print (json as Any)
-                        if let homeInfo = json!["data"]
+                        //var JSONobjectLength = json.count
+                        for data in json
                         {
-                            DispatchQueue.main.async {
-                                self.HomeSearchBar.text = (homeInfo["Address"] as? String)
+                            if (data["Name"] as! String == "Home")
+                            {
+                                DispatchQueue.main.async
+                                {
+                                    self.HomeSearchBar.text = (data["Address"] as? String)
+                                }
+                            }
+                            else if (data["Name"] as! String == "School")
+                            {
+                                DispatchQueue.main.async
+                                {
+                                    self.SchoolSearchBar.text = (data["Address"] as? String)
+                                }
+                            }
+                            else if (data["Name"] as! String == "Work")
+                            {
+                                DispatchQueue.main.async
+                                {
+                                    self.WorkSearchBar.text = (data["Address"] as? String)
+                                }
+                            }
+                            else if (data["Name"] as! String == "")
+                            {
+                                DispatchQueue.main.async
+                                {
+                                    self.otherSearchBar.text = (data["Address"] as? String)
+                                }
                             }
                         }
-                        if let schoolInfo = json!["data"]
-                        {
-                            DispatchQueue.main.async {
-                                self.SchoolSearchBar.text = (schoolInfo["Address"] as? String)
-                            }
-                        }
-                        if let workInfo = json!["data"]
-                        {
-                            DispatchQueue.main.async {
-                                self.WorkSearchBar.text = (workInfo["Address"] as? String)
-                            }
-                        }
-                        if let customInfo = json!["data"]
-                        {
-                            DispatchQueue.main.async {
-                                self.otherSearchBar.text = (customInfo["Address"] as? String)
-                            }
-                        }
-                        
                     } catch let error as NSError {
                         print(error)
                     }
