@@ -54,6 +54,7 @@ router.post('/profile', function(req, res, next){
   var userJSON = JSON.parse(userInfo);
   console.log(userJSON);
   var bio = userJSON['Biography'];
+  //var photo = userJSON['Photo'];
   var first = userJSON['firstName'];
   var last = userJSON['lastName'];
   var userID = userJSON['userID'];

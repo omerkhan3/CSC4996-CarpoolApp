@@ -8,12 +8,13 @@
 
 import Foundation
 
-struct Profile: Decodable{
+struct Profile: Codable {
     let firstName: String
     let lastName: String
     let email: String
     let phone: String
     let biography: String
+    let photo: String
     
     init(json: [String: Any]) {
         firstName = json["firstName"] as? String ?? ""
@@ -21,5 +22,6 @@ struct Profile: Decodable{
         email = json["Email"] as? String ?? ""
         phone = json["Phone"] as? String ?? ""
         biography = json["Biography"] as? String ?? ""
+        photo = json["Photo"] as? String ?? ""
     }
 }

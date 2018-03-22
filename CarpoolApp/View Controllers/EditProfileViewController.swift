@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 import FirebaseAuth
 
-class EditProfileViewController: UIViewController, UITextFieldDelegate {
+class EditProfileViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     @IBOutlet weak var firstName: UILabel!
     @IBOutlet weak var lastName: UILabel!
@@ -18,10 +18,42 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var lastNameField: UITextField!
     @IBOutlet weak var bio: UILabel!
     @IBOutlet weak var bioField: UITextView!
+    @IBOutlet weak var profilePicture: UIImageView!
+    
+    @IBAction func doneButton(_ sender: Any) {
+        var actionItem: String=String()
+        var actionTitle: String=String()
+        
+        actionTitle = "Warning!"
+        actionItem = "Are you sure you want to exit out of the edit page?"
+        
+        let alert = UIAlertController(title: actionTitle, message: actionItem, preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .default) { (action) -> Void in
+            let profileview = self.storyboard?.instantiateViewController(withIdentifier: "ProfileView")
+            self.present(profileview!, animated: true, completion: nil)
+        }
+        alert.addAction(action)
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    @IBAction func selectProfilePhoto(_ sender: Any) {
+        let myPickerController = UIImagePickerController()
+        myPickerController.delegate = self
+        myPickerController.sourceType = UIImagePickerControllerSourceType.photoLibrary
+        
+        self.present(myPickerController, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        
+        profilePicture.image = info[UIImagePickerControllerOriginalImage] as? UIImage
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     @IBAction func saveButton(_ sender: Any) {
         var actionItem: String=String()
         var actionTitle: String=String()
-        let exitAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+        //let exitAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
         
         let userID = Auth.auth().currentUser!.uid
         let userInfo = ["userID": userID, "Biography": self.bioField.text! as Any, "firstName": self.firstNameField.text! as Any, "lastName": self.lastNameField.text! as Any]
@@ -30,7 +62,12 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate {
         actionItem = "Your profile information has been saved"
         
         let alert = UIAlertController(title: actionTitle, message: actionItem, preferredStyle: .alert)
-        alert.addAction(exitAction)
+        let action = UIAlertAction(title: "OK", style: .default) { (action) -> Void in
+            let profileview = self.storyboard?.instantiateViewController(withIdentifier: "ProfileView")
+            self.present(profileview!, animated: true, completion: nil)
+            //self.performSegue(withIdentifier: "ProfileView", sender: self)
+        }
+        alert.addAction(action)
         self.present(alert, animated: true, completion: nil)
     }
     
@@ -38,8 +75,49 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        let userID = Auth.auth().currentUser?.uid
+        readProfileInfo(userID: userID!)
+    }
+    
+    func readProfileInfo(userID: String)
+    {
+        var viewProfileComponents = URLComponents(string: "http://localhost:3000/users/profile")!
+        viewProfileComponents.queryItems = [
+            URLQueryItem(name: "userID", value: userID)
+        ]
+        var request = URLRequest(url: viewProfileComponents.url!)  // Pass Parameter in URL
+        print (viewProfileComponents.url!)
+        
+        request.httpMethod = "GET" // GET METHOD
+        
+        URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
+            if (error != nil){  // error handling responses.
+                print (error as Any)
+            }
+            else if let data = data {
+                print(data)
+                let userInfoString:NSString = NSString(data: data, encoding: String.Encoding.utf8.rawValue)!
+                if let data = userInfoString.data(using: String.Encoding.utf8.rawValue) {
+                    do {
+                        let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String:AnyObject]
+                        print (json as Any)
+                        if let userInfo = json!["data"]
+                        {
+                            DispatchQueue.main.async {
+                                self.firstNameField.text =  (userInfo["firstName"] as! String)
+                                self.lastNameField.text = (userInfo["lastName"] as! String)
+                                //self.UserEmail.text = (userInfo["Email"] as! String)
+                                //self.UserPhoneNumber.text = (userInfo["Phone"] as? String)
+                                self.bioField.text = (userInfo["Biography"] as? String)
+                                self.profilePicture.image = (userInfo["Photo"] as? UIImage)
+                            }
+                        }
+                    } catch let error as NSError {
+                        print(error)
+                    }
+                }
+            }
+            }.resume()
     }
 
     override func didReceiveMemoryWarning() {

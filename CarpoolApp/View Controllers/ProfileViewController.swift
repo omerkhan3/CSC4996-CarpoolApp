@@ -17,6 +17,7 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var UserEmail: UILabel!
     @IBOutlet weak var UserPhoneNumber: UILabel!
     @IBOutlet weak var UserBio: UILabel!
+    @IBOutlet weak var ProfilePic: UIImageView!
     @IBAction func editButton(_ sender: Any) {
     }
     
@@ -56,6 +57,7 @@ class ProfileViewController: UIViewController {
                                 self.UserEmail.text = (userInfo["Email"] as! String)
                                 self.UserPhoneNumber.text = (userInfo["Phone"] as? String)
                                 self.UserBio.text = (userInfo["Biography"] as? String)
+                                self.ProfilePic.image = (userInfo["Photo"] as? UIImage)
                             }
                         }
                     } catch let error as NSError {
