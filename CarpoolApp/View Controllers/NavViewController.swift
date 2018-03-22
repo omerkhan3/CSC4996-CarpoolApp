@@ -16,8 +16,8 @@ class NavViewController: UIViewController, MGLMapViewDelegate {
 
     var mapView: MGLMapView!
     let mapCenter = CLLocationCoordinate2D(latitude:30.3333, longitude:-97.741)
-    let origin = Waypoint(coordinate: CLLocationCoordinate2D(latitude: 38.9131752, longitude: -77.0324047), name: "Mapbox")
-    let destination = Waypoint(coordinate: CLLocationCoordinate2D(latitude: 38.8977, longitude: -77.0365), name: "White House")
+    let origin = Waypoint(coordinate: CLLocationCoordinate2D(latitude: 42.382184, longitude: -82.940201), name: "matts place")
+    let destination = Waypoint(coordinate: CLLocationCoordinate2D(latitude: 42.359139, longitude: -83.066546), name: "wayne state")
     
 
     
@@ -32,8 +32,8 @@ class NavViewController: UIViewController, MGLMapViewDelegate {
         
         //get and show directions
         let options = NavigationRouteOptions(waypoints: [origin, destination], profileIdentifier: .automobileAvoidingTraffic)
-        _ = Directions.shared.calculate(options) { (waypoints,route,error) in
-            guard let route = route?.first else {return}
+        _ = Directions.shared.calculate(options) { (waypoints,routes,error) in
+            guard let route = routes?.first else {return}
             print(route.coordinates)
             for step in (route.legs.first?.steps)!{
                 print(step)
