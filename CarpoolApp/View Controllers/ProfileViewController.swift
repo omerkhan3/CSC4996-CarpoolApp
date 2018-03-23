@@ -24,6 +24,7 @@ class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //Code for getting profile pic from firebase using email moe4@test.com
         databaseRef = Database.database().reference()
         if let userID = Auth.auth().currentUser?.uid {
             databaseRef.child("Users").child(userID).observeSingleEvent(of: .value, with: { (DataSnapshot) in
@@ -39,6 +40,8 @@ class ProfileViewController: UIViewController {
                         }
                         DispatchQueue.main.async {
                             self.ProfilePic.image = UIImage(data: data!)
+                            self.UserFirstName.text = dictionary!["firstName"] as? String
+                            self.UserLastName.text = dictionary!["lastName"] as? String
                         }
                     }).resume()
                 }
@@ -49,6 +52,7 @@ class ProfileViewController: UIViewController {
         }
         let userID = Auth.auth().currentUser?.uid
         readProfileInfo(userID: userID!)
+        readImage(userID: userID!)
     }
 
     func readProfileInfo(userID: String)
@@ -92,6 +96,43 @@ class ProfileViewController: UIViewController {
             }.resume()
     }
     
+    func readImage(userID: String)
+    {
+        var viewProfileComponents = URLComponents(string: "http://localhost:3000/users/image")!
+        viewProfileComponents.queryItems = [
+            URLQueryItem(name: "userID", value: userID)
+        ]
+        var request = URLRequest(url: viewProfileComponents.url!)  // Pass Parameter in URL
+        print (viewProfileComponents.url!)
+        
+        request.httpMethod = "GET" // GET METHOD
+        
+        URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
+            if (error != nil){  // error handling responses.
+                print (error as Any)
+            }
+            else if let data = data {
+                print(data)
+                let userInfoString:NSString = NSString(data: data, encoding: String.Encoding.utf8.rawValue)!
+                if let data = userInfoString.data(using: String.Encoding.utf8.rawValue) {
+                    do {
+                        let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String:AnyObject]
+                        print (json as Any)
+                        if let userInfo = json!["data"]
+                        {
+                            DispatchQueue.main.async {
+                                self.ProfilePic.image = (userInfo["Photo"] as! UIImage)
+                            }
+                        }
+                    }catch let error as NSError {
+                        print(error)
+                }
+            }
+        }
+        }.resume()
+    }
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -105,3 +146,23 @@ class ProfileViewController: UIViewController {
         super.viewWillDisappear(animated)
     }
 }
+
+/*extension UIImage {
+    func load(image imageName: String) -> UIImage {
+        // declare image location
+        let imagePath: String = "\(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0])/\(imageName).png"
+        let imageUrl: URL = URL(fileURLWithPath: imagePath)
+        
+        // check if the image is stored already
+        if FileManager.default.fileExists(atPath: imagePath),
+            let imageData: Data = try? Data(contentsOf: imageUrl),
+            let image: UIImage = UIImage(data: imageData, scale: UIScreen.main.scale) {
+            return image
+        }
+        
+        // image has not been created yet: create it, store it, return it
+        let newImage: UIImage = // create your UIImage here
+            try? UIImagePNGRepresentation(newImage)?.write(to: imageUrl)
+        return newImage
+    }
+}*/

@@ -29,7 +29,6 @@ router.post('/register', function(req, res, next) {
 });
 
 
-
 router.get('/profile', function(req, res, next) {
 var userID = req.query.userID;
 console.log(userID);
@@ -48,13 +47,12 @@ db.one("select \"Users\".\"firstName\", \"Users\".\"lastName\", \"Users\".\"Emai
 });
 
 
-
 router.post('/profile', function(req, res, next){
   var userInfo = req.body.userInfo;
   var userJSON = JSON.parse(userInfo);
   console.log(userJSON);
   var bio = userJSON['Biography'];
-  //var photo = userJSON['Photo'];
+  var photo = userJSON['Photo'];
   var first = userJSON['firstName'];
   var last = userJSON['lastName'];
   var userID = userJSON['userID'];
@@ -71,6 +69,44 @@ router.post('/profile', function(req, res, next){
       res.send(err);
     });
 });
+
+router.get('/image', function(req, res, next) {
+var userID = req.query.userID;
+console.log(userID);
+db.one("select \"Users\".\"Photo\" from carpool.\"Users\" where \"Users\".\"userID\" = $1", userID)
+.then(function(data) {
+  console.log(data);
+  res.status(200).json({
+    status: 'Success',
+    data: data,
+    message:  'Retrieved Profile Picture.'
+  });
+})
+  .catch(function(err){
+    console.log(err);
+  })
+});
+
+router.post('/image', function(req, res, next){
+  var userInfo = req.body.userInfo;
+  var userJSON = JSON.parse(userInfo);
+  console.log(userJSON);
+  var photo = userJSON['Photo'];
+  var userID = userJSON['userID'];
+  console.log("Updating Image.");
+  db.query("UPDATE carpool.\"Users\" SET \"Photo\" = $1 where \"userID\" = $2", [photo, userID])
+    .then(function () {
+      res.status(200)
+        .json({
+          status: 'Success',
+          message: 'User Profile Picture Updated.'
+        });
+    })
+    .catch(function (err) {
+      res.send(err);
+    });
+});
+
 
 
 

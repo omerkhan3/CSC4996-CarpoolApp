@@ -53,11 +53,11 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate, UIImageP
     @IBAction func saveButton(_ sender: Any) {
         var actionItem: String=String()
         var actionTitle: String=String()
-        //let exitAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
         
         let userID = Auth.auth().currentUser!.uid
-        let userInfo = ["userID": userID, "Biography": self.bioField.text! as Any, "firstName": self.firstNameField.text! as Any, "lastName": self.lastNameField.text! as Any]
+        let userInfo = ["userID": userID, "Biography": self.bioField.text! as Any, "firstName": self.firstNameField.text! as Any, "lastName": self.lastNameField.text! as Any, "Photo": self.profilePicture.image! as Any]
         updateProfile(userInfo: userInfo)
+        updateImage(userInfo: userInfo)
         actionTitle = "Success!"
         actionItem = "Your profile information has been saved"
         
@@ -65,7 +65,6 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate, UIImageP
         let action = UIAlertAction(title: "OK", style: .default) { (action) -> Void in
             let profileview = self.storyboard?.instantiateViewController(withIdentifier: "ProfileView")
             self.present(profileview!, animated: true, completion: nil)
-            //self.performSegue(withIdentifier: "ProfileView", sender: self)
         }
         alert.addAction(action)
         self.present(alert, animated: true, completion: nil)
@@ -77,6 +76,7 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate, UIImageP
         super.viewDidLoad()
         let userID = Auth.auth().currentUser?.uid
         readProfileInfo(userID: userID!)
+        readImage(userID: userID!)
     }
     
     func readProfileInfo(userID: String)
@@ -109,10 +109,46 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate, UIImageP
                                 //self.UserEmail.text = (userInfo["Email"] as! String)
                                 //self.UserPhoneNumber.text = (userInfo["Phone"] as? String)
                                 self.bioField.text = (userInfo["Biography"] as? String)
-                                self.profilePicture.image = (userInfo["Photo"] as? UIImage)
+                                //self.profilePicture.image = (userInfo["Photo"] as? UIImage)
                             }
                         }
                     } catch let error as NSError {
+                        print(error)
+                    }
+                }
+            }
+            }.resume()
+    }
+    
+    func readImage(userID: String)
+    {
+        var viewProfileComponents = URLComponents(string: "http://localhost:3000/users/image")!
+        viewProfileComponents.queryItems = [
+            URLQueryItem(name: "userID", value: userID)
+        ]
+        var request = URLRequest(url: viewProfileComponents.url!)  // Pass Parameter in URL
+        print (viewProfileComponents.url!)
+        
+        request.httpMethod = "GET" // GET METHOD
+        
+        URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
+            if (error != nil){  // error handling responses.
+                print (error as Any)
+            }
+            else if let data = data {
+                print(data)
+                let userInfoString:NSString = NSString(data: data, encoding: String.Encoding.utf8.rawValue)!
+                if let data = userInfoString.data(using: String.Encoding.utf8.rawValue) {
+                    do {
+                        let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String:AnyObject]
+                        print (json as Any)
+                        if let userInfo = json!["data"]
+                        {
+                            DispatchQueue.main.async {
+                                self.profilePicture.image = (userInfo["Photo"] as! UIImage)
+                            }
+                        }
+                    }catch let error as NSError {
                         print(error)
                     }
                 }
@@ -127,9 +163,27 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate, UIImageP
     
     func updateProfile(userInfo: Dictionary<String, Any>)
     {
-        //Users folder is on database but /profile isn't, where is this URL location
         let editProfileURL = URL(string: "http://localhost:3000/users/profile")!
         var request = URLRequest(url: editProfileURL)
+        let userJSON = try! JSONSerialization.data(withJSONObject: userInfo, options: .prettyPrinted)
+        let userJSONInfo = NSString(data: userJSON, encoding: String.Encoding.utf8.rawValue)! as String
+        request.httpBody = "userInfo=\(userJSONInfo)".data(using: String.Encoding.utf8)
+        request.httpMethod = "POST" // POST method.
+        
+        URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
+            if (error != nil){  // error handling responses.
+                print ("An error has occured.")
+            }
+            else{
+                print ("Success!")
+            }
+            }.resume()
+    }
+    
+    func updateImage(userInfo: Dictionary<String, Any>)
+    {
+        let editImageURL = URL(string: "http://localhost:3000/users/image")!
+        var request = URLRequest(url: editImageURL)
         let userJSON = try! JSONSerialization.data(withJSONObject: userInfo, options: .prettyPrinted)
         let userJSONInfo = NSString(data: userJSON, encoding: String.Encoding.utf8.rawValue)! as String
         request.httpBody = "userInfo=\(userJSONInfo)".data(using: String.Encoding.utf8)
