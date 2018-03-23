@@ -130,11 +130,12 @@ class FreqDestinations: UIViewController {
                                     self.WorkSearchBar.text = (data["Address"] as? String)
                                 }
                             }
-                            else if (data["Name"] as! String == "")
+                            else
                             {
                                 DispatchQueue.main.async
-                                {
-                                    self.otherSearchBar.text = (data["Address"] as? String)
+                                    {
+                                        self.otherInput.text = (data["Name"] as? String)
+                                        self.otherSearchBar.text = (data["Address"] as? String)
                                 }
                             }
                         }

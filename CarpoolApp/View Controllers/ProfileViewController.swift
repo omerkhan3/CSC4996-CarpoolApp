@@ -40,8 +40,6 @@ class ProfileViewController: UIViewController {
                         }
                         DispatchQueue.main.async {
                             self.ProfilePic.image = UIImage(data: data!)
-                            self.UserFirstName.text = dictionary!["firstName"] as? String
-                            self.UserLastName.text = dictionary!["lastName"] as? String
                         }
                     }).resume()
                 }
@@ -52,7 +50,7 @@ class ProfileViewController: UIViewController {
         }
         let userID = Auth.auth().currentUser?.uid
         readProfileInfo(userID: userID!)
-        readImage(userID: userID!)
+        //readImage(userID: userID!)
     }
 
     func readProfileInfo(userID: String)
@@ -96,7 +94,7 @@ class ProfileViewController: UIViewController {
             }.resume()
     }
     
-    func readImage(userID: String)
+    /*func readImage(userID: String)
     {
         var viewProfileComponents = URLComponents(string: "http://localhost:3000/users/image")!
         viewProfileComponents.queryItems = [
@@ -130,7 +128,7 @@ class ProfileViewController: UIViewController {
             }
         }
         }.resume()
-    }
+    }*/
     
     
     override func didReceiveMemoryWarning() {

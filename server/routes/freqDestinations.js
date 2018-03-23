@@ -14,17 +14,10 @@ router.get('/getDestination', function(req, res, next) {
 	//var destination
 	console.log(userID);
 	db.query("select \"frequentDestinations\".\"Name\", \"frequentDestinations\".\"Address\" from carpool.\"frequentDestinations\" where \"frequentDestinations\".\"userID\" = $1", userID)
-	.then(function(data) {
-  	console.log(data);
-  	res.status(200).json({
-    	status: 'Success',
-    	data: data,
-    	message:  'Retrieved Destinations.'
-  	});
-	})
-  	.catch(function(err){
-    	console.log(err);
-  	})
+.then(function(data) {
+  console.log(data);
+  res.send(data);
+  });
 });
 
 

@@ -16,6 +16,7 @@ class MyRoutesViewController: UIViewController {
     @IBOutlet weak var UserSchoolAddress: UILabel!
     @IBOutlet weak var UserWorkAddress: UILabel!
     @IBOutlet weak var UserOtherAddress: UILabel!
+    @IBOutlet weak var otherDestination: UILabel!
     @IBAction func editButton(_ sender: Any) {
     }
     @IBOutlet weak var newLabel: UILabel!
@@ -47,33 +48,41 @@ class MyRoutesViewController: UIViewController {
                 let destinationInfoString:NSString = NSString(data: data, encoding: String.Encoding.utf8.rawValue)!
                 if let data = destinationInfoString.data(using: String.Encoding.utf8.rawValue) {
                     do {
-                        let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String:AnyObject]
+                        let json = try JSONSerialization.jsonObject(with: data, options: []) as! [[String:AnyObject]]
                         print (json as Any)
-                        if let homeInfo = json!["data"]
+                        //var JSONobjectLength = json.count
+                        for data in json
                         {
-                            DispatchQueue.main.async {
-                                self.UserHomeAddress.text = (homeInfo["Address"] as? String)
+                            if (data["Name"] as! String == "Home")
+                            {
+                                DispatchQueue.main.async
+                                    {
+                                        self.UserHomeAddress.text = (data["Address"] as? String)
+                                }
+                            }
+                            else if (data["Name"] as! String == "School")
+                            {
+                                DispatchQueue.main.async
+                                    {
+                                        self.UserSchoolAddress.text = (data["Address"] as? String)
+                                }
+                            }
+                            else if (data["Name"] as! String == "Work")
+                            {
+                                DispatchQueue.main.async
+                                    {
+                                        self.UserWorkAddress.text = (data["Address"] as? String)
+                                }
+                            }
+                            else
+                            {
+                                DispatchQueue.main.async
+                                    {
+                                        self.otherDestination.text = (data["Name"] as? String)
+                                        self.UserOtherAddress.text = (data["Address"] as? String)
+                                }
                             }
                         }
-                        if let schoolInfo = json!["data"]
-                        {
-                            DispatchQueue.main.async {
-                                self.UserSchoolAddress.text = (schoolInfo["Address"] as? String)
-                            }
-                        }
-                        if let workInfo = json!["data"]
-                        {
-                            DispatchQueue.main.async {
-                                self.UserWorkAddress.text = (workInfo["Address"] as? String)
-                            }
-                        }
-                        if let customInfo = json!["data"]
-                        {
-                            DispatchQueue.main.async {
-                                self.UserOtherAddress.text = (customInfo["Address"] as? String)
-                            }
-                        }
-                        
                     } catch let error as NSError {
                         print(error)
                     }
