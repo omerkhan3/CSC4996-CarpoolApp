@@ -22,16 +22,21 @@ function convertTo24Hour(time) { // concert to military time, we will eventually
     return (time + ':00');
 }
 
+router.get('/saved', function(req, res, next) {
+var userID = req.query.userID;
+db.query(`select * from carpool.\"Routes\" where \"driverID\" = '${userID}' OR \"riderID\" = '${userID}'`)
+.then(function(data) {
+ res.send(data);
+});
+});
 
 
-router.get('/', function(req, res, next) {
+router.get('/scheduled', function(req, res, next) {
 var userID = req.query.userID;
 db.query("select \"driverStartPointLat\", \"driverStartPointLong\", \"driverEndPointLat\", \"driverEndPointLong\", \"riderStartPointLat\", \"riderStartPointLong\", \"riderEndPointLat\", \"riderEndPointLong\", \"matchID\", \"Day\", \"Date\", \"driverRouteID\", \"riderRouteID\", \"riderID\", \"driverID\", \"riderPickupTime\", \"riderDropOffTime\", \"driverLeaveTime\", \"riderPickupTime2\"from (select \"startPointLat\" as \"driverStartPointLat\",  \"startPointLong\" as \"driverStartPointLong\", \"endPointLat\" as \"driverEndPointLat\",  \"endPointLong\" as \"driverEndPointLong\", \"routeID\" from carpool.\"Routes\")e JOIN ((select \"startPointLat\" as \"riderStartPointLat\",  \"startPointLong\" as \"riderStartPointLong\", \"endPointLat\" as \"riderEndPointLat\",  \"endPointLong\" as \"riderEndPointLong\", \"routeID\" from carpool.\"Routes\") c JOIN ((select \"Day\", \"Date\", \"Status\", \"matchID\" as \"scheduledRideMatchID\" from carpool.\"scheduledRoutes\" where \"Date\" >= 'now' and \"Status\" = 'Scheduled') a JOIN (select * from carpool.\"Matches\" where (\"riderID\" = $1 OR \"driverID\" = $1) AND \"Status\" = 'Matched') b ON a.\"scheduledRideMatchID\" = b.\"matchID\")d ON d.\"riderRouteID\" = c.\"routeID\")f ON f.\"driverRouteID\" = e.\"routeID\" ORDER BY \"Date\" Limit 10", [userID])
 .then(function(data) {
  res.send(data);
 });
-
-
 });
 
 
