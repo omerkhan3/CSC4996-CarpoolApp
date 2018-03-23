@@ -20,9 +20,33 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var ProfilePic: UIImageView!
     @IBAction func editButton(_ sender: Any) {
     }
+    var databaseRef: DatabaseReference!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        databaseRef = Database.database().reference()
+        if let userID = Auth.auth().currentUser?.uid {
+            databaseRef.child("Users").child(userID).observeSingleEvent(of: .value, with: { (DataSnapshot) in
+                let dictionary = DataSnapshot.value as? NSDictionary
+                
+                if let profileImageURL = dictionary?["Photo"] as? String {
+                    let url = URL(string: profileImageURL)
+                    URLSession.shared.dataTask(with: url!, completionHandler: {
+                        (data, response, error) in
+                        if error != nil {
+                            print(error!)
+                            return
+                        }
+                        DispatchQueue.main.async {
+                            self.ProfilePic.image = UIImage(data: data!)
+                        }
+                    }).resume()
+                }
+            }) { (error) in
+                print(error.localizedDescription)
+                return
+            }
+        }
         let userID = Auth.auth().currentUser?.uid
         readProfileInfo(userID: userID!)
     }
@@ -57,7 +81,7 @@ class ProfileViewController: UIViewController {
                                 self.UserEmail.text = (userInfo["Email"] as! String)
                                 self.UserPhoneNumber.text = (userInfo["Phone"] as? String)
                                 self.UserBio.text = (userInfo["Biography"] as? String)
-                                self.ProfilePic.image = (userInfo["Photo"] as? UIImage)
+                                //self.ProfilePic.image = (userInfo["Photo"] as? UIImage)
                             }
                         }
                     } catch let error as NSError {
