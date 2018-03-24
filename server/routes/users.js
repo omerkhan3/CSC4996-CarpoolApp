@@ -51,7 +51,7 @@ router.post('/profile', function(req, res, next){
   var bio = userJSON['Biography'];
   var userID = userJSON['userID'];
   console.log("Updating Bio.");
-  db.query("UPDATE carpool.\"Users\" SET \"Biography\" = $1 where \"userID\" = $2", [bio, userID]) // Update profile query to update biography
+  db.query(`UPDATE carpool.\"Users\" SET \"Biography\" = '${bio}', \"firstName\" = '${userJSON['firstName']}', \"lastName\" = '${userJSON['lastName']}', \"Email\" = '${userJSON['Email']}', \"Phone\" = '${userJSON['Phone']}' where \"userID\" = '${userID}'`) // Update profile query to update biography
     .then(function () {
       res.status(200)
         .json({
