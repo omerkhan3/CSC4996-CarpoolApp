@@ -30,12 +30,6 @@ class ProfileViewController: UIViewController {
             databaseRef.child("Users").child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
                 let dictionary = snapshot.value as? NSDictionary
                 
-                let firstName = dictionary?["firstName"] as? String ?? "First Name"
-                let lastName = dictionary?["lastName"] as? String ?? "Last Name"
-                let email = dictionary?["email"] as? String ?? "Email Address"
-                let phoneNumber = dictionary?["phone"] as? String ?? "Phone Number"
-                let bio = dictionary?["bio"] as? String ?? "Bio"
-                
                 if let profileImageURL = dictionary?["Photo"] as? String {
                     let url = URL(string: profileImageURL)
                     URLSession.shared.dataTask(with: url!, completionHandler: {
@@ -49,17 +43,52 @@ class ProfileViewController: UIViewController {
                         }
                     }).resume()
                 }
-                self.UserFirstName.text = firstName
-                self.UserLastName.text = lastName
-                self.UserPhoneNumber.text = phoneNumber
-                self.UserEmail.text = email
-                self.UserBio.text = bio
             }) { (error) in
                 print(error.localizedDescription)
                 return
             }
         }
     }
+    
+    func readProfileInfo(userID: String)
+        {
+            var viewProfileComponents = URLComponents(string: "http://localhost:3000/users/profile")!
+            viewProfileComponents.queryItems = [
+                URLQueryItem(name: "userID", value: userID)
+            ]
+            var request = URLRequest(url: viewProfileComponents.url!)  // Pass Parameter in URL
+            print (viewProfileComponents.url!)
+    
+            request.httpMethod = "GET" // GET METHOD
+    
+            URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
+                if (error != nil){  // error handling responses.
+                    print (error as Any)
+                }
+                else if let data = data {
+                    print(data)
+                 let userInfoString:NSString = NSString(data: data, encoding: String.Encoding.utf8.rawValue)!
+                    if let data = userInfoString.data(using: String.Encoding.utf8.rawValue) {
+                        do {
+                            let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String:AnyObject]
+                            print (json as Any)
+                            if let userInfo = json!["data"]
+                            {
+                                DispatchQueue.main.async {
+                                    self.UserFirstName.text =  (userInfo["firstName"] as! String)
+                                    self.UserLastName.text = (userInfo["lastName"] as! String)
+                                    self.UserEmail.text = (userInfo["Email"] as! String)
+                                    self.UserPhoneNumber.text = (userInfo["Phone"] as? String)
+                                    self.UserBio.text = (userInfo["Biography"] as? String)
+                                }
+                            }
+                        } catch let error as NSError {
+                            print(error)
+                        }
+                    }
+                }
+                }.resume()
+        }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

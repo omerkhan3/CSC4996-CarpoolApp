@@ -75,7 +75,7 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate, UIImageP
     }
     
     @IBAction func saveButton(_ sender: Any) {
-        updateProfile()
+        updateImage()
         
         var actionItem: String=String()
         var actionTitle: String=String()
@@ -96,13 +96,13 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate, UIImageP
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        let userID = Auth.auth().currentUser?.uid
         profilePicture.layer.cornerRadius = profilePicture.frame.size.width/2
         profilePicture.clipsToBounds = true
-        
         databaseRef = Database.database().reference()
         storageRef = Storage.storage().reference()
         loadProfileData()
+        readProfileInfo(userID: userID!)
     }
     
     func loadProfileData()
@@ -113,24 +113,11 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate, UIImageP
                 if let profileImageURL = values?["Photo"] as? String {
                     self.profilePicture.sd_setImage(with: URL(string: profileImageURL))
                 }
-                self.firstNameField.clearsOnBeginEditing = true
-                self.firstNameField.text = values?["firstName"] as? String
-                
-                self.lastNameField.clearsOnBeginEditing = true
-                self.lastNameField.text = values?["lastName"] as? String
-                
-                self.EmailField.clearsOnBeginEditing = true
-                self.EmailField.text = values?["email"] as? String
-                
-                self.PhoneField.clearsOnBeginEditing = true
-                self.PhoneField.text = values?["phone"] as? String
-                
-                self.bioField.text = values?["bio"] as? String
             })
         }
     }
     
-    func updateProfile(){
+    func updateImage(){
         if let userID = Auth.auth().currentUser?.uid {
             let storageItem = storageRef.child("Photo").child(userID)
             guard let image = profilePicture.image else {return}
@@ -147,13 +134,8 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate, UIImageP
                             return
                         }
                         if let profilePhotoURL = url?.absoluteString {
-                            guard let newFirstName = self.firstNameField.text else {return}
-                            guard let newLastName = self.lastNameField.text else {return}
-                            guard let newbio = self.bioField.text else {return}
-                            guard let newEmail = self.EmailField.text else {return}
-                            guard let newNumber = self.PhoneField.text else {return}
                             
-                            let newValuesForProfile = ["Photo": profilePhotoURL,"firstName": newFirstName, "lastName": newLastName, "email": newEmail, "phone": newNumber, "bio": newbio]
+                            let newValuesForProfile = ["Photo": profilePhotoURL]
                             
                             self.databaseRef.child("Users").child(userID).updateChildValues(newValuesForProfile, withCompletionBlock: { (error, ref) in
                                 if error != nil {
@@ -168,6 +150,65 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate, UIImageP
             }
         }
     }
+    
+    func readProfileInfo(userID: String)
+    {
+        var viewProfileComponents = URLComponents(string: "http://localhost:3000/users/profile")!
+        viewProfileComponents.queryItems = [
+            URLQueryItem(name: "userID", value: userID)
+        ]
+        var request = URLRequest(url: viewProfileComponents.url!)  // Pass Parameter in URL
+        print (viewProfileComponents.url!)
+        
+        request.httpMethod = "GET" // GET METHOD
+        
+        URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
+            if (error != nil){  // error handling responses.
+                print (error as Any)
+            }
+            else if let data = data {
+                print(data)
+                let userInfoString:NSString = NSString(data: data, encoding: String.Encoding.utf8.rawValue)!
+                if let data = userInfoString.data(using: String.Encoding.utf8.rawValue) {
+                    do {
+                        let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String:AnyObject]
+                        print (json as Any)
+                        if let userInfo = json!["data"]
+                        {
+                            DispatchQueue.main.async {
+                                self.firstNameField.text =  (userInfo["firstName"] as! String)
+                                self.lastNameField.text = (userInfo["lastName"] as! String)
+                                self.EmailField.text = (userInfo["Email"] as! String)
+                                self.PhoneField.text = (userInfo["Phone"] as? String)
+                                self.bioField.text = (userInfo["Biography"] as? String)
+                            }
+                        }
+                    } catch let error as NSError {
+                        print(error)
+                    }
+                }
+            }
+            }.resume()
+    }
+    
+    func updateProfile(userInfo: Dictionary<String, Any>)
+        {
+            let editProfileURL = URL(string: "http://localhost:3000/users/profile")!
+            var request = URLRequest(url: editProfileURL)
+            let userJSON = try! JSONSerialization.data(withJSONObject: userInfo, options: .prettyPrinted)
+            let userJSONInfo = NSString(data: userJSON, encoding: String.Encoding.utf8.rawValue)! as String
+            request.httpBody = "userInfo=\(userJSONInfo)".data(using: String.Encoding.utf8)
+            request.httpMethod = "POST" // POST method.
+    
+            URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
+                if (error != nil){  // error handling responses.
+                    print ("An error has occured.")
+                }
+                else{
+                    print ("Success!")
+                }
+                }.resume()
+        }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
