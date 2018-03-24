@@ -76,8 +76,9 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
                 let firstName = self.firstNameField.text ?? "Unknown"
                 let lastName = self.lastNameField.text ?? "Unknown"
                 let email = self.emailField.text ?? "Unknown"
+                let phone = self.phoneNumberField.text ?? "Unknown"
                 // Create new user entry in database
-                let userInfo = ["userID": userID,   "provider": provider, "firstName": firstName, "lastName": lastName, "email": email] as [String:Any] // store information that user has submitted in a dictionary.
+                let userInfo = ["userID": userID,   "provider": provider, "firstName": firstName, "lastName": lastName, "email": email, "phone": phone] as [String:Any] // store information that user has submitted in a dictionary.
                // DataService.inst.createUser(id: (user?.uid)!, userInfo: userInfo)  // we userInfo to store data in the DB under the user's unique identifier.
 
                 self.storeUserInfo(userInfo: userInfo)
@@ -98,7 +99,7 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
     
     func storeUserInfo(userInfo: Dictionary<String, Any>)
     {
-        let registrationURL = URL(string: "http://141.217.48.15:3000/users/register")!
+        let registrationURL = URL(string: "http://localhost:3000/users/register")!
         var request = URLRequest(url: registrationURL)
         let userJSON = try! JSONSerialization.data(withJSONObject: userInfo, options: .prettyPrinted)
         let userJSONInfo = NSString(data: userJSON, encoding: String.Encoding.utf8.rawValue)! as String

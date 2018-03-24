@@ -9,8 +9,8 @@ router.post('/register', function(req, res, next) {
  var userJSON = JSON.parse(userInfo);
  var userID = userJSON['userID']; // User ID from request.
 
- db.none("INSERT INTO carpool.\"Users\"(\"userID\", \"firstName\", \"lastName\", \"Email\") values($1, $2, $3, $4)", [
-   userID, userJSON['firstName'], userJSON['lastName'], userJSON['email']]) // Insert query to store user info into the Users table.
+ db.none("INSERT INTO carpool.\"Users\"(\"userID\", \"firstName\", \"lastName\", \"Email\", \"Phone\") values($1, $2, $3, $4, $5)", [
+   userID, userJSON['firstName'], userJSON['lastName'], userJSON['email'], userJSON['phone']]) // Insert query to store user info into the Users table.
    .then(function () {
      res.status(200)
        .json({
