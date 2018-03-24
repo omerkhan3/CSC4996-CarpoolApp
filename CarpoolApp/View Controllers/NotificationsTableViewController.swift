@@ -71,10 +71,18 @@ class NotificationsTableViewController: UITableViewController {
 
         let cell = UITableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: "notificationCell")
         
-            // set title to notification type
-            cell.textLabel?.text = "You have a new " + notificationsArray[indexPath.row].notificationType
-            cell.detailTextLabel?.text = notificationsArray[indexPath.row].Date
-            return cell
+        // Create date formatter and reformat date
+//        let dateFormatter = DateFormatter()
+//        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.sssZ"
+//        print(notificationsArray[indexPath.row].Date)
+//        let date = dateFormatter.date(from: notificationsArray[indexPath.row].Date)!
+//        dateFormatter.dateFormat = "MM-dd-YYYY"
+//        let dateString = dateFormatter.string(from: date)
+        
+        // set title to notification type
+        cell.textLabel?.text = "You have a new " + notificationsArray[indexPath.row].notificationType
+        cell.detailTextLabel?.text = notificationsArray[indexPath.row].Date
+        return cell
     }
     
     // set number of sections

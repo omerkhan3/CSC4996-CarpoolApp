@@ -17,4 +17,10 @@ struct Notifications: Decodable{
         Read = json["Read"] as? Int ?? -1
         notificationType = json["notificationType"] as? String ?? ""
     }
+    
+    init() {
+        Date = ""
+        notificationType = ""
+        Read = -1
+    }
 }

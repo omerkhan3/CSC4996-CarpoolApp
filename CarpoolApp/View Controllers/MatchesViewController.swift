@@ -29,6 +29,7 @@ class MatchesViewController: UIViewController, UITableViewDelegate, UITableViewD
             
             getMatches {
                 self.matchesTableView.reloadData()
+                
                 if self.matchesArray.count == 0 {
                     // No notifications alert
                     let actionTitle = "Uh oh.."

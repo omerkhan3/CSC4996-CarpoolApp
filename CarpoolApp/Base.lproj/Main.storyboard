@@ -2407,15 +2407,60 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="You currently have no scheduled rides. Make sure that you have added a route in order to see potential matches." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2AC-Rm-d4z">
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="You currently have no scheduled rides. Make sure that you have added a route in order to see potential matches." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2AC-Rm-d4z">
                                 <rect key="frame" x="72" y="122" width="230" height="228"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="vNH-mh-SyX">
+                                <rect key="frame" x="0.0" y="138" width="375" height="530"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="rideCell" textLabel="4FY-Uu-IGM" detailTextLabel="eKw-wT-wAU" style="IBUITableViewCellStyleSubtitle" id="fu7-Sd-oow">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="fu7-Sd-oow" id="6OY-i4-hLe">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.666666666666664"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="4FY-Uu-IGM">
+                                                    <rect key="frame" x="15" y="5" width="33.333333333333336" height="20.333333333333332"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="eKw-wT-wAU">
+                                                    <rect key="frame" x="14.999999999999996" y="25.333333333333332" width="43.666666666666664" height="14.333333333333334"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Upcoming Rides" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w7u-pA-Rd6">
+                                <rect key="frame" x="101.66666666666667" y="92" width="170.66666666666663" height="45"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="w7u-pA-Rd6" firstAttribute="centerX" secondItem="l51-1n-nnZ" secondAttribute="centerX" id="4NG-2p-AcO"/>
+                            <constraint firstItem="vNH-mh-SyX" firstAttribute="trailing" secondItem="Bws-F1-pMV" secondAttribute="trailing" id="6yF-A6-Zka"/>
+                            <constraint firstItem="vNH-mh-SyX" firstAttribute="top" secondItem="w7u-pA-Rd6" secondAttribute="bottom" constant="1" id="LSo-Wa-QyT"/>
+                            <constraint firstItem="vNH-mh-SyX" firstAttribute="leading" secondItem="Bws-F1-pMV" secondAttribute="leading" id="LoB-mN-IRs"/>
+                            <constraint firstItem="w7u-pA-Rd6" firstAttribute="top" secondItem="Bws-F1-pMV" secondAttribute="top" constant="4" id="cTG-gt-IYQ"/>
+                            <constraint firstItem="vNH-mh-SyX" firstAttribute="top" secondItem="Bws-F1-pMV" secondAttribute="top" constant="50" id="iiC-iP-CGr"/>
+                            <constraint firstItem="Bws-F1-pMV" firstAttribute="bottom" secondItem="vNH-mh-SyX" secondAttribute="bottom" constant="110" id="jb1-5w-wpa"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="Bws-F1-pMV"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="color" keyPath="firstColor">
@@ -2426,18 +2471,22 @@
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </view>
-                    <navigationItem key="navigationItem" title="Dashboard" id="6fW-a9-c5Q">
-                        <barButtonItem key="leftBarButtonItem" title="Item" image="menu 2" id="AVU-Xv-atN">
+                    <navigationItem key="navigationItem" title="Dashboard" largeTitleDisplayMode="always" id="6fW-a9-c5Q">
+                        <barButtonItem key="leftBarButtonItem" title="Item" image="if_th-menu_216424" id="AVU-Xv-atN">
                             <connections>
                                 <segue destination="g9G-pI-JJg" kind="presentation" id="gHE-U5-aZe"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Item" image="notification" id="CLc-jd-iQr">
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="if_bell_216112 (2)" id="CLc-jd-iQr">
                             <connections>
                                 <segue destination="U0d-EL-hMM" kind="presentation" id="hOY-rL-Ddu"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="noRidesLabel" destination="2AC-Rm-d4z" id="3gf-f7-Zks"/>
+                        <outlet property="ridesTableView" destination="vNH-mh-SyX" id="M0B-U9-03E"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="m7C-dn-nZ7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -3017,9 +3066,9 @@
     </scenes>
     <resources>
         <image name="editIcon" width="90" height="90"/>
+        <image name="if_bell_216112 (2)" width="42" height="42"/>
+        <image name="if_th-menu_216424" width="42" height="42"/>
         <image name="lock" width="20" height="20"/>
-        <image name="menu 2" width="50" height="50"/>
-        <image name="notification" width="50" height="50"/>
         <image name="phone" width="90" height="90"/>
         <image name="profile icon 100" width="100" height="100"/>
         <image name="profileIcon" width="90" height="90"/>

@@ -10,12 +10,108 @@ import UIKit
 import SideMenu
 import FirebaseAuth
 
-class DashboardViewController: UIViewController {
+class DashboardViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
+    
+    
+    // Class variables
+    var scheduledRidesArray = [ScheduledRide]()
+    var scheduledRide = ScheduledRide()
+    let userID = Auth.auth().currentUser?.uid
+    
+    // Outlets
+    @IBOutlet weak var noRidesLabel: UILabel!
+    @IBOutlet weak var ridesTableView: UITableView!
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        ridesTableView.reloadData()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupSideMenu()
-       registerDeviceToken()
+        registerDeviceToken()
+        
+        getScheduledRides {
+            self.ridesTableView.reloadData()
+            
+            // Show or hide no schedules rides alert
+            if self.scheduledRidesArray.count == 0 {
+                // No scheduled rides
+                self.noRidesLabel.isHidden = false
+            } else {
+                self.noRidesLabel.isHidden = true
+            }
+        }
+        
+        self.ridesTableView.delegate = self
+        self.ridesTableView.dataSource = self
+    }
+    
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        //
+//    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = UITableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: "rideCell")
+        
+        // Create date formatter and reformat date
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.sssZ"
+        let date = dateFormatter.date(from: scheduledRidesArray[indexPath.row].Date)!
+        dateFormatter.dateFormat = "MM-dd-YYYY"
+        let dateString = dateFormatter.string(from: date)
+        
+        // Set title based on whether the user is a rider or a driver for the ride
+        if scheduledRidesArray[indexPath.row].driverID == userID {
+            cell.textLabel?.text = "Driving on: " + scheduledRidesArray[indexPath.row].Day.uppercased()
+            cell.detailTextLabel?.text = dateString
+        } else {
+            cell.textLabel?.text = "Riding on:  " + scheduledRidesArray[indexPath.row].Day.uppercased()
+            cell.detailTextLabel?.text = dateString
+        }
+        return cell
+    }
+    
+    // Set number of sections
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    // set number of rows
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return scheduledRidesArray.count
+    }
+    
+    
+    // Query all scheduled rides from database and, decode and store into an array
+    func getScheduledRides(completed: @escaping () -> ()) {
+        var viewScheduledRideComponents = URLComponents(string: "http://localhost:3000/routes/scheduled")!
+        viewScheduledRideComponents.queryItems = [URLQueryItem(name: "userID", value: userID)]
+        var request = URLRequest(url: viewScheduledRideComponents.url!)
+        print (viewScheduledRideComponents.url!)
+        
+        // GET Method
+        request.httpMethod = "GET"
+        URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
+            if (error != nil){
+                print (error as Any)
+            } else {
+                guard let data = data else { return }
+                do {
+                    // Decode JSON
+                    self.scheduledRidesArray = try JSONDecoder().decode([ScheduledRide].self, from: data)
+                    print (self.scheduledRidesArray)
+                    DispatchQueue.main.async {
+                        completed()
+                    }
+                } catch let jsnERR {
+                    print(jsnERR)
+                }
+            }
+        }.resume()
     }
     
     func registerDeviceToken()
