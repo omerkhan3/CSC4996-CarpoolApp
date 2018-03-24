@@ -23,7 +23,11 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDataSour
     var longitudeArray: [Float] = []
     var latitudeArray: [Float] = []
     var options = [String]()
-    let pickerData = ["work", "school", "gym"]
+    let pickerData1 = ["work", "school", "gym"]
+    let pickerData2 = ["work", "school", "gym"]
+    let my_pickerView = UIPickerView()
+    var current_arr : [String] = []
+    var active_textFiled : UITextField!
     var names: [AnyObject] = []
     
     // Starting of buttons and outlets
@@ -35,7 +39,7 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDataSour
     @IBOutlet weak var friday: BEMCheckBox!
     @IBOutlet weak var saturday: BEMCheckBox!
     
-    @IBOutlet weak var placePicker: UIPickerView!
+   
     
     
     //labels for arrive and depart time
@@ -49,14 +53,8 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDataSour
     @IBOutlet weak var routeName: UITextField!
     @IBOutlet weak var placeButton1: UITextField!
     @IBOutlet weak var placeButton2: UITextField!
-    var selectedTextField: UITextField = UITextField()
+   
     
-    @IBAction func placePress(_ sender: UITextField) {
-        if placePicker.isHidden{
-            placePicker.isHidden = false
-        }
-    
-    }
     
     //label press action that brings up the time picker for arrival
     @IBAction func arrivalpress1(_ sender: UITextField) {
@@ -86,7 +84,7 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDataSour
         let exitAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)  // default action to exit out of native alerts.
         
         dump(options)
-        if ((arrivaltime1.text?.isEmpty)! || (departtime1.text?.isEmpty)! || (arrivaltime2.text?.isEmpty)! || (departtime1.text?.isEmpty)! || (routeName.text?.isEmpty)!)  // error handling for if all fields were filled  out.
+        if ((placeButton1.text?.isEmpty)! || (placeButton2.text?.isEmpty)! || (arrivaltime1.text?.isEmpty)! || (departtime1.text?.isEmpty)! || (arrivaltime2.text?.isEmpty)! || (departtime2.text?.isEmpty)! || (routeName.text?.isEmpty)!)  // error handling for if all fields were filled  out.
         {
             actionTitle = "Error!"
             actionItem = "You have not entered all required information."
@@ -101,7 +99,7 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDataSour
             print(options.joined(separator: ", "))
             let driver = self.driverSetting.isOn
             let userID = Auth.auth().currentUser!.uid
-            let routeInfo = ["userID": userID, "departureTime": departtime1.text! as Any, "arrivalTime" : arrivaltime1.text! as Any, "Days" :  options, "Longitudes": longitudeArray, "Latitudes": latitudeArray, "Driver": driver, "Name": self.routeName.text! as Any] as [String : Any]
+            let routeInfo = ["userID": userID, "Leaving from": placeButton1.text! as Any, "Going to": placeButton2.text! as Any,  "departureTime": departtime1.text! as Any, "arrivalTime" : arrivaltime1.text! as Any, "Days" :  options, "Longitudes": longitudeArray, "Latitudes": latitudeArray, "Driver": driver, "Name": self.routeName.text! as Any] as [String : Any]
             print (routeInfo)
             addRoute(routeInfo: routeInfo)
             actionTitle = "Success"
@@ -118,12 +116,6 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDataSour
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //pickerView.isHidden = true
-        // pickerView.delegate = self
-        // pickerView.dataSource = self
-        // placePicker.isHidden = true
-        // placePicker.delegate = self
-        // placePicker.dataSource = self
         sunday.delegate = self
         monday.delegate = self
         tuesday.delegate = self
@@ -131,39 +123,50 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDataSour
         thursday.delegate = self
         friday.delegate = self
         saturday.delegate = self
-        placePicker.isHidden = true
-        placePicker.delegate = self
-        placePicker.dataSource = self
-  
-        
+        placeButton1.delegate = self
+        placeButton2.delegate = self
+        my_pickerView.delegate = self
+        my_pickerView.dataSource = self
+        placeButton1.inputView = my_pickerView
+        placeButton2.inputView = my_pickerView
+        create_toolbar()
     }
     
-    public func numberOfComponents(in placePicker: UIPickerView) -> Int {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
+    }
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return current_arr.count
+    }
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return current_arr[row]
+    }
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        print ("Selected item is", current_arr[row])
+        active_textFiled.text = current_arr[row]
+    }
+    func create_toolbar()
+    {
+        let toolbar = UIToolbar()
+        toolbar.barStyle = .default
+        toolbar.sizeToFit()
+        
+        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(doneClick))
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelClick))
+        toolbar.setItems([doneButton , spaceButton, cancelButton], animated: false)
+        
+        placeButton1.inputAccessoryView = toolbar
+        placeButton2.inputAccessoryView = toolbar
+    }
+    @objc func doneClick(){
+        active_textFiled.resignFirstResponder()
+    }
+    @objc func cancelClick(){
+        active_textFiled.text = ""
+        active_textFiled.resignFirstResponder()
         
     }
-    // returns the # of rows in each component..
-    
-    public func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return pickerData.count
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return pickerData[row]
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        if self.selectedTextField == placeButton1 {
-            placeButton1.text = pickerData[row]
-        }
-        else if self.selectedTextField == placeButton2 {
-            placeButton2.text = pickerData[row]
-        }
-        placePicker.isHidden = true
-    }
-    
-    
-    
     func createDatePicker1() {
         // toolbar
         let toolbar = UIToolbar()
@@ -344,13 +347,27 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDataSour
     // Keyboard handling
     // Begin editing within text field
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        self.selectedTextField = textField
-        moveScrollView(textField, distance: dist, up: true)
+       //moveScrollView(textField, distance: dist, up: true)
+    }
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        active_textFiled = textField
+        
+        switch textField {
+        case placeButton1:
+            current_arr = pickerData1
+        case placeButton2:
+            current_arr = pickerData2
+        default:
+            print("Default")
+        }
+        my_pickerView.reloadAllComponents()
+        return true
     }
     
     // End editing within text field
     func textFieldDidEndEditing(_ textField: UITextField) {
-        moveScrollView(textField, distance: dist, up: false)
+        //moveScrollView(textField, distance: dist, up: false)
     }
     
     // Hide keyboard if return key is pressed

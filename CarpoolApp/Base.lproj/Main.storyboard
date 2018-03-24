@@ -2786,9 +2786,6 @@
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
-                                                <connections>
-                                                    <action selector="placePress:" destination="Wnq-9p-acd" eventType="editingDidBegin" id="5pc-SR-bpR"/>
-                                                </connections>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sKj-tr-wEP" userLabel="placeButton2">
                                                 <rect key="frame" x="121" y="107" width="97" height="30"/>
@@ -2796,15 +2793,7 @@
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
-                                                <connections>
-                                                    <action selector="placePress:" destination="Wnq-9p-acd" eventType="editingDidBegin" id="qeY-dE-KVk"/>
-                                                </connections>
                                             </textField>
-                                            <pickerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gKq-jK-cyM">
-                                                <rect key="frame" x="20" y="42" width="291" height="108"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            </pickerView>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
@@ -2879,7 +2868,6 @@
                         <outlet property="monday" destination="1DL-QJ-dcB" id="A8t-WI-ZPI"/>
                         <outlet property="placeButton1" destination="QLh-FJ-EzY" id="R2C-eh-UJw"/>
                         <outlet property="placeButton2" destination="sKj-tr-wEP" id="ech-rv-agw"/>
-                        <outlet property="placePicker" destination="gKq-jK-cyM" id="s27-W0-KfU"/>
                         <outlet property="routeName" destination="Kbi-bd-iWR" id="rBx-Tn-uLB"/>
                         <outlet property="saturday" destination="m3o-wL-ksd" id="JET-7M-j4x"/>
                         <outlet property="sunday" destination="3ta-7J-mAf" id="gtt-x8-ott"/>
