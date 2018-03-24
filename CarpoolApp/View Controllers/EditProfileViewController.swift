@@ -61,8 +61,8 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate, UIImageP
         self.present(myPickerController, animated: true, completion: nil)
     }
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any])
+    {
         var selectedImage = UIImage()
         print(info)
         selectedImage = info[UIImagePickerControllerOriginalImage] as! UIImage
