@@ -2766,15 +2766,6 @@
                                                 <color key="textColor" red="0.0" green="0.58980089430000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TFk-B4-wQg">
-                                                <rect key="frame" x="120" y="41" width="116" height="33"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                <state key="normal" title="Select Place"/>
-                                                <connections>
-                                                    <action selector="placePress:" destination="Wnq-9p-acd" eventType="touchUpInside" id="F8n-W0-aX8"/>
-                                                </connections>
-                                            </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Where will you be leaving from: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T4i-mb-8hC">
                                                 <rect key="frame" x="54" y="13" width="257" height="29"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -2789,17 +2780,28 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nXm-Wo-pYz">
-                                                <rect key="frame" x="118" y="107" width="116" height="33"/>
+                                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QLh-FJ-EzY" userLabel="placeButton1">
+                                                <rect key="frame" x="123" y="42" width="97" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                <state key="normal" title="Select Place"/>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
                                                 <connections>
-                                                    <action selector="placePress:" destination="Wnq-9p-acd" eventType="touchUpInside" id="Udc-qv-L5I"/>
+                                                    <action selector="placePress:" destination="Wnq-9p-acd" eventType="editingDidBegin" id="5pc-SR-bpR"/>
                                                 </connections>
-                                            </button>
-                                            <pickerView hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gKq-jK-cyM">
-                                                <rect key="frame" x="25" y="70" width="291" height="108"/>
+                                            </textField>
+                                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sKj-tr-wEP" userLabel="placeButton2">
+                                                <rect key="frame" x="121" y="107" width="97" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                                <connections>
+                                                    <action selector="placePress:" destination="Wnq-9p-acd" eventType="editingDidBegin" id="qeY-dE-KVk"/>
+                                                </connections>
+                                            </textField>
+                                            <pickerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gKq-jK-cyM">
+                                                <rect key="frame" x="20" y="42" width="291" height="108"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </pickerView>
@@ -2875,8 +2877,8 @@
                         <outlet property="driverSetting" destination="uJU-T2-fSF" id="eF7-ja-VOP"/>
                         <outlet property="friday" destination="K6q-Q7-7hI" id="q0k-wY-pWr"/>
                         <outlet property="monday" destination="1DL-QJ-dcB" id="A8t-WI-ZPI"/>
-                        <outlet property="placeButton1" destination="TFk-B4-wQg" id="kvL-Ys-J0s"/>
-                        <outlet property="placeButton2" destination="nXm-Wo-pYz" id="nuH-XZ-lJL"/>
+                        <outlet property="placeButton1" destination="QLh-FJ-EzY" id="R2C-eh-UJw"/>
+                        <outlet property="placeButton2" destination="sKj-tr-wEP" id="ech-rv-agw"/>
                         <outlet property="placePicker" destination="gKq-jK-cyM" id="s27-W0-KfU"/>
                         <outlet property="routeName" destination="Kbi-bd-iWR" id="rBx-Tn-uLB"/>
                         <outlet property="saturday" destination="m3o-wL-ksd" id="JET-7M-j4x"/>

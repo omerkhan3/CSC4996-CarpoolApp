@@ -47,10 +47,11 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDataSour
 
     // label that will allow the driver to save the name of a route
     @IBOutlet weak var routeName: UITextField!
-    @IBOutlet weak var placeButton1: UIButton!
-    @IBOutlet weak var placeButton2: UIButton!
+    @IBOutlet weak var placeButton1: UITextField!
+    @IBOutlet weak var placeButton2: UITextField!
+    var selectedTextField: UITextField = UITextField()
     
-    @IBAction func placePress(_ sender: UIButton) {
+    @IBAction func placePress(_ sender: UITextField) {
         if placePicker.isHidden{
             placePicker.isHidden = false
         }
@@ -133,6 +134,7 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDataSour
         placePicker.isHidden = true
         placePicker.delegate = self
         placePicker.dataSource = self
+  
         
     }
     
@@ -151,15 +153,12 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDataSour
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        if placeButton1.isSelected{
-            return placeButton1.setTitle(pickerData[row], for: .normal)
+        if self.selectedTextField == placeButton1 {
+            placeButton1.text = pickerData[row]
         }
-        else if placeButton2.isSelected{
-            return placeButton2.setTitle(pickerData[row], for: .normal)
+        else if self.selectedTextField == placeButton2 {
+            placeButton2.text = pickerData[row]
         }
-        
-        
-        
         placePicker.isHidden = true
     }
     
@@ -345,6 +344,7 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDataSour
     // Keyboard handling
     // Begin editing within text field
     func textFieldDidBeginEditing(_ textField: UITextField) {
+        self.selectedTextField = textField
         moveScrollView(textField, distance: dist, up: true)
     }
     
