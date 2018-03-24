@@ -24,7 +24,6 @@ class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //Code for getting profile pic from firebase using email moe4@test.com
         databaseRef = Database.database().reference()
         if let userID = Auth.auth().currentUser?.uid {
             databaseRef.child("Users").child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
@@ -48,6 +47,8 @@ class ProfileViewController: UIViewController {
                 return
             }
         }
+        let userID = Auth.auth().currentUser?.uid
+        readProfileInfo(userID: userID!)
     }
     
     func readProfileInfo(userID: String)
@@ -75,7 +76,7 @@ class ProfileViewController: UIViewController {
                             if let userInfo = json!["data"]
                             {
                                 DispatchQueue.main.async {
-                                    self.UserFirstName.text =  (userInfo["firstName"] as! String)
+                                    self.UserFirstName.text = (userInfo["firstName"] as! String)
                                     self.UserLastName.text = (userInfo["lastName"] as! String)
                                     self.UserEmail.text = (userInfo["Email"] as! String)
                                     self.UserPhoneNumber.text = (userInfo["Phone"] as? String)

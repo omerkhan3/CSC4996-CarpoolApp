@@ -80,6 +80,11 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate, UIImageP
         var actionItem: String=String()
         var actionTitle: String=String()
         
+        let userID = Auth.auth().currentUser!.uid
+        let userInfo = ["userID": userID, "Biography": self.bioField.text! as Any, "firstName": self.firstNameField.text! as Any, "lastName": self.lastNameField.text! as Any, "Phone": self.PhoneField.text! as Any, "Email": self.EmailField.text! as Any]
+        updateProfile(userInfo: userInfo)
+        updateImage()
+        
         actionTitle = "Success!"
         actionItem = "Your profile information has been saved"
         
@@ -97,10 +102,12 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate, UIImageP
     override func viewDidLoad() {
         super.viewDidLoad()
         let userID = Auth.auth().currentUser?.uid
+        
         profilePicture.layer.cornerRadius = profilePicture.frame.size.width/2
         profilePicture.clipsToBounds = true
         databaseRef = Database.database().reference()
         storageRef = Storage.storage().reference()
+        
         loadProfileData()
         readProfileInfo(userID: userID!)
     }
@@ -135,9 +142,9 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate, UIImageP
                         }
                         if let profilePhotoURL = url?.absoluteString {
                             
-                            let newValuesForProfile = ["Photo": profilePhotoURL]
+                            let newPhoto = ["Photo": profilePhotoURL]
                             
-                            self.databaseRef.child("Users").child(userID).updateChildValues(newValuesForProfile, withCompletionBlock: { (error, ref) in
+                            self.databaseRef.child("Users").child(userID).updateChildValues(newPhoto, withCompletionBlock: { (error, ref) in
                                 if error != nil {
                                     print(error!)
                                     return

@@ -52,12 +52,13 @@ router.post('/profile', function(req, res, next){
   var userJSON = JSON.parse(userInfo);
   console.log(userJSON);
   var bio = userJSON['Biography'];
-  var photo = userJSON['Photo'];
+  var phone = userJSON['Phone'];
+  var email = userJSON['Email'];
   var first = userJSON['firstName'];
   var last = userJSON['lastName'];
   var userID = userJSON['userID'];
   console.log("Updating Bio.");
-  db.query("UPDATE carpool.\"Users\" SET \"Biography\" = $1, \"firstName\" = $2, \"lastName\" = $3 where \"userID\" = $4", [bio, first, last, userID])
+  db.query("UPDATE carpool.\"Users\" SET \"Biography\" = $1, \"firstName\" = $2, \"lastName\" = $3, \"Phone\" = $4, \"Email\" = $5 where \"userID\" = $6", [bio, first, last, phone, email, userID])
     .then(function () {
       res.status(200)
         .json({
