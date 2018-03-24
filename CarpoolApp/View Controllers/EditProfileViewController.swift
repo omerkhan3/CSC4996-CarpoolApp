@@ -17,8 +17,12 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate, UIImageP
 
     @IBOutlet weak var firstName: UILabel!
     @IBOutlet weak var lastName: UILabel!
+    @IBOutlet weak var EmailAddress: UILabel!
+    @IBOutlet weak var PhoneNumber: UILabel!
     @IBOutlet weak var firstNameField: UITextField!
     @IBOutlet weak var lastNameField: UITextField!
+    @IBOutlet weak var EmailField: UITextField!
+    @IBOutlet weak var PhoneField: UITextField!
     @IBOutlet weak var bio: UILabel!
     @IBOutlet weak var bioField: UITextView!
     @IBOutlet weak var profilePicture: UIImageView!
@@ -45,47 +49,32 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate, UIImageP
     @IBAction func selectProfilePhoto(_ sender: Any) {
         let myPickerController = UIImagePickerController()
         myPickerController.delegate = self
-        myPickerController.allowsEditing = true
-        myPickerController.sourceType = UIImagePickerControllerSourceType.photoLibrary
+        myPickerController.allowsEditing = false
+        myPickerController.sourceType = .photoLibrary
+        myPickerController.mediaTypes = UIImagePickerController.availableMediaTypes(for: .photoLibrary)!
         
         self.present(myPickerController, animated: true, completion: nil)
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         
-        //profilePicture.image = info[UIImagePickerControllerOriginalImage] as? UIImage
-        var selectedImageFromPicker: UIImage?
-        
-        if let editedImage = info["UIImagePickerControllerEditedImage"] as? UIImage {
-            selectedImageFromPicker = editedImage
-        } else if let originalImage = info["UIImagePickerControllerOriginalImage"] as? UIImage {
-            selectedImageFromPicker = originalImage
-        }
-        
-        if let selectedImage = selectedImageFromPicker {
-            profilePicture.image = selectedImage
-            profilePicture.layer.cornerRadius = profilePicture.frame.size.width/2
-            profilePicture.clipsToBounds = true
-        }
-        
+        var selectedImage = UIImage()
+        print(info)
+        selectedImage = info[UIImagePickerControllerOriginalImage] as! UIImage
+        profilePicture.image = selectedImage
         dismiss(animated: true, completion: nil)
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        print("Picker Cancelled")
         dismiss(animated: true, completion: nil)
     }
     
     @IBAction func saveButton(_ sender: Any) {
-        //updateProfile()
+        updateProfile()
         
         var actionItem: String=String()
         var actionTitle: String=String()
         
-        let userID = Auth.auth().currentUser!.uid
-        let userInfo = ["userID": userID, "Biography": self.bioField.text! as Any, "firstName": self.firstNameField.text! as Any, "lastName": self.lastNameField.text! as Any, "Photo": self.profilePicture.image! as Any]
-        updateProfile(userInfo: userInfo)
-        updateImage(userInfo: userInfo)
         actionTitle = "Success!"
         actionItem = "Your profile information has been saved"
         
@@ -103,8 +92,7 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate, UIImageP
     override func viewDidLoad() {
         super.viewDidLoad()
         let userID = Auth.auth().currentUser?.uid
-        readProfileInfo(userID: userID!)
-        readImage()
+        loadProfileData()
         profilePicture.layer.cornerRadius = profilePicture.frame.size.width/2
         profilePicture.clipsToBounds = true
         
@@ -113,47 +101,7 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate, UIImageP
         
     }
     
-    func readProfileInfo(userID: String)
-    {
-        var viewProfileComponents = URLComponents(string: "http://localhost:3000/users/profile")!
-        viewProfileComponents.queryItems = [
-            URLQueryItem(name: "userID", value: userID)
-        ]
-        var request = URLRequest(url: viewProfileComponents.url!)  // Pass Parameter in URL
-        print (viewProfileComponents.url!)
-        
-        request.httpMethod = "GET" // GET METHOD
-        
-        URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
-            if (error != nil){  // error handling responses.
-                print (error as Any)
-            }
-            else if let data = data {
-                print(data)
-                let userInfoString:NSString = NSString(data: data, encoding: String.Encoding.utf8.rawValue)!
-                if let data = userInfoString.data(using: String.Encoding.utf8.rawValue) {
-                    do {
-                        let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String:AnyObject]
-                        print (json as Any)
-                        if let userInfo = json!["data"]
-                        {
-                            DispatchQueue.main.async {
-                                self.firstNameField.text =  (userInfo["firstName"] as! String)
-                                self.lastNameField.text = (userInfo["lastName"] as! String)
-                                //self.UserEmail.text = (userInfo["Email"] as! String)
-                                //self.UserPhoneNumber.text = (userInfo["Phone"] as? String)
-                                self.bioField.text = (userInfo["Biography"] as? String)
-                            }
-                        }
-                    } catch let error as NSError {
-                        print(error)
-                    }
-                }
-            }
-            }.resume()
-    }
-    
-    func readImage()
+    func loadProfileData()
     {
         databaseRef = Database.database().reference()
         if let userID = Auth.auth().currentUser?.uid {
@@ -162,44 +110,59 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate, UIImageP
                 if let profileImageURL = values?["Photo"] as? String {
                     self.profilePicture.sd_setImage(with: URL(string: profileImageURL))
                 }
+                self.firstNameField.clearsOnBeginEditing = true
+                self.firstNameField.text = values?["firstName"] as? String
+                
+                self.lastNameField.clearsOnBeginEditing = true
+                self.lastNameField.text = values?["lastName"] as? String
+                
+                self.EmailField.clearsOnBeginEditing = true
+                self.EmailField.text = values?["email"] as? String
+                
+                self.PhoneField.clearsOnBeginEditing = true
+                self.PhoneField.text = values?["Phone"] as? String
+                
+                self.bioField.text = values?["bio"] as? String
             })
         }
     }
-
-    /*func updateProfile(){
+    
+    func updateProfile(){
         if let userID = Auth.auth().currentUser?.uid {
             let storageItem = storageRef.child("Photo").child(userID)
-            
-            if let uploadData = UIImagePNGRepresentation(self.profilePicture.image!) {
-                storageItem .put(uploadData, UserMetadata: nil, completion: { (UserMetadata, error) in
+            guard let image = profilePicture.image else {return}
+            if let newImage = UIImagePNGRepresentation(image)
+            {
+                storageItem.putData(newImage, metadata: nil, completion: { (metadata, error) in
                     if error != nil {
                         print(error!)
                         return
                     }
-                    storageItem .downloadURL(completion: { (url, error) in
+                    storageItem.downloadURL(completion: { (url, error) in
                         if error != nil {
-                            print("Error with url")
+                            print(error!)
                             return
                         }
-                        if let urlText = url?.absoluteString {
-                            let newImage = ["Photo": urlText]
+                        if let profilePhotoURL = url?.absoluteString {
+                            guard let newFirstName = self.firstNameField.text else {return}
+                            guard let newLastName = self.lastNameField.text else {return}
+                            guard let newbio = self.bioField.text else {return}
+                            guard let newEmail = self.EmailField.text else {return}
                             
-                            self.databaseRef.child("Users").child(userID).updateChildValues(newImage, withCompletionBlock: { (error, ref) in
+                            let newValuesForProfile = ["Photo": profilePhotoURL,"firstName": newFirstName, "lastName": newLastName, "email": newEmail, "bio": newbio]
+                            
+                            self.databaseRef.child("Users").child(userID).updateChildValues(newValuesForProfile, withCompletionBlock: { (error, ref) in
                                 if error != nil {
-                                    print("Error Loading ", error!)
+                                    print(error!)
                                     return
                                 }
+                                print("Profile Successfully Updated")
                             })
                         }
                     })
                 })
             }
         }
-    }*/
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     func updateProfile(userInfo: Dictionary<String, Any>)
@@ -221,23 +184,9 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate, UIImageP
             }.resume()
     }
     
-    func updateImage(userInfo: Dictionary<String, Any>)
-    {
-        let editImageURL = URL(string: "http://localhost:3000/users/image")!
-        var request = URLRequest(url: editImageURL)
-        let userJSON = try! JSONSerialization.data(withJSONObject: userInfo, options: .prettyPrinted)
-        let userJSONInfo = NSString(data: userJSON, encoding: String.Encoding.utf8.rawValue)! as String
-        request.httpBody = "userInfo=\(userJSONInfo)".data(using: String.Encoding.utf8)
-        request.httpMethod = "POST" // POST method.
-        
-        URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
-            if (error != nil){  // error handling responses.
-                print ("An error has occured.")
-            }
-            else{
-                print ("Success!")
-            }
-            }.resume()
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
     }
     
     // Keyboard handling

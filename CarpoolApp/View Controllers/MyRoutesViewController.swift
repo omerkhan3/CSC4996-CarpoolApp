@@ -54,7 +54,6 @@ class MyRoutesViewController: UIViewController {
                     do {
                         let json = try JSONSerialization.jsonObject(with: data, options: []) as! [[String:AnyObject]]
                         print (json as Any)
-                        //var JSONobjectLength = json.count
                         for data in json
                         {
                             if (data["Name"] as! String == "Home")
