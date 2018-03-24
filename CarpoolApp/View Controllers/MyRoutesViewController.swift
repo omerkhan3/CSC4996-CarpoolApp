@@ -27,6 +27,10 @@ class MyRoutesViewController: UIViewController {
         super.viewDidLoad()
         let userID = Auth.auth().currentUser?.uid
         getDestinations(userID: userID!)
+        UserHomeAddress.isHidden = true
+        UserSchoolAddress.isHidden = true
+        UserWorkAddress.isHidden = true
+        UserOtherAddress.isHidden = true
     }
     
     func getDestinations(userID: String) {
@@ -55,13 +59,16 @@ class MyRoutesViewController: UIViewController {
                         {
                             if (data["Name"] as! String == "Home")
                             {
+                                self.UserHomeAddress.isHidden = false
                                 DispatchQueue.main.async
                                     {
                                         self.UserHomeAddress.text = (data["Address"] as? String)
+                                        
                                 }
                             }
                             else if (data["Name"] as! String == "School")
                             {
+                                self.UserSchoolAddress.isHidden = false
                                 DispatchQueue.main.async
                                     {
                                         self.UserSchoolAddress.text = (data["Address"] as? String)
@@ -69,6 +76,7 @@ class MyRoutesViewController: UIViewController {
                             }
                             else if (data["Name"] as! String == "Work")
                             {
+                                self.UserWorkAddress.isHidden = false
                                 DispatchQueue.main.async
                                     {
                                         self.UserWorkAddress.text = (data["Address"] as? String)
@@ -76,6 +84,7 @@ class MyRoutesViewController: UIViewController {
                             }
                             else
                             {
+                                self.UserOtherAddress.isHidden = false
                                 DispatchQueue.main.async
                                     {
                                         self.otherDestination.text = (data["Name"] as? String)
