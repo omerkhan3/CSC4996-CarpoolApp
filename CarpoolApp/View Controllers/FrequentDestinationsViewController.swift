@@ -19,7 +19,7 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDataSour
     let picker = UIDatePicker()
     let dist = -190
     
-    //let pickerData = ["work", "school", "gym"]
+    
     var longitudeArray: [Float] = []
     var latitudeArray: [Float] = []
     var options = [String]()
@@ -47,12 +47,14 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDataSour
 
     // label that will allow the driver to save the name of a route
     @IBOutlet weak var routeName: UITextField!
-    @IBOutlet weak var placeButton: UIButton!
+    @IBOutlet weak var placeButton1: UIButton!
+    @IBOutlet weak var placeButton2: UIButton!
     
     @IBAction func placePress(_ sender: UIButton) {
         if placePicker.isHidden{
             placePicker.isHidden = false
         }
+    
     }
     
     //label press action that brings up the time picker for arrival
@@ -149,9 +151,20 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDataSour
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        placeButton.setTitle(pickerData[row], for: .normal)
+        if placeButton1.isSelected{
+            return placeButton1.setTitle(pickerData[row], for: .normal)
+        }
+        else if placeButton2.isSelected{
+            return placeButton2.setTitle(pickerData[row], for: .normal)
+        }
+        
+        
+        
         placePicker.isHidden = true
     }
+    
+    
+    
     func createDatePicker1() {
         // toolbar
         let toolbar = UIToolbar()

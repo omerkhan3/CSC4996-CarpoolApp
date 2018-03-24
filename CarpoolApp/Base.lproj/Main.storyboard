@@ -2752,6 +2752,9 @@
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                 <state key="normal" title="Select Place"/>
+                                                <connections>
+                                                    <action selector="placePress:" destination="Wnq-9p-acd" eventType="touchUpInside" id="Udc-qv-L5I"/>
+                                                </connections>
                                             </button>
                                             <pickerView hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gKq-jK-cyM">
                                                 <rect key="frame" x="25" y="70" width="291" height="108"/>
@@ -2830,7 +2833,8 @@
                         <outlet property="driverSetting" destination="uJU-T2-fSF" id="eF7-ja-VOP"/>
                         <outlet property="friday" destination="K6q-Q7-7hI" id="q0k-wY-pWr"/>
                         <outlet property="monday" destination="1DL-QJ-dcB" id="A8t-WI-ZPI"/>
-                        <outlet property="placeButton" destination="TFk-B4-wQg" id="I3s-ku-xk7"/>
+                        <outlet property="placeButton1" destination="TFk-B4-wQg" id="kvL-Ys-J0s"/>
+                        <outlet property="placeButton2" destination="nXm-Wo-pYz" id="nuH-XZ-lJL"/>
                         <outlet property="placePicker" destination="gKq-jK-cyM" id="s27-W0-KfU"/>
                         <outlet property="routeName" destination="Kbi-bd-iWR" id="rBx-Tn-uLB"/>
                         <outlet property="saturday" destination="m3o-wL-ksd" id="JET-7M-j4x"/>
