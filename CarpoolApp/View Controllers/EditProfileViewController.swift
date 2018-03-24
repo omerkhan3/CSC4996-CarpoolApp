@@ -42,7 +42,12 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate, UIImageP
             let profileview = self.storyboard?.instantiateViewController(withIdentifier: "ProfileView")
             self.present(profileview!, animated: true, completion: nil)
         }
+        let exitaction = UIAlertAction(title: "Cancel", style: .cancel) { (action) -> Void in
+            print("Cancel button tapped")
+        }
+        
         alert.addAction(action)
+        alert.addAction(exitaction)
         self.present(alert, animated: true, completion: nil)
     }
     
@@ -91,22 +96,20 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate, UIImageP
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let userID = Auth.auth().currentUser?.uid
-        loadProfileData()
+
         profilePicture.layer.cornerRadius = profilePicture.frame.size.width/2
         profilePicture.clipsToBounds = true
         
         databaseRef = Database.database().reference()
         storageRef = Storage.storage().reference()
-        
+        loadProfileData()
     }
     
     func loadProfileData()
     {
-        databaseRef = Database.database().reference()
         if let userID = Auth.auth().currentUser?.uid {
-            databaseRef.child("Users").child(userID).observe(.value, with: { (DataSnapshot) in
-                let values = DataSnapshot.value as? NSDictionary
+            databaseRef.child("Users").child(userID).observe(.value, with: { (snapshot) in
+                let values = snapshot.value as? NSDictionary
                 if let profileImageURL = values?["Photo"] as? String {
                     self.profilePicture.sd_setImage(with: URL(string: profileImageURL))
                 }
@@ -120,7 +123,7 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate, UIImageP
                 self.EmailField.text = values?["email"] as? String
                 
                 self.PhoneField.clearsOnBeginEditing = true
-                self.PhoneField.text = values?["Phone"] as? String
+                self.PhoneField.text = values?["phone"] as? String
                 
                 self.bioField.text = values?["bio"] as? String
             })
@@ -148,8 +151,9 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate, UIImageP
                             guard let newLastName = self.lastNameField.text else {return}
                             guard let newbio = self.bioField.text else {return}
                             guard let newEmail = self.EmailField.text else {return}
+                            guard let newNumber = self.PhoneField.text else {return}
                             
-                            let newValuesForProfile = ["Photo": profilePhotoURL,"firstName": newFirstName, "lastName": newLastName, "email": newEmail, "bio": newbio]
+                            let newValuesForProfile = ["Photo": profilePhotoURL,"firstName": newFirstName, "lastName": newLastName, "email": newEmail, "phone": newNumber, "bio": newbio]
                             
                             self.databaseRef.child("Users").child(userID).updateChildValues(newValuesForProfile, withCompletionBlock: { (error, ref) in
                                 if error != nil {
@@ -163,25 +167,6 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate, UIImageP
                 })
             }
         }
-    }
-    
-    func updateProfile(userInfo: Dictionary<String, Any>)
-    {
-        let editProfileURL = URL(string: "http://localhost:3000/users/profile")!
-        var request = URLRequest(url: editProfileURL)
-        let userJSON = try! JSONSerialization.data(withJSONObject: userInfo, options: .prettyPrinted)
-        let userJSONInfo = NSString(data: userJSON, encoding: String.Encoding.utf8.rawValue)! as String
-        request.httpBody = "userInfo=\(userJSONInfo)".data(using: String.Encoding.utf8)
-        request.httpMethod = "POST" // POST method.
-        
-        URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
-            if (error != nil){  // error handling responses.
-                print ("An error has occured.")
-            }
-            else{
-                print ("Success!")
-            }
-            }.resume()
     }
     
     override func didReceiveMemoryWarning() {
