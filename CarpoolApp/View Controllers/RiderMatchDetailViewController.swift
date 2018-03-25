@@ -12,8 +12,10 @@ import FirebaseAuth
 
 class RiderMatchDetailViewController: UIViewController {
     
+    // Class Variables
     var matchDetail: Match?
 
+    // Outlets
     @IBOutlet weak var profilePicture: UIImageView!
     @IBOutlet weak var firstName: UILabel!
     @IBOutlet weak var pickupTime: UILabel!
@@ -25,7 +27,6 @@ class RiderMatchDetailViewController: UIViewController {
     @IBOutlet weak var costLabel: UILabel!
     @IBOutlet weak var matchScript: UILabel!
     
-    // Check boxes
     @IBOutlet weak var sunday: BEMCheckBox!
     @IBOutlet weak var monday: BEMCheckBox!
     @IBOutlet weak var tuesday: BEMCheckBox!
@@ -34,74 +35,7 @@ class RiderMatchDetailViewController: UIViewController {
     @IBOutlet weak var friday: BEMCheckBox!
     @IBOutlet weak var saturday: BEMCheckBox!
     
-
-    // Used for both ride request or confirmation
-    @IBAction func requestRide(_ sender: Any) {
-        let userID = Auth.auth().currentUser!.uid
-        let matchID = self.matchDetail?.matchID
-        let driverRouteID = self.matchDetail?.driverRouteID
-        let riderRouteID = self.matchDetail?.riderRouteID
-        let days = self.matchDetail?.riderDays
-        
-        
-        // Rider request
-        if matchDetail?.Status == "Awaiting rider request." {
-            // Create POST dictionary
-            let statusUpdate = ["userID": userID, "matchID": matchID!, "requestType": "riderRequest"] as [String : Any]
-            
-            // Alert: Have rider confirm they would like to submit the request
-            let actionTitle = "Ride Request"
-            let actionItem = "Please confirm that you would like to request this ride schedule."
-            let alert = UIAlertController(title: actionTitle, message: actionItem, preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-                // update match status
-                self.riderRequest(matchInfo: statusUpdate)
-                self.performSegue(withIdentifier: "showMatches3", sender: self)
-            }))
-            self.present(alert, animated: true, completion: nil)
-        }
-            
-        // Driver ride confirmation
-        else {
-            // Create POST dictionary
-            let statusUpdate = ["userID": userID, "matchID": matchID!, "requestType": "driverRequested", "riderRouteID": riderRouteID as Any, "driverRouteID": driverRouteID as Any, "Days": days as Any] as [String : Any]
-            
-            // Alert: have driver confirm ride request
-            let actionTitle = "Confirm Ride"
-            let actionItem = "Please confirm that you are agreeing to be a driver for the following request. Once confirmed, the corresponding rides will be scheduled and updated on your dashboard."
-            
-            // Activate UIAlertController to display confirmation
-            let alert = UIAlertController(title: actionTitle, message: actionItem, preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-                // update match status
-                self.riderRequest(matchInfo: statusUpdate)
-                self.performSegue(withIdentifier: "showMatches3", sender: self)
-            }))
-            self.present(alert, animated: true, completion: nil)
-        }
-    }
-    
-    
-    func riderRequest(matchInfo: Dictionary<String, Any>)
-    {
-        let requestURL = URL(string: "http://localhost:3000/matches/approval")!
-        var request = URLRequest(url: requestURL)
-        let requestJSON = try! JSONSerialization.data(withJSONObject: matchInfo, options: .prettyPrinted)
-        let requestJSONInfo = NSString(data: requestJSON, encoding: String.Encoding.utf8.rawValue)! as String
-        request.httpBody = "requestInfo=\(requestJSONInfo)".data(using: String.Encoding.utf8)
-        request.httpMethod = "POST" // POST method.
-        
-        URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
-            if (error != nil){  // error handling responses.
-                print ("An error has occured.")
-            }
-            else{
-                print ("Success!")
-            }
-            
-            }.resume()
-    }
-    
+    // Class method overrides
     override func viewDidLoad() {
         super.viewDidLoad()
         print(matchDetail!)
@@ -121,6 +55,9 @@ class RiderMatchDetailViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    
+    // Custom class methods
     
     func fillCheckBoxes() {
         var array: [String]?
