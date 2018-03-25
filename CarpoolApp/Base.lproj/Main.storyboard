@@ -858,7 +858,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qdu-Hj-6E9" customClass="MGLMapView">
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qdu-Hj-6E9" customClass="MGLMapView">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="690"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <userDefinedRuntimeAttributes>
@@ -884,11 +884,6 @@
                                 <color key="value" red="0.61032963080000002" green="0.85112856370000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
-                        <variation key="default">
-                            <mask key="subviews">
-                                <exclude reference="qdu-Hj-6E9"/>
-                            </mask>
-                        </variation>
                     </view>
                     <connections>
                         <outlet property="mapView" destination="qdu-Hj-6E9" id="0U7-uR-x5n"/>
@@ -2848,15 +2843,15 @@
         <!--Embedded Example View Controller-->
         <scene sceneID="XRA-d7-2R2">
             <objects>
-                <viewController id="W5M-a9-VX1" customClass="EmbeddedExampleViewController" customModule="Navigation_Examples" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="W5M-a9-VX1" customClass="EmbeddedExampleViewController" customModule="CarpoolApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="D3p-v9-dG7" customClass="UIViewX" customModule="CarpoolApp" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fq1-KV-ZUK">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fq1-KV-ZUK">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="678"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Fetching Directions..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JLr-xy-0gG">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fetching Directions..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JLr-xy-0gG">
                                         <rect key="frame" x="106.00000000000001" y="329" width="162.33333333333337" height="20.333333333333314"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
@@ -2868,8 +2863,51 @@
                                     <constraint firstItem="JLr-xy-0gG" firstAttribute="centerY" secondItem="Fq1-KV-ZUK" secondAttribute="centerY" id="tys-By-v73"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bxy-Md-Vbu" customClass="RoundedButton" customModule="CarpoolApp" customModuleProvider="target">
+                                <rect key="frame" x="16" y="686" width="155" height="45"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.0" green="0.56031829119999998" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="PICKED UP">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="rounded" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="21"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Ha-ya-Dad" customClass="RoundedButton" customModule="CarpoolApp" customModuleProvider="target">
+                                <rect key="frame" x="204" y="686" width="155" height="45"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="DROPPED OFF">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="rounded" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="21"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IgW-HV-Ocp" customClass="RoundedButton" customModule="CarpoolApp" customModuleProvider="target">
+                                <rect key="frame" x="47" y="739" width="281" height="41"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.0" green="0.58980089430000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="CANCEL DRIVE">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="21"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="rounded" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                            </button>
                         </subviews>
                         <constraints>
+                            <constraint firstItem="DX1-OX-Q0E" firstAttribute="bottom" secondItem="Fq1-KV-ZUK" secondAttribute="bottom" constant="100" id="DyY-Vg-blW"/>
                             <constraint firstItem="Fq1-KV-ZUK" firstAttribute="leading" secondItem="D3p-v9-dG7" secondAttribute="leading" id="QmC-yO-fx4"/>
                             <constraint firstItem="Fq1-KV-ZUK" firstAttribute="top" secondItem="D3p-v9-dG7" secondAttribute="top" id="dS7-xP-6BF"/>
                             <constraint firstAttribute="trailing" secondItem="Fq1-KV-ZUK" secondAttribute="trailing" id="opc-RU-5WF"/>
@@ -2908,7 +2946,7 @@
         <segue reference="tF4-NT-uTN"/>
         <segue reference="asS-Az-c3C"/>
         <segue reference="Anb-wQ-ofz"/>
-        <segue reference="0zA-rS-j0u"/>
+        <segue reference="P6H-22-ef1"/>
         <segue reference="m1u-IC-JYZ"/>
     </inferredMetricsTieBreakers>
 </document>

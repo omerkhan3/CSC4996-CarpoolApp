@@ -5,14 +5,12 @@ import MapboxDirections
 
 class EmbeddedExampleViewController: UIViewController, NavigationViewControllerDelegate  {
  
-    @IBOutlet weak var reroutedLabel: UILabel!
-    @IBOutlet weak var enableReroutes: UISwitch!
     @IBOutlet weak var container: UIView!
     var route: Route?
 
     lazy var options: NavigationRouteOptions = {
-        let origin = CLLocationCoordinate2DMake(37.77440680146262, -122.43539772352648)
-        let destination = CLLocationCoordinate2DMake(37.76556957793795, -122.42409811526268)
+        let origin = CLLocationCoordinate2DMake(42.382184, -82.940201)
+        let destination = CLLocationCoordinate2DMake(42.359139, -83.066546)
         return NavigationRouteOptions(coordinates: [origin, destination])
     }()
     
@@ -22,7 +20,6 @@ class EmbeddedExampleViewController: UIViewController, NavigationViewControllerD
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        reroutedLabel.isHidden = true
         calculateDirections()
     }
 
@@ -45,9 +42,9 @@ class EmbeddedExampleViewController: UIViewController, NavigationViewControllerD
         // This allows the developer to simulate the route.
         // Note: If copying and pasting this code in your own project,
         // comment out `simulationIsEnabled` as it is defined elsewhere in this project.
-        if simulationIsEnabled {
-            nav.routeController.locationManager = SimulatedLocationManager(route: route!)
-        }
+        
+        nav.routeController.locationManager = SimulatedLocationManager(route: route!)
+        
         
         nav.delegate = self
         addChildViewController(nav)
@@ -64,8 +61,5 @@ class EmbeddedExampleViewController: UIViewController, NavigationViewControllerD
 
     //MARK: - NavigationViewControllerDelegate
     
-    func navigationViewController(_ navigationViewController: NavigationViewController, shouldRerouteFrom location: CLLocation) -> Bool {
-        return enableReroutes.isOn
-    }
 }
 
