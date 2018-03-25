@@ -16,6 +16,7 @@ class RideDetailViewController: UIViewController {
     var scheduledRideDetail: ScheduledRide?
     let userID = Auth.auth().currentUser!.uid
     
+    // Data outlets
     @IBOutlet weak var profilePicture: UIImageView!
     @IBOutlet weak var firstName: UILabel!
     @IBOutlet weak var pickupLocation: UILabel!
@@ -24,6 +25,9 @@ class RideDetailViewController: UIViewController {
     @IBOutlet weak var departureTime: UILabel!
     @IBOutlet weak var cost: UILabel!
     
+    // Label outlets
+    @IBOutlet weak var pickupLbl: UILabel!
+    @IBOutlet weak var destinationLbl: UILabel!
     
 
     override func viewDidLoad() {
@@ -32,24 +36,20 @@ class RideDetailViewController: UIViewController {
         setView()
     }
 
-    @IBAction func mapOverview(_ sender: Any) {
-    }
-    
-    
-    @IBAction func cancelRide(_ sender: Any) {
-    }
     
     func setView(){
         // If user is a driver populate rider name
         if userID == scheduledRideDetail?.driverID {
             //self.firstName.text = scheduledRideDetail?.riderFirstName
+            self.pickupLbl.text = "Rider Pickup Location"
+            self.destinationLbl.text = "Rider Destination"
             
         } else {
             // Populate driver name
-            //self.firstName.text = scheduledRideDetail?.riderFirstName
+            //self.firstName.text = scheduledRideDetail?.driverFirstName
         }
         // Remaining information
-        self.pickupLocation.text = "(rider home)"
+        //self.pickupLocation.text =
         //self.pickupTime.text = scheduledRideDetail?.riderPickupTime
         self.destination.text = scheduledRideDetail?.riderRouteName
         //self.departureTime.text = scheduledRideDetail.riderPickupTime2

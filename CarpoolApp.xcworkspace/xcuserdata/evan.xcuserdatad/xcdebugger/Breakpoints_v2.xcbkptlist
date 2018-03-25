@@ -122,11 +122,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CarpoolApp/View Controllers/MatchesViewController.swift"
-            timestampString = "542056094.355477"
+            timestampString = "543701532.269905"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "96"
-            endingLineNumber = "96"
+            startingLineNumber = "97"
+            endingLineNumber = "97"
             landmarkName = "getMatches(completed:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -138,13 +138,61 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CarpoolApp/View Controllers/MatchesViewController.swift"
-            timestampString = "542056094.355577"
+            timestampString = "543701532.269972"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "60"
-            endingLineNumber = "60"
+            startingLineNumber = "61"
+            endingLineNumber = "61"
             landmarkName = "tableView(_:didSelectRowAt:)"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CarpoolApp/View Controllers/DashboardViewController.swift"
+            timestampString = "543703547.636837"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "36"
+            endingLineNumber = "36"
+            landmarkName = "viewDidLoad()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "CarpoolApp.DashboardViewController.viewDidLoad() -&gt; ()"
+                  moduleName = "CarpoolApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/evan/Desktop/Carpool/Master/CSC4996-CarpoolApp/CarpoolApp/View%20Controllers/DashboardViewController.swift"
+                  timestampString = "543611757.782323"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "36"
+                  endingLineNumber = "36"
+                  offsetFromSymbolStart = "125">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in CarpoolApp.DashboardViewController.viewDidLoad() -&gt; ()"
+                  moduleName = "CarpoolApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/evan/Desktop/Carpool/Master/CSC4996-CarpoolApp/CarpoolApp/View%20Controllers/DashboardViewController.swift"
+                  timestampString = "543611757.785091"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "37"
+                  endingLineNumber = "37"
+                  offsetFromSymbolStart = "24">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

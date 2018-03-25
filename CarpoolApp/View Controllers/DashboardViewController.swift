@@ -50,6 +50,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
         if segue.identifier == "showRideDetail" {
             if let rideDetailViewController = segue.destination as? RideDetailViewController {
                 rideDetailViewController.scheduledRideDetail = scheduledRide
@@ -58,13 +59,13 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         // Prepare scheduled ride information for segue
         scheduledRide = scheduledRidesArray[indexPath.row]
         print(scheduledRide)
         
         // Segue to Match/Ride detail view
         self.performSegue(withIdentifier: "showRideDetail", sender: self)
-        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
