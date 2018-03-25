@@ -97,6 +97,77 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if (textField == self.phoneNumberField) && textField.text == ""{
+            textField.text = "+"
+        }
+        moveScrollView(textField, distance: dist, up: true)
+    }
+    
+    //Phone number formatting
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if textField == self.phoneNumberField {
+            let oldString = textField.text!
+            let newString = oldString.replacingCharacters(in: Range(range, in: oldString)!, with: string)
+            
+            let components = newString.components(separatedBy: CharacterSet.decimalDigits.inverted)
+            let numString = components.joined(separator: "")
+            let length = numString.count
+            
+            if newString.count < oldString.count && newString.count >= 1 {
+                return true
+            }
+            if length < 1 || length > 11 {
+                return false
+            }
+            
+            var indexStart, indexEnd: String.Index
+            var maskString = "", template = ""
+            var endOffset = 0
+            
+            if length >= 1 {
+                maskString += "+"
+                indexStart = numString.index(numString.startIndex, offsetBy: 0)
+                indexEnd = numString.index(numString.startIndex, offsetBy: 1)
+                maskString += String(numString[indexStart..<indexEnd]) + " ("
+            }
+            if length > 1 {
+                endOffset = 4
+                template = ") "
+                if length < 4 {
+                    endOffset = length
+                    template = ""
+                }
+                indexStart = numString.index(numString.startIndex, offsetBy: 1)
+                indexEnd = numString.index(numString.startIndex, offsetBy: endOffset)
+                maskString += String(numString[indexStart..<indexEnd]) + template
+            }
+            if length > 4 {
+                endOffset = 7
+                template = "-"
+                if length < 7 {
+                    endOffset = length
+                    template = ""
+                }
+                indexStart = numString.index(numString.startIndex, offsetBy: 4)
+                indexEnd = numString.index(numString.startIndex, offsetBy: endOffset)
+                maskString += String(numString[indexStart..<indexEnd]) + template
+            }
+            if length > 7 {
+                indexStart = numString.index(numString.startIndex, offsetBy: 7)
+                indexEnd = numString.index(numString.startIndex, offsetBy: length)
+                maskString += String(numString[indexStart..<indexEnd])
+            }
+            
+            textField.text = maskString
+            if (length == 11) {
+                textField.endEditing(true)
+            }
+            return false
+        }
+        return true
+    }
+    
     func storeUserInfo(userInfo: Dictionary<String, Any>)
     {
         let registrationURL = URL(string: "http://localhost:3000/users/register")!
@@ -119,19 +190,13 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        phoneNumberField.delegate = self
         // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-    
-    // Keyboard handling
-    // Begin editing within text field
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        moveScrollView(textField, distance: dist, up: true)
     }
     
     // End editing within text field

@@ -49,6 +49,7 @@ class ProfileViewController: UIViewController {
         }
         let userID = Auth.auth().currentUser?.uid
         readProfileInfo(userID: userID!)
+        
     }
     
     func readProfileInfo(userID: String)
