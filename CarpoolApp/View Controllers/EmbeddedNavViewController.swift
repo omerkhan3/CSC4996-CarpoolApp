@@ -8,24 +8,20 @@ class EmbeddedNavViewController: UIViewController, NavigationViewControllerDeleg
     @IBOutlet weak var container: UIView!
     var route: Route?
 
-    lazy var options: NavigationRouteOptions = {
-        let origin = CLLocationCoordinate2DMake(42.382184, -82.940201)
-        let destination = CLLocationCoordinate2DMake(42.359139, -83.066546)
-        return NavigationRouteOptions(coordinates: [origin, destination])
-    }()
-    
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
+    let origin = Waypoint(coordinate: CLLocationCoordinate2DMake(42.382184, -82.940201), name: "matts place")
+  // let destination = Waypoint(coordinate: CLLocationCoordinate2DMake(42.359139, -83.066546), name: "wayne state")
+    let riderPickup = Waypoint(coordinate: CLLocationCoordinate2DMake(42.3840825, -82.9412279), name: "1320 Lakepointe")
+    let riderDropoff = Waypoint(coordinate: CLLocationCoordinate2DMake(42.3863712, -82.942725), name:"1420 Lakepointe")
+        
     
     override func viewDidLoad() {
         super.viewDidLoad()
         calculateDirections()
     }
-
     
     func calculateDirections() {
-        Directions.shared.calculate(options) { (waypoints, routes, error) in
+    let options = NavigationRouteOptions(waypoints: [origin, riderPickup, riderDropoff], profileIdentifier: .automobileAvoidingTraffic)
+    _ = Directions.shared.calculate(options) { (waypoints, routes, error) in
             guard let route = routes?.first, error == nil else {
                 print(error!.localizedDescription)
                 return
@@ -35,16 +31,11 @@ class EmbeddedNavViewController: UIViewController, NavigationViewControllerDeleg
         }
     }
 
-    
     func startEmbeddedNavigation() {
         let nav = NavigationViewController(for: route!)
         
-        // This allows the developer to simulate the route.
-        // Note: If copying and pasting this code in your own project,
-        // comment out `simulationIsEnabled` as it is defined elsewhere in this project.
-        
+        // simulate the route.
         nav.routeController.locationManager = SimulatedLocationManager(route: route!)
-        
         
         nav.delegate = self
         addChildViewController(nav)
@@ -58,8 +49,16 @@ class EmbeddedNavViewController: UIViewController, NavigationViewControllerDeleg
             ])
         self.didMove(toParentViewController: self)
     }
-
-    //MARK: - NavigationViewControllerDelegate
+    func navigationViewController(_ navigationViewController: NavigationViewController, didArriveAt waypoint: Waypoint) -> Bool {
+        let alert = UIAlertController(title: "Arrived at \(String(describing: waypoint.name))", message: "Would you like to continue?", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+            // Begin the next leg once the driver confirms
+            navigationViewController.routeController.routeProgress.legIndex += 1
+        }))
+        navigationViewController.present(alert, animated: true, completion: nil)
+        
+        return false
+    }
     
 }
 
