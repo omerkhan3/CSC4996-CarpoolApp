@@ -40,7 +40,7 @@
 		C9A7D7ED2032D6830014861D /* UIViewX.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A7D7EC2032D6830014861D /* UIViewX.swift */; };
 		C9A8E121204E8500004C45ED /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A8E120204E8500004C45ED /* HelpViewController.swift */; };
 		C9B52A8220453F2B00501AAA /* Checkbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B52A8120453F2B00501AAA /* Checkbox.swift */; };
-		C9CE4AE12066F70800DC34F4 /* Embedded-Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CE4AE02066F70700DC34F4 /* Embedded-Navigation.swift */; };
+		C9CE4AE12066F70800DC34F4 /* EmbeddedNavViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CE4AE02066F70700DC34F4 /* EmbeddedNavViewController.swift */; };
 		C9D8928F2033629B005EC683 /* UITextFieldX.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D8928E2033629B005EC683 /* UITextFieldX.swift */; };
 		C9DC2A082062FE6800EA9B56 /* NavViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DC2A072062FE6800EA9B56 /* NavViewController.swift */; };
 		C9DE0B2A203F5C6100554E9C /* FreqDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DE0B28203F5C5F00554E9C /* FreqDestination.swift */; };
@@ -101,7 +101,7 @@
 		C9A7D7EC2032D6830014861D /* UIViewX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewX.swift; sourceTree = "<group>"; };
 		C9A8E120204E8500004C45ED /* HelpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpViewController.swift; sourceTree = "<group>"; };
 		C9B52A8120453F2B00501AAA /* Checkbox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Checkbox.swift; sourceTree = "<group>"; };
-		C9CE4AE02066F70700DC34F4 /* Embedded-Navigation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Embedded-Navigation.swift"; sourceTree = "<group>"; };
+		C9CE4AE02066F70700DC34F4 /* EmbeddedNavViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmbeddedNavViewController.swift; sourceTree = "<group>"; };
 		C9D8928E2033629B005EC683 /* UITextFieldX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITextFieldX.swift; sourceTree = "<group>"; };
 		C9DC2A072062FE6800EA9B56 /* NavViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavViewController.swift; sourceTree = "<group>"; };
 		C9DE0B28203F5C5F00554E9C /* FreqDestination.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FreqDestination.swift; sourceTree = "<group>"; };
@@ -192,7 +192,7 @@
 		C98966FC203A183500521450 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				C9CE4AE02066F70700DC34F4 /* Embedded-Navigation.swift */,
+				C9CE4AE02066F70700DC34F4 /* EmbeddedNavViewController.swift */,
 				912C7DBF204D02CC00E222A4 /* NotificationsTableViewController.swift */,
 				C9A8E120204E8500004C45ED /* HelpViewController.swift */,
 				2018C367202CB38900E28C08 /* LogoutViewController.swift */,
@@ -432,7 +432,7 @@
 				9175E5602050731700DB0AA2 /* MyRoutesTableViewCell.swift in Sources */,
 				2018C368202CB38900E28C08 /* LogoutViewController.swift in Sources */,
 				20DA407D204B2F04003D8473 /* SideMenuTableViewController.swift in Sources */,
-				C9CE4AE12066F70800DC34F4 /* Embedded-Navigation.swift in Sources */,
+				C9CE4AE12066F70800DC34F4 /* EmbeddedNavViewController.swift in Sources */,
 				208A2E8B202829E600393D43 /* MapViewController.swift in Sources */,
 				91F90A2A20571781001A8AB0 /* FreqDestinations.swift in Sources */,
 				20509AD7204D9DA800B2EFA3 /* MatchesViewController.swift in Sources */,

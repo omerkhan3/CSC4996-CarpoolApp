@@ -2840,10 +2840,10 @@
             </objects>
             <point key="canvasLocation" x="-255" y="-574"/>
         </scene>
-        <!--Embedded Example View Controller-->
+        <!--Embedded Nav View Controller-->
         <scene sceneID="XRA-d7-2R2">
             <objects>
-                <viewController id="W5M-a9-VX1" customClass="EmbeddedExampleViewController" customModule="CarpoolApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="W5M-a9-VX1" customClass="EmbeddedNavViewController" customModule="CarpoolApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="D3p-v9-dG7" customClass="UIViewX" customModule="CarpoolApp" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
