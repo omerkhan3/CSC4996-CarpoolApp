@@ -1137,7 +1137,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fTH-Li-urD">
-                                <rect key="frame" x="16" y="107" width="343" height="634"/>
+                                <rect key="frame" x="16" y="63" width="343" height="634"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="45" translatesAutoresizingMaskIntoConstraints="NO" id="iD6-tg-vom">
                                         <rect key="frame" x="20" y="20" width="303" height="594"/>
@@ -1149,7 +1149,7 @@
                                                         <rect key="frame" x="7.6666666666666572" y="0.0" width="100" height="100"/>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(user name)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e9C-C1-Mfr">
-                                                        <rect key="frame" x="0.33333333333334281" y="106.00000000000003" width="114.33333333333333" height="24"/>
+                                                        <rect key="frame" x="0.33333333333334281" y="106" width="114.33333333333333" height="24"/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -1218,7 +1218,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Departure Time" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kdg-Uw-g3e">
-                                                        <rect key="frame" x="0.0" y="185.99999999999994" width="179" height="20"/>
+                                                        <rect key="frame" x="0.0" y="186" width="179" height="20"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="20" id="gRX-N7-edt"/>
                                                         </constraints>
@@ -1274,6 +1274,9 @@
                                                             </userDefinedRuntimeAttribute>
                                                             <userDefinedRuntimeAttribute type="boolean" keyPath="rounded" value="YES"/>
                                                         </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="mapOverview:" destination="PDm-qq-hig" eventType="touchUpInside" id="8vT-gf-zPR"/>
+                                                        </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dOj-I4-yal" customClass="RoundedButton" customModule="CarpoolApp" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="40" width="263" height="35"/>
@@ -1291,6 +1294,9 @@
                                                             </userDefinedRuntimeAttribute>
                                                             <userDefinedRuntimeAttribute type="boolean" keyPath="rounded" value="YES"/>
                                                         </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="cancelRide:" destination="PDm-qq-hig" eventType="touchUpInside" id="Ci2-M7-f1C"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <constraints>
@@ -1336,6 +1342,8 @@
                         <outlet property="pickupLocation" destination="9uy-JZ-fKb" id="DWm-Cs-GL1"/>
                         <outlet property="pickupTime" destination="bsb-zJ-mSt" id="z24-Tc-w9a"/>
                         <outlet property="profilePicture" destination="nLn-Ow-irB" id="ZwZ-DA-Ttf"/>
+                        <segue destination="R6r-bC-zJp" kind="show" identifier="showMapOverview1" id="Fu6-yk-YQr"/>
+                        <segue destination="h9O-4X-pye" kind="show" identifier="showDashboardRideCancel" id="Mf8-Xy-6b6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6oC-Se-CPY" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2629,7 +2637,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="vNH-mh-SyX">
-                                <rect key="frame" x="0.0" y="138" width="375" height="530"/>
+                                <rect key="frame" x="0.0" y="94" width="375" height="574"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="rideCell" textLabel="4FY-Uu-IGM" detailTextLabel="eKw-wT-wAU" style="IBUITableViewCellStyleSubtitle" id="fu7-Sd-oow">
@@ -2659,7 +2667,7 @@
                                 </prototypes>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Upcoming Rides" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w7u-pA-Rd6">
-                                <rect key="frame" x="101.66666666666667" y="92" width="170.66666666666663" height="45"/>
+                                <rect key="frame" x="101.66666666666667" y="48" width="170.66666666666663" height="45"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -3291,7 +3299,9 @@
         <image name="user" width="20" height="20"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="Mf8-Xy-6b6"/>
         <segue reference="uGi-aO-aia"/>
+        <segue reference="Fu6-yk-YQr"/>
         <segue reference="iBo-OI-WKP"/>
         <segue reference="cOY-IK-lfO"/>
     </inferredMetricsTieBreakers>

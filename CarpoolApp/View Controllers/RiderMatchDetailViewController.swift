@@ -47,6 +47,7 @@ class RiderMatchDetailViewController: UIViewController {
         if segue.identifier == "showMapOverview" {
             if let mapViewController = segue.destination as? MapViewController {
                 mapViewController.mapMatchDetail = matchDetail
+                mapViewController.isMatchDetail = true
             }
         }
     }

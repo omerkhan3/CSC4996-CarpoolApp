@@ -21,15 +21,33 @@ protocol MapSearch {
 
 class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     
+    // Class variables
+
     var mapMatchDetail: Match?
+    var scheduledRideDetail: ScheduledRide?
+    var isMatchDetail = false
+    var isScheduledRide = false
+    
+    var driverStartLat: Double?
+    var driverStartLong: Double?
+    var driverDestinationName: Double?
+    var driverDestinationLat: Double?
+    var driverDestinationLong: Double?
+    var driverStartCoord: CLLocationCoordinate2D?
+    var driverEndCoord: CLLocationCoordinate2D?
+    var riderStartLat: Double?
+    var riderStartLong: Double?
+    var riderDestinationLat: Double?
+    var riderDestinationLong: Double?
+    var riderStartCoord: CLLocationCoordinate2D?
+    var riderEndCoord: CLLocationCoordinate2D?
     
     var resultSearchController: UISearchController? = nil
     var selectedPin: MKPlacemark? = nil
-    
-    // Class variables
     let locationManager = CLLocationManager()
     var currentPlacemark:CLPlacemark?
-    // var centerMapped = false
+    
+
     
 
     //linking mapview to this class
@@ -39,37 +57,67 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Driver points
-        let driverStartLat = mapMatchDetail?.driverStartPointLat
-        let driverStartLong = mapMatchDetail?.driverStartPointLong
-        let driverDestinationName = mapMatchDetail?.driverRouteName
-        let driverDestinationLat = mapMatchDetail?.driverEndPointLat
-        let driverDestinationLong = mapMatchDetail?.driverEndPointLong
-        let driverStartCoord = CLLocationCoordinate2D(latitude: driverStartLat!, longitude: driverStartLong!)
-        let driverEndCoord = CLLocationCoordinate2D(latitude: driverDestinationLat!, longitude: driverDestinationLong!)
+        // Driver points (Match)
+        if (isMatchDetail == true){
+            driverStartLat = mapMatchDetail?.driverStartPointLat
+            driverStartLong = mapMatchDetail?.driverStartPointLong
+            //let driverDestinationName = mapMatchDetail?.driverRouteName
+            driverDestinationLat = mapMatchDetail?.driverEndPointLat
+            driverDestinationLong = mapMatchDetail?.driverEndPointLong
+            driverStartCoord = CLLocationCoordinate2D(latitude: driverStartLat!, longitude: driverStartLong!)
+            driverEndCoord = CLLocationCoordinate2D(latitude: driverDestinationLat!, longitude: driverDestinationLong!)
+            
+            // Rider points (Match)
+            riderStartLat = mapMatchDetail?.riderStartPointLat
+            riderStartLong = mapMatchDetail?.riderStartPointLong
+            riderDestinationLat = mapMatchDetail?.riderEndPointLat
+            riderDestinationLong = mapMatchDetail?.riderEndPointLong
+            riderStartCoord = CLLocationCoordinate2D(latitude: riderStartLat!, longitude: riderStartLong!)
+            riderEndCoord = CLLocationCoordinate2D(latitude: riderDestinationLat!, longitude: riderDestinationLong!)
+        }
         
-        // Rider points
-        let riderStartLat = mapMatchDetail?.riderStartPointLat
-        let riderStartLong = mapMatchDetail?.riderStartPointLong
-        let riderDestinationLat = mapMatchDetail?.riderEndPointLat
-        let riderDestinationLong = mapMatchDetail?.riderEndPointLong
-        let riderStartCoord = CLLocationCoordinate2D(latitude: riderStartLat!, longitude: riderStartLong!)
-        let riderEndCoord = CLLocationCoordinate2D(latitude: riderDestinationLat!, longitude: riderDestinationLong!)
-        
+        // Driver Points (Scheduled Ride)
+        if (isScheduledRide == true) {
+            
+            driverStartLat = scheduledRideDetail?.driverStartPointLat
+            driverStartLong = scheduledRideDetail?.driverStartPointLong
+            //let driverDestinationName = scheduledRideDetail?.driverRouteName
+            driverDestinationLat = scheduledRideDetail?.driverEndPointLat
+            driverDestinationLong = scheduledRideDetail?.driverEndPointLong
+            driverStartCoord = CLLocationCoordinate2D(latitude: driverStartLat!, longitude: driverStartLong!)
+            driverEndCoord = CLLocationCoordinate2D(latitude: driverDestinationLat!, longitude: driverDestinationLong!)
+            
+            // Rider points (Match)
+            riderStartLat = scheduledRideDetail?.riderStartPointLat
+            riderStartLong = scheduledRideDetail?.riderStartPointLong
+            riderDestinationLat = scheduledRideDetail?.riderEndPointLat
+            driverDestinationLong = scheduledRideDetail?.riderEndPointLong
+            riderStartCoord = CLLocationCoordinate2D(latitude: riderStartLat!, longitude: riderStartLong!)
+            riderEndCoord = CLLocationCoordinate2D(latitude: riderDestinationLat!, longitude: driverDestinationLong!)
+        }
         
         // Set up Map
         mapView.delegate = self
         mapView.userTrackingMode = MKUserTrackingMode.follow
         mapView.showsUserLocation = true
         
-        if (mapMatchDetail?.Status == "Awaiting rider request.") {
-            let start = otherlocations(title: "Start", locationName: "Start", coordinate: riderStartCoord)
-            let end = otherlocations(title: "End", locationName: "End", coordinate: riderEndCoord)
+        if (isMatchDetail == true) {
+            if (mapMatchDetail?.Status == "Awaiting rider request.") {
+                let start = otherlocations(title: "Start", locationName: "Start", coordinate: riderStartCoord!)
+                let end = otherlocations(title: "End", locationName: "End", coordinate: riderEndCoord!)
+                self.mapView.addAnnotation(start)
+                self.mapView.addAnnotation(end)
+                showRiderRouteOnMap(start: riderStartCoord!, destination: riderEndCoord!)
+            } else {
+                showDriverRouteOnMap(start: driverStartCoord!, riderPickup: riderStartCoord!, riderDropoff: riderEndCoord!, destination: driverEndCoord!)
+            }
+        }
+        else if (isScheduledRide == true) {
+            let start = otherlocations(title: "Start", locationName: "Start", coordinate: riderStartCoord!)
+            let end = otherlocations(title: "End", locationName: "End", coordinate: riderEndCoord!)
             self.mapView.addAnnotation(start)
             self.mapView.addAnnotation(end)
-            showRiderRouteOnMap(start: riderStartCoord, destination: riderEndCoord)
-        } else {
-            showDriverRouteOnMap(start: driverStartCoord, riderPickup: riderStartCoord, riderDropoff: riderEndCoord, destination: driverEndCoord)
+            showDriverRouteOnMap(start: driverStartCoord!, riderPickup: riderStartCoord!, riderDropoff: riderEndCoord!, destination: driverEndCoord!)
         }
     }
 
