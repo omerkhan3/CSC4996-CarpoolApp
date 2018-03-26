@@ -132,8 +132,6 @@ class RideDetailViewController: UIViewController {
     
     }.resume()
     
-    
-    
     }
     
     func setView(){

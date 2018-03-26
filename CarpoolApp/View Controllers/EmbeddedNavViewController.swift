@@ -2,21 +2,27 @@ import Foundation
 import MapboxCoreNavigation
 import MapboxNavigation
 import MapboxDirections
+import FirebaseAuth
 
 class EmbeddedNavViewController: UIViewController, NavigationViewControllerDelegate, UITextFieldDelegate  {
  
     @IBOutlet weak var container: UIView!
-    var route: Route?
-
+    //var scheduledRideDetail: ScheduledRide?
+    var scheduledRidesArray = [ScheduledRide]()
+    var route = ScheduledRide()
+    let userID = Auth.auth().currentUser!.uid
+    
+    
     @IBOutlet weak var pickedUp: RoundedButton!
     @IBOutlet weak var droppedOff: RoundedButton!
     @IBOutlet weak var cancelDrive: RoundedButton!
     
-    let origin = Waypoint(coordinate: CLLocationCoordinate2DMake(42.382184, -82.940201), name: "matts place")
-  let destination = Waypoint(coordinate: CLLocationCoordinate2DMake(42.359139, -83.066546), name: "wayne state")
-    let riderPickup = Waypoint(coordinate: CLLocationCoordinate2DMake(42.3840825, -82.9412279), name: "1320 Lakepointe")
-    let riderDropoff = Waypoint(coordinate: CLLocationCoordinate2DMake(42.3863712, -82.942725), name:"1420 Lakepointe")
-        
+    
+//    let origin = Waypoint(coordinate: CLLocationCoordinate2DMake(42.382115, -82.940201), name: "matts place")
+//    let destination = Waypoint(coordinate: CLLocationCoordinate2DMake(42.359139, -83.066546), name: "wayne state")
+//    let riderPickup = Waypoint(coordinate: CLLocationCoordinate2DMake(42.3840825, -82.9412279), name: "1320 Lakepointe")
+//    let riderDropoff = Waypoint(coordinate: CLLocationCoordinate2DMake(42.3863712, -82.942725), name:"1420 Lakepointe")
+    
     @IBAction func pickPress(_ sender: RoundedButton) {
         //cancelDrive.isEnabled = false
         cancelDrive.alpha = 0.2
@@ -56,7 +62,15 @@ class EmbeddedNavViewController: UIViewController, NavigationViewControllerDeleg
     }
     
     func calculateDirections() {
-    let options = NavigationRouteOptions(waypoints: [origin, riderPickup, riderDropoff, destination], profileIdentifier: . automobile)
+        
+        //if userID == route?.driverID {
+        let origin = Waypoint(coordinate: CLLocationCoordinate2DMake((route.driverStartPointLat), (route.driverStartPointLong)))
+            let destination = Waypoint(coordinate: CLLocationCoordinate2DMake((route.driverEndPointLat), (route.driverEndPointLong)))
+            let riderPickup = Waypoint(coordinate: CLLocationCoordinate2DMake((route.riderStartPointLat), (route.riderStartPointLong)))
+            let riderDropoff = Waypoint(coordinate: CLLocationCoordinate2DMake((route.riderEndPointLat), (route.riderEndPointLong)))
+            
+        //}
+        let options = NavigationRouteOptions(waypoints: [origin, riderPickup, riderDropoff, destination], profileIdentifier: . automobile)
     _ = Directions.shared.calculate(options) { (waypoints, routes, error) in
             guard let route = routes?.first, error == nil else {
                 print(error!.localizedDescription)
@@ -85,6 +99,34 @@ class EmbeddedNavViewController: UIViewController, NavigationViewControllerDeleg
             ])
         self.didMove(toParentViewController: self)
     }
+    
+    func getScheduledRides(completed: @escaping () -> ()) {
+        var viewScheduledRideComponents = URLComponents(string: "http://localhost:3000/routes/scheduled")!
+        viewScheduledRideComponents.queryItems = [URLQueryItem(name: "userID", value: userID)]
+        var request = URLRequest(url: viewScheduledRideComponents.url!)
+        print (viewScheduledRideComponents.url!)
+        
+        // GET Method
+        request.httpMethod = "GET"
+        URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
+            if (error != nil){
+                print (error as Any)
+            } else {
+                guard let data = data else { return }
+                do {
+                    // Decode JSON
+                    self.scheduledRidesArray = try JSONDecoder().decode([ScheduledRide].self, from: data)
+                    print (self.scheduledRidesArray)
+                    DispatchQueue.main.async {
+                        completed()
+                    }
+                } catch let jsnERR {
+                    print(jsnERR)
+                }
+            }
+            }.resume()
+    }
+    
     func navigationViewController(_ navigationViewController: NavigationViewController, didArriveAt waypoint: Waypoint) -> Bool {
         
         
