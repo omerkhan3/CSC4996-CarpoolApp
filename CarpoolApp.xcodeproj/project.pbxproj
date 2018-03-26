@@ -34,6 +34,7 @@
 		C98BB0A0202A58A8006B054C /* otherlocations.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98BB09F202A58A8006B054C /* otherlocations.swift */; };
 		C995C78E201D5DD400B8CB3E /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C995C78D201D5DD400B8CB3E /* MapKit.framework */; };
 		C995C790201D615E00B8CB3E /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C995C78F201D615D00B8CB3E /* CoreLocation.framework */; };
+		C9A2AD4120689766000B8674 /* EmbeddedNavViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A2AD4020689766000B8674 /* EmbeddedNavViewController.swift */; };
 		C9A7D7ED2032D6830014861D /* UIViewX.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A7D7EC2032D6830014861D /* UIViewX.swift */; };
 		C9A8E121204E8500004C45ED /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A8E120204E8500004C45ED /* HelpViewController.swift */; };
 		C9B52A8220453F2B00501AAA /* Checkbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B52A8120453F2B00501AAA /* Checkbox.swift */; };
@@ -76,6 +77,7 @@
 		C98BB09F202A58A8006B054C /* otherlocations.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; path = otherlocations.swift; sourceTree = "<group>"; };
 		C995C78D201D5DD400B8CB3E /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		C995C78F201D615D00B8CB3E /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		C9A2AD4020689766000B8674 /* EmbeddedNavViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmbeddedNavViewController.swift; sourceTree = "<group>"; };
 		C9A7D7EC2032D6830014861D /* UIViewX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewX.swift; sourceTree = "<group>"; };
 		C9A8E120204E8500004C45ED /* HelpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpViewController.swift; sourceTree = "<group>"; };
 		C9B52A8120453F2B00501AAA /* Checkbox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Checkbox.swift; sourceTree = "<group>"; };
@@ -168,6 +170,7 @@
 		C98966FC203A183500521450 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				C9A2AD4020689766000B8674 /* EmbeddedNavViewController.swift */,
 				205A4B42202569DC005AE87C /* LaunchViewController.swift */,
 				D10EFE992022979700C962E1 /* RegistrationViewController.swift */,
 				D10EFE9B2022983600C962E1 /* LoginViewController.swift */,
@@ -332,7 +335,17 @@
 				"${BUILT_PRODUCTS_DIR}/BraintreeDropIn/BraintreeDropIn.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/Mapbox.framework",
+				"${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/Mapbox.framework.dSYM",
+				"${BUILT_PRODUCTS_DIR}/MapboxCoreNavigation/MapboxCoreNavigation.framework",
+				"${BUILT_PRODUCTS_DIR}/MapboxDirections.swift/MapboxDirections.framework",
+				"${BUILT_PRODUCTS_DIR}/MapboxMobileEvents/MapboxMobileEvents.framework",
+				"${BUILT_PRODUCTS_DIR}/MapboxNavigation/MapboxNavigation.framework",
+				"${BUILT_PRODUCTS_DIR}/MapboxSpeech/MapboxSpeech.framework",
+				"${BUILT_PRODUCTS_DIR}/Polyline/Polyline.framework",
 				"${BUILT_PRODUCTS_DIR}/SideMenu/SideMenu.framework",
+				"${BUILT_PRODUCTS_DIR}/Solar/Solar.framework",
+				"${BUILT_PRODUCTS_DIR}/Turf/Turf.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
@@ -343,7 +356,17 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BraintreeDropIn.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Mapbox.framework",
+				"${DWARF_DSYM_FOLDER_PATH}/Mapbox.framework.dSYM",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MapboxCoreNavigation.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MapboxDirections.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MapboxMobileEvents.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MapboxNavigation.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MapboxSpeech.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Polyline.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SideMenu.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Solar.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Turf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
@@ -380,6 +403,7 @@
 				20DA407D204B2F04003D8473 /* SideMenuTableViewController.swift in Sources */,
 				208A2E8B202829E600393D43 /* MapViewController.swift in Sources */,
 				20509AD7204D9DA800B2EFA3 /* MatchesViewController.swift in Sources */,
+				C9A2AD4120689766000B8674 /* EmbeddedNavViewController.swift in Sources */,
 				20509AD1204D995400B2EFA3 /* Match.swift in Sources */,
 				20509AD9204E2C5600B2EFA3 /* Profile.swift in Sources */,
 				C968E520203669E400B137B8 /* RoundedButton.swift in Sources */,

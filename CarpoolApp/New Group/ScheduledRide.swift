@@ -83,7 +83,7 @@ struct ScheduledRide: Decodable {
         driverEndPointLong =  0.0
         
         riderFirstName = "<rider first name>"
-        riderStartAddress = "<rider start address"
+        riderStartAddress = "<rider start address>"
         riderEndAddres  = "<rider end address>"
         riderStartPointLat = 0.0
         riderStartPointLong = 0.0
