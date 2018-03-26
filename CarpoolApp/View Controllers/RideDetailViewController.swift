@@ -65,7 +65,7 @@ class RideDetailViewController: UIViewController {
                 otherID = (self.scheduledRideDetail?.driverID)!
             }
             
-            let cancelInfo = ["otherID": otherID, "Date": self.scheduledRideDetail?.Date as Any, "matchID": self.scheduledRideDetail?.matchID, "cancelType": "Individual"] as [String:Any]
+            let cancelInfo = ["otherID": otherID, "Date": self.scheduledRideDetail?.Date as Any, "matchID": self.scheduledRideDetail?.matchID as Any, "cancelType": "Individual"] as [String:Any]
             let actionTitle = "Cancel Single Ride"
             let actionItem = "Please confirm that you would like to cancel this single ride. This action cannot be undone!"
             let alert = UIAlertController(title: actionTitle, message: actionItem, preferredStyle: .alert)
@@ -87,9 +87,17 @@ class RideDetailViewController: UIViewController {
             let actionTitle = "Cancel Ride Series"
             let actionItem = "Please confirm that you would like to cancel this ride series. This action cannot be undone!"
             let alert = UIAlertController(title: actionTitle, message: actionItem, preferredStyle: .alert)
+            var otherID = ""
+            if (self.scheduledRideDetail?.driverID == self.userID){
+                otherID = (self.scheduledRideDetail?.riderID)!
+            }
+            else{
+                otherID = (self.scheduledRideDetail?.driverID)!
+            }
+            let cancelInfo = ["otherID": otherID, "matchID": self.scheduledRideDetail?.matchID as Any, "riderRouteID": self.scheduledRideDetail?.riderRouteID as Any, "driverRouteID": self.scheduledRideDetail?.driverRouteID as Any, "cancelType": "Series"] as [String:Any]
             alert.addAction(UIAlertAction(title: "Confirm", style: .default, handler: { action in
                 // cancel ride series
-                
+                self.cancelRide(cancelInfo: cancelInfo)
                 self.performSegue(withIdentifier: "showDashboardRideCancel", sender: self)
             }))
             
