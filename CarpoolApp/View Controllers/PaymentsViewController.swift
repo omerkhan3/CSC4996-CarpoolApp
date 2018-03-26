@@ -16,18 +16,19 @@ import FirebaseAuth
 
 class PaymentsViewController: UIViewController {
 
-    let tokenizationKey =  "sandbox_vtqbvdrz_kjjqnn2gj7vbds9g"
+    var clientToken: String = ""
     
     @IBAction func newPaymentMethod(_ sender: Any) {
-        showDropIn(clientTokenOrTokenizationKey: self.tokenizationKey)
+        showDropIn(clientTokenOrTokenizationKey: self.clientToken)
     }
     
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        makeRequest() { clientToken in
+            self.clientToken = clientToken
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -35,10 +36,39 @@ class PaymentsViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    func makeRequest(completion: @escaping (String) -> Void) {
+        let clientTokenURL = URL(string: "http://localhost:3000/payment/client_token")!
+        var clientTokenRequest = URLRequest(url: clientTokenURL as URL)
+        clientTokenRequest.setValue("text/plain", forHTTPHeaderField: "Accept")
+        
+        URLSession.shared.dataTask(with: clientTokenRequest) { (data, response, error) -> Void in
+            //Error handling response
+            guard let responseData = data, error == nil else {
+                print("error=\(String(describing: error))")
+                return
+            }
+            print ("Success!")
+            let clientToken = String(data: responseData, encoding: .utf8) ?? ""
+            completion(clientToken)
+            }.resume()
+    }
+    
+    func fetchExistingPaymentMethod(clientToken: String) {
+        BTDropInResult.fetch(forAuthorization: clientToken, handler: { (result, error) in
+            if(error != nil) {
+                print("ERROR")
+            } else if let paymentResult = result {
+                let selectedPaymentMethod = paymentResult.paymentMethod?.nonce
+                self.postNonceToServer(paymentMethodNonce: selectedPaymentMethod!)
+                print(paymentResult)
+            }
+        })
+    }
+    
     //Shows the braintree Drop-In UI
     func showDropIn(clientTokenOrTokenizationKey: String) {
         let request = BTDropInRequest()
-        let dropIn = BTDropInController(authorization: self.tokenizationKey, request: request)
+        let dropIn = BTDropInController(authorization: clientTokenOrTokenizationKey, request: request)
         { (controller, result, error) in
             if (error != nil) {
                 print("Error.")
@@ -49,6 +79,7 @@ class PaymentsViewController: UIViewController {
             else if let paymentResult = result {
                 let selectedPaymentMethod = paymentResult.paymentMethod?.nonce
                 self.postNonceToServer(paymentMethodNonce: selectedPaymentMethod!)
+                print(paymentResult)
             }
             controller.dismiss(animated: true, completion: nil)
         }
@@ -63,12 +94,12 @@ class PaymentsViewController: UIViewController {
                 print (error.localizedDescription)
                 return;
             }
-            let userToken = idToken!
+            //let userToken = idToken!
             //URL endpoint of our local node server
-            let paymentURL = URL(string: "http://141.217.48.15:3000/payment/")!
+            let paymentURL = URL(string: "http://localhost:3000/payment/checkout")!
             var request = URLRequest(url: paymentURL)
             //payment_method_nonce is the field that the server will be looking for to receive the nonce
-            request.httpBody = "payment_method_nonce=\(paymentMethodNonce)&idToken=\(userToken)".data(using: String.Encoding.utf8)
+            request.httpBody = "payment_method_nonce=\(paymentMethodNonce)".data(using: String.Encoding.utf8)
             //POST method
             request.httpMethod = "POST"
             

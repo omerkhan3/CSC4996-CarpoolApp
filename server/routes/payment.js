@@ -1,46 +1,48 @@
-
 var express = require('express');
 var router = express.Router();
 var braintree = require('braintree');
+var firebase = require('firebase');
 var admin = require('firebase-admin');  // we create an instance of the module "braintree"
 
-router.post('/', function(req, res, next) {
- var gateway = braintree.connect({
+var gateway = braintree.connect({
     environment:  braintree.Environment.Sandbox,  // this contains credentials for our braintree sandbox account.
-    merchantId:   'kjjqnn2gj7vbds9g',  // since this is a sandbox account, we have hardcoded values, but we will need to store elsewhere for security reasons when in production.
-    publicKey:    'hcvtbjyp4kmzv96d',
-    privateKey:   '7160689f99a110ba0d3950c0e0c56863'
+    merchantId:   '263226vjm82nytf2',
+    publicKey:    'zprfpjrj64cpz4hr',
+    privateKey:   '06195f7e1a9007cc81e2ad48899682da'
 });
 
+router.get("/client_token",function (req, res) {
+  gateway.clientToken.generate({
+  customerId: "224286744"
+  }, function (err, result) {
+  res.send(result.clientToken)
+  });
+});
+
+router.post("/checkout", function (req, res) {
   // Use the payment method nonce here
   var nonceFromTheClient = req.body.payment_method_nonce;
-  var idToken = req.body.idToken;
-
-
-  admin.auth().verifyIdToken(idToken)
-    .then(function(decodedToken) {
-      //var uid = decodedToken.uid;
-      var newTransaction = gateway.transaction.sale({
-        amount: '10.00',  // we have hardcoded $10 for now for all transactions, we will eventually need to add "amount" field to our HTTP message from client.
+  
+  gateway.transaction.sale({
+        amount: "10.00",  // we have hardcoded $10 for now for all transactions, we will eventually need to add "amount" field to our HTTP message from client.
         paymentMethodNonce: nonceFromTheClient,  // we use the nonce received from client.
+        customer: {
+        	id: "aCustomerId"
+        },
         options: {
-          submitForSettlement: true  // this commad is what tells Braintree to process the transaction.
+          storeInVaultOnSuccess: true
+          //submitForSettlement: true  // this commad is what tells Braintree to process the transaction.
         }
-      }, function(error, result) {
-          if (result) {   // error handling for the transaction processing.
-            res.send(result);
+      }, function(err, result) {
+          if (result.success) {  
+            result.success;
+            result.transaction.type;
+            result.transaction.status;
           } else {
-            res.status(500).send(error);
+          console.log(err);
+            res.status(500).send(err);
           }
       });
-
-    }).catch(function(error) {
-      // Handle error
-      console.log ("Invalid User.");
     });
-   // this is the payment nonce provided by UI.  this contains unique payment information used to process transaction.
-  // Create a new transaction for $10
-
-});
 
 module.exports = router;

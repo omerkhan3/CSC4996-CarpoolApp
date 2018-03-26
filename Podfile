@@ -11,5 +11,5 @@ pod 'BraintreeDropIn'
 pod 'BEMCheckBox'
 pod 'SideMenu'
 pod 'Mapbox-iOS-SDK', '~>3.7'
-pod 'MapboxNavigation', '~> 0.15'
+pod 'MapboxNavigation'
 end
