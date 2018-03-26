@@ -99,7 +99,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         // Set up Map
         mapView.delegate = self
         mapView.userTrackingMode = MKUserTrackingMode.follow
-        mapView.showsUserLocation = true
+        mapView.showsUserLocation = false
         
         if (isMatchDetail == true) {
             if (mapMatchDetail?.Status == "Awaiting rider request.") {
