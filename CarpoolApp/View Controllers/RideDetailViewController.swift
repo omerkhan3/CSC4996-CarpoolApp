@@ -51,16 +51,27 @@ class RideDetailViewController: UIViewController {
         let actionTitle = "Cancel Ride"
         let actionItem = "Would you like to cancel this single ride or the entire ride series?"
         
+        
+        
         // Cancel single ride option
         let alert = UIAlertController(title: actionTitle, message: actionItem, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Single Ride", style: .default, handler: { action in
             // cancel single ride confirmation
+            var otherID = ""
+            if (self.scheduledRideDetail?.driverID == self.userID){
+                otherID = (self.scheduledRideDetail?.riderID)!
+            }
+            else{
+                otherID = (self.scheduledRideDetail?.driverID)!
+            }
+            
+            let cancelInfo = ["otherID": otherID, "Date": self.scheduledRideDetail?.Date as Any, "matchID": self.scheduledRideDetail?.matchID, "cancelType": "Individual"] as [String:Any]
             let actionTitle = "Cancel Single Ride"
             let actionItem = "Please confirm that you would like to cancel this single ride. This action cannot be undone!"
             let alert = UIAlertController(title: actionTitle, message: actionItem, preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Confirm", style: .default, handler: { action in
                 // cancel single ride
-                
+                self.cancelRide(cancelInfo: cancelInfo)
                 self.performSegue(withIdentifier: "showDashboardRideCancel", sender: self)
             }))
             
@@ -93,6 +104,28 @@ class RideDetailViewController: UIViewController {
         }))
         
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    func cancelRide(cancelInfo: Dictionary<String, Any>) {
+    let cancelURL = URL(string: "http://localhost:3000/routes/cancel")!
+    var request = URLRequest(url: cancelURL)
+    let cancelJSON = try! JSONSerialization.data(withJSONObject: cancelInfo, options: .prettyPrinted)
+    let cancelJSONInfo = NSString(data: cancelJSON, encoding: String.Encoding.utf8.rawValue)! as String
+    request.httpBody = "cancelInfo=\(cancelJSONInfo)".data(using: String.Encoding.utf8)
+    request.httpMethod = "POST" // POST method.
+    
+    URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
+    if (error != nil){  // error handling responses.
+    print ("An error has occured.")
+    }
+    else{
+    print ("Success!")
+    }
+    
+    }.resume()
+    
+    
+    
     }
     
     func setView(){

@@ -22,6 +22,9 @@ function convertTo24Hour(time) { // concert to military time, we will eventually
     return (time + ':00');
 }
 
+
+
+
 router.get('/saved', function(req, res, next) {
 var userID = req.query.userID;
 db.query(`select * from carpool.\"Routes\" where \"driverID\" = '${userID}' OR \"riderID\" = '${userID}'`)
@@ -39,6 +42,46 @@ db.query("select \"driverFirstName\", \"driverStartAddress\", \"driverEndAddress
   });
 });
 
+
+router.post('/cancel', function(req, res, next) {
+  var cancelInfo = req.body.cancelInfo;
+  var cancelJSON = JSON.parse(cancelInfo);
+  var otherID = cancelJSON['otherID'];
+  var matchID = cancelJSON['matchID'];
+  var date = cancelJSON['Date'];
+ console.log(cancelJSON);
+  db.query(`UPDATE carpool.\"scheduledRoutes\" SET \"Status\" = 'CANCELLED' where \"Date\" = '${date}' AND \"matchID\" = ${matchID}`)
+  .then( function (){
+    console.log(`SELECT \"deviceToken\" from carpool.\"Users\" where \"userID\" = '${otherID}'`);
+    db.one(`SELECT \"deviceToken\", \"firstName\" from carpool.\"Users\" where \"userID\" = '${otherID}'`)
+    .then(function(result) {
+      let notification = new apn.Notification();
+       notification.expiry = Math.floor(Date.now() / 1000) + 24 * 3600; // will expire in 24 hours from now
+      notification.badge = 2;
+      notification.sound = "ping.aiff";
+      notification.alert = `Your ride with ${result.firstName} on ${date} has been cancelled.`;
+      notification.payload = {'messageFrom': 'Notifications are working!'};
+
+       // Replace this with your app bundle ID:
+       notification.topic = "com.CSC4996.CarpoolApp";
+
+       // Send the actual notification
+      apnProvider.send(notification, result.deviceToken).then( result => {
+      // Show the result of the send operation:
+         console.log(result);
+      });
+    })
+    .catch(function(error){
+        console.log('Error Cancelling Ride:', error)
+    });
+    res.status(200)
+      .json({
+        status: 'Success',
+        message: 'Driver Route Stored'
+      });
+
+  })
+})
 
 router.post('/', function(req, res, next) {
  var routeInfo = req.body.routeInfo;
