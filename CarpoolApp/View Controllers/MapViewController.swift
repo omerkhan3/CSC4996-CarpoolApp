@@ -91,9 +91,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             riderStartLat = scheduledRideDetail?.riderStartPointLat
             riderStartLong = scheduledRideDetail?.riderStartPointLong
             riderDestinationLat = scheduledRideDetail?.riderEndPointLat
-            driverDestinationLong = scheduledRideDetail?.riderEndPointLong
+            riderDestinationLong = scheduledRideDetail?.riderEndPointLong
             riderStartCoord = CLLocationCoordinate2D(latitude: riderStartLat!, longitude: riderStartLong!)
-            riderEndCoord = CLLocationCoordinate2D(latitude: riderDestinationLat!, longitude: driverDestinationLong!)
+            riderEndCoord = CLLocationCoordinate2D(latitude: riderDestinationLat!, longitude: riderDestinationLong!)
         }
         
         // Set up Map

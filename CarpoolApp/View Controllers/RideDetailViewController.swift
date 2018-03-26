@@ -115,22 +115,22 @@ class RideDetailViewController: UIViewController {
     }
     
     func cancelRide(cancelInfo: Dictionary<String, Any>) {
-    let cancelURL = URL(string: "http://localhost:3000/routes/cancel")!
-    var request = URLRequest(url: cancelURL)
-    let cancelJSON = try! JSONSerialization.data(withJSONObject: cancelInfo, options: .prettyPrinted)
-    let cancelJSONInfo = NSString(data: cancelJSON, encoding: String.Encoding.utf8.rawValue)! as String
-    request.httpBody = "cancelInfo=\(cancelJSONInfo)".data(using: String.Encoding.utf8)
-    request.httpMethod = "POST" // POST method.
-    
-    URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
-    if (error != nil){  // error handling responses.
-    print ("An error has occured.")
-    }
-    else{
-    print ("Success!")
-    }
-    
-    }.resume()
+        let cancelURL = URL(string: "http://localhost:3000/routes/cancel")!
+        var request = URLRequest(url: cancelURL)
+        let cancelJSON = try! JSONSerialization.data(withJSONObject: cancelInfo, options: .prettyPrinted)
+        let cancelJSONInfo = NSString(data: cancelJSON, encoding: String.Encoding.utf8.rawValue)! as String
+        request.httpBody = "cancelInfo=\(cancelJSONInfo)".data(using: String.Encoding.utf8)
+        request.httpMethod = "POST" // POST method.
+        
+        URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
+        if (error != nil){  // error handling responses.
+        print ("An error has occured.")
+        }
+        else{
+        print ("Success!")
+        }
+        
+        }.resume()
     
     }
     
@@ -162,6 +162,12 @@ class RideDetailViewController: UIViewController {
                 mapViewController.isScheduledRide = true
             }
         }
+        else if segue.identifier == "startNavigation" {
+                if let embeddedNavViewController = segue.destination as? EmbeddedNavViewController {
+                    embeddedNavViewController.scheduledRideDetail = scheduledRideDetail
+                }
+        }
     }
+
         
 }
