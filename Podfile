@@ -6,6 +6,8 @@ target 'CarpoolApp' do
 pod 'Firebase/Auth'
 pod 'Firebase/Core'
 pod 'Firebase/Database'
+pod 'Firebase/Storage'
+pod 'SDWebImage'
 pod 'Braintree'
 pod 'BraintreeDropIn'
 pod 'BEMCheckBox'
