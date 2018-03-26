@@ -9,7 +9,7 @@ class EmbeddedNavViewController: UIViewController, NavigationViewControllerDeleg
     var route: Route?
 
     let origin = Waypoint(coordinate: CLLocationCoordinate2DMake(42.382184, -82.940201), name: "matts place")
-  // let destination = Waypoint(coordinate: CLLocationCoordinate2DMake(42.359139, -83.066546), name: "wayne state")
+  let destination = Waypoint(coordinate: CLLocationCoordinate2DMake(42.359139, -83.066546), name: "wayne state")
     let riderPickup = Waypoint(coordinate: CLLocationCoordinate2DMake(42.3840825, -82.9412279), name: "1320 Lakepointe")
     let riderDropoff = Waypoint(coordinate: CLLocationCoordinate2DMake(42.3863712, -82.942725), name:"1420 Lakepointe")
         
@@ -20,7 +20,7 @@ class EmbeddedNavViewController: UIViewController, NavigationViewControllerDeleg
     }
     
     func calculateDirections() {
-    let options = NavigationRouteOptions(waypoints: [origin, riderPickup, riderDropoff], profileIdentifier: .automobileAvoidingTraffic)
+    let options = NavigationRouteOptions(waypoints: [origin, riderPickup, riderDropoff, destination], profileIdentifier: . automobile)
     _ = Directions.shared.calculate(options) { (waypoints, routes, error) in
             guard let route = routes?.first, error == nil else {
                 print(error!.localizedDescription)
