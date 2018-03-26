@@ -71,17 +71,13 @@ class NotificationsTableViewController: UITableViewController {
 
         let cell = UITableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: "notificationCell")
         
-        // Create date formatter and reformat date
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.sssZ"
-//        print(notificationsArray[indexPath.row].Date)
-//        let date = dateFormatter.date(from: notificationsArray[indexPath.row].Date)!
-//        dateFormatter.dateFormat = "MM-dd-YYYY"
-//        let dateString = dateFormatter.string(from: date)
+        
         
         // set title to notification type
         cell.textLabel?.text = "You have a new " + notificationsArray[indexPath.row].notificationType
+        //cell.detailTextLabel?.text = "\(formatDate(date: notificationsArray[indexPath.row].Date))"
         cell.detailTextLabel?.text = notificationsArray[indexPath.row].Date
+
         return cell
     }
     
@@ -122,5 +118,17 @@ class NotificationsTableViewController: UITableViewController {
                 }
             }
         }.resume()
+    }
+    
+    func formatDate(date: String) -> String {
+        // Create date formatter and reformat date
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.sssZ"
+        print(date)
+        let formattedDate = dateFormatter.date(from: date)!
+        dateFormatter.dateFormat = "MM-dd-YYYY"
+        let dateString = dateFormatter.string(from: formattedDate)
+        
+        return dateString
     }
 }
