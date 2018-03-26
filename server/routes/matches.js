@@ -208,7 +208,7 @@ if (requestJSON['requestType'] == 'riderRequest') // If the rider has requested 
                   }
                 }) // Update the matched column in rider route.
                 .catch(function (err) {
-                  res.send(err);
+                  console.log(err);
                 });
         })
 
@@ -223,9 +223,6 @@ if (requestJSON['requestType'] == 'riderRequest') // If the rider has requested 
        });
  })
 
-    .catch(function (err) {
-      res.send(err);
-    });
 
  }
 });
