@@ -2876,6 +2876,9 @@
                                         <real key="value" value="21"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="pickPress:" destination="W5M-a9-VX1" eventType="touchUpInside" id="jIB-ZJ-Igt"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Ha-ya-Dad" customClass="RoundedButton" customModule="CarpoolApp" customModuleProvider="target">
                                 <rect key="frame" x="204" y="686" width="155" height="45"/>
@@ -2890,6 +2893,9 @@
                                         <real key="value" value="21"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="dropPress:" destination="W5M-a9-VX1" eventType="touchUpInside" id="4CV-gW-n4d"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IgW-HV-Ocp" customClass="RoundedButton" customModule="CarpoolApp" customModuleProvider="target">
                                 <rect key="frame" x="47" y="739" width="281" height="41"/>
@@ -2904,6 +2910,9 @@
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="rounded" value="YES"/>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="cancelPress:" destination="W5M-a9-VX1" eventType="touchUpInside" id="Fx5-rx-n8z"/>
+                                </connections>
                             </button>
                         </subviews>
                         <constraints>
@@ -2923,7 +2932,10 @@
                         </userDefinedRuntimeAttributes>
                     </view>
                     <connections>
+                        <outlet property="cancelDrive" destination="IgW-HV-Ocp" id="iqP-cp-qyk"/>
                         <outlet property="container" destination="Fq1-KV-ZUK" id="Q1c-zf-Qte"/>
+                        <outlet property="droppedOff" destination="0Ha-ya-Dad" id="wgQ-Ii-CE7"/>
+                        <outlet property="pickedUp" destination="bxy-Md-Vbu" id="6xo-5b-CnD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nYR-fU-oZS" userLabel="First Responder" sceneMemberID="firstResponder"/>
