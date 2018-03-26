@@ -34,25 +34,38 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
     let myPickerController = UIImagePickerController()
     
     @IBAction func selectProfilePhoto(_ sender: Any) {
-        //myPickerController.delegate = self
-        myPickerController.allowsEditing = false
-        myPickerController.sourceType = .photoLibrary
-        //myPickerController.mediaTypes = UIImagePickerController.availableMediaTypes(for: .photoLibrary)!
+        let myPickerController = UIImagePickerController()
+        myPickerController.delegate = self
         
-        self.present(myPickerController, animated: true, completion: nil)
+        let actionSheet = UIAlertController(title: "Photo Source", message: "Choose a source", preferredStyle: .actionSheet)
+        actionSheet.addAction(UIAlertAction(title: "Camera", style: .default, handler: { (action: UIAlertAction) in
+            
+            if UIImagePickerController.isSourceTypeAvailable(.camera) {
+                myPickerController.sourceType = .camera
+                self.present(myPickerController, animated: true, completion: nil)
+            } else {
+                print("Camera not available")
+            }
+        }))
+        
+        actionSheet.addAction(UIAlertAction(title: "Photo Library", style: .default, handler: { (action: UIAlertAction) in
+            
+            myPickerController.sourceType = .photoLibrary
+            self.present(myPickerController, animated: true, completion: nil)
+        }))
+        
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        self.present(actionSheet, animated: true, completion: nil)
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any])
     {
-        if let selectedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            ProfilePic.contentMode = .scaleAspectFit
-            ProfilePic.image = selectedImage
-        }
-        //var selectedImage = UIImage()
-        //print(info)
-        //selectedImage = info[UIImagePickerControllerOriginalImage] as! UIImage
-        //ProfilePic.image = selectedImage
-        dismiss(animated: true, completion: nil)
+        let image = info[UIImagePickerControllerOriginalImage] as! UIImage
+        
+        ProfilePic.image = image
+        
+        picker.dismiss(animated: true, completion: nil)
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
@@ -64,6 +77,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
     @IBAction func submitButton(_ sender: UIButton) {
         let userID = Auth.auth().currentUser!.uid
         let userInfo = ["userID": userID, "Biography": self.UserBioEdit.text as Any, "firstName": UserFirstNameEdit.text as Any, "lastName": UserLastNameEdit.text as Any, "Phone": UserPhoneNumberEdit.text as Any, "Email":  UserEmailEdit.text as Any] as [String : Any]
+        
         updateProfile(userInfo: userInfo)
         updateImage()
         
