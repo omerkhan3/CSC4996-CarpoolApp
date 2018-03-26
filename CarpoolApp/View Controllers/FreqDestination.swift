@@ -41,7 +41,6 @@ class FreqDestinations: UIViewController {
         
         var actionItem: String=String()
         var actionTitle: String=String()
-        let exitAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
 
         let userID = Auth.auth().currentUser!.uid
         let homeInfo = ["userID": userID, "Name": self.homeLabel.text! as Any, "Address": self.HomeSearchBar.text! as Any]
@@ -58,7 +57,11 @@ class FreqDestinations: UIViewController {
         actionItem = "Your frequent destinations have been saved"
         
         let alert = UIAlertController(title: actionTitle, message: actionItem, preferredStyle: .alert)
-        alert.addAction(exitAction)
+        let action = UIAlertAction(title: "OK", style: .default) { (action) -> Void in
+            let profileview = self.storyboard?.instantiateViewController(withIdentifier: "MyRoutes")
+            self.present(profileview!, animated: true, completion: nil)
+        }
+        alert.addAction(action)
         self.present(alert, animated: true, completion: nil)
     }
     

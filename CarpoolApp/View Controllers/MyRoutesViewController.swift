@@ -60,16 +60,15 @@ class MyRoutesViewController: UIViewController {
                             {
                                 self.UserHomeAddress.isHidden = false
                                 DispatchQueue.main.async
-                                    {
+                                {
                                         self.UserHomeAddress.text = (data["Address"] as? String)
-                                        
                                 }
                             }
                             else if (data["Name"] as! String == "School")
                             {
                                 self.UserSchoolAddress.isHidden = false
                                 DispatchQueue.main.async
-                                    {
+                                {
                                         self.UserSchoolAddress.text = (data["Address"] as? String)
                                 }
                             }
@@ -77,7 +76,7 @@ class MyRoutesViewController: UIViewController {
                             {
                                 self.UserWorkAddress.isHidden = false
                                 DispatchQueue.main.async
-                                    {
+                                {
                                         self.UserWorkAddress.text = (data["Address"] as? String)
                                 }
                             }
@@ -85,7 +84,7 @@ class MyRoutesViewController: UIViewController {
                             {
                                 self.UserOtherAddress.isHidden = false
                                 DispatchQueue.main.async
-                                    {
+                                {
                                         self.otherDestination.text = (data["Name"] as? String)
                                         self.UserOtherAddress.text = (data["Address"] as? String)
                                 }
