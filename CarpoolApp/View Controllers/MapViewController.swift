@@ -198,8 +198,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             destinationAnnotation.coordinate = location.coordinate
         }
         
-        self.mapView.showAnnotations([sourceAnnotation, destinationAnnotation], animated: true)
-        self.mapView.showAnnotations(self.mapView.annotations, animated: true)
+        //self.mapView.showAnnotations([sourceAnnotation, destinationAnnotation], animated: true)
+        //self.mapView.showAnnotations(self.mapView.annotations, animated: true)
         
         let directionRequest = MKDirectionsRequest()
         directionRequest.source = startMapItem
@@ -221,9 +221,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             
             let route = response.routes[0]
             
-            self.mapView.add((route.polyline), level: MKOverlayLevel.aboveRoads)
-            let rect = route.polyline.boundingMapRect
-            self.mapView.setRegion(MKCoordinateRegionForMapRect(rect), animated: true)
+            //self.mapView.add((route.polyline), level: MKOverlayLevel.aboveRoads)
+          //  let rect = route.polyline.boundingMapRect
+            //self.mapView.setRegion(MKCoordinateRegionForMapRect(rect), animated: true)
         }
             
         // Route from rider pickup to rider dropoff
@@ -245,8 +245,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
                 destinationAnnotation1.coordinate = location1.coordinate
             }
         
-            self.mapView.showAnnotations([sourceAnnotation1, destinationAnnotation1], animated: true)
-            self.mapView.showAnnotations(self.mapView.annotations, animated: true)
+            //self.mapView.showAnnotations([sourceAnnotation1, destinationAnnotation1], animated: true)
+            //self.mapView.showAnnotations(self.mapView.annotations, animated: true)
         
             let directionRequest1 = MKDirectionsRequest()
             directionRequest1.source = startMapItem1
@@ -269,8 +269,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
                 let route1 = response.routes[0]
                 
                 self.mapView.add((route1.polyline), level: MKOverlayLevel.aboveRoads)
-                let rect1 = route1.polyline.boundingMapRect
-                self.mapView.setRegion(MKCoordinateRegionForMapRect(rect1), animated: true)
+                //let rect1 = route1.polyline.boundingMapRect
+
+                
             }
         
             // Route from rider dropoff to driver destination
@@ -291,9 +292,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
                 if let location2 = destinationPlacemark2.location {
                     destinationAnnotation2.coordinate = location2.coordinate
                 }
-                
-                self.mapView.showAnnotations([sourceAnnotation2, destinationAnnotation2], animated: true)
-                self.mapView.showAnnotations(self.mapView.annotations, animated: true)
+
                 
                 let directionRequest2 = MKDirectionsRequest()
                 directionRequest2.source = startMapItem2
@@ -316,9 +315,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
                     let route2 = response.routes[0]
                     
                     self.mapView.add((route2.polyline), level: MKOverlayLevel.aboveRoads)
-                    let rect2 = route2.polyline.boundingMapRect
-                    self.mapView.setRegion(MKCoordinateRegionForMapRect(rect2), animated: true)
+
                 }
+        
+        self.mapView.showAnnotations([sourceAnnotation, destinationAnnotation, sourceAnnotation2, destinationAnnotation2], animated: true)
     }
     
     //selecting an annotation will call this method
@@ -334,12 +334,14 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     {
         let renderer = MKPolylineRenderer(overlay: overlay)
         
-        renderer.strokeColor = UIColor.green
+        renderer.strokeColor = UIColor.blue
         renderer.lineWidth = 3.5
         
         return renderer
     }
 }
+
+
 
 ////Uses the protocol we created mapsearch, clears map of any other annotations on it, and mkpointannotation has the coordinate, subtitle(city, state), and title of the place(ex. H&M)
 //extension MapViewController: MapSearch {

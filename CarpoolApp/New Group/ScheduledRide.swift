@@ -10,14 +10,22 @@ import Foundation
 
 struct ScheduledRide: Decodable {
     
+    let driverFirstName: String
+    let driverStartAddress: String?
+    let driverEndAddress: String?
     let driverStartPointLat: Double
     let driverStartPointLong: Double
     let driverEndPointLat: Double
     let driverEndPointLong: Double
+    
+    let riderFirstName: String
+    let riderStartAddress: String?
+    let riderEndAddres: String?
     let riderStartPointLat: Double
     let riderStartPointLong: Double
     let riderEndPointLat: Double
     let riderEndPointLong: Double
+    
     let matchID: Int
     let Day: String
     let Date: String
@@ -25,59 +33,75 @@ struct ScheduledRide: Decodable {
     let riderRouteID: Int
     let riderID: String
     let driverID: String
-// let riderPickupTime: Int
-// let riderDropoffTime: Int
-// let driverLeaveTime: Int
-// let riderPickupTime2:
+    let riderPickupTime: Int?
+    let riderDropoffTime: Int?
+    let driverLeaveTime: Int?
+    let riderPickupTime2: Int?
     let driverRouteName: String
     let riderRouteName: String
 
     // JSON constructor
     init(json: [String: Any]) {
+        driverFirstName = json["driverFirstName"] as? String ?? "<driver first name>"
+        driverStartAddress = json["driverStartAddress"] as? String ?? "<driver start address>"
+        driverEndAddress = json["driverEndAddress"] as? String ?? "<driver end address>"
         driverStartPointLat = json["driverStartPointLat"] as? Double ?? 0.0
         driverStartPointLong = json["driverStartPointLong"] as? Double ?? 0.0
         driverEndPointLat = json["driverEndPointLat"] as? Double ?? 0.0
         driverEndPointLong = json["driverEndPointLong"] as? Double ?? 0.0
+       
+        riderFirstName = json["riderFirstName"] as? String ?? "<rider first name>"
+        riderStartAddress = json["riderStartAddress"] as? String ?? "<rider start address>"
+        riderEndAddres = json["riderEndAddress"] as? String ?? "<rider end address>"
         riderStartPointLat = json["riderStartPointLat"] as? Double ?? 0.0
         riderStartPointLong = json["riderStartPointLong"] as? Double ?? 0.0
         riderEndPointLat = json["riderEndPointLat"] as? Double ?? 0.0
         riderEndPointLong = json["riderEndPointLong"] as? Double ?? 0.0
+        
         matchID = json["matchID"] as? Int ?? 0
-        Day = json["Day"] as? String ?? ""
-        Date = json["Date"] as? String ?? ""
+        Day = json["Day"] as? String ?? "<day>"
+        Date = json["Date"] as? String ?? "<date>"
         driverRouteID = json["driverRouteID"] as? Int ?? 0
         riderRouteID = json["riderRouteID"] as? Int ?? 0
-        riderID = json["riderID"] as? String ?? ""
-        driverID = json["driverID"] as? String ?? ""
-        // riderPickupTime = json["riderPickupTime"] as? Int ?? 0
-        // riderDropoffTime = json["riderDropoffTime"] as? Int ?? 0
-        // driverLeaveTime = json["driverLeaveTime"] as? Int ?? 0
-        // riderPickupTime2 = json["riderPickupTime2"] as? Int ?? 0
-        riderRouteName = json["riderRouteName"] as? String ?? ""
-        driverRouteName = json["driverRouteName"] as? String ?? ""
+        riderID = json["riderID"] as? String ?? "<riderID>"
+        driverID = json["driverID"] as? String ?? "<driverID>"
+        riderPickupTime = json["riderPickupTime"] as? Int ?? 0
+        riderDropoffTime = json["riderDropoffTime"] as? Int ?? 0
+        driverLeaveTime = json["driverLeaveTime"] as? Int ?? 0
+        riderPickupTime2 = json["riderPickupTime2"] as? Int ?? 0
+        riderRouteName = json["riderRouteName"] as? String ?? "<rider route name>"
+        driverRouteName = json["driverRouteName"] as? String ?? "<driver route name>"
     }
     
     init() {
+        driverFirstName = "<driver first name>"
+        driverStartAddress = "<driver start address>"
+        driverEndAddress = "<driver end address>"
         driverStartPointLat = 0.0
         driverStartPointLong = 0.0
         driverEndPointLat = 0.0
         driverEndPointLong =  0.0
+        
+        riderFirstName = "<rider first name>"
+        riderStartAddress = "<rider start address"
+        riderEndAddres  = "<rider end address>"
         riderStartPointLat = 0.0
         riderStartPointLong = 0.0
         riderEndPointLat = 0.0
         riderEndPointLong = 0.0
+        
         matchID = 0
-        Day = ""
-        Date = ""
+        Day = "<day>"
+        Date = "<date>"
         driverRouteID = 0
         riderRouteID = 0
-        riderID = ""
-        driverID = ""
-        // riderPickupTime = 0
-        // riderDropoffTime = 0
-        // driverLeaveTime = 0
-        // riderPickupTime2 = 0
-        riderRouteName = ""
-        driverRouteName = ""
+        riderID = "<riderID>"
+        driverID = "<driverID"
+        riderPickupTime = 0
+        riderDropoffTime = 0
+        driverLeaveTime = 0
+        riderPickupTime2 = 0
+        riderRouteName = "<rider route name"
+        driverRouteName = "<driver route name>"
     }
 }

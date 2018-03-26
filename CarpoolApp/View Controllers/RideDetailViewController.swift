@@ -93,19 +93,19 @@ class RideDetailViewController: UIViewController {
     func setView(){
         // If user is a driver populate rider name
         if userID == scheduledRideDetail?.driverID {
-            //self.firstName.text = scheduledRideDetail?.riderFirstName
+            self.firstName.text = scheduledRideDetail?.riderFirstName
             self.pickupLbl.text = "Rider Pickup Location"
             self.destinationLbl.text = "Rider Destination"
             
         } else {
             // Populate driver name
-            //self.firstName.text = scheduledRideDetail?.driverFirstName
+            self.firstName.text = scheduledRideDetail?.driverFirstName
         }
         // Remaining information
-        //self.pickupLocation.text =
-        //self.pickupTime.text = scheduledRideDetail?.riderPickupTime
+        self.pickupLocation.text = scheduledRideDetail?.riderStartAddress
+        self.pickupTime.text = "\(String(describing: scheduledRideDetail?.riderPickupTime))"
         self.destination.text = scheduledRideDetail?.riderRouteName
-        //self.departureTime.text = scheduledRideDetail.riderPickupTime2
+        self.departureTime.text = "\(String(describing: scheduledRideDetail?.riderPickupTime2))" //string conversion
         //self.cost.text = scheduledRideDetail.cost
     }
     
