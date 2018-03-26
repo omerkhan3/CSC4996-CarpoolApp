@@ -24,6 +24,8 @@ class RideDetailViewController: UIViewController {
     @IBOutlet weak var destination: UILabel!
     @IBOutlet weak var departureTime: UILabel!
     @IBOutlet weak var cost: UILabel!
+    @IBOutlet weak var startRideBtn: RoundedButton!
+    
     
     // Label outlets
     @IBOutlet weak var pickupLbl: UILabel!
@@ -36,11 +38,14 @@ class RideDetailViewController: UIViewController {
         setView()
     }
     
+    // Button actions
+    @IBAction func startRide(_ sender: Any) {
+        //self.performSegue(withIdentifier: "showDashboardRideCancel", sender: self)
+    }
+    
     @IBAction func mapOverview(_ sender: Any) {
         self.performSegue(withIdentifier: "showMapOverview1", sender: self)
     }
-    
-    
 
     @IBAction func cancelRide(_ sender: Any) {
         let actionTitle = "Cancel Ride"
@@ -100,6 +105,7 @@ class RideDetailViewController: UIViewController {
         } else {
             // Populate driver name
             self.firstName.text = scheduledRideDetail?.driverFirstName
+            startRideBtn.isHidden = true
         }
         // Remaining information
         self.pickupLocation.text = scheduledRideDetail?.riderStartAddress

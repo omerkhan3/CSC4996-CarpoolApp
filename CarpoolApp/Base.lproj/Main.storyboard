@@ -1137,10 +1137,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fTH-Li-urD">
-                                <rect key="frame" x="16" y="63" width="343" height="731"/>
+                                <rect key="frame" x="16" y="63" width="343" height="674"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="45" translatesAutoresizingMaskIntoConstraints="NO" id="iD6-tg-vom">
-                                        <rect key="frame" x="20" y="20" width="303" height="691"/>
+                                        <rect key="frame" x="20" y="20" width="303" height="634"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleAspectFit" axis="vertical" alignment="center" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="W4L-Um-hAv" userLabel="Top Stack View">
                                                 <rect key="frame" x="94" y="0.0" width="115" height="130"/>
@@ -1149,7 +1149,7 @@
                                                         <rect key="frame" x="7.6666666666666572" y="0.0" width="100" height="100"/>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(user name)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e9C-C1-Mfr">
-                                                        <rect key="frame" x="0.33333333333334281" y="106" width="114.33333333333333" height="24"/>
+                                                        <rect key="frame" x="0.33333333333334281" y="105.99999999999999" width="114.33333333333333" height="24.000000000000014"/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -1161,7 +1161,7 @@
                                                 </constraints>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="11" translatesAutoresizingMaskIntoConstraints="NO" id="xoU-Hb-wjP" userLabel="Middle Stack View">
-                                                <rect key="frame" x="62" y="175" width="179" height="396"/>
+                                                <rect key="frame" x="62" y="175" width="179" height="299"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pickup Location" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gi1-NJ-2Uh">
                                                         <rect key="frame" x="0.0" y="0.0" width="179" height="20"/>
@@ -1236,7 +1236,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ride Cost (One Way)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N99-0r-FYi">
-                                                        <rect key="frame" x="0.0" y="248" width="179" height="20"/>
+                                                        <rect key="frame" x="0.0" y="247.99999999999994" width="179" height="20"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="20" id="L6D-zF-WEG"/>
                                                         </constraints>
@@ -1245,7 +1245,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(cost)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qVW-dc-x2F">
-                                                        <rect key="frame" x="0.0" y="279" width="179" height="117"/>
+                                                        <rect key="frame" x="0.0" y="278.99999999999994" width="179" height="20"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="20" id="gD4-Mi-CJR"/>
                                                         </constraints>
@@ -1256,13 +1256,33 @@
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="H0P-ci-2vS" userLabel="Button Stack View">
-                                                <rect key="frame" x="20" y="616" width="263" height="75"/>
+                                                <rect key="frame" x="20" y="519" width="263" height="115"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kEA-P6-w8I" customClass="RoundedButton" customModule="CarpoolApp" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="263" height="35"/>
-                                                        <color key="backgroundColor" red="0.0" green="0.58980089430000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="backgroundColor" red="0.002078666761972073" green="0.73205915475380712" blue="0.0032252407447119695" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="35" id="McE-3S-vx7"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                                        <state key="normal" title="START RIDE">
+                                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </state>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                <real key="value" value="10"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="rounded" value="YES"/>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="startRide:" destination="PDm-qq-hig" eventType="touchUpInside" id="1Ew-Ym-Xha"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H05-pb-MIM" customClass="RoundedButton" customModule="CarpoolApp" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="40" width="263" height="35"/>
+                                                        <color key="backgroundColor" red="0.0" green="0.58980089430000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="35" id="esK-Oa-JQT"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                                         <state key="normal" title="MAP OVERVIEW">
@@ -1275,11 +1295,11 @@
                                                             <userDefinedRuntimeAttribute type="boolean" keyPath="rounded" value="YES"/>
                                                         </userDefinedRuntimeAttributes>
                                                         <connections>
-                                                            <action selector="mapOverview:" destination="PDm-qq-hig" eventType="touchUpInside" id="8vT-gf-zPR"/>
+                                                            <action selector="mapOverview:" destination="PDm-qq-hig" eventType="touchUpInside" id="JfD-gU-gBm"/>
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dOj-I4-yal" customClass="RoundedButton" customModule="CarpoolApp" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="40" width="263" height="35"/>
+                                                        <rect key="frame" x="0.0" y="80" width="263" height="35"/>
                                                         <color key="backgroundColor" red="0.0" green="0.58980089430000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="35" id="vM4-7F-o5W"/>
@@ -1299,16 +1319,11 @@
                                                         </connections>
                                                     </button>
                                                 </subviews>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="75" id="3qo-VF-VtM"/>
-                                                </constraints>
                                             </stackView>
                                         </subviews>
                                         <constraints>
                                             <constraint firstItem="xoU-Hb-wjP" firstAttribute="leading" secondItem="iD6-tg-vom" secondAttribute="leading" constant="62" id="Nku-kB-Niu"/>
-                                            <constraint firstAttribute="bottom" secondItem="H0P-ci-2vS" secondAttribute="bottom" id="bbm-xh-vOe"/>
-                                            <constraint firstItem="H0P-ci-2vS" firstAttribute="leading" secondItem="iD6-tg-vom" secondAttribute="leading" constant="20" id="nOL-HJ-St8"/>
-                                            <constraint firstAttribute="trailing" secondItem="H0P-ci-2vS" secondAttribute="trailing" constant="20" id="uLo-SS-6gH"/>
+                                            <constraint firstItem="H0P-ci-2vS" firstAttribute="leading" secondItem="iD6-tg-vom" secondAttribute="leading" constant="20" symbolic="YES" id="niR-Bd-wau"/>
                                         </constraints>
                                     </stackView>
                                 </subviews>
@@ -1342,6 +1357,7 @@
                         <outlet property="pickupLocation" destination="9uy-JZ-fKb" id="DWm-Cs-GL1"/>
                         <outlet property="pickupTime" destination="bsb-zJ-mSt" id="z24-Tc-w9a"/>
                         <outlet property="profilePicture" destination="nLn-Ow-irB" id="ZwZ-DA-Ttf"/>
+                        <outlet property="startRideBtn" destination="kEA-P6-w8I" id="o63-89-OWp"/>
                         <segue destination="R6r-bC-zJp" kind="show" identifier="showMapOverview1" id="Fu6-yk-YQr"/>
                         <segue destination="h9O-4X-pye" kind="show" identifier="showDashboardRideCancel" id="Mf8-Xy-6b6"/>
                     </connections>
@@ -2614,6 +2630,7 @@
                     <connections>
                         <outlet property="matchesTableView" destination="PNQ-4t-REG" id="LyK-HH-TvZ"/>
                         <segue destination="8Dh-y9-VUL" kind="show" identifier="showRiderMatchDetail" id="E0f-q0-Mm5"/>
+                        <segue destination="h9O-4X-pye" kind="show" identifier="showDashboardNoMatches" id="0bk-jd-Utd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dSh-z0-xiI" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -3300,7 +3317,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="Mf8-Xy-6b6"/>
         <segue reference="uGi-aO-aia"/>
-        <segue reference="UO1-Vm-wHx"/>
+        <segue reference="Fu6-yk-YQr"/>
         <segue reference="iBo-OI-WKP"/>
         <segue reference="cOY-IK-lfO"/>
     </inferredMetricsTieBreakers>

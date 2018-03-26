@@ -33,10 +33,10 @@ struct ScheduledRide: Decodable {
     let riderRouteID: Int
     let riderID: String
     let driverID: String
-    let riderPickupTime: Int?
-    let riderDropoffTime: Int?
-    let driverLeaveTime: Int?
-    let riderPickupTime2: Int?
+    let riderPickupTime: String?
+    let riderDropoffTime: String?
+    let driverLeaveTime: String?
+    let riderPickupTime2: String?
     let driverRouteName: String
     let riderRouteName: String
 
@@ -65,10 +65,10 @@ struct ScheduledRide: Decodable {
         riderRouteID = json["riderRouteID"] as? Int ?? 0
         riderID = json["riderID"] as? String ?? "<riderID>"
         driverID = json["driverID"] as? String ?? "<driverID>"
-        riderPickupTime = json["riderPickupTime"] as? Int ?? 0
-        riderDropoffTime = json["riderDropoffTime"] as? Int ?? 0
-        driverLeaveTime = json["driverLeaveTime"] as? Int ?? 0
-        riderPickupTime2 = json["riderPickupTime2"] as? Int ?? 0
+        riderPickupTime = json["riderPickupTime"] as? String ?? ""
+        riderDropoffTime = json["riderDropOffTime"] as? String ?? ""
+        driverLeaveTime = json["driverLeaveTime"] as? String ?? ""
+        riderPickupTime2 = json["riderPickupTime2"] as? String ?? ""
         riderRouteName = json["riderRouteName"] as? String ?? "<rider route name>"
         driverRouteName = json["driverRouteName"] as? String ?? "<driver route name>"
     }
@@ -97,10 +97,10 @@ struct ScheduledRide: Decodable {
         riderRouteID = 0
         riderID = "<riderID>"
         driverID = "<driverID"
-        riderPickupTime = 0
-        riderDropoffTime = 0
-        driverLeaveTime = 0
-        riderPickupTime2 = 0
+        riderPickupTime = ""
+        riderDropoffTime = ""
+        driverLeaveTime = ""
+        riderPickupTime2 = ""
         riderRouteName = "<rider route name"
         driverRouteName = "<driver route name>"
     }
