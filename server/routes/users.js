@@ -24,11 +24,10 @@ router.post('/register', function(req, res, next) {
 });
 
 
-
 router.get('/profile', function(req, res, next) {
 var userID = req.query.userID;
 console.log(userID);
-db.one("select \"Users\".\"firstName\", \"Users\".\"lastName\", \"Users\".\"Email\", \"Phone\", \"Biography\" from carpool.\"Users\" where \"Users\".\"userID\" = $1", userID) // Read query to get profile information on load.
+db.one("select \"Users\".\"firstName\", \"Users\".\"lastName\", \"Users\".\"Email\", \"Users\".\"Phone\", \"Users\".\"Biography\" from carpool.\"Users\" where \"Users\".\"userID\" = $1", userID) // Read query to get profile information on load.
 .then(function(data) {
   console.log(data);
   res.status(200).json({
@@ -43,7 +42,6 @@ db.one("select \"Users\".\"firstName\", \"Users\".\"lastName\", \"Users\".\"Emai
 });
 
 
-
 router.post('/profile', function(req, res, next){
   var userInfo = req.body.userInfo;
   var userJSON = JSON.parse(userInfo);
@@ -51,7 +49,7 @@ router.post('/profile', function(req, res, next){
   var bio = userJSON['Biography'];
   var userID = userJSON['userID'];
   console.log("Updating Bio.");
-  db.query(`UPDATE carpool.\"Users\" SET \"Biography\" = '${bio}', \"firstName\" = '${userJSON['firstName']}', \"lastName\" = '${userJSON['lastName']}', \"Email\" = '${userJSON['Email']}', \"Phone\" = '${userJSON['Phone']}' where \"userID\" = '${userID}'`) // Update profile query to update biography
+  db.query(`UPDATE carpool.\"Users\" SET \"Biography\" = '${userJSON['Biography']}', \"firstName\" = '${userJSON['firstName']}', \"lastName\" = '${userJSON['lastName']}', \"Email\" = '${userJSON['Email']}', \"Phone\" = '${userJSON['Phone']}' where \"userID\" = '${userID}'`) // Update profile query to update biography
     .then(function () {
       res.status(200)
         .json({

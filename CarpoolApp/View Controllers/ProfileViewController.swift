@@ -11,7 +11,7 @@ import Firebase
 import FirebaseAuth
 import FirebaseDatabase
 
-class ProfileViewController: UIViewController {
+class ProfileViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var UserFirstName: UILabel!
     @IBOutlet weak var UserLastName: UILabel!
     @IBOutlet weak var UserEmail: UILabel!
@@ -24,13 +24,10 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var UserBioEdit: UITextField!
     @IBOutlet weak var UserLastNameEdit: UITextField!
     @IBOutlet weak var UserPhoneNumberEdit: UITextField!
-   
-  
 
     @IBOutlet weak var submitButton: UIButton!
     
-    
-    
+    let dist = -140
     @IBAction func submitButton(_ sender: UIButton) {
         let userID = Auth.auth().currentUser!.uid
         let userInfo = ["userID": userID, "Biography": self.UserBioEdit.text as Any, "firstName": UserFirstNameEdit.text as Any, "lastName": UserLastNameEdit.text as Any, "Phone": UserPhoneNumberEdit.text as Any, "Email":  UserEmailEdit.text as Any] as [String : Any]
@@ -89,8 +86,6 @@ class ProfileViewController: UIViewController {
         self.submitButton.isHidden = false
     }
     
-    //var userProfile = [Profile]()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         let userID = Auth.auth().currentUser?.uid
@@ -101,11 +96,12 @@ class ProfileViewController: UIViewController {
         self.UserPhoneNumberEdit.isHidden = true
         self.UserBioEdit.isHidden = true
         self.submitButton.isHidden = true
+        UserPhoneNumberEdit.delegate = self
     }
 
     func readProfileInfo(userID: String)
     {
-        var viewProfileComponents = URLComponents(string: "http://141.217.48.15:3000/users/profile")!
+        var viewProfileComponents = URLComponents(string: "http://localhost:3000/users/profile")!
         viewProfileComponents.queryItems = [
             URLQueryItem(name: "userID", value: userID)
         ]
@@ -141,10 +137,8 @@ class ProfileViewController: UIViewController {
                     
                 }
             }
-            
             }.resume()
     }
-    
     
     func updateProfile(userInfo: Dictionary<String, Any>)
     {
@@ -166,59 +160,109 @@ class ProfileViewController: UIViewController {
             }.resume()
     }
     
-//    // Download notifications JSON and decode into an array
-//    func getProfile(completed: @escaping () -> ()) {
-//        // get userID
-//        let userID = Auth.auth().currentUser?.uid
-//        var viewProfileComponents = URLComponents(string: "http://localhost:3000/users/profile")!
-//        viewProfileComponents.queryItems = [URLQueryItem(name: "userID", value: userID)]
-//        var request = URLRequest(url: viewProfileComponents.url!)  // Pass Parameter in URL
-//        print (viewProfileComponents.url!)
-//
-//        request.httpMethod = "GET" // GET METHOD
-//        URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
-//            if (error != nil){  // error handling responses.
-//                print (error as Any)
-//            } else {
-//                guard let data = data else { return }
-//                do {
-//                    // decode JSON into Notifications[] array type
-//                    self.userProfile = try JSONDecoder().decode([Profile].self, from: data)
-//                    print(self.userProfile)
-//                    DispatchQueue.main.async {
-//                        self.UserFirstName.text = self.userProfile[0].firstName
-//                        self.UserLastName.text = self.userProfile[0].lastName
-//                        self.UserEmail.text = self.userProfile[0].email
-//                        self.UserPhoneNumber.text = self.userProfile[0].phone
-//                        self.UserBio.text = self.userProfile[0].biography
-//                        completed()
-//                    }
-//                } catch let jsnErr {
-//                    print(jsnErr)
-//                }
-//            }
-//            }.resume()
-//    }
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if (textField == self.UserPhoneNumberEdit) && textField.text == ""{
+            textField.text = "+"
+        }
+        moveScrollView(textField, distance: dist, up: true)
+    }
+    
+    //Phone number formatting
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if textField == self.UserPhoneNumberEdit {
+            let oldString = textField.text!
+            let newString = oldString.replacingCharacters(in: Range(range, in: oldString)!, with: string)
+            
+            let components = newString.components(separatedBy: CharacterSet.decimalDigits.inverted)
+            let numString = components.joined(separator: "")
+            let length = numString.count
+            
+            if newString.count < oldString.count && newString.count >= 1 {
+                return true
+            }
+            if length < 1 || length > 11 {
+                return false
+            }
+            
+            var indexStart, indexEnd: String.Index
+            var maskString = "", template = ""
+            var endOffset = 0
+            
+            if length >= 1 {
+                maskString += "+"
+                indexStart = numString.index(numString.startIndex, offsetBy: 0)
+                indexEnd = numString.index(numString.startIndex, offsetBy: 1)
+                maskString += String(numString[indexStart..<indexEnd]) + " ("
+            }
+            if length > 1 {
+                endOffset = 4
+                template = ") "
+                if length < 4 {
+                    endOffset = length
+                    template = ""
+                }
+                indexStart = numString.index(numString.startIndex, offsetBy: 1)
+                indexEnd = numString.index(numString.startIndex, offsetBy: endOffset)
+                maskString += String(numString[indexStart..<indexEnd]) + template
+            }
+            if length > 4 {
+                endOffset = 7
+                template = "-"
+                if length < 7 {
+                    endOffset = length
+                    template = ""
+                }
+                indexStart = numString.index(numString.startIndex, offsetBy: 4)
+                indexEnd = numString.index(numString.startIndex, offsetBy: endOffset)
+                maskString += String(numString[indexStart..<indexEnd]) + template
+            }
+            if length > 7 {
+                indexStart = numString.index(numString.startIndex, offsetBy: 7)
+                indexEnd = numString.index(numString.startIndex, offsetBy: length)
+                maskString += String(numString[indexStart..<indexEnd])
+            }
+            
+            textField.text = maskString
+            if (length == 11) {
+                textField.endEditing(true)
+            }
+            return false
+        }
+        return true
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-    // Attach listener to each view that needs sign-in user information
-    // Listens for auth state
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        // Attatch listener
-//        let handle = Auth.auth().addStateDidChangeListener { (auth, user) in
-//
-//        }
     }
     
     // Detatch listener
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-//        Auth.auth().removeStateDidChangeListener(handle!)
+    }
+    
+    // End editing within text field
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        
+        moveScrollView(textField, distance: dist, up: false)
+    }
+    
+    // Hide keyboard if return key is pressed
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        textField.resignFirstResponder()
+        
+        return true
+    }
+    
+    // Move scroll view
+    func moveScrollView(_ textField: UITextField, distance: Int, up: Bool) {
+        
+        let movement: CGFloat = CGFloat(up ? distance: -distance)
+        self.view.frame = self.view.frame.offsetBy(dx: 0, dy: movement)
     }
 }
