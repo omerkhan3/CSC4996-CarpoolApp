@@ -9,8 +9,8 @@ class EmbeddedNavViewController: UIViewController, NavigationViewControllerDeleg
     @IBOutlet weak var container: UIView!
 
 
-    var route: ScheduledRide?
-    let userID = Auth.auth().currentUser!.uid
+    var route: Route?
+    //let userID = Auth.auth().currentUser!.uid
     
     
     
@@ -18,10 +18,6 @@ class EmbeddedNavViewController: UIViewController, NavigationViewControllerDeleg
     @IBOutlet weak var droppedOff: RoundedButton!
     @IBOutlet weak var cancelDrive: RoundedButton!
     
-    let origin = Waypoint(coordinate: CLLocationCoordinate2DMake(-82.940201, -82.940201), name: "matts place")
-    let destination = Waypoint(coordinate: CLLocationCoordinate2DMake(42.359139, -83.066546), name: "wayne state")
-    let riderPickup = Waypoint(coordinate: CLLocationCoordinate2DMake(42.3840825, -82.9412279), name: "1320 Lakepointe")
-    let riderDropoff = Waypoint(coordinate: CLLocationCoordinate2DMake(42.3863712, -82.942725), name:"1420 Lakepointe")
     
     @IBAction func pickPress(_ sender: RoundedButton) {
         //cancelDrive.isEnabled = false
@@ -66,7 +62,7 @@ class EmbeddedNavViewController: UIViewController, NavigationViewControllerDeleg
         let driverDestinationLat = route?.driverEndPointLat
         let driverDestinationLong = route?.driverEndPointLong
         let driverStartCoord = CLLocationCoordinate2D(latitude: driverStartLat!, longitude: driverStartLong!)
-        let driverEndCoord = CLLocationCoordinate2D(latitude: driverDestinationLat!, longitude: driverDestinationLong!)
+        let driverEndCoord =  CLLocationCoordinate2D(latitude: driverDestinationLat!, longitude: driverDestinationLong!)
         let riderStartLat = route?.riderStartPointLat
         let riderStartLong = route?.riderStartPointLong
         let riderDestinationLat = route?.riderEndPointLat
@@ -77,13 +73,11 @@ class EmbeddedNavViewController: UIViewController, NavigationViewControllerDeleg
     
     func calculateDirections() {
         
-        //if userID == route?.driverID {
-        let origin = Waypoint(coordinate: CLLocationCoordinate2DMake((route?.driverStartPointLat)!, (route?.driverStartPointLong)!))
-        let destination = Waypoint(coordinate: CLLocationCoordinate2DMake((route?.driverEndPointLat)!, (route?.driverEndPointLong)!))
-        let riderPickup = Waypoint(coordinate: CLLocationCoordinate2DMake((route?.riderStartPointLat)!, (route?.riderStartPointLong)!))
-        let riderDropoff = Waypoint(coordinate: CLLocationCoordinate2DMake((route?.riderEndPointLat)!, (route?.riderEndPointLong)!))
-            
-        //}
+        let origin = Waypoint(coordinate: CLLocationCoordinate2DMake(42.382184, -82.940201), name: "matts place")
+        let destination = Waypoint(coordinate: CLLocationCoordinate2DMake(42.359139, -83.066546), name: "wayne state")
+        let riderPickup = Waypoint(coordinate: CLLocationCoordinate2DMake(42.3840825, -82.9412279), name: "1320 Lakepointe")
+        let riderDropoff = Waypoint(coordinate: CLLocationCoordinate2DMake(42.3863712, -82.942725), name:"1420 Lakepointe")
+        
         let options = NavigationRouteOptions(waypoints: [origin, riderPickup, riderDropoff, destination], profileIdentifier: . automobile)
     _ = Directions.shared.calculate(options) { (waypoints, routes, error) in
             guard let route = routes?.first, error == nil else {
@@ -116,8 +110,6 @@ class EmbeddedNavViewController: UIViewController, NavigationViewControllerDeleg
     
     
     func navigationViewController(_ navigationViewController: NavigationViewController, didArriveAt waypoint: Waypoint) -> Bool {
-        
-        
         
         let alert = UIAlertController(title: "Arrived at \(String(describing: waypoint.name))", message: "Would you like to continue?", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
