@@ -148,10 +148,10 @@ class RideDetailViewController: UIViewController {
         }
         // Remaining information
         self.pickupLocation.text = scheduledRideDetail?.riderStartAddress
-        self.pickupTime.text = "\(String(describing: scheduledRideDetail?.riderPickupTime))"
+        self.pickupTime.text = scheduledRideDetail?.riderPickupTime
         self.destination.text = scheduledRideDetail?.riderRouteName
-        self.departureTime.text = "\(String(describing: scheduledRideDetail?.riderPickupTime2))" //string conversion
-        //self.cost.text = scheduledRideDetail.cost
+        self.departureTime.text =  scheduledRideDetail?.riderPickupTime2
+        self.cost.text = "$" + String(describing: Double(round(100 * scheduledRideDetail!.rideCost)/100))
     }
     
     // Send data to map overview

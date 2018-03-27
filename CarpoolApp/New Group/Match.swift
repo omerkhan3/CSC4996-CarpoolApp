@@ -42,6 +42,10 @@ struct Match: Decodable{
     let riderDeparture: String
     let riderRouteName: String
     let riderRouteID: Int?
+    let riderStartAddress: String
+    let riderPickupTime: String
+    let driverLeaveTime: String
+    let rideCost: Double
     
     // match info
     let Status: String
@@ -83,6 +87,10 @@ struct Match: Decodable{
         // match info
         Status = json["Status"] as? String ?? ""
         matchID = json["matchID"] as? Int ?? 0
+        riderStartAddress = json["riderStartAddress"] as? String ?? ""
+        riderPickupTime = json["riderPickupTime"] as? String ?? ""
+        driverLeaveTime = json["driverLeaveTime"] as? String ?? ""
+        rideCost = json["rideCost"] as? Double ?? 0.0
     }
     
     init(){
@@ -120,5 +128,9 @@ struct Match: Decodable{
         // match info
         Status = ""
         matchID =  0
+        riderStartAddress = ""
+        riderPickupTime = ""
+        driverLeaveTime = ""
+        rideCost = 0.0
     }
 }

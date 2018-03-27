@@ -335,13 +335,13 @@ extension FrequentDestinationsViewController: UITableViewDelegate {
         //If statements for selecting an address from table view and it showing up in search bar field as well as the table view disappearing after selection
         if tableView == searchTable {
             let searchResult = searchResults[indexPath.row]
-            HomeSearchBar.text = searchResult.subtitle
+            HomeSearchBar.text = searchResult.title + ", " + searchResult.subtitle
             searchTable.isHidden = true
             WorkSearchBar.isHidden = false
         }
         if tableView == searchTable2 {
             let searchResult = searchResults[indexPath.row]
-            WorkSearchBar.text = searchResult.subtitle
+            WorkSearchBar.text = searchResult.title + ", " + searchResult.subtitle
             searchTable2.isHidden = true
         }
         
