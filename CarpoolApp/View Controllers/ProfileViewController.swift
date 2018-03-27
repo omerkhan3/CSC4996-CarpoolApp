@@ -170,8 +170,8 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         self.submitButton.isHidden = true
         UserPhoneNumberEdit.delegate = self
         
-        //ProfilePic.layer.cornerRadius = ProfilePic.frame.size.width/2
-        //ProfilePic.clipsToBounds = true
+        ProfilePic.layer.cornerRadius = ProfilePic.frame.size.width/2
+        ProfilePic.clipsToBounds = true
         
         databaseRef = Database.database().reference()
         storageRef = Storage.storage().reference()

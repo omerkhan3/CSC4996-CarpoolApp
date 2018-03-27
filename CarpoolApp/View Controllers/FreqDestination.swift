@@ -8,6 +8,8 @@
 
 import UIKit
 import MapKit
+import Firebase
+import FirebaseAuth
 
 class FreqDestinations: UIViewController {
     
@@ -16,6 +18,9 @@ class FreqDestinations: UIViewController {
     var searchResults = [MKLocalSearchCompletion]()
     
     //Linking each table view and search bar
+    @IBOutlet weak var HomeLabel: UILabel!
+    @IBOutlet weak var WorkLabel: UILabel!
+    @IBOutlet weak var SchoolLabel: UILabel!
     @IBOutlet weak var searchTable: UITableView!
     @IBOutlet weak var searchTable2: UITableView!
     @IBOutlet weak var searchTable3: UITableView!
@@ -26,7 +31,36 @@ class FreqDestinations: UIViewController {
     @IBOutlet weak var WorkSearchBar: UISearchBar!
     @IBOutlet weak var SchoolSearchBar: UISearchBar!
     @IBOutlet weak var scrollView: UIScrollView!
+    
+    //Array used for storing longitudes and latitudes
+    var longitudeArray: [Double] = []
+    var latitudeArray: [Double] = []
+    
     @IBAction func saveButton(_ sender: Any) {
+        var actionItem: String=String()
+        var actionTitle: String=String()
+        
+        let userID = Auth.auth().currentUser!.uid
+        let homeInfo = ["userID": userID, "Name": self.HomeLabel.text! as Any, "Address": self.HomeSearchBar.text! as Any]
+        let schoolInfo = ["userID": userID, "Name": self.SchoolLabel.text! as Any, "Address": self.SchoolSearchBar.text! as Any]
+        let workInfo = ["userID": userID, "Name": self.WorkLabel.text! as Any, "Address": self.WorkSearchBar.text! as Any]
+        let customInfo = ["userID": userID, "Name": self.otherInput.text! as Any, "Address": self.otherSearchBar.text! as Any]
+        
+        let destinations: [Dictionary<String, Any>] = [homeInfo, schoolInfo, workInfo, customInfo]
+        
+        print(destinations)
+        
+        saveDestinations(destinationInfo: destinations)
+        actionTitle = "Success!"
+        actionItem = "Your frequent destinations have been saved"
+        
+        let alert = UIAlertController(title: actionTitle, message: actionItem, preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .default) { (action) -> Void in
+            let profileview = self.storyboard?.instantiateViewController(withIdentifier: "MyRoutes")
+            self.present(profileview!, animated: true, completion: nil)
+        }
+        alert.addAction(action)
+        self.present(alert, animated: true, completion: nil)
     }
     
     @IBAction func addInput(_ sender: UIButton) {
@@ -46,13 +80,93 @@ class FreqDestinations: UIViewController {
         otherInput.isHidden = true
         otherSearchBar.isHidden = true
         searchCompleter.delegate = self
-        //Placeholder text for each search bar
-        HomeSearchBar.placeholder = "Search for Places"
-        WorkSearchBar.placeholder = "Search for Places"
-        SchoolSearchBar.placeholder = "Search for Places"
-        otherSearchBar.placeholder = "Search for Places"
+ 
+        let userID = Auth.auth().currentUser?.uid
+        getDestinations(userID: userID!)
+    }
+    
+    func getDestinations(userID: String) {
+        var viewDestinationComponents = URLComponents(string: "http://localhost:3000/freqDestinations/getDestination")!
+        viewDestinationComponents.queryItems = [
+            URLQueryItem(name: "userID", value: userID)
+        ]
+        var request = URLRequest(url: viewDestinationComponents.url!)  // Pass Parameter in URL
+        print (viewDestinationComponents.url!)
+        
+        request.httpMethod = "GET" // GET METHOD
+        
+        URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
+            if (error != nil){  // error handling responses.
+                print (error as Any)
+            }
+            else if let data = data {
+                print(data)
+                let destinationInfoString:NSString = NSString(data: data, encoding: String.Encoding.utf8.rawValue)!
+                if let data = destinationInfoString.data(using: String.Encoding.utf8.rawValue) {
+                    do {
+                        let json = try JSONSerialization.jsonObject(with: data, options: []) as! [[String:AnyObject]]
+                        print (json as Any)
+                        //var JSONobjectLength = json.count
+                        for data in json
+                        {
+                            if (data["Name"] as! String == "Home")
+                            {
+                                DispatchQueue.main.async
+                                    {
+                                        self.HomeSearchBar.text = (data["Address"] as? String)
+                                }
+                            }
+                            else if (data["Name"] as! String == "School")
+                            {
+                                DispatchQueue.main.async
+                                    {
+                                        self.SchoolSearchBar.text = (data["Address"] as? String)
+                                }
+                            }
+                            else if (data["Name"] as! String == "Work")
+                            {
+                                DispatchQueue.main.async
+                                    {
+                                        self.WorkSearchBar.text = (data["Address"] as? String)
+                                }
+                            }
+                            else
+                            {
+                                DispatchQueue.main.async
+                                    {
+                                        self.otherInput.text = (data["Name"] as? String)
+                                        self.otherSearchBar.text = (data["Address"] as? String)
+                                }
+                            }
+                        }
+                    } catch let error as NSError {
+                        print(error)
+                    }
+                }
+            }
+            }.resume()
+    }
+    
+    func saveDestinations(destinationInfo: [Dictionary<String, Any>])
+    {
+        let editDestinationURL = URL(string: "http://localhost:3000/freqDestinations/saveDestination")!
+        var request = URLRequest(url: editDestinationURL)
+        let destinationJSON = try! JSONSerialization.data(withJSONObject: destinationInfo, options: .prettyPrinted)
+        let destinationJSONInfo = NSString(data: destinationJSON, encoding: String.Encoding.utf8.rawValue)! as String
+        request.httpBody = "destinationInfo=\(destinationJSONInfo)".data(using: String.Encoding.utf8)
+        request.httpMethod = "POST" // POST method.
+        
+        URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
+            if (error != nil){  // error handling responses.
+                print ("An error has occured.")
+            }
+            else{
+                print ("Success!")
+            }
+            }.resume()
     }
 }
+
     extension FreqDestinations: UISearchBarDelegate {
         
             func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
@@ -69,7 +183,6 @@ class FreqDestinations: UIViewController {
                     searchTable2.isHidden = false
                     searchTable3.isHidden = true
                     searchTable4.isHidden = true
-                    otherInput.isHidden = true
                 }
                 if searchBar == SchoolSearchBar {
                     searchTable.isHidden = true
@@ -120,7 +233,6 @@ class FreqDestinations: UIViewController {
         func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
             let searchResult = searchResults[indexPath.row]
             let cell = UITableViewCell(style: .subtitle, reuseIdentifier: nil)
-            cell.textLabel?.text = searchResult.title
             cell.detailTextLabel?.text = searchResult.subtitle
             return cell
         }
@@ -158,8 +270,8 @@ class FreqDestinations: UIViewController {
             let searchRequest = MKLocalSearchRequest(completion: completion)
             let search = MKLocalSearch(request: searchRequest)
             search.start { (response, error) in
-                let coordinate = response?.mapItems[0].placemark.coordinate
-                print(String(describing: coordinate))
+                self.longitudeArray.append(Double( response!.mapItems[0].placemark.coordinate.longitude))
+                self.latitudeArray.append(Double( response!.mapItems[0].placemark.coordinate.latitude))
             }
         }
     }
