@@ -2441,7 +2441,7 @@
         <!--Frequent Destinations View Controller-->
         <scene sceneID="z1m-bR-oF5">
             <objects>
-                <viewController title="Frequent Routes" id="Wnq-9p-acd" userLabel="Frequent Destinations View Controller" customClass="FrequentDestinationsViewController" customModule="CarpoolApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Frequent Routes" id="Wnq-9p-acd" userLabel="Frequent Destinations View Controller" customClass="FrequentRoutesViewController" customModule="CarpoolApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" ambiguous="YES" id="EHT-XK-1gO" customClass="UIViewX" customModule="CarpoolApp" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2706,9 +2706,6 @@
                                                 <color key="textColor" red="0.0" green="0.58980089430000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
-                                                <connections>
-                                                    <action selector="arrivalpress1:" destination="Wnq-9p-acd" eventType="editingDidBegin" id="VJ5-dp-FwY"/>
-                                                </connections>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Select Time" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Cmh-fH-T4d">
                                                 <rect key="frame" x="208" y="334" width="95" height="30"/>
@@ -2858,21 +2855,20 @@
                         </userDefinedRuntimeAttributes>
                     </view>
                     <connections>
-                        <outlet property="arrivaltime1" destination="wce-Di-QgR" id="eDE-qD-xmh"/>
+                        <outlet property="arrivaltime1" destination="QLh-FJ-EzY" id="esB-Tk-6ze"/>
                         <outlet property="arrivaltime2" destination="Cmh-fH-T4d" id="8Nc-7d-qyh"/>
                         <outlet property="departtime1" destination="hRT-c0-0ed" id="RhU-it-NuD"/>
                         <outlet property="departtime2" destination="YgF-sn-KVK" id="beW-0j-D23"/>
                         <outlet property="driverSetting" destination="uJU-T2-fSF" id="eF7-ja-VOP"/>
-                        <outlet property="friday" destination="K6q-Q7-7hI" id="q0k-wY-pWr"/>
-                        <outlet property="monday" destination="1DL-QJ-dcB" id="A8t-WI-ZPI"/>
-                        <outlet property="placeButton1" destination="QLh-FJ-EzY" id="R2C-eh-UJw"/>
-                        <outlet property="placeButton2" destination="sKj-tr-wEP" id="ech-rv-agw"/>
+                        <outlet property="friday" destination="K6q-Q7-7hI" id="emb-fr-8rn"/>
+                        <outlet property="monday" destination="1DL-QJ-dcB" id="eBB-1m-SFE"/>
+                        <outlet property="placeButton2" destination="sKj-tr-wEP" id="WbI-xB-fNT"/>
                         <outlet property="routeName" destination="Kbi-bd-iWR" id="rBx-Tn-uLB"/>
-                        <outlet property="saturday" destination="m3o-wL-ksd" id="JET-7M-j4x"/>
-                        <outlet property="sunday" destination="3ta-7J-mAf" id="gtt-x8-ott"/>
-                        <outlet property="thursday" destination="QA3-6b-Kbw" id="pxx-jo-VF7"/>
-                        <outlet property="tuesday" destination="QQW-op-zME" id="FGW-UO-n6P"/>
-                        <outlet property="wednesday" destination="hvb-OF-tlF" id="yKh-8g-CMZ"/>
+                        <outlet property="saturday" destination="m3o-wL-ksd" id="JGa-Rc-0I2"/>
+                        <outlet property="sunday" destination="3ta-7J-mAf" id="AI6-X2-V5K"/>
+                        <outlet property="thursday" destination="QA3-6b-Kbw" id="yem-IN-n3b"/>
+                        <outlet property="tuesday" destination="QQW-op-zME" id="ebn-b8-XGb"/>
+                        <outlet property="wednesday" destination="hvb-OF-tlF" id="xlj-3T-VUd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h1q-Wc-JF5" userLabel="First Responder" sceneMemberID="firstResponder"/>

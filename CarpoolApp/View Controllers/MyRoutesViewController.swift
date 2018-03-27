@@ -98,6 +98,13 @@ class MyRoutesViewController: UIViewController {
             }.resume()
     }
     
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if segue.identifier == "showMapOverview1" {
+//            if let mapViewController = segue.destination as? MapViewController {
+//                mapViewController.scheduledRideDetail = scheduledRideDetail
+//                mapViewController.isScheduledRide = true
+//            }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
