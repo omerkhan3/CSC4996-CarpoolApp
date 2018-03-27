@@ -219,7 +219,6 @@ router.post('/', function(req, res, next) {
                         db.one("SELECT last_value as \"currval\" from \"riderRoutes_routeID_seq\"") // get the rider route ID in the current route table.
                               .then(function(data2){
                                   var riderID = parseInt(data2.currval);
-                                  riderID++;
                                   db.one(`select ${driverLeaveTime} as \"driverLeaveTime\"`)
                                    .then(function(driverLeave){
                                      db.one(`select ${riderPickup} as \"riderPickupTime\"`)

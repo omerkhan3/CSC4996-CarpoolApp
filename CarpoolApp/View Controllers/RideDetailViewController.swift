@@ -164,7 +164,7 @@ class RideDetailViewController: UIViewController {
         }
         else if segue.identifier == "startNavigation" {
                 if let embeddedNavViewController = segue.destination as? EmbeddedNavViewController {
-                    embeddedNavViewController.scheduledRideDetail = scheduledRideDetail
+                    embeddedNavViewController.route = scheduledRideDetail
                 }
         }
     }

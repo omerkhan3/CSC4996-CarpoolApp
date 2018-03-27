@@ -5,12 +5,12 @@ import MapboxDirections
 import FirebaseAuth
 
 class EmbeddedNavViewController: UIViewController, NavigationViewControllerDelegate, UITextFieldDelegate  {
- 
+    
     @IBOutlet weak var container: UIView!
-
-
-    var route: Route?
-    //let userID = Auth.auth().currentUser!.uid
+    
+    
+    var route: ScheduledRide?
+    let userID = Auth.auth().currentUser!.uid
     
     
     
@@ -27,7 +27,7 @@ class EmbeddedNavViewController: UIViewController, NavigationViewControllerDeleg
     @IBAction func dropPress(_ sender: RoundedButton) {
         //cancelDrive.isEnabled = true
         cancelDrive.alpha = 1.0
-     
+        
     }
     
     @IBAction func cancelPress(_ sender: RoundedButton) {
@@ -56,44 +56,33 @@ class EmbeddedNavViewController: UIViewController, NavigationViewControllerDeleg
         super.viewDidLoad()
         calculateDirections()
         print(route!)
-        
-        let driverStartLat = route?.driverStartPointLat
-        let driverStartLong = route?.driverStartPointLong
-        let driverDestinationLat = route?.driverEndPointLat
-        let driverDestinationLong = route?.driverEndPointLong
-        let driverStartCoord = CLLocationCoordinate2D(latitude: driverStartLat!, longitude: driverStartLong!)
-        let driverEndCoord =  CLLocationCoordinate2D(latitude: driverDestinationLat!, longitude: driverDestinationLong!)
-        let riderStartLat = route?.riderStartPointLat
-        let riderStartLong = route?.riderStartPointLong
-        let riderDestinationLat = route?.riderEndPointLat
-        let riderDestinationLong = route?.riderEndPointLong
-        let riderStartCoord = CLLocationCoordinate2D(latitude: riderStartLat!, longitude: riderStartLong!)
-        let riderEndCoord = CLLocationCoordinate2D(latitude: riderDestinationLat!, longitude: riderDestinationLong!)
     }
     
     func calculateDirections() {
         
-        let origin = Waypoint(coordinate: CLLocationCoordinate2DMake(42.382184, -82.940201), name: "matts place")
-        let destination = Waypoint(coordinate: CLLocationCoordinate2DMake(42.359139, -83.066546), name: "wayne state")
-        let riderPickup = Waypoint(coordinate: CLLocationCoordinate2DMake(42.3840825, -82.9412279), name: "1320 Lakepointe")
-        let riderDropoff = Waypoint(coordinate: CLLocationCoordinate2DMake(42.3863712, -82.942725), name:"1420 Lakepointe")
+        //if userID == route?.driverID {
+        let origin = Waypoint(coordinate: CLLocationCoordinate2DMake((route?.driverStartPointLat)!, (route?.driverStartPointLong)!))
+        let destination = Waypoint(coordinate: CLLocationCoordinate2DMake((route?.driverEndPointLat)!, (route?.driverEndPointLong)!))
+        let riderPickup = Waypoint(coordinate: CLLocationCoordinate2DMake((route?.riderStartPointLat)!, (route?.riderStartPointLong)!))
+        let riderDropoff = Waypoint(coordinate: CLLocationCoordinate2DMake((route?.riderEndPointLat)!, (route?.riderEndPointLong)!))
         
+        //}
         let options = NavigationRouteOptions(waypoints: [origin, riderPickup, riderDropoff, destination], profileIdentifier: . automobile)
-    _ = Directions.shared.calculate(options) { (waypoints, routes, error) in
-            guard let route = routes?.first, error == nil else {
+        _ = Directions.shared.calculate(options) { (waypoints, routes, error) in
+            guard let route2 = routes?.first, error == nil else {
                 print(error!.localizedDescription)
                 return
             }
-            self.route = route
-            self.startEmbeddedNavigation()
+            //self.route = route
+            self.startEmbeddedNavigation(route2: route2)
         }
     }
-
-    func startEmbeddedNavigation() {
-        let nav = NavigationViewController(for: route!)
+    
+    func startEmbeddedNavigation(route2: Route) {
+        let nav = NavigationViewController(for: route2)
         
         // simulate the route.
-        nav.routeController.locationManager = SimulatedLocationManager(route: route!)
+        nav.routeController.locationManager = SimulatedLocationManager(route: route2)
         
         nav.delegate = self
         addChildViewController(nav)
@@ -110,6 +99,8 @@ class EmbeddedNavViewController: UIViewController, NavigationViewControllerDeleg
     
     
     func navigationViewController(_ navigationViewController: NavigationViewController, didArriveAt waypoint: Waypoint) -> Bool {
+        
+        
         
         let alert = UIAlertController(title: "Arrived at \(String(describing: waypoint.name))", message: "Would you like to continue?", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
