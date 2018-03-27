@@ -158,8 +158,8 @@ router.post('/', function(req, res, next) {
 
  else {
    console.log('test');
- var matchingQuery = "SELECT * FROM carpool.\"Routes\" WHERE ST_DWithin(startPoint, Geography(ST_MakePoint($1, $2)),4830) AND ST_DWithin(endPoint, Geography(ST_MakePoint($3, $4)),4830) AND (\"departureTime\" <= ($5) AND \"departureTime\" >= ($5  - interval '15 minutes')) AND (\"arrivalTime\" <= ($6 + interval '15 minutes') AND \"arrivalTime\" >= ($6)) AND \"Matched\" = 'false' AND \"Driver\" = 'true'"; // Query to find all drivers whose routes are within a 3 mile radius of start and endpoint, and within 15 minute time interval of arrival and departure.
-     db.any(matchingQuery, [routeJSON['Latitudes'][0], routeJSON['Longitudes'][0], routeJSON['Latitudes'][1], routeJSON['Longitudes'][1], convertTo24Hour(routeJSON['departureTime']), convertTo24Hour(routeJSON['arrivalTime'])])
+ var matchingQuery = "SELECT * FROM carpool.\"Routes\" WHERE ST_DWithin(startPoint, Geography(ST_MakePoint($1, $2)),4830) AND ST_DWithin(endPoint, Geography(ST_MakePoint($3, $4)),4830) AND (\"departureTime\" <= ($5) AND \"departureTime\" >= ($5  - interval '15 minutes')) AND (\"arrivalTime\" <= ($6 + interval '15 minutes') AND \"arrivalTime\" >= ($6)) AND \"Matched\" = 'false' AND \"Driver\" = 'true' and \"Days\" = $7 AND \"driverID\"<> $8"; // Query to find all drivers whose routes are within a 3 mile radius of start and endpoint, and within 15 minute time interval of arrival and departure.
+     db.any(matchingQuery, [routeJSON['Latitudes'][0], routeJSON['Longitudes'][0], routeJSON['Latitudes'][1], routeJSON['Longitudes'][1], convertTo24Hour(routeJSON['departureTime']), convertTo24Hour(routeJSON['arrivalTime']), routeJSON['Days'], userID])
      .then(function(result) {
        if (result.length > 0){
             //console.log('Match Found: ', result);
