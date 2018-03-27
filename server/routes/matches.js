@@ -1,12 +1,14 @@
 var express = require('express');
 var router = express.Router();
-
-const db = require('../routes/db');
-const pgp = db.$config.pgp;
-const apnModule = require('../routes/apn');
+ 
+const db = require('../routes/db'); // configures connection to the DB.
+const pgp = db.$config.pgp;   
+const apnModule = require('../routes/apn'); // Configures connection to Apple Push Notification service using our Apple Developer Account.
 const apn = apnModule.apn;
 const apnProvider = apnModule.apnProvider;
 
+
+// This POST request handles the rider/driver approval process during matching.
 router.post('/approval', function(req, res, next) {
  var requestInfo = req.body.requestInfo
  var requestJSON = JSON.parse(requestInfo);
@@ -14,6 +16,7 @@ router.post('/approval', function(req, res, next) {
  var matchID = requestJSON['matchID'];
 
 
+// This is the case to handle a rider requesting a driver.
 if (requestJSON['requestType'] == 'riderRequest') // If the rider has requested a driver
 {
 
@@ -55,6 +58,8 @@ if (requestJSON['requestType'] == 'riderRequest') // If the rider has requested 
 
  }
 
+
+// Handles the case of a drive approving a rider's request.
  else {
    db.query("UPDATE carpool.\"Matches\" SET \"Status\" = 'Matched' where \"matchID\" = $1", [matchID]) // If the request was a driver approving a request, switch the request status to matched.
    .then(function () {
@@ -82,20 +87,21 @@ if (requestJSON['requestType'] == 'riderRequest') // If the rider has requested 
 
           db.query("UPDATE carpool.\"Routes\" SET \"Matched\" = 'true' where \"routeID\" = $1", [requestJSON['driverRouteID']]) // Update the matched column in driver route.
           .then(function() {
-                db.query("UPDATE carpool.\"Routes\" SET \"Matched\" = 'true' where \"routeID\" = $1", [requestJSON['riderRouteID']])
+                db.query("UPDATE carpool.\"Routes\" SET \"Matched\" = 'true' where \"routeID\" = $1", [requestJSON['riderRouteID']]) // Update matched column in rider route.
                 .then(function() {
                   var numOfDays =  requestJSON['Days'].length;
                   console.log("Number of Days", numOfDays);
+                  // Each individual day will have its own row in the DB, this will allow us to manage cancellations, etc.
                   for (var i = 0; i < numOfDays; i++) {
                     if (requestJSON['Days'][i] == 'sunday')
                     {
-                      db.query("select d::date from generate_series(current_date + cast(abs(extract(dow from current_date) - 7) as int), current_date + cast(abs(extract(dow from current_date) - 7) as int) + interval '1 month', '1 week'::interval) d")
+                      db.query("select d::date from generate_series(current_date + cast(abs(extract(dow from current_date) - 7) as int), current_date + cast(abs(extract(dow from current_date) - 7) as int) + interval '1 month', '1 week'::interval) d") // create ride series over the next month for every Sunday.
                         .then(function(result) {
                           var resultDates = result.length;
                           console.log("Results Length", resultDates);
                           for (var y = 0; y < resultDates; y++)
                           {
-                            db.query("INSERT INTO carpool.\"scheduledRoutes\"(\"Day\", \"matchID\", \"Status\", \"Date\") values ('sunday', $1, 'Scheduled', $2)", [matchID, result[y].d])
+                            db.query("INSERT INTO carpool.\"scheduledRoutes\"(\"Day\", \"matchID\", \"Status\", \"Date\") values ('sunday', $1, 'Scheduled', $2)", [matchID, result[y].d]) // insert each day as its own row in the DB.
                             .catch(function (err) {
                               console.log(err);
                             });
@@ -105,13 +111,13 @@ if (requestJSON['requestType'] == 'riderRequest') // If the rider has requested 
                     }
                       if (requestJSON['Days'][i] == 'monday')
                       {
-                        db.query("select d::date from generate_series(current_date + cast(abs(extract(dow from current_date) - 7) + 1 as int), current_date + cast(abs(extract(dow from current_date) - 7) + 1 as int) + interval '1 month', '1 week'::interval) d")
+                        db.query("select d::date from generate_series(current_date + cast(abs(extract(dow from current_date) - 7) + 1 as int), current_date + cast(abs(extract(dow from current_date) - 7) + 1 as int) + interval '1 month', '1 week'::interval) d") // create ride series over the next month for every Monday.
                           .then(function(result) {
                             var resultDates = result.length;
                             console.log("Results Length", resultDates);
                             for (var y = 0; y < resultDates; y++)
                             {
-                              db.query("INSERT INTO carpool.\"scheduledRoutes\"(\"Day\", \"matchID\", \"Status\", \"Date\") values ('monday', $1, 'Scheduled', $2)", [matchID, result[y].d])
+                              db.query("INSERT INTO carpool.\"scheduledRoutes\"(\"Day\", \"matchID\", \"Status\", \"Date\") values ('monday', $1, 'Scheduled', $2)", [matchID, result[y].d])  // insert these days into the table.
                               .catch(function (err) {
                                 console.log(err);
                               });
@@ -121,13 +127,13 @@ if (requestJSON['requestType'] == 'riderRequest') // If the rider has requested 
                       }
                       if (requestJSON['Days'][i] == 'tuesday')
                       {
-                        db.query("select d::date from generate_series(current_date + cast(abs(extract(dow from current_date) - 7) + 2 as int), current_date + cast(abs(extract(dow from current_date) - 7) + 2 as int) + interval '1 month', '1 week'::interval) d")
+                        db.query("select d::date from generate_series(current_date + cast(abs(extract(dow from current_date) - 7) + 2 as int), current_date + cast(abs(extract(dow from current_date) - 7) + 2 as int) + interval '1 month', '1 week'::interval) d")// create ride series over the next month for every Tuesday.
                           .then(function(result) {
                             var resultDates = result.length;
                             console.log("Results Length", resultDates);
                             for (var y = 0; y < resultDates; y++)
                             {
-                              db.query("INSERT INTO carpool.\"scheduledRoutes\"(\"Day\", \"matchID\", \"Status\", \"Date\") values ('tuesday', $1, 'Scheduled', $2)", [matchID, result[y].d])
+                              db.query("INSERT INTO carpool.\"scheduledRoutes\"(\"Day\", \"matchID\", \"Status\", \"Date\") values ('tuesday', $1, 'Scheduled', $2)", [matchID, result[y].d]) // insert these days into the DB.
                               .catch(function (err) {
                                 console.log(err);
                               });
@@ -139,7 +145,7 @@ if (requestJSON['requestType'] == 'riderRequest') // If the rider has requested 
 
                       if (requestJSON['Days'][i] == 'wednesday')
                       {
-                        db.query("select d::date from generate_series(current_date + cast(abs(extract(dow from current_date) - 7) + 3 as int), current_date + cast(abs(extract(dow from current_date) - 7) + 3 as int) + interval '1 month', '1 week'::interval) d")
+                        db.query("select d::date from generate_series(current_date + cast(abs(extract(dow from current_date) - 7) + 3 as int), current_date + cast(abs(extract(dow from current_date) - 7) + 3 as int) + interval '1 month', '1 week'::interval) d")// create ride series over the next month for every Wednesday.
                           .then(function(result) {
                             var resultDates = result.length;
                             console.log("Results Length", resultDates);
@@ -156,7 +162,7 @@ if (requestJSON['requestType'] == 'riderRequest') // If the rider has requested 
 
                       if (requestJSON['Days'][i] == 'thursday')
                       {
-                        db.query("select d::date from generate_series(current_date + cast(abs(extract(dow from current_date) - 7) + 4 as int), current_date + cast(abs(extract(dow from current_date) - 7) + 4 as int) + interval '1 month', '1 week'::interval) d")
+                        db.query("select d::date from generate_series(current_date + cast(abs(extract(dow from current_date) - 7) + 4 as int), current_date + cast(abs(extract(dow from current_date) - 7) + 4 as int) + interval '1 month', '1 week'::interval) d") // create ride series over the next month for every Thursday.
                           .then(function(result) {
                             var resultDates = result.length;
                             console.log("Results Length", resultDates);
@@ -173,7 +179,7 @@ if (requestJSON['requestType'] == 'riderRequest') // If the rider has requested 
 
                       if (requestJSON['Days'][i] == 'friday')
                       {
-                        db.query("select d::date from generate_series(current_date + cast(abs(extract(dow from current_date) - 7) + 5 as int), current_date + cast(abs(extract(dow from current_date) - 7) + 5 as int) + interval '1 month', '1 week'::interval) d")
+                        db.query("select d::date from generate_series(current_date + cast(abs(extract(dow from current_date) - 7) + 5 as int), current_date + cast(abs(extract(dow from current_date) - 7) + 5 as int) + interval '1 month', '1 week'::interval) d") // create ride series over the next month for every Friday.
                           .then(function(result) {
                             var resultDates = result.length;
                             console.log("Results Length", resultDates);
@@ -190,7 +196,7 @@ if (requestJSON['requestType'] == 'riderRequest') // If the rider has requested 
 
                       if (requestJSON['Days'][i] == 'saturday')
                       {
-                        db.query("select d::date from generate_series(current_date + cast(abs(extract(dow from current_date) - 7) + 6 as int), current_date + cast(abs(extract(dow from current_date) - 7) + 6 as int) + interval '1 month', '1 week'::interval) d")
+                        db.query("select d::date from generate_series(current_date + cast(abs(extract(dow from current_date) - 7) + 6 as int), current_date + cast(abs(extract(dow from current_date) - 7) + 6 as int) + interval '1 month', '1 week'::interval) d") // create ride series over the next month for every Saturday.
                           .then(function(result) {
                             var resultDates = result.length;
                             console.log("Results Length", resultDates);
@@ -228,7 +234,7 @@ if (requestJSON['requestType'] == 'riderRequest') // If the rider has requested 
 });
 
 
-
+// Get all match information associated with the specific user.
 router.get('/', function(req, res, next) {
 var userID = req.query.userID;
  // Select all drivers the rider has matched with so they can request one.

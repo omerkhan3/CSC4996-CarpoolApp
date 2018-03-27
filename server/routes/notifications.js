@@ -1,12 +1,11 @@
-"use strict";
-
-var express = require('express');
+ var express = require('express');
 var router = express.Router();
 
-const db = require('../routes/db');
-const pgp = db.$config.pgp;
+const db = require('../routes/db'); // configures connection to the DB.
+const pgp = db.$config.pgp; 
 
 
+// This GET request sends all notifications associated with the passed userID.
 router.get('/', function(req, res, next) {
 var userID = req.query.userID;
 console.log(userID);
