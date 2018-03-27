@@ -89,7 +89,7 @@ if (requestJSON['requestType'] == 'riderRequest') // If the rider has requested 
                   for (var i = 0; i < numOfDays; i++) {
                     if (requestJSON['Days'][i] == 'sunday')
                     {
-                      db.query("select d::date from generate_series(current_date + cast(abs(extract(dow from current_date) - 7) as int), current_date + cast(abs(extract(dow from current_date) - 7) as int) + interval '1 year', '1 week'::interval) d")
+                      db.query("select d::date from generate_series(current_date + cast(abs(extract(dow from current_date) - 7) as int), current_date + cast(abs(extract(dow from current_date) - 7) as int) + interval '1 month', '1 week'::interval) d")
                         .then(function(result) {
                           var resultDates = result.length;
                           console.log("Results Length", resultDates);
@@ -105,7 +105,7 @@ if (requestJSON['requestType'] == 'riderRequest') // If the rider has requested 
                     }
                       if (requestJSON['Days'][i] == 'monday')
                       {
-                        db.query("select d::date from generate_series(current_date + cast(abs(extract(dow from current_date) - 7) + 1 as int), current_date + cast(abs(extract(dow from current_date) - 7) + 1 as int) + interval '1 year', '1 week'::interval) d")
+                        db.query("select d::date from generate_series(current_date + cast(abs(extract(dow from current_date) - 7) + 1 as int), current_date + cast(abs(extract(dow from current_date) - 7) + 1 as int) + interval '1 month', '1 week'::interval) d")
                           .then(function(result) {
                             var resultDates = result.length;
                             console.log("Results Length", resultDates);
@@ -121,7 +121,7 @@ if (requestJSON['requestType'] == 'riderRequest') // If the rider has requested 
                       }
                       if (requestJSON['Days'][i] == 'tuesday')
                       {
-                        db.query("select d::date from generate_series(current_date + cast(abs(extract(dow from current_date) - 7) + 2 as int), current_date + cast(abs(extract(dow from current_date) - 7) + 2 as int) + interval '1 year', '1 week'::interval) d")
+                        db.query("select d::date from generate_series(current_date + cast(abs(extract(dow from current_date) - 7) + 2 as int), current_date + cast(abs(extract(dow from current_date) - 7) + 2 as int) + interval '1 month', '1 week'::interval) d")
                           .then(function(result) {
                             var resultDates = result.length;
                             console.log("Results Length", resultDates);
@@ -139,7 +139,7 @@ if (requestJSON['requestType'] == 'riderRequest') // If the rider has requested 
 
                       if (requestJSON['Days'][i] == 'wednesday')
                       {
-                        db.query("select d::date from generate_series(current_date + cast(abs(extract(dow from current_date) - 7) + 3 as int), current_date + cast(abs(extract(dow from current_date) - 7) + 3 as int) + interval '1 year', '1 week'::interval) d")
+                        db.query("select d::date from generate_series(current_date + cast(abs(extract(dow from current_date) - 7) + 3 as int), current_date + cast(abs(extract(dow from current_date) - 7) + 3 as int) + interval '1 month', '1 week'::interval) d")
                           .then(function(result) {
                             var resultDates = result.length;
                             console.log("Results Length", resultDates);
@@ -156,7 +156,7 @@ if (requestJSON['requestType'] == 'riderRequest') // If the rider has requested 
 
                       if (requestJSON['Days'][i] == 'thursday')
                       {
-                        db.query("select d::date from generate_series(current_date + cast(abs(extract(dow from current_date) - 7) + 4 as int), current_date + cast(abs(extract(dow from current_date) - 7) + 4 as int) + interval '1 year', '1 week'::interval) d")
+                        db.query("select d::date from generate_series(current_date + cast(abs(extract(dow from current_date) - 7) + 4 as int), current_date + cast(abs(extract(dow from current_date) - 7) + 4 as int) + interval '1 month', '1 week'::interval) d")
                           .then(function(result) {
                             var resultDates = result.length;
                             console.log("Results Length", resultDates);
@@ -173,7 +173,7 @@ if (requestJSON['requestType'] == 'riderRequest') // If the rider has requested 
 
                       if (requestJSON['Days'][i] == 'friday')
                       {
-                        db.query("select d::date from generate_series(current_date + cast(abs(extract(dow from current_date) - 7) + 5 as int), current_date + cast(abs(extract(dow from current_date) - 7) + 5 as int) + interval '1 year', '1 week'::interval) d")
+                        db.query("select d::date from generate_series(current_date + cast(abs(extract(dow from current_date) - 7) + 5 as int), current_date + cast(abs(extract(dow from current_date) - 7) + 5 as int) + interval '1 month', '1 week'::interval) d")
                           .then(function(result) {
                             var resultDates = result.length;
                             console.log("Results Length", resultDates);
@@ -190,7 +190,7 @@ if (requestJSON['requestType'] == 'riderRequest') // If the rider has requested 
 
                       if (requestJSON['Days'][i] == 'saturday')
                       {
-                        db.query("select d::date from generate_series(current_date + cast(abs(extract(dow from current_date) - 7) + 6 as int), current_date + cast(abs(extract(dow from current_date) - 7) + 6 as int) + interval '1 year', '1 week'::interval) d")
+                        db.query("select d::date from generate_series(current_date + cast(abs(extract(dow from current_date) - 7) + 6 as int), current_date + cast(abs(extract(dow from current_date) - 7) + 6 as int) + interval '1 month', '1 week'::interval) d")
                           .then(function(result) {
                             var resultDates = result.length;
                             console.log("Results Length", resultDates);
