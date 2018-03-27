@@ -24,12 +24,6 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         ridesTableView.reloadData()
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setupSideMenu()
-        registerDeviceToken()
         
         getScheduledRides {
             self.ridesTableView.reloadData()
@@ -45,6 +39,14 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         
         self.ridesTableView.delegate = self
         self.ridesTableView.dataSource = self
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupSideMenu()
+        registerDeviceToken()
+        
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
