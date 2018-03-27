@@ -50,8 +50,6 @@ class EmbeddedNavViewController: UIViewController, NavigationViewControllerDeleg
         }
     }
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         calculateDirections()
@@ -99,8 +97,6 @@ class EmbeddedNavViewController: UIViewController, NavigationViewControllerDeleg
     
     
     func navigationViewController(_ navigationViewController: NavigationViewController, didArriveAt waypoint: Waypoint) -> Bool {
-        
-        
         
         let alert = UIAlertController(title: "Arrived at \(String(describing: waypoint.name))", message: "Would you like to continue?", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in

@@ -11,9 +11,7 @@ import SideMenu
 import FirebaseAuth
 
 class DashboardViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    
-    
-    
+
     // Class variables
     var scheduledRidesArray = [ScheduledRide]()
     var scheduledRide = ScheduledRide()

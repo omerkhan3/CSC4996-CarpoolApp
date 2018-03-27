@@ -39,8 +39,6 @@ class SideMenuTableViewController: UITableViewController {
         //let cell = super.tableView(tableView, cellForRowAt: indexPath) as! UITableViewVibrantCell
         let cell = userMenuTableView.dequeueReusableCell(withIdentifier: "menuCell")
         
-        //cell.blurEffectStyle = SideMenuManager.default.menuBlurEffectStyle
-        
         cell?.textLabel?.text = menuOptions[indexPath.row]
         
         return cell!
