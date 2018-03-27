@@ -18,6 +18,7 @@ class MyRoutesViewController: UIViewController {
     @IBOutlet weak var UserOtherAddress: UILabel!
     @IBOutlet weak var otherDestination: UILabel!
     @IBAction func editButton(_ sender: Any) {
+        self.performSegue(withIdentifier: "showEditDestinations", sender: self)
     }
     @IBOutlet weak var newLabel: UILabel!
     @IBAction func addRoute(_ sender: Any) {

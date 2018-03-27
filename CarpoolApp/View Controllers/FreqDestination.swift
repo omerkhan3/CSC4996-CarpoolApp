@@ -233,6 +233,7 @@ class FreqDestinations: UIViewController {
         func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
             let searchResult = searchResults[indexPath.row]
             let cell = UITableViewCell(style: .subtitle, reuseIdentifier: nil)
+            cell.textLabel?.text = searchResult.title
             cell.detailTextLabel?.text = searchResult.subtitle
             return cell
         }
@@ -246,22 +247,22 @@ class FreqDestinations: UIViewController {
             //If statements for selecting an address from table view and it showing up in search bar field as well as the table view disappearing after selection
             if tableView == searchTable {
                 let searchResult = searchResults[indexPath.row]
-                HomeSearchBar.text = searchResult.subtitle
+                HomeSearchBar.text = searchResult.title + ", " + searchResult.subtitle
                 searchTable.isHidden = true
             }
             if tableView == searchTable2 {
                 let searchResult = searchResults[indexPath.row]
-                WorkSearchBar.text = searchResult.subtitle
+                WorkSearchBar.text = searchResult.title + ", " + searchResult.subtitle
                 searchTable2.isHidden = true
             }
             if tableView == searchTable3 {
                 let searchResult = searchResults[indexPath.row]
-                SchoolSearchBar.text = searchResult.subtitle
+                SchoolSearchBar.text = searchResult.title + ", " + searchResult.subtitle
                 searchTable3.isHidden = true
             }
             if tableView == searchTable4 {
                 let searchResult = searchResults[indexPath.row]
-                otherSearchBar.text = searchResult.subtitle
+                otherSearchBar.text = searchResult.title + ", " + searchResult.subtitle
                 searchTable4.isHidden = true
             }
             
