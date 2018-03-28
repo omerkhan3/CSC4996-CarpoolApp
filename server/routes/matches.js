@@ -1,8 +1,8 @@
 var express = require('express');
 var router = express.Router();
- 
+
 const db = require('../routes/db'); // configures connection to the DB.
-const pgp = db.$config.pgp;   
+const pgp = db.$config.pgp;
 const apnModule = require('../routes/apn'); // Configures connection to Apple Push Notification service using our Apple Developer Account.
 const apn = apnModule.apn;
 const apnProvider = apnModule.apnProvider;
@@ -101,7 +101,7 @@ if (requestJSON['requestType'] == 'riderRequest') // If the rider has requested 
                           console.log("Results Length", resultDates);
                           for (var y = 0; y < resultDates; y++)
                           {
-                            db.query(`INSERT INTO carpool.\"scheduledRoutes\"(\"Day\", \"matchID\", \"Status\", \"Date\") values ('sunday', ${matchID}, 'Scheduled', '${result[y].d}')`) // insert each day as its own row in the DB.
+                            db.query("INSERT INTO carpool.\"scheduledRoutes\"(\"Day\", \"matchID\", \"Status\", \"Date\") values ('sunday', $1, 'Scheduled', $2)", [matchID, result[y].d]) // insert each day as its own row in the DB.
                             .catch(function (err) {
                               console.log(err);
                             });
@@ -117,7 +117,7 @@ if (requestJSON['requestType'] == 'riderRequest') // If the rider has requested 
                             console.log("Results Length", resultDates);
                             for (var y = 0; y < resultDates; y++)
                             {
-                              db.query(`INSERT INTO carpool.\"scheduledRoutes\"(\"Day\", \"matchID\", \"Status\", \"Date\") values ('monday', ${matchID}, 'Scheduled', '${result[y].d}')`)   // insert these days into the table.
+                              db.query("INSERT INTO carpool.\"scheduledRoutes\"(\"Day\", \"matchID\", \"Status\", \"Date\") values ('monday', $1, 'Scheduled', $2)", [matchID, result[y].d])  // insert these days into the table.
                               .catch(function (err) {
                                 console.log(err);
                               });
@@ -133,7 +133,7 @@ if (requestJSON['requestType'] == 'riderRequest') // If the rider has requested 
                             console.log("Results Length", resultDates);
                             for (var y = 0; y < resultDates; y++)
                             {
-                              db.query(`INSERT INTO carpool.\"scheduledRoutes\"(\"Day\", \"matchID\", \"Status\", \"Date\") values ('tuesday', ${matchID}, 'Scheduled', '${result[y].d}')`)  // insert these days into the DB.
+                              db.query("INSERT INTO carpool.\"scheduledRoutes\"(\"Day\", \"matchID\", \"Status\", \"Date\") values ('tuesday', $1, 'Scheduled', $2)", [matchID, result[y].d]) // insert these days into the DB.
                               .catch(function (err) {
                                 console.log(err);
                               });
@@ -151,7 +151,7 @@ if (requestJSON['requestType'] == 'riderRequest') // If the rider has requested 
                             console.log("Results Length", resultDates);
                             for (var y = 0; y < resultDates; y++)
                             {
-                              db.query(`INSERT INTO carpool.\"scheduledRoutes\"(\"Day\", \"matchID\", \"Status\", \"Date\") values ('wednesday', ${matchID}, 'Scheduled', '${result[y].d}')`) 
+                              db.query("INSERT INTO carpool.\"scheduledRoutes\"(\"Day\", \"matchID\", \"Status\", \"Date\") values ('wednesday', $1, 'Scheduled', $2)", [matchID, result[y].d])
                               .catch(function (err) {
                                 console.log(err);
                               });
@@ -168,7 +168,7 @@ if (requestJSON['requestType'] == 'riderRequest') // If the rider has requested 
                             console.log("Results Length", resultDates);
                             for (var y = 0; y < resultDates; y++)
                             {
-                              db.query(`INSERT INTO carpool.\"scheduledRoutes\"(\"Day\", \"matchID\", \"Status\", \"Date\") values ('thursday', ${matchID}, 'Scheduled', '${result[y].d}')`) 
+                              db.query("INSERT INTO carpool.\"scheduledRoutes\"(\"Day\", \"matchID\", \"Status\", \"Date\") values ('thursday', $1, 'Scheduled', $2)", [matchID, result[y].d])
                               .catch(function (err) {
                                 console.log(err);
                               });
@@ -185,7 +185,7 @@ if (requestJSON['requestType'] == 'riderRequest') // If the rider has requested 
                             console.log("Results Length", resultDates);
                             for (var y = 0; y < resultDates; y++)
                             {
-                              db.query(`INSERT INTO carpool.\"scheduledRoutes\"(\"Day\", \"matchID\", \"Status\", \"Date\") values ('friday', ${matchID}, 'Scheduled', '${result[y].d}')`) 
+                              db.query("INSERT INTO carpool.\"scheduledRoutes\"(\"Day\", \"matchID\", \"Status\", \"Date\") values ('friday', $1, 'Scheduled', $2)", [matchID, result[y].d])
                               .catch(function (err) {
                                 console.log(err);
                               });
@@ -202,7 +202,7 @@ if (requestJSON['requestType'] == 'riderRequest') // If the rider has requested 
                             console.log("Results Length", resultDates);
                             for (var y = 0; y < resultDates; y++)
                             {
-                              db.query(`INSERT INTO carpool.\"scheduledRoutes\"(\"Day\", \"matchID\", \"Status\", \"Date\") values ('saturday', ${matchID}, 'Scheduled', '${result[y].d}')`) 
+                              db.query("INSERT INTO carpool.\"scheduledRoutes\"(\"Day\", \"matchID\", \"Status\", \"Date\") values ('saturday', $1, 'Scheduled', $2)", [matchID, result[y].d])
                               .catch(function (err) {
                                 console.log(err);
                               });
