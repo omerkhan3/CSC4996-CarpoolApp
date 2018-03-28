@@ -41,6 +41,15 @@ class RideDetailViewController: UIViewController {
     // Button actions
     @IBAction func startRide(_ sender: Any) {
         //self.performSegue(withIdentifier: "showDashboardRideCancel", sender: self)
+        var otherID = ""
+        if (self.scheduledRideDetail?.driverID == self.userID){
+            otherID = (self.scheduledRideDetail?.riderID)!
+        }
+        else{
+            otherID = (self.scheduledRideDetail?.driverID)!
+        }
+        let rideInfo = ["otherID": otherID, "Date": self.scheduledRideDetail?.Date as Any, "matchID": self.scheduledRideDetail?.matchID as Any, "liveRideType": "rideStarted"] as [String:Any]
+        self.startRideStatus(rideInfo: rideInfo)
     }
     
     @IBAction func mapOverview(_ sender: Any) {
@@ -132,6 +141,27 @@ class RideDetailViewController: UIViewController {
         
         }.resume()
     
+    }
+    
+    func startRideStatus(rideInfo: Dictionary<String, Any>)
+    {
+        let rideURL = URL(string: "http://localhost:3000/liveRide/")!
+        var request = URLRequest(url: rideURL)
+        let rideJSON = try! JSONSerialization.data(withJSONObject: rideInfo, options: .prettyPrinted)
+        let rideJSONInfo = NSString(data: rideJSON, encoding: String.Encoding.utf8.rawValue)! as String
+        request.httpBody = "rideInfo=\(rideJSONInfo)".data(using: String.Encoding.utf8)
+        request.httpMethod = "POST" // POST method.
+        
+        URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
+            if (error != nil){  // error handling responses.
+                print ("An error has occured.")
+            }
+            else{
+                print ("Success!")
+            }
+            
+            }.resume()
+        
     }
     
     func setView(){
