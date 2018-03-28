@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 const db = require('../routes/db'); // configures our connection to the DB.
-const pgp = db.$config.pgp; 
+const pgp = db.$config.pgp;
 const apnModule = require('../routes/apn'); // Allows us to connect to Apple Push Notification Service.
 const apn = apnModule.apn;
 const apnProvider = apnModule.apnProvider;
@@ -25,7 +25,7 @@ function convertTo24Hour(time) { // Converts time from 12-hour format to 24-hour
 
 
 // This GET request returns all routes a user has previously entered.
-router.get('/saved', function(req, res, next) {  
+router.get('/saved', function(req, res, next) {
 var userID = req.query.userID;
 db.query(`select * from carpool.\"Routes\" where \"driverID\" = '${userID}' OR \"riderID\" = '${userID}'`)
 .then(function(data) {
@@ -38,7 +38,7 @@ db.query(`select * from carpool.\"Routes\" where \"driverID\" = '${userID}' OR \
 //This GET request returns all routes a user is currently scheduled for.
 router.get('/scheduled', function(req, res, next) {
 var userID = req.query.userID;
-db.query("select \"rideCost\", \"driverFirstName\", \"driverStartAddress\", \"driverEndAddress\", \"driverStartPointLat\", \"driverStartPointLong\", \"driverEndPointLat\", \"driverEndPointLong\", \"riderFirstName\", \"riderStartAddress\", \"riderEndAddress\", \"riderStartPointLat\", \"riderStartPointLong\", \"riderEndPointLat\", \"riderEndPointLong\", \"matchID\", \"Day\", \"Date\", \"driverRouteID\",  \"riderRouteID\", \"riderID\", \"driverID\", \"riderPickupTime\", \"riderDropOffTime\", \"driverLeaveTime\", \"riderPickupTime2\", \"driverRouteName\", \"riderRouteName\" from (select \"firstName\" as \"riderFirstName\", \"userID\" from carpool.\"Users\") h JOIN ((select \"firstName\" as \"driverFirstName\", \"userID\" from carpool.\"Users\") h JOIN ((select \"startPointLat\" as \"driverStartPointLat\",  \"startPointLong\" as \"driverStartPointLong\", \"endPointLat\" as \"driverEndPointLat\",  \"endPointLong\" as \"driverEndPointLong\", \"routeID\", \"Name\" as \"driverRouteName\", \"startAddress\" as \"driverStartAddress\", \"endAddress\" as \"driverEndAddress\" from carpool.\"Routes\")e JOIN ((select \"startPointLat\" as \"riderStartPointLat\", \"startPointLong\" as \"riderStartPointLong\", \"endPointLat\" as \"riderEndPointLat\",  \"endPointLong\" as \"riderEndPointLong\", \"routeID\", \"Name\" as \"riderRouteName\", \"startAddress\" as \"riderStartAddress\", \"endAddress\" as \"riderEndAddress\" from carpool.\"Routes\") c JOIN ((select \"Day\", \"Date\", \"Status\", \"matchID\" as \"scheduledRideMatchID\" from carpool.\"scheduledRoutes\" where \"Date\" >= 'now' and \"Status\" = 'Scheduled') a JOIN (select * from carpool.\"Matches\" where (\"riderID\" = '${userID}' OR \"driverID\" = '${userID}') AND \"Status\" = 'Matched') b ON a.\"scheduledRideMatchID\" = b.\"matchID\")d ON d.\"riderRouteID\" = c.\"routeID\")f ON f.\"driverRouteID\" = e.\"routeID\")g ON g.\"driverID\" = h.\"userID\") j ON j.\"riderID\" = h.\"userID\" ORDER BY \"Date\" LIMIT 20")
+db.query(`select \"rideCost\", \"driverFirstName\", \"driverStartAddress\", \"driverEndAddress\", \"driverStartPointLat\", \"driverStartPointLong\", \"driverEndPointLat\", \"driverEndPointLong\", \"riderFirstName\", \"riderStartAddress\", \"riderEndAddress\", \"riderStartPointLat\", \"riderStartPointLong\", \"riderEndPointLat\", \"riderEndPointLong\", \"matchID\", \"Day\", \"Date\", \"driverRouteID\",  \"riderRouteID\", \"riderID\", \"driverID\", \"riderPickupTime\", \"riderDropOffTime\", \"driverLeaveTime\", \"riderPickupTime2\", \"driverRouteName\", \"riderRouteName\" from (select \"firstName\" as \"riderFirstName\", \"userID\" from carpool.\"Users\") h JOIN ((select \"firstName\" as \"driverFirstName\", \"userID\" from carpool.\"Users\") h JOIN ((select \"startPointLat\" as \"driverStartPointLat\",  \"startPointLong\" as \"driverStartPointLong\", \"endPointLat\" as \"driverEndPointLat\",  \"endPointLong\" as \"driverEndPointLong\", \"routeID\", \"Name\" as \"driverRouteName\", \"startAddress\" as \"driverStartAddress\", \"endAddress\" as \"driverEndAddress\" from carpool.\"Routes\")e JOIN ((select \"startPointLat\" as \"riderStartPointLat\", \"startPointLong\" as \"riderStartPointLong\", \"endPointLat\" as \"riderEndPointLat\",  \"endPointLong\" as \"riderEndPointLong\", \"routeID\", \"Name\" as \"riderRouteName\", \"startAddress\" as \"riderStartAddress\", \"endAddress\" as \"riderEndAddress\" from carpool.\"Routes\") c JOIN ((select \"Day\", \"Date\", \"Status\", \"matchID\" as \"scheduledRideMatchID\" from carpool.\"scheduledRoutes\" where \"Date\" >= 'now' and \"Status\" = 'Scheduled') a JOIN (select * from carpool.\"Matches\" where (\"riderID\" = '${userID}' OR \"driverID\" = '${userID}') AND \"Status\" = 'Matched') b ON a.\"scheduledRideMatchID\" = b.\"matchID\")d ON d.\"riderRouteID\" = c.\"routeID\")f ON f.\"driverRouteID\" = e.\"routeID\")g ON g.\"driverID\" = h.\"userID\") j ON j.\"riderID\" = h.\"userID\" ORDER BY \"Date\" LIMIT 20`)
 .then(function(data) {
  res.send(data);
   });
@@ -72,8 +72,8 @@ router.post('/cancel', function(req, res, next) {
        // Replace this with your app bundle ID:
        notification.topic = "com.CSC4996.CarpoolApp";
 
-       // Send the actual notification 
-      apnProvider.send(notification, result.deviceToken).then( result => { 
+       // Send the actual notification
+      apnProvider.send(notification, result.deviceToken).then( result => {
         // Sends a push notifications to the other party that their ride has been cancelled.
       // Show the result of the send operation:
          console.log(result);
@@ -106,7 +106,7 @@ else {
           notification.badge = 2;
           notification.sound = "ping.aiff";
           notification.alert = `Your ride series with ${result.firstName} has been cancelled.`;
-          notification.payload = {'messageFrom': 'Notifications are working!'}; 
+          notification.payload = {'messageFrom': 'Notifications are working!'};
 
            // Replace this with your app bundle ID:
            notification.topic = "com.CSC4996.CarpoolApp";
@@ -145,7 +145,8 @@ router.post('/', function(req, res, next) {
  if (routeJSON['Driver'] == true) // Handles Driver Routes
   {
     // Inserts Route into the Routes table.
-         db.any(`INSERT INTO carpool.\"Routes\"(\"driverID\", \"departureTime\", \"arrivalTime\", \"startPointLong\", \"startPointLat\", \"endPointLong\", \"endPointLat\", \"Name\", \"Days\", \"Matched\", \"Driver\", \"startAddress\", \"endAddress\") values('${userID}', '${routeJSON['departureTime']}', '${routeJSON['arrivalTime']}', ${routeJSON['Longitudes'][0]}, ${routeJSON['Latitudes'][0]}, ${routeJSON['Longitudes'][1]}, ${routeJSON['Latitudes'][1]}, '${routeJSON['Name']}', ${routeJSON['Days']}, 'false', 'true', '${routeJSON['startAddress']}', '${routeJSON['endAddress']}')`) 
+    var addDriverRouteQuery = "INSERT INTO carpool.\"Routes\"(\"driverID\", \"departureTime\", \"arrivalTime\", \"startPointLong\", \"startPointLat\", \"endPointLong\", \"endPointLat\", \"Name\", \"Days\", \"Matched\", \"Driver\", \"startAddress\", \"endAddress\") values($1, $2, $3, $4, $5, $6, $7, $8, $9, 'false', 'true', $10, $11)"; // this is the query to add driver's route.
+    db.any(addDriverRouteQuery, [userID, routeJSON['departureTime'], routeJSON['arrivalTime'], routeJSON['Longitudes'][0], routeJSON['Latitudes'][0], routeJSON['Longitudes'][1], routeJSON['Latitudes'][1], routeJSON['Name'], routeJSON['Days'], routeJSON['startAddress'], routeJSON['endAddress']])
       .then(function () {
         console.log("Driver route added.");
         var setGeographyQuery = "UPDATE carpool.\"Routes\" SET startPoint = ST_POINT (\"startPointLat\", \"startPointLong\"), endPoint = ST_POINT (\"endPointLat\", \"endPointLong\")"; // Set geography object based on coordinates added by user.
@@ -170,9 +171,8 @@ router.post('/', function(req, res, next) {
 
 // Handles rider routes case.
  else {
-   console.log('test');
- var matchingQuery = 
-     db.any(`SELECT * FROM carpool.\"Routes\" WHERE ST_DWithin(startPoint, Geography(ST_MakePoint(${routeJSON['Latitudes'][0]}, ${routeJSON['Longitudes'][0]})),4830) AND ST_DWithin(endPoint, Geography(ST_MakePoint(${routeJSON['Latitudes'][1]}, ${routeJSON['Longitudes'][1]})),4830) AND (\"departureTime\" <= ('${convertTo24Hour(routeJSON['departureTime'])}') AND \"departureTime\" >= ('${convertTo24Hour(routeJSON['departureTime'])}'  - interval '15 minutes')) AND (\"arrivalTime\" <= ('${convertTo24Hour(routeJSON['arrivalTime'])}' + interval '15 minutes') AND \"arrivalTime\" >= ('${convertTo24Hour(routeJSON['arrivalTime'])}')) AND \"Matched\" = 'false' AND \"Driver\" = 'true' and \"Days\" = ${routeJSON['Days']} AND \"driverID\"<> '${userID}'`) // Query to find all drivers whose routes are within a 3 mile radius of start and endpoint, within 15 minute time interval of arrival and departure, perfect match for days, and not the same rider and driver.)
+     db.any(`SELECT * FROM carpool.\"Routes\" WHERE ST_DWithin(startPoint, Geography(ST_MakePoint(${routeJSON['Latitudes'][0]}, ${routeJSON['Longitudes'][0]})),4830) AND ST_DWithin(endPoint, Geography(ST_MakePoint(${routeJSON['Latitudes'][1]}, ${routeJSON['Longitudes'][1]})),4830) AND (\"departureTime\" <= ('${convertTo24Hour(routeJSON['departureTime'])}') AND \"departureTime\" >= ('${convertTo24Hour(routeJSON['departureTime'])}'  - interval '15 minutes')) AND (\"arrivalTime\" <= ('${convertTo24Hour(routeJSON['arrivalTime'])}' + interval '15 minutes') AND \"arrivalTime\" >= ('${convertTo24Hour(routeJSON['arrivalTime'])}')) AND \"Matched\" = 'false' AND \"Driver\" = 'true' and \"Days\" = $1 AND \"driverID\"<> '${userID}'`, [routeJSON['Days']])
+     // Query to find all drivers whose routes are within a 3 mile radius of start and endpoint, within 15 minute time interval of arrival and departure, perfect match for days, and not the same rider and driver.)
      .then(function(result) {
        if (result.length > 0){
             //console.log('Match Found: ', result);
@@ -233,7 +233,7 @@ router.post('/', function(req, res, next) {
                         db.one("SELECT last_value as \"currval\" from \"riderRoutes_routeID_seq\"") // get the rider route ID in the current route table.
                               .then(function(data2){
                                   var riderRouteID = parseInt(data2.currval);
-                                  db.one(`select ${driverLeaveTime} as \"driverLeaveTime\"`) 
+                                  db.one(`select ${driverLeaveTime} as \"driverLeaveTime\"`)
                                    .then(function(driverLeave){
                                      db.one(`select ${riderPickup} as \"riderPickupTime\"`)
                                      .then(function(riderPickupTime){
@@ -275,7 +275,7 @@ db.one(`SELECT \"deviceToken\" from carpool.\"Users\" where \"userID\" = '${user
        }
      });
     // insert Rider's route into Route table.
-    db.any(`INSERT INTO carpool.\"Routes\"(\"riderID\", \"departureTime\", \"arrivalTime\", \"startPointLong\", \"startPointLat\", \"endPointLong\", \"endPointLat\", \"Name\", \"Days\", \"Matched\", \"Driver\", \"startAddress\", \"endAddress\") values('${userID}', '${routeJSON['departureTime']}', '${routeJSON['arrivalTime']}', ${routeJSON['Longitudes'][0]}, ${routeJSON['Latitudes'][0]}, ${routeJSON['Longitudes'][1]}, ${routeJSON['Latitudes'][1]}, '${routeJSON['Name']}', ${routeJSON['Days']}, 'false', 'false', '${routeJSON['startAddress']}', '${routeJSON['endAddress']}')`)
+    db.any(`INSERT INTO carpool.\"Routes\"(\"riderID\", \"departureTime\", \"arrivalTime\", \"startPointLong\", \"startPointLat\", \"endPointLong\", \"endPointLat\", \"Name\", \"Days\", \"Matched\", \"Driver\", \"startAddress\", \"endAddress\") values('${userID}', '${routeJSON['departureTime']}', '${routeJSON['arrivalTime']}', ${routeJSON['Longitudes'][0]}, ${routeJSON['Latitudes'][0]}, ${routeJSON['Longitudes'][1]}, ${routeJSON['Latitudes'][1]}, '${routeJSON['Name']}', $1, 'false', 'false', '${routeJSON['startAddress']}', '${routeJSON['endAddress']}')`, [routeJSON['Days']])
       .then(function () {
         console.log("Succesfully added route.");
         var setGeographyQuery = "UPDATE carpool.\"Routes\" SET startPoint = ST_POINT (\"startPointLat\", \"startPointLong\"), endPoint = ST_POINT (\"endPointLat\", \"endPointLong\")"; // Set geography objects based on coordinates entered by user.
