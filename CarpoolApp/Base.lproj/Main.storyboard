@@ -947,7 +947,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="recentPayments" id="wfd-35-hJG">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="recentPayments" id="wfd-35-hJG" customClass="recentPaymentsCell" customModule="CarpoolApp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="55" width="343" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="wfd-35-hJG" id="Udr-uf-Bz7">
@@ -974,6 +974,11 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="amountLabel" destination="wQQ-hb-xsN" id="9xn-J8-EOV"/>
+                                            <outlet property="contactLabel" destination="Wkj-91-iVp" id="Vpg-mH-VIV"/>
+                                            <outlet property="dateLabel" destination="YKM-S9-Ps5" id="iui-Gi-PNF"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -996,7 +1001,7 @@
                                 </connections>
                             </button>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="You currently have no recent payments!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="59W-Gy-qrj">
-                                <rect key="frame" x="80" y="387" width="214" height="174"/>
+                                <rect key="frame" x="80" y="373" width="214" height="174"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>

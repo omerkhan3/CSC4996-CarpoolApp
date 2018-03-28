@@ -29,7 +29,6 @@ class PaymentsViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var recentPaymentsTable: UITableView!
     @IBOutlet weak var noPaymentsLabel: UILabel!
     
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         recentPaymentsTable.reloadData()
@@ -56,7 +55,7 @@ class PaymentsViewController: UIViewController, UITableViewDelegate, UITableView
             self.clientToken = clientToken
         }
     }
-
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         recentPayments = recentPaymentsArray[indexPath.row]
         print(recentPayments)
@@ -65,7 +64,7 @@ class PaymentsViewController: UIViewController, UITableViewDelegate, UITableView
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = UITableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: "recentPayments")
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: recentPaymentsCell.reuseIdentifier, for: indexPath) as? recentPaymentsCell else { fatalError("Unable to dequeue a recentPaymentsCell") }
         
         //Create date formatter and reformat date
         let dateFormatter = DateFormatter()
@@ -74,11 +73,19 @@ class PaymentsViewController: UIViewController, UITableViewDelegate, UITableView
         dateFormatter.dateFormat = "MM-dd-YYYY"
         let dateString = dateFormatter.string(from: date)
         
+        //var amountFormatter: NumberFormatter = {
+        //    let formatter = NumberFormatter()
+          //  formatter.numberStyle = .currency
+            //return formatter
+        //}()
+        
         if recentPaymentsArray[indexPath.row].Contact == userID {
             cell.textLabel?.text = recentPaymentsArray[indexPath.row].Contact.uppercased()
             cell.detailTextLabel?.text = dateString
         }
-        //recentPaymentsArray[indexPath.row].Amount =
+        else {
+            print("Payments not found")
+        }
         return cell
     }
     
@@ -204,5 +211,13 @@ class PaymentsViewController: UIViewController, UITableViewDelegate, UITableView
                 }.resume()
         }
     }
+}
+
+class recentPaymentsCell: UITableViewCell {
+    static let reuseIdentifier = "recentPayments"
+    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var amountLabel: UILabel!
+    @IBOutlet weak var contactLabel: UILabel!
+    
 }
 
