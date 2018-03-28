@@ -22,11 +22,30 @@ class EmbeddedNavViewController: UIViewController, NavigationViewControllerDeleg
     @IBAction func pickPress(_ sender: RoundedButton) {
         //cancelDrive.isEnabled = false
         cancelDrive.alpha = 0.2
+        var otherID = ""
+        if (self.route?.driverID == self.userID){
+            otherID = (self.route?.riderID)!
+        }
+        else{
+            otherID = (self.route?.driverID)!
+        }
+        let rideInfo = ["otherID": otherID, "Date": self.route?.Date as Any, "matchID": self.route?.matchID as Any, "liveRideType": "riderPickedUp"] as [String:Any]
+        self.setRideStatus(rideInfo: rideInfo)
     }
     
     @IBAction func dropPress(_ sender: RoundedButton) {
         //cancelDrive.isEnabled = true
         cancelDrive.alpha = 1.0
+        var otherID = ""
+        if (self.route?.driverID == self.userID){
+            otherID = (self.route?.riderID)!
+        }
+        else{
+            otherID = (self.route?.driverID)!
+        }
+        let rideInfo = ["otherID": otherID, "Date": self.route?.Date as Any, "matchID": self.route?.matchID as Any, "liveRideType": "riderDroppedOff"] as [String:Any]
+        self.setRideStatus(rideInfo: rideInfo)
+        
         
     }
     
@@ -49,6 +68,9 @@ class EmbeddedNavViewController: UIViewController, NavigationViewControllerDeleg
             print("hi")
         }
     }
+    
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -106,6 +128,28 @@ class EmbeddedNavViewController: UIViewController, NavigationViewControllerDeleg
         navigationViewController.present(alert, animated: true, completion: nil)
         
         return false
+    }
+    
+    
+    func setRideStatus(rideInfo: Dictionary<String, Any>)
+    {
+        let rideURL = URL(string: "http://localhost:3000/liveRide/")!
+        var request = URLRequest(url: rideURL)
+        let rideJSON = try! JSONSerialization.data(withJSONObject: rideInfo, options: .prettyPrinted)
+        let rideJSONInfo = NSString(data: rideJSON, encoding: String.Encoding.utf8.rawValue)! as String
+        request.httpBody = "rideInfo=\(rideJSONInfo)".data(using: String.Encoding.utf8)
+        request.httpMethod = "POST" // POST method.
+        
+        URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
+            if (error != nil){  // error handling responses.
+                print ("An error has occured.")
+            }
+            else{
+                print ("Success!")
+            }
+            
+            }.resume()
+        
     }
     
 }
