@@ -14,6 +14,7 @@ import FirebaseAuth
 
 class FrequentDestinationsViewController: UIViewController, UIPickerViewDelegate, BEMCheckBoxDelegate, UITextFieldDelegate  {
     
+    var destinationsArray = [FrequentDestination]()
     var searchCompleter = MKLocalSearchCompleter()
     var searchResults = [MKLocalSearchCompletion]()
     let picker = UIDatePicker()
@@ -99,6 +100,8 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        print("printing destinations array: " + "\(self.destinationsArray)")
+
         //pickerView.isHidden = true
         // pickerView.delegate = self
         // pickerView.dataSource = self

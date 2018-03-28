@@ -7,3 +7,20 @@
 //
 
 import Foundation
+
+struct FrequentDestination: Decodable {
+    
+    let Name: String
+    let Address: String
+    
+    // JSON constructor
+    init(json: [String: Any]) {
+        Name = json["Name"] as? String ?? ""
+        Address = json["Address"] as? String ?? ""
+    }
+    
+    init(){
+        Name = ""
+        Address = ""
+    }
+}

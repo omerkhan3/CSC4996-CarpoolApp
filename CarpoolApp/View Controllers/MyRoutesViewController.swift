@@ -11,97 +11,118 @@ import Firebase
 import FirebaseAuth
 
 class MyRoutesViewController: UIViewController {
+    
+    // Class Variables
+    var destinationsArray = [FrequentDestination]()
+    
+    // UI Outlets
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var UserHomeAddress: UILabel!
     @IBOutlet weak var UserSchoolAddress: UILabel!
     @IBOutlet weak var UserWorkAddress: UILabel!
     @IBOutlet weak var UserOtherAddress: UILabel!
     @IBOutlet weak var otherDestination: UILabel!
+    
+    // UI Button Outlets
     @IBAction func editButton(_ sender: Any) {
         self.performSegue(withIdentifier: "showEditDestinations", sender: self)
     }
-    @IBOutlet weak var newLabel: UILabel!
+    
+
     @IBAction func addRoute(_ sender: Any) {
+        self.performSegue(withIdentifier: "showAddRoute", sender: self)
     }
     
+    // Class overrides
     override func viewDidLoad() {
         super.viewDidLoad()
-        let userID = Auth.auth().currentUser?.uid
-        getDestinations(userID: userID!)
+        //let userID = Auth.auth().currentUser?.uid
+        //getDestinations(userID: userID!)
+        getDestinationsDecode {
+            print ("printing destinations array: ")
+            print (self.destinationsArray)
+            self.showDestinations()
+        }
         UserHomeAddress.isHidden = true
         UserSchoolAddress.isHidden = true
         UserWorkAddress.isHidden = true
         UserOtherAddress.isHidden = true
     }
     
-    func getDestinations(userID: String) {
-        var viewDestinationComponents = URLComponents(string: "http://localhost:3000/freqDestinations/getDestination")!
-        viewDestinationComponents.queryItems = [
-            URLQueryItem(name: "userID", value: userID)
-        ]
-        var request = URLRequest(url: viewDestinationComponents.url!)  // Pass Parameter in URL
-        print (viewDestinationComponents.url!)
-        
-        request.httpMethod = "GET" // GET METHOD
-        
-        URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
-            if (error != nil){  // error handling responses.
-                print (error as Any)
+    // Send data to other view controllers via segue
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showAddRoute" {
+            if let frequentDestinationsView = segue.destination as? FrequentDestinationsViewController {
+                frequentDestinationsView.destinationsArray = destinationsArray
+            } else {
+                print("Data not passed")
             }
-            else if let data = data {
-                print(data)
-                let destinationInfoString:NSString = NSString(data: data, encoding: String.Encoding.utf8.rawValue)!
-                if let data = destinationInfoString.data(using: String.Encoding.utf8.rawValue) {
-                    do {
-                        let json = try JSONSerialization.jsonObject(with: data, options: []) as! [[String:AnyObject]]
-                        print (json as Any)
-                        for data in json
-                        {
-                            if (data["Name"] as! String == "Home")
-                            {
-                                self.UserHomeAddress.isHidden = false
-                                DispatchQueue.main.async
-                                    {
-                                        self.UserHomeAddress.text = (data["Address"] as? String)
-                                }
-                            }
-                            else if (data["Name"] as! String == "School")
-                            {
-                                self.UserSchoolAddress.isHidden = false
-                                DispatchQueue.main.async
-                                    {
-                                        self.UserSchoolAddress.text = (data["Address"] as? String)
-                                }
-                            }
-                            else if (data["Name"] as! String == "Work")
-                            {
-                                self.UserWorkAddress.isHidden = false
-                                DispatchQueue.main.async
-                                    {
-                                        self.UserWorkAddress.text = (data["Address"] as? String)
-                                }
-                            }
-                            else
-                            {
-                                self.UserOtherAddress.isHidden = false
-                                DispatchQueue.main.async
-                                    {
-                                        self.otherDestination.text = (data["Name"] as? String)
-                                        self.UserOtherAddress.text = (data["Address"] as? String)
-                                }
-                            }
-                        }
-                    } catch let error as NSError {
-                        print(error)
+        } else {
+            print("Segue id mismatch")
+        }
+    }
+    
+    // Custom class functions
+
+    // Function to download and save frequent destinations into an array
+    func getDestinationsDecode(completed: @escaping () -> ()) {
+        let userID = Auth.auth().currentUser?.uid
+        var viewDestinationCompenents = URLComponents(string: "http://localhost:3000/freqDestinations/getDestination")!
+        viewDestinationCompenents.queryItems = [URLQueryItem(name: "userID", value: userID)]
+        var request = URLRequest(url: viewDestinationCompenents.url!)
+        print (viewDestinationCompenents.url!)
+        
+        // GET Method
+        request.httpMethod = "GET"
+        URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
+            if (error != nil){
+                print (error as Any)
+            } else {
+                guard let data = data else { return }
+                do {
+                    // Decode JSON
+                    self.destinationsArray = try JSONDecoder().decode([FrequentDestination].self, from: data)
+                    DispatchQueue.main.async {
+                        completed()
                     }
+                } catch let jsnERR {
+                    print(jsnERR)
                 }
             }
             }.resume()
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    // Function to load frequent destinations onto the view
+    func showDestinations() -> Void {
+        for destination in destinationsArray {
+            
+            // Show home destination if saved
+            if (destination.Name == "Home") {
+                self.UserHomeAddress.isHidden = false
+                self.UserHomeAddress.text = destination.Address
+                            
+            }
+                
+            // Show school destination if saved
+            else if (destination.Name == "School")
+            {
+                self.UserSchoolAddress.isHidden = false
+                self.UserSchoolAddress.text = destination.Address
+            }
+            
+            // Show Work destination if saved
+            else if (destination.Name == "Work")
+            {
+                self.UserWorkAddress.isHidden = false
+                self.UserWorkAddress.text = destination.Address
+            
+            // Show custom destination if saved
+            } else {
+                self.UserOtherAddress.isHidden = false
+                self.otherDestination.text = destination.Name
+                self.UserOtherAddress.text = destination.Address
+            }
+        }
     }
 }
 
