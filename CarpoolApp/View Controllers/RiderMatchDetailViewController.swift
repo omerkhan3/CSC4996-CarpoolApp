@@ -88,7 +88,7 @@ class RiderMatchDetailViewController: UIViewController {
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
                 // update match status
                 self.riderRequest(matchInfo: statusUpdate)
-                self.performSegue(withIdentifier: "showMatches3", sender: self)
+                self.performSegue(withIdentifier: "showDashboardMatchComplete", sender: self)
             }))
             self.present(alert, animated: true, completion: nil)
         }
