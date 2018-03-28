@@ -19,6 +19,14 @@ router.get("/client_token",function (req, res) {
   });
 });
 
+router.get("/recentPayments", function (req, res, next) {
+var userID = req.query.userID;
+db.query("select \"paymentHistory\".\"userID\", \"paymentHistory\".\"Amount\", \"paymentHistory\".\"Time\" from carpool.\"paymentHistory\" where \"paymentHistory\".\"userID\" = $1", userID)
+.then(function(data) {
+ res.send(data);
+  });
+});
+
 router.post("/checkout", function (req, res) {
   // Use the payment method nonce here
   var nonceFromTheClient = req.body.payment_method_nonce;

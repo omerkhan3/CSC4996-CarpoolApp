@@ -14,15 +14,41 @@ import FirebaseDatabase
 import FirebaseCore
 import FirebaseAuth
 
-class PaymentsViewController: UIViewController {
+class PaymentsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
+    //Class variables
     var clientToken: String = ""
+    var recentPaymentsArray = [RecentPayments]()
+    var recentPayments = RecentPayments()
+    let userID = Auth.auth().currentUser?.uid
     
+    //Outlets
     @IBAction func newPaymentMethod(_ sender: Any) {
         showDropIn(clientTokenOrTokenizationKey: self.clientToken)
     }
+    @IBOutlet weak var recentPaymentsTable: UITableView!
+    @IBOutlet weak var noPaymentsLabel: UILabel!
     
-    @IBOutlet weak var tableView: UITableView!
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        recentPaymentsTable.reloadData()
+        
+        getRecentPayments {
+            self.recentPaymentsTable.reloadData()
+            
+            //Show or hide no recent payments alert
+            if self.recentPaymentsArray.count == 0 {
+                // No recent payments
+                self.noPaymentsLabel.isHidden = false
+            } else {
+                self.noPaymentsLabel.isHidden = true
+            }
+        }
+        
+        self.recentPaymentsTable.delegate = self
+        self.recentPaymentsTable.dataSource = self
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +57,70 @@ class PaymentsViewController: UIViewController {
         }
     }
 
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        recentPayments = recentPaymentsArray[indexPath.row]
+        print(recentPayments)
+        
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = UITableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: "recentPayments")
+        
+        //Create date formatter and reformat date
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.sssZ"
+        let date = dateFormatter.date(from: recentPaymentsArray[indexPath.row].Date)!
+        dateFormatter.dateFormat = "MM-dd-YYYY"
+        let dateString = dateFormatter.string(from: date)
+        
+        if recentPaymentsArray[indexPath.row].Contact == userID {
+            cell.textLabel?.text = recentPaymentsArray[indexPath.row].Contact.uppercased()
+            cell.detailTextLabel?.text = dateString
+        }
+        //recentPaymentsArray[indexPath.row].Amount =
+        return cell
+    }
+    
+    // Set number of sections
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    // set number of rows
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return recentPaymentsArray.count
+    }
+    
+    // Query all recent payments from database and, decode and store into an array
+    func getRecentPayments(completed: @escaping () -> ()) {
+        var viewRecentPaymentsComponents = URLComponents(string: "http://localhost:3000/payment/recentPayments")!
+        viewRecentPaymentsComponents.queryItems = [URLQueryItem(name: "userID", value: userID)]
+        var request = URLRequest(url: viewRecentPaymentsComponents.url!)
+        print (viewRecentPaymentsComponents.url!)
+        
+        // GET Method
+        request.httpMethod = "GET"
+        URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
+            if (error != nil){
+                print (error as Any)
+            } else {
+                guard let data = data else { return }
+                do {
+                    // Decode JSON
+                    self.recentPaymentsArray = try JSONDecoder().decode([RecentPayments].self, from: data)
+                    print (self.recentPaymentsArray)
+                    DispatchQueue.main.async {
+                        completed()
+                    }
+                } catch let jsnERR {
+                    print(jsnERR)
+                }
+            }
+            }.resume()
+    }
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -114,13 +204,5 @@ class PaymentsViewController: UIViewController {
                 }.resume()
         }
     }
-}
-
-class TableViewCell: UITableViewCell {
-    
-    static let reuseIdentifier = "TableViewCell"
-    @IBOutlet weak var amountLabel: UILabel!
-    @IBOutlet weak var dateLabel: UILabel!
-    @IBOutlet weak var contactLabel: UILabel!
 }
 
