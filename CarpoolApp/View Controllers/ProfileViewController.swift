@@ -264,7 +264,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
     
     func readProfileInfo(userID: String)
     {
-        var viewProfileComponents = URLComponents(string: "http://localhost:3000/users/profile")!
+        var viewProfileComponents = URLComponents(string: "http://141.217.48.15:3000/users/profile")!
         viewProfileComponents.queryItems = [
             URLQueryItem(name: "userID", value: userID)
         ]
@@ -305,7 +305,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
     
     func updateProfile(userInfo: Dictionary<String, Any>)
     {
-        let editProfileURL = URL(string: "http://localhost:3000/users/profile")!
+        let editProfileURL = URL(string: "http://141.217.48.15:3000/users/profile")!
         var request = URLRequest(url: editProfileURL)
         let userJSON = try! JSONSerialization.data(withJSONObject: userInfo, options: .prettyPrinted)
         let userJSONInfo = NSString(data: userJSON, encoding: String.Encoding.utf8.rawValue)! as String

@@ -67,7 +67,7 @@ class MyRoutesViewController: UIViewController {
     // Function to download and save frequent destinations into an array
     func getDestinationsDecode(completed: @escaping () -> ()) {
         let userID = Auth.auth().currentUser?.uid
-        var viewDestinationCompenents = URLComponents(string: "http://localhost:3000/freqDestinations/getDestination")!
+        var viewDestinationCompenents = URLComponents(string: "http://141.217.48.15:3000/freqDestinations/getDestination")!
         viewDestinationCompenents.queryItems = [URLQueryItem(name: "userID", value: userID)]
         var request = URLRequest(url: viewDestinationCompenents.url!)
         print (viewDestinationCompenents.url!)

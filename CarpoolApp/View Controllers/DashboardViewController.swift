@@ -103,7 +103,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     
     // Query all scheduled rides from database and, decode and store into an array
     func getScheduledRides(completed: @escaping () -> ()) {
-        var viewScheduledRideComponents = URLComponents(string: "http://localhost:3000/routes/scheduled")!
+        var viewScheduledRideComponents = URLComponents(string: "http://141.217.48.15:3000/routes/scheduled")!
         viewScheduledRideComponents.queryItems = [URLQueryItem(name: "userID", value: userID)]
         var request = URLRequest(url: viewScheduledRideComponents.url!)
         print (viewScheduledRideComponents.url!)

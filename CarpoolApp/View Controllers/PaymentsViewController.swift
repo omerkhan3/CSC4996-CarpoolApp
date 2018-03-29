@@ -101,7 +101,7 @@ class PaymentsViewController: UIViewController, UITableViewDelegate, UITableView
     
     // Query all recent payments from database and, decode and store into an array
     func getRecentPayments(completed: @escaping () -> ()) {
-        var viewRecentPaymentsComponents = URLComponents(string: "http://localhost:3000/payment/recentPayments")!
+        var viewRecentPaymentsComponents = URLComponents(string: "http://141.217.48.15:3000/payment/recentPayments")!
         viewRecentPaymentsComponents.queryItems = [URLQueryItem(name: "userID", value: userID)]
         var request = URLRequest(url: viewRecentPaymentsComponents.url!)
         print (viewRecentPaymentsComponents.url!)
@@ -134,7 +134,7 @@ class PaymentsViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func makeRequest(completion: @escaping (String) -> Void) {
-        let clientTokenURL = URL(string: "http://localhost:3000/payment/client_token")!
+        let clientTokenURL = URL(string: "http://141.217.48.15:3000/payment/client_token")!
         var clientTokenRequest = URLRequest(url: clientTokenURL as URL)
         clientTokenRequest.setValue("text/plain", forHTTPHeaderField: "Accept")
         
@@ -193,7 +193,7 @@ class PaymentsViewController: UIViewController, UITableViewDelegate, UITableView
             }
             //let userToken = idToken!
             //URL endpoint of our local node server
-            let paymentURL = URL(string: "http://localhost:3000/payment/checkout")!
+            let paymentURL = URL(string: "http://141.217.48.15:3000/payment/checkout")!
             var request = URLRequest(url: paymentURL)
             //payment_method_nonce is the field that the server will be looking for to receive the nonce
             request.httpBody = "payment_method_nonce=\(paymentMethodNonce)".data(using: String.Encoding.utf8)
