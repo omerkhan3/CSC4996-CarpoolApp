@@ -227,7 +227,7 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDelegate
             print(options.joined(separator: ", "))
             let driver = self.driverSetting.isOn
             let userID = Auth.auth().currentUser!.uid
-            let routeInfo = ["userID": userID, "departureTime": departtime1.text! as Any, "arrivalTime" : arrivaltime1.text! as Any, "Days" :  options, "Longitudes": longitudeArray, "Latitudes": latitudeArray, "Driver": driver, "Name": self.routeName.text! as Any, "startAddress": self.HomeSearchBar.text! as Any, "endAddress": self.WorkSearchBar.text! as Any] as [String : Any]
+            let routeInfo = ["userID": userID, "departureTime1": departtime1.text! as Any, "departureTime2": departtime2.text! as Any, "arrivalTime1" : arrivaltime1.text! as Any, "arrivalTime2" : arrivaltime2.text! as Any, "Days" :  options, "Longitudes": longitudeArray, "Latitudes": latitudeArray, "Driver": driver, "Name": self.routeName.text! as Any, "startAddress": self.HomeSearchBar.text! as Any, "endAddress": self.WorkSearchBar.text! as Any] as [String : Any]
             print (routeInfo)
             addRoute(routeInfo: routeInfo)
             actionTitle = "Success"
