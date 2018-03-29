@@ -31,8 +31,8 @@
 		9167A6DB206A3C4000ABB37F /* MyRoutesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9167A6DA206A3C4000ABB37F /* MyRoutesViewController.swift */; };
 		917C54B8204E18FE00F2BBDC /* PaymentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 917C54B7204E18FE00F2BBDC /* PaymentsViewController.swift */; };
 		91D3ACBA206B4B700032652E /* RecentPayments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D3ACB9206B4B700032652E /* RecentPayments.swift */; };
+		C9620257206C685B008893D9 /* FrequentRoutesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9620256206C685B008893D9 /* FrequentRoutesViewController.swift */; };
 		C968E520203669E400B137B8 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C968E51F203669E400B137B8 /* RoundedButton.swift */; };
-		C96F483A204A4ACC00363162 /* FrequentDestinationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96F4839204A4ACC00363162 /* FrequentDestinationsViewController.swift */; };
 		C98BB0A0202A58A8006B054C /* otherlocations.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98BB09F202A58A8006B054C /* otherlocations.swift */; };
 		C995C78E201D5DD400B8CB3E /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C995C78D201D5DD400B8CB3E /* MapKit.framework */; };
 		C995C790201D615E00B8CB3E /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C995C78F201D615D00B8CB3E /* CoreLocation.framework */; };
@@ -76,8 +76,8 @@
 		917C54B7204E18FE00F2BBDC /* PaymentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentsViewController.swift; sourceTree = "<group>"; };
 		91D3ACB9206B4B700032652E /* RecentPayments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentPayments.swift; sourceTree = "<group>"; };
 		9320C101773311FB910A13A6 /* Pods_CarpoolApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CarpoolApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C9620256206C685B008893D9 /* FrequentRoutesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FrequentRoutesViewController.swift; sourceTree = "<group>"; };
 		C968E51F203669E400B137B8 /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
-		C96F4839204A4ACC00363162 /* FrequentDestinationsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FrequentDestinationsViewController.swift; sourceTree = "<group>"; };
 		C98BB09F202A58A8006B054C /* otherlocations.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; path = otherlocations.swift; sourceTree = "<group>"; };
 		C995C78D201D5DD400B8CB3E /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		C995C78F201D615D00B8CB3E /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -176,6 +176,7 @@
 		C98966FC203A183500521450 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				C9620256206C685B008893D9 /* FrequentRoutesViewController.swift */,
 				C9A2AD4020689766000B8674 /* EmbeddedNavViewController.swift */,
 				205A4B42202569DC005AE87C /* LaunchViewController.swift */,
 				D10EFE992022979700C962E1 /* RegistrationViewController.swift */,
@@ -187,7 +188,6 @@
 				912C7DBF204D02CC00E222A4 /* NotificationsTableViewController.swift */,
 				2033C2CF2026CE5C0081E53A /* ProfileViewController.swift */,
 				C9DE0B28203F5C5F00554E9C /* FreqDestination.swift */,
-				C96F4839204A4ACC00363162 /* FrequentDestinationsViewController.swift */,
 				20509AD6204D9DA800B2EFA3 /* MatchesViewController.swift */,
 				20509ADA204EEE9200B2EFA3 /* RiderMatchDetailViewController.swift */,
 				208A2E8A202829E600393D43 /* MapViewController.swift */,
@@ -404,7 +404,6 @@
 				205A4B43202569DC005AE87C /* LaunchViewController.swift in Sources */,
 				C9A7D7ED2032D6830014861D /* UIViewX.swift in Sources */,
 				2054BEE2206C257400B62FF7 /* FrequentDestination.swift in Sources */,
-				C96F483A204A4ACC00363162 /* FrequentDestinationsViewController.swift in Sources */,
 				C9A8E121204E8500004C45ED /* HelpViewController.swift in Sources */,
 				D10EFE9A2022979700C962E1 /* RegistrationViewController.swift in Sources */,
 				78241398201D0F3A00F06D99 /* AppDelegate.swift in Sources */,
@@ -417,6 +416,7 @@
 				2018C368202CB38900E28C08 /* LogoutViewController.swift in Sources */,
 				20DA407D204B2F04003D8473 /* SideMenuTableViewController.swift in Sources */,
 				208A2E8B202829E600393D43 /* MapViewController.swift in Sources */,
+				C9620257206C685B008893D9 /* FrequentRoutesViewController.swift in Sources */,
 				20509AD7204D9DA800B2EFA3 /* MatchesViewController.swift in Sources */,
 				C9A2AD4120689766000B8674 /* EmbeddedNavViewController.swift in Sources */,
 				20509AD1204D995400B2EFA3 /* Match.swift in Sources */,

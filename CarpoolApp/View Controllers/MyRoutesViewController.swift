@@ -52,8 +52,8 @@ class MyRoutesViewController: UIViewController {
     // Send data to other view controllers via segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showAddRoute" {
-            if let frequentDestinationsView = segue.destination as? FrequentDestinationsViewController {
-                frequentDestinationsView.destinationsArray = destinationsArray
+            if let frequentRoutesView = segue.destination as? FrequentRoutesViewController {
+                frequentRoutesView.destinationsArray = destinationsArray
             } else {
                 print("Data not passed")
             }
