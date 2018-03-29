@@ -179,7 +179,7 @@ class RideDetailViewController: UIViewController {
         // Remaining information
         self.pickupLocation.text = scheduledRideDetail?.riderStartAddress
         self.pickupTime.text = scheduledRideDetail?.riderPickupTime
-        self.destination.text = scheduledRideDetail?.riderRouteName
+        self.destination.text = scheduledRideDetail?.riderEndAddress
         self.departureTime.text =  scheduledRideDetail?.riderPickupTime2
         self.cost.text = "$" + String(describing: Double(round(100 * scheduledRideDetail!.rideCost)/100))
     }

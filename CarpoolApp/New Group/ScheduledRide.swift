@@ -20,7 +20,7 @@ struct ScheduledRide: Decodable {
     
     let riderFirstName: String
     let riderStartAddress: String?
-    let riderEndAddres: String?
+    let riderEndAddress: String?
     let riderStartPointLat: Double
     let riderStartPointLong: Double
     let riderEndPointLat: Double
@@ -53,7 +53,7 @@ struct ScheduledRide: Decodable {
        
         riderFirstName = json["riderFirstName"] as? String ?? "<rider first name>"
         riderStartAddress = json["riderStartAddress"] as? String ?? "<rider start address>"
-        riderEndAddres = json["riderEndAddress"] as? String ?? "<rider end address>"
+        riderEndAddress = json["riderEndAddress"] as? String ?? "<rider end address>"
         riderStartPointLat = json["riderStartPointLat"] as? Double ?? 0.0
         riderStartPointLong = json["riderStartPointLong"] as? Double ?? 0.0
         riderEndPointLat = json["riderEndPointLat"] as? Double ?? 0.0
@@ -86,7 +86,7 @@ struct ScheduledRide: Decodable {
         
         riderFirstName = "<rider first name>"
         riderStartAddress = "<rider start address>"
-        riderEndAddres  = "<rider end address>"
+        riderEndAddress  = "<rider end address>"
         riderStartPointLat = 0.0
         riderStartPointLong = 0.0
         riderEndPointLat = 0.0
