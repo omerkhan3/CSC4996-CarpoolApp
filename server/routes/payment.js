@@ -21,7 +21,9 @@ router.get("/client_token",function (req, res) {
 
 router.get("/recentPayments", function (req, res, next) {
 var userID = req.query.userID;
-db.query(`select \"userID\", \"Amount\", \"Time\" from carpool.\"paymentHistory\" where \"Time\" >= 'now'`)
+console.log(userID);
+//db.query(`select \"userID\", \"Amount\", \"Time\" from carpool.\"paymentHistory\" where \"Time\" >= 'now'`)
+db.query("select \"paymentHistory\".\"userID\", \"paymentHistory\".\"Amount\", \"paymentHistory\".\"Time\" from carpool.\"paymentHistory\" where \"paymentHistory\".\"userID\" = $1", userID)
 .then(function(data) {
  res.send(data);
   });

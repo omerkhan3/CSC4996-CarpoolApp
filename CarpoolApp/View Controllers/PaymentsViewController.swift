@@ -64,7 +64,9 @@ class PaymentsViewController: UIViewController, UITableViewDelegate, UITableView
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: recentPaymentsCell.reuseIdentifier, for: indexPath) as? recentPaymentsCell else { fatalError("Unable to dequeue a recentPaymentsCell") }
+        //guard let cell = tableView.dequeueReusableCell(withIdentifier: recentPaymentsCell.reuseIdentifier, for: indexPath) as? recentPaymentsCell else { fatalError("Unable to dequeue a recentPaymentsCell") }
+        
+        let cell = UITableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: "recentPayments")
         
         //Create date formatter and reformat date
         let dateFormatter = DateFormatter()
@@ -79,13 +81,9 @@ class PaymentsViewController: UIViewController, UITableViewDelegate, UITableView
             //return formatter
         //}()
         
-        if recentPaymentsArray[indexPath.row].Contact == userID {
-            cell.textLabel?.text = recentPaymentsArray[indexPath.row].Contact.uppercased()
-            cell.detailTextLabel?.text = dateString
-        }
-        else {
-            print("Payments not found")
-        }
+        cell.textLabel?.text = recentPaymentsArray[indexPath.row].Contact.uppercased()
+        cell.detailTextLabel?.text = dateString
+
         return cell
     }
     
@@ -213,11 +211,11 @@ class PaymentsViewController: UIViewController, UITableViewDelegate, UITableView
     }
 }
 
-class recentPaymentsCell: UITableViewCell {
-    static let reuseIdentifier = "recentPayments"
-    @IBOutlet weak var dateLabel: UILabel!
-    @IBOutlet weak var amountLabel: UILabel!
-    @IBOutlet weak var contactLabel: UILabel!
+//class recentPaymentsCell: UITableViewCell {
+  //  static let reuseIdentifier = "recentPayments"
+    //@IBOutlet weak var dateLabel: UILabel!
+    //@IBOutlet weak var amountLabel: UILabel!
+    //@IBOutlet weak var contactLabel: UILabel!
     
-}
+//}
 
