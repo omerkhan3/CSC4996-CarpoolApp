@@ -16,7 +16,6 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
     var destinationsArray = [FrequentDestination]()
     
     // UI Outlets
-    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var UserHomeAddress: UILabel!
     @IBOutlet weak var UserSchoolAddress: UILabel!
     @IBOutlet weak var UserWorkAddress: UILabel!
@@ -115,7 +114,7 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
     
     // Query all saved routes from database and, decode and store into an array
     func getMyRoutes(completed: @escaping () -> ()) {
-        var viewMyRoutesComponents = URLComponents(string: "http://localhost:3000/frequentDestinations/getDestination")!
+        var viewMyRoutesComponents = URLComponents(string: "http://localhost:3000/freqDestinations/getDestination")!
         viewMyRoutesComponents.queryItems = [URLQueryItem(name: "userID", value: userID)]
         var request = URLRequest(url: viewMyRoutesComponents.url!)
         print (viewMyRoutesComponents.url!)
@@ -179,7 +178,6 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
             if (destination.Name == "Home") {
                 self.UserHomeAddress.isHidden = false
                 self.UserHomeAddress.text = destination.Address
-                            
             }
                 
             // Show school destination if saved
@@ -194,11 +192,11 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
             {
                 self.UserWorkAddress.isHidden = false
                 self.UserWorkAddress.text = destination.Address
-            
-            // Show custom destination if saved
-            } else {
+            }
+            //Show custom destination if saved
+            else {
                 self.UserOtherAddress.isHidden = false
-                //self.otherDestination.text = destination.Name
+                self.otherDestination.text = destination.Name
                 self.UserOtherAddress.text = destination.Address
             }
         }
