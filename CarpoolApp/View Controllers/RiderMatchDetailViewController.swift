@@ -159,11 +159,11 @@ class RiderMatchDetailViewController: UIViewController {
             // Populate ride info
             //self.profilePicture ==
             self.firstName.text = matchDetail?.driverFirstName
-            //self.pickupTime.text =
-            //self.pickupLocation =
+            self.pickupTime.text = matchDetail?.riderPickupTime
+           self.pickupLocation.text = matchDetail?.riderStartAddress
             self.destination.text = matchDetail?.driverRouteName
-            //self.departureTime.text =
-            //self.cost.text =
+            self.departureTime.text = matchDetail?.driverLeaveTime
+            self.cost.text = "$" + String(describing: Double(round(100 * matchDetail!.rideCost)/100))
         }
         // Set view if driver has been requested by rider
         else if matchDetail?.Status == "driverRequested" {

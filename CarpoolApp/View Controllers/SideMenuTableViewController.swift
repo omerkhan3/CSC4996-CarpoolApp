@@ -62,7 +62,7 @@ class SideMenuTableViewController: UITableViewController {
         
         else if indexPath.row == 2
         {
-            self.performSegue(withIdentifier: "showMyRoutes", sender: self)
+            self.performSegue(withIdentifier: "showRoutes", sender: self)
         }
             
         else if indexPath.row == 3

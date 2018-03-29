@@ -144,6 +144,116 @@ router.post('/', function(req, res, next) {
 
  if (routeJSON['Driver'] == true) // Handles Driver Routes
   {
+
+    db.any(`SELECT * FROM carpool.\"Routes\" WHERE ST_DWithin(startPoint, Geography(ST_MakePoint(${routeJSON['Latitudes'][0]}, ${routeJSON['Longitudes'][0]})),4830) AND ST_DWithin(endPoint, Geography(ST_MakePoint(${routeJSON['Latitudes'][1]}, ${routeJSON['Longitudes'][1]})),4830) AND (\"departureTime\" >= ('${convertTo24Hour(routeJSON['departureTime'])}') AND (\"departureTime\" - interval '15 minutes') <= '${convertTo24Hour(routeJSON['departureTime'])}') AND ((\"arrivalTime\"  + interval '15 minutes') >= ('${convertTo24Hour(routeJSON['arrivalTime'])}') AND \"arrivalTime\" <= ('${convertTo24Hour(routeJSON['arrivalTime'])}')) AND \"Matched\" = 'false' AND \"Driver\" = 'false' and \"Days\" = $1 AND \"riderID\"<> '${userID}'`, [routeJSON['Days']])
+    // Query to find all drivers whose routes are within a 3 mile radius of start and endpoint, within 15 minute time interval of arrival and departure, perfect match for days, and not the same rider and driver.)
+    .then(function(result) {
+      if (result.length > 0){
+           //console.log('Match Found: ', result);
+           for (var key in result) {
+             if (!result.hasOwnProperty(key))
+               continue; // traverse through result.
+             else{
+             var obj = result[key];
+             var leg1, leg2, leg3, leg1Distance, leg2Distance, leg3Distance;
+             getFirstLeg(); // We use separate functions to calculate each separate leg of the route.
+
+
+             function getFirstLeg()  // calculates the route distance and ETA of driver start point to rider start point.
+             {
+             distance.get({
+                 origin: `${routeJSON['Latitudes'][0]}, ${routeJSON['Longitudes'][0]}`,
+                 destination: `${obj['startPointLat']}, ${obj['startPointLong']}`,
+               },
+               function(err, data) {
+                   if (err) return console.log(err);
+                   leg1 = data.duration;
+                   leg1Distance = data.distanceValue;
+                   getSecondLeg(leg1, leg1Distance); // we use these embedded function calls to make sure each asynchronous request is handled sequentially.
+                 });
+               }
+           function getSecondLeg(leg1, leg1Distance){  // calculates the route distance and ETA of rider start point to rider end point.
+             distance.get({
+                 origin: `${obj['startPointLat']}, ${obj['startPointLong']}`,
+                 destination: `${obj['endPointLat']}, ${obj['endPointLong']}`,
+                   },
+                   function(err, data) {
+                       if (err) return console.log(err);
+                       leg2 = data.duration;
+                       leg2Distance = data.distanceValue;
+                       getThirdLeg(leg1, leg1Distance, leg2, leg2Distance);
+                     });
+                   }
+
+                   function getThirdLeg(leg1, leg1Distance, leg2, leg2Distance){  // calculates the route distance and ETA of rider  end point to driver end point.
+                     distance.get({
+                         origin: `${obj['endPointLat']}, ${obj['endPointLong']}`,
+                         destination: `${routeJSON['Latitudes'][1]}, ${routeJSON['Longitudes'][1]}`,
+                       },
+                       function(err, data) {
+                           if (err) return console.log(err);
+                           leg3 = data.duration;
+                           leg3Distance = data.distanceValue;
+                            var totalCost = ((leg1Distance + leg2Distance + leg3Distance) / 1000) * 0.335;
+                            var driverLeaveTime = `time '${routeJSON['arrivalTime']}'  - (interval '${leg1}'  + interval '${leg2}' + '${leg3}')`; // PostgreSQL queries to calculate route times using time arithmetic.
+                            var riderPickup = `${driverLeaveTime} + interval '${leg1}'`;
+                            var riderDropOff = `${riderPickup} +  interval '${leg2}'`;
+                            var riderPickup2 = `time '${routeJSON['departureTime']}' + interval '${leg3}'`;
+                            insertMatches(driverLeaveTime, riderPickup, riderDropOff, riderPickup2, totalCost);
+                         });
+                       }
+
+                       function insertMatches(driverLeaveTime, riderPickup, riderDropOff, riderPickup2, totalCost){ // after all 3 legs are calculated, insert data into matches table.
+                       db.one("SELECT last_value as \"currval\" from \"riderRoutes_routeID_seq\"") // get the rider route ID in the current route table.
+                             .then(function(data2){
+                                 var driverRouteID = parseInt(data2.currval);
+                                 db.one(`select ${driverLeaveTime} as \"driverLeaveTime\"`)
+                                  .then(function(driverLeave){
+                                    db.one(`select ${riderPickup} as \"riderPickupTime\"`)
+                                    .then(function(riderPickupTime){
+                                     db.one(`select ${riderDropOff} as \"riderDropOffTime\"`)
+                                     .then(function(riderDropOffTime){
+                                  db.one(`select ${riderPickup2} as \"riderPickup2Time\"`)
+                                     .then(function(riderPickup2Time){
+                               db.query(`INSERT INTO carpool.\"Matches\"(\"riderID\", \"driverID\",  \"driverRouteID\", \"Status\", \"riderRouteID\", \"driverLeaveTime\", \"riderPickupTime\", \"riderDropOffTime\", \"riderPickupTime2\", \"rideCost\") values('${obj['riderID']}', '${userID}', ${driverRouteID}, '${"Awaiting rider request."}', ${obj['routeID']} , '${driverLeave.driverLeaveTime}', '${riderPickupTime.riderPickupTime}', '${riderDropOffTime.riderDropOffTime}', '${riderPickup2Time.riderPickup2Time}', ${totalCost})`);
+                               // insert rider and driver details into Matches table.
+
+                               db.any(`INSERT INTO carpool.\"notificationLog\"(\"userID\", \"notificationType\", \"Date\", \"Read\") values ('${userID}', 'Match', 'now', 'false')`); // Insert a notification into table when there is a match.
+                                db.any(`INSERT INTO carpool.\"notificationLog\"(\"userID\", \"notificationType\", \"Date\", \"Read\") values ('${obj['riderID']}', 'Match', 'now', 'false')`);
+                               db.one(`SELECT \"deviceToken\" from carpool.\"Users\" where \"userID\" = '${obj['riderID']}'`) // we need device token to target specific users with push notifications.
+                               .then(function(result) {
+                               let notification = new apn.Notification();
+                               notification.expiry = Math.floor(Date.now() / 1000) + 24 * 3600; // will expire in 24 hours from now
+                               notification.badge = 2;
+                               notification.sound = "ping.aiff";
+                               notification.alert = "You have a new match!";
+                               notification.payload = {'messageFrom': 'Notifications are working!'};
+
+                               // Replace this with your app bundle ID:
+                               notification.topic = "com.CSC4996.CarpoolApp";
+
+                               // Send the actual notification
+                               apnProvider.send(notification, result.deviceToken).then( result => {
+                               // Show the result of the send operation:
+                               console.log(result);
+                               });
+                               })
+
+                               });
+                               });
+                             });
+                           });
+                         });
+                       }
+    }
+    }
+
+         }
+      else {
+         console.log("No match found.");
+      }
+    });
+
     // Inserts Route into the Routes table.
     var addDriverRouteQuery = "INSERT INTO carpool.\"Routes\"(\"driverID\", \"departureTime\", \"arrivalTime\", \"startPointLong\", \"startPointLat\", \"endPointLong\", \"endPointLat\", \"Name\", \"Days\", \"Matched\", \"Driver\", \"startAddress\", \"endAddress\") values($1, $2, $3, $4, $5, $6, $7, $8, $9, 'false', 'true', $10, $11)"; // this is the query to add driver's route.
     db.any(addDriverRouteQuery, [userID, routeJSON['departureTime'], routeJSON['arrivalTime'], routeJSON['Longitudes'][0], routeJSON['Latitudes'][0], routeJSON['Longitudes'][1], routeJSON['Latitudes'][1], routeJSON['Name'], routeJSON['Days'], routeJSON['startAddress'], routeJSON['endAddress']])
