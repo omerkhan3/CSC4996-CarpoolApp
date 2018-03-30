@@ -20,6 +20,8 @@ class PaymentsViewController: UIViewController, UITableViewDelegate, UITableView
     var clientToken: String = ""
     var recentPaymentsArray = [RecentPayments]()
     var recentPayments = RecentPayments()
+    var paymentsArray = [Payments]()
+    var payments = Payments()
     let userID = Auth.auth().currentUser?.uid
     
     //Outlets
@@ -28,6 +30,26 @@ class PaymentsViewController: UIViewController, UITableViewDelegate, UITableView
     }
     @IBOutlet weak var recentPaymentsTable: UITableView!
     @IBOutlet weak var noPaymentsLabel: UILabel!
+    @IBOutlet weak var paymentsTable: UITableView!
+    @IBOutlet weak var noPaymentMethods: UILabel!
+    
+    @IBAction func showPaymentMethod(_ sender: Any) {
+        fetchExistingPaymentMethod(clientToken: clientToken)
+        postNonceToServer(paymentMethodNonce: clientToken)
+        paymentsTable.isHidden = false
+        
+        getPaymentMethods {
+            self.paymentsTable.reloadData()
+            
+            if self.paymentsArray.count == 0 {
+                self.noPaymentMethods.isHidden = false
+            } else {
+                self.noPaymentMethods.isHidden = true
+            }
+        }
+        self.paymentsTable.delegate = self
+        self.paymentsTable.dataSource = self
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -55,36 +77,50 @@ class PaymentsViewController: UIViewController, UITableViewDelegate, UITableView
             self.clientToken = clientToken
         }
     }
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        recentPayments = recentPaymentsArray[indexPath.row]
-        print(recentPayments)
         
+        if tableView == self.recentPaymentsTable {
+            recentPayments = recentPaymentsArray[indexPath.row]
+            print(recentPayments)
+        }
+        if tableView == self.paymentsTable {
+            payments = paymentsArray[indexPath.row]
+            print(payments)
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         //guard let cell = tableView.dequeueReusableCell(withIdentifier: recentPaymentsCell.reuseIdentifier, for: indexPath) as? recentPaymentsCell else { fatalError("Unable to dequeue a recentPaymentsCell") }
         
-        let cell = UITableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: "recentPayments")
-        
         //Create date formatter and reformat date
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.sssZ"
-        let date = dateFormatter.date(from: recentPaymentsArray[indexPath.row].Date)!
-        dateFormatter.dateFormat = "MM-dd-YYYY"
-        let dateString = dateFormatter.string(from: date)
+        //let dateFormatter = DateFormatter()
+        //dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.sssZ"
+        //let date = dateFormatter.date(from: recentPaymentsArray[indexPath.row].Time)!
+        //dateFormatter.dateFormat = "MM-dd-YYYY"
+        //let dateString = dateFormatter.string(from: date)
         
         //var amountFormatter: NumberFormatter = {
         //    let formatter = NumberFormatter()
           //  formatter.numberStyle = .currency
             //return formatter
         //}()
+        var cell:UITableViewCell?
         
-        cell.textLabel?.text = recentPaymentsArray[indexPath.row].Contact.uppercased()
-        cell.detailTextLabel?.text = dateString
-
-        return cell
+        if tableView == self.recentPaymentsTable {
+            let cell = UITableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: "recentPayments")
+            cell.textLabel?.text = recentPaymentsArray[indexPath.row].Contact.uppercased()
+            cell.detailTextLabel?.text = recentPaymentsArray[indexPath.row].Time.uppercased()
+            //cell.detailTextLabel?.text = dateString
+        }
+        if tableView == self.paymentsTable {
+            let cell = UITableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: "viewPayments")
+            cell.textLabel?.text = paymentsArray[indexPath.row].customerToken.uppercased()
+            //cell.detailTextLabel?.text = paymentsArray[indexPath.row].customerToken.uppercased()
+        }
+        
+        return cell!
     }
     
     // Set number of sections
@@ -94,7 +130,15 @@ class PaymentsViewController: UIViewController, UITableViewDelegate, UITableView
     
     // set number of rows
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return recentPaymentsArray.count
+        var count:Int?
+        
+        if tableView == self.recentPaymentsTable {
+            return recentPaymentsArray.count
+        }
+        if tableView == self.paymentsTable {
+            return paymentsArray.count
+        }
+        return count!
     }
     
     // Query all recent payments from database and, decode and store into an array
@@ -125,6 +169,32 @@ class PaymentsViewController: UIViewController, UITableViewDelegate, UITableView
             }.resume()
     }
     
+    func getPaymentMethods(completed: @escaping () -> ()) {
+        var viewPaymentMethodComponents = URLComponents(string: "http://localhost:3000/payment/getPaymentMethod")!
+        viewPaymentMethodComponents.queryItems = [URLQueryItem(name: "userID", value: userID)]
+        var request = URLRequest(url: viewPaymentMethodComponents.url!)
+        print (viewPaymentMethodComponents.url!)
+        
+        // GET Method
+        request.httpMethod = "GET"
+        URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
+            if (error != nil){
+                print (error as Any)
+            } else {
+                guard let data = data else { return }
+                do {
+                    // Decode JSON
+                    self.paymentsArray = try JSONDecoder().decode([Payments].self, from: data)
+                    print (self.paymentsArray)
+                    DispatchQueue.main.async {
+                        completed()
+                    }
+                } catch let jsnERR {
+                    print(jsnERR)
+                }
+            }
+            }.resume()
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
