@@ -23,8 +23,8 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var otherDestination: UILabel!
     
     //Array used for retrieving the saved routes according to userID
-    var myRoutesArray = [FrequentDestination]()
-    var myRoutes = FrequentDestination()
+    var myRoutesArray = [ScheduledRide]()
+    var myRoutes = ScheduledRide()
     let userID = Auth.auth().currentUser?.uid
     
     //Outlets for table and no routes label
@@ -96,8 +96,8 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: "MyRoutesTableViewCell")
         
-        cell.textLabel?.text = myRoutesArray[indexPath.row].Name.uppercased()
-        cell.detailTextLabel?.text = myRoutesArray[indexPath.row].Address.uppercased()
+        cell.textLabel?.text = myRoutesArray[indexPath.row].driverRouteName.uppercased()
+        cell.detailTextLabel?.text = myRoutesArray[indexPath.row].driverEndAddress?.uppercased()
         
         return cell
     }
@@ -114,7 +114,7 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
     
     // Query all saved routes from database and, decode and store into an array
     func getMyRoutes(completed: @escaping () -> ()) {
-        var viewMyRoutesComponents = URLComponents(string: "http://localhost:3000/freqDestinations/getDestination")!
+        var viewMyRoutesComponents = URLComponents(string: "http://localhost:3000/routes/scheduled")!
         viewMyRoutesComponents.queryItems = [URLQueryItem(name: "userID", value: userID)]
         var request = URLRequest(url: viewMyRoutesComponents.url!)
         print (viewMyRoutesComponents.url!)
@@ -128,7 +128,7 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
                 guard let data = data else { return }
                 do {
                     // Decode JSON
-                    self.myRoutesArray = try JSONDecoder().decode([FrequentDestination].self, from: data)
+                    self.myRoutesArray = try JSONDecoder().decode([ScheduledRide].self, from: data)
                     print (self.myRoutesArray)
                     DispatchQueue.main.async {
                         completed()
