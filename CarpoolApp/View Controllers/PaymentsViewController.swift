@@ -259,12 +259,12 @@ class PaymentsViewController: UIViewController, UITableViewDelegate, UITableView
                 print (error.localizedDescription)
                 return;
             }
-            //let userToken = idToken!
+            let userToken = idToken!
             //URL endpoint of our local node server
             let paymentURL = URL(string: "http://localhost:3000/payment/checkout")!
             var request = URLRequest(url: paymentURL)
             //payment_method_nonce is the field that the server will be looking for to receive the nonce
-            request.httpBody = "payment_method_nonce=\(paymentMethodNonce)".data(using: String.Encoding.utf8)
+            request.httpBody = "payment_method_nonce=\(paymentMethodNonce)&idToken=\(userToken)".data(using: String.Encoding.utf8)
             //POST method
             request.httpMethod = "POST"
             

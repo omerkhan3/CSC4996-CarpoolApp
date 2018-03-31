@@ -11,7 +11,15 @@ var gateway = braintree.connect({
     privateKey:   '06195f7e1a9007cc81e2ad48899682da'
 });
 
+
 router.get("/client_token",function (req, res) {
+var userID = req.query.userID;
+//Searches for the customer token(ID) and gets the customers payment methods as 
+  gateway.customer.find("customerToken", function(err, customer) {
+	customer.paymentMethods,
+	db.query("select \"Users\".\"userID\", \"Users\".\"customerToken\" from carpool.\"Users\" where \"Users\".\"userID\" = $1", userID)
+	}),
+//Generates client token when user goes on payments view pertaining to the user customerID (token)
   gateway.clientToken.generate({
   	customerId: "customerToken"
   	}, function (err, result) {
@@ -19,14 +27,14 @@ router.get("/client_token",function (req, res) {
   })
 });
 
-router.get("/getPaymentMethod", function (req, res) {
-var userID = req.query.userID;
-	gateway.customer.find("customerToken", function(err, customer) {
-	customer.paymentMethods,
-	payload.details.lastFour;
-	db.query("select \"Users\".\"userID\", \"Users\".\"customerToken\" from carpool.\"Users\" where \"Users\".\"userID\" = $1", userID)
-	})
-});
+//router.get("/getPaymentMethod", function (req, res) {
+//var userID = req.query.userID;
+//	gateway.customer.find("customerToken", function(err, customer) {
+//	customer.paymentMethods,
+//	payload.details.lastFour;
+//	db.query("select \"Users\".\"userID\", \"Users\".\"customerToken\" from carpool.\"Users\" where \"Users\".\"userID\" = $1", userID)
+//	})
+//});
 
 
 //router.get('/recentPayments', function (req, res, next) {
@@ -43,17 +51,20 @@ router.post("/checkout", function (req, res) {
   var userID = req.query.userID;
   // Use the payment method nonce here
   var nonceFromTheClient = req.body.payment_method_nonce;
+  var idToken = req.body.idToken;
 
-  gateway.transaction.sale({
-        amount: "10.00",  // we have hardcoded $10 for now for all transactions, we will eventually need to add "amount" field to our HTTP message from client.
+admin.auth().verifyIdToken(idToken)
+.then(function(decodedToken) {
+var uid = decodedToken.uid;
+var newTransaction = gateway.transaction.sale({
+        amount: "10.00",  // we will eventually need to add "amount" field to our HTTP message from client.
         paymentMethodNonce: nonceFromTheClient,  // we use the nonce received from client.
-        db.none("INSERT INTO carpool.\"Users\"(\"userID\", \"customerToken\") values($1)");
         customer: {
         	id: "customerToken"
         },
         options: {
-          storeInVaultOnSuccess: true
-          //submitForSettlement: true  // this commad is what tells Braintree to process the transaction.
+          storeInVaultOnSuccess: true,
+          submitForSettlement: true  // this command is what tells Braintree to process the transaction.
         }
       }, function(err, result) {
           if (result.success) {
@@ -64,11 +75,11 @@ router.post("/checkout", function (req, res) {
           console.log(err);
             res.status(500).send(err);
           }
-      }),
+      })
+      if (idToken == nil) {
       gateway.customer.create ({
         	id: "customerToken",
-        	paymentMethodNonce: nonceFromTheClient
-        	db.any("INSERT INTO carpool.\"Users\"(\"userID\", \"customerToken\") values($1, $2)");
+        	db.none("INSERT INTO carpool.\"Users\"(\"userID\", \"customerToken\") values($1, $2)");
       	}, function(err, result) {
           if (result.success) {
             result.success;
@@ -79,6 +90,7 @@ router.post("/checkout", function (req, res) {
             res.status(500).send(err);
           }
       })
+    }
 });
       
 

@@ -12,7 +12,7 @@ struct Payments: Decodable {
     let customerToken: String
     
     init(json: [String: Any]) {
-        customerToken = json["Time"] as? String ?? ""
+        customerToken = json["customerToken"] as? String ?? ""
     }
     
     init() {
