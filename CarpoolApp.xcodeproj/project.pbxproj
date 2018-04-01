@@ -47,7 +47,19 @@
 		D10EFE9A2022979700C962E1 /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10EFE992022979700C962E1 /* RegistrationViewController.swift */; };
 		D10EFE9C2022983600C962E1 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10EFE9B2022983600C962E1 /* LoginViewController.swift */; };
 		D10EFE9E20229ACA00C962E1 /* PasswordResetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10EFE9D20229ACA00C962E1 /* PasswordResetViewController.swift */; };
+		D19C6FEB20714CF10000078D /* CarpoolAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D19C6FEA20714CF10000078D /* CarpoolAppUITests.swift */; };
+		D19C6FF3207150BB0000078D /* HelperFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D19C6FF2207150BB0000078D /* HelperFunctions.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		D19C6FED20714CF10000078D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7824138C201D0F3A00F06D99 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 78241393201D0F3A00F06D99;
+			remoteInfo = CarpoolApp;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		2018C367202CB38900E28C08 /* LogoutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogoutViewController.swift; sourceTree = "<group>"; };
@@ -93,6 +105,10 @@
 		D10EFE9B2022983600C962E1 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		D10EFE9D20229ACA00C962E1 /* PasswordResetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordResetViewController.swift; sourceTree = "<group>"; };
 		D15DAC46205B089000AFF18E /* CarpoolApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CarpoolApp.entitlements; sourceTree = "<group>"; };
+		D19C6FE820714CF00000078D /* CarpoolAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CarpoolAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D19C6FEA20714CF10000078D /* CarpoolAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarpoolAppUITests.swift; sourceTree = "<group>"; };
+		D19C6FEC20714CF10000078D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D19C6FF2207150BB0000078D /* HelperFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelperFunctions.swift; sourceTree = "<group>"; };
 		F030565275DC7FB77646828A /* Pods-CarpoolApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarpoolApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-CarpoolApp/Pods-CarpoolApp.release.xcconfig"; sourceTree = "<group>"; };
 		F95DAD1A528A8524339BF3C3 /* Pods-CarpoolApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarpoolApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CarpoolApp/Pods-CarpoolApp.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -105,6 +121,13 @@
 				C995C790201D615E00B8CB3E /* CoreLocation.framework in Frameworks */,
 				C995C78E201D5DD400B8CB3E /* MapKit.framework in Frameworks */,
 				63917F3C2F967485C2582052 /* Pods_CarpoolApp.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D19C6FE520714CEF0000078D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -130,6 +153,7 @@
 			isa = PBXGroup;
 			children = (
 				78241396201D0F3A00F06D99 /* CarpoolApp */,
+				D19C6FE920714CF00000078D /* CarpoolAppUITests */,
 				78241395201D0F3A00F06D99 /* Products */,
 				DD7D054E6C73D03C1FE59E38 /* Pods */,
 				F8CFD888E50D31099B0AD659 /* Frameworks */,
@@ -140,6 +164,7 @@
 			isa = PBXGroup;
 			children = (
 				78241394201D0F3A00F06D99 /* CarpoolApp.app */,
+				D19C6FE820714CF00000078D /* CarpoolAppUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -200,6 +225,16 @@
 			path = "View Controllers";
 			sourceTree = "<group>";
 		};
+		D19C6FE920714CF00000078D /* CarpoolAppUITests */ = {
+			isa = PBXGroup;
+			children = (
+				D19C6FEA20714CF10000078D /* CarpoolAppUITests.swift */,
+				D19C6FF2207150BB0000078D /* HelperFunctions.swift */,
+				D19C6FEC20714CF10000078D /* Info.plist */,
+			);
+			path = CarpoolAppUITests;
+			sourceTree = "<group>";
+		};
 		DD7D054E6C73D03C1FE59E38 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -242,6 +277,24 @@
 			productReference = 78241394201D0F3A00F06D99 /* CarpoolApp.app */;
 			productType = "com.apple.product-type.application";
 		};
+		D19C6FE720714CEF0000078D /* CarpoolAppUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D19C6FF120714CF50000078D /* Build configuration list for PBXNativeTarget "CarpoolAppUITests" */;
+			buildPhases = (
+				D19C6FE420714CEF0000078D /* Sources */,
+				D19C6FE520714CEF0000078D /* Frameworks */,
+				D19C6FE620714CEF0000078D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D19C6FEE20714CF10000078D /* PBXTargetDependency */,
+			);
+			name = CarpoolAppUITests;
+			productName = CarpoolAppUITests;
+			productReference = D19C6FE820714CF00000078D /* CarpoolAppUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -264,6 +317,11 @@
 							};
 						};
 					};
+					D19C6FE720714CEF0000078D = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 78241393201D0F3A00F06D99;
+					};
 				};
 			};
 			buildConfigurationList = 7824138F201D0F3A00F06D99 /* Build configuration list for PBXProject "CarpoolApp" */;
@@ -280,6 +338,7 @@
 			projectRoot = "";
 			targets = (
 				78241393201D0F3A00F06D99 /* CarpoolApp */,
+				D19C6FE720714CEF0000078D /* CarpoolAppUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -293,6 +352,13 @@
 				20F47A0420277D4800D79394 /* GoogleService-Info.plist in Resources */,
 				206736E32026A929008714A7 /* LaunchScreen.storyboard in Resources */,
 				7824139D201D0F3A00F06D99 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D19C6FE620714CEF0000078D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -431,7 +497,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D19C6FE420714CEF0000078D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D19C6FEB20714CF10000078D /* CarpoolAppUITests.swift in Sources */,
+				D19C6FF3207150BB0000078D /* HelperFunctions.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D19C6FEE20714CF10000078D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 78241393201D0F3A00F06D99 /* CarpoolApp */;
+			targetProxy = D19C6FED20714CF10000078D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		206736E52026A929008714A7 /* LaunchScreen.storyboard */ = {
@@ -603,6 +686,36 @@
 			};
 			name = Release;
 		};
+		D19C6FEF20714CF20000078D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 3Z83W2KF98;
+				INFOPLIST_FILE = CarpoolAppUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "CSC4996-CarpoolApp.CarpoolAppUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = CarpoolApp;
+			};
+			name = Debug;
+		};
+		D19C6FF020714CF20000078D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 3Z83W2KF98;
+				INFOPLIST_FILE = CarpoolAppUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "CSC4996-CarpoolApp.CarpoolAppUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = CarpoolApp;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -620,6 +733,15 @@
 			buildConfigurations = (
 				782413A7201D0F3A00F06D99 /* Debug */,
 				782413A8201D0F3A00F06D99 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D19C6FF120714CF50000078D /* Build configuration list for PBXNativeTarget "CarpoolAppUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D19C6FEF20714CF20000078D /* Debug */,
+				D19C6FF020714CF20000078D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

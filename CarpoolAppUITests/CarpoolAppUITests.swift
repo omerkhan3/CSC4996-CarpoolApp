@@ -50,9 +50,23 @@ class CarpoolAppUITests: XCTestCase {
         return randomString
     }
     
+    func tapButton(buttonName: String) {
+        app.buttons[buttonName].tap()
+    }
+    
+    
+
+    
     func testLogin(){
+        XCTAssertTrue(app.isDisplayingLogin)
+        var exists = false
         app.buttons["loginButton"].tap()
-        app.alerts["Error!"].buttons["OK"].tap()
+        exists = app.alerts["Error!"].waitForExistence(timeout: 3)
+        if (exists == true)
+        {
+            app.alerts["Error!"].buttons["OK"].tap()
+            exists = false
+        }
         let passwordField = app.secureTextFields["passwordField"]
         let emailField = app.textFields["emailField"]
         emailField.tap()
@@ -60,22 +74,80 @@ class CarpoolAppUITests: XCTestCase {
         passwordField.tap()
         passwordField.typeText("test124")
         app.buttons["loginButton"].tap()
-        app.alerts["Error!"].buttons["OK"].tap()
+        exists = app.alerts["Error!"].waitForExistence(timeout: 3)
+        if (exists == true)
+        {
+            app.alerts["Error!"].buttons["OK"].tap()
+            exists = false
+        }
         passwordField.tap()
         passwordField.typeText("test123")
         app.buttons["loginButton"].tap()
+      //  exists = app.alerts["Error!"].waitForExistence(timeout: 3)
+      /*  if (exists == true)
+        {
+            app.alerts["Error!"].buttons["OK"].tap()
+            XCTFail()
+            exists = false
+        }
+ */
         XCTAssertTrue(app.isDisplayingDashboard)
     }
     
     
+    
     func testRegister() {
-        let userName = self.randomString()
-        let password = self.randomString()
-        
+        XCTAssertTrue(app.isDisplayingLogin)
+        var exists = false
         app.buttons["registerButton"].tap()
-        
+        XCTAssertTrue(app.isDisplayingRegistration)
+        app.buttons["signUpButton"].tap()
+        exists = app.alerts["Error!"].waitForExistence(timeout: 3)
+        if (exists == true)
+        {
+            app.alerts["Error!"].buttons["OK"].tap()
+            exists = false
+        }
+        let email = self.randomString()+"@test.com"
+        let password = self.randomString()
         app.textFields["firstName"].tap()
-        app.textFields["firstName"].typeText("Steve")
+        app.textFields["firstName"].typeText("Automation")
+        app.textFields["lastName"].tap()
+        app.textFields["lastName"].typeText("Test")
+        app.textFields["emailField"].tap()
+        app.textFields["emailField"].typeText(email)
+        app.textFields["phoneField"].tap()
+        app.textFields["phoneField"].typeText("1234567890")
+        app.secureTextFields["passwordField"].tap()
+        app.secureTextFields["passwordField"].typeText(password)
+        app.secureTextFields["confirmPasswordField"].tap()
+        app.secureTextFields["confirmPasswordField"].typeText(password)
+        
+        app.buttons["signUpButton"].tap()
+        exists = app.alerts["Success!"].waitForExistence(timeout: 3)
+        if (exists == true)
+        {
+            app.alerts["Success!"].buttons["OK"].tap()
+            exists = false
+        }
+        
+        XCTAssertTrue(app.isDisplayingLogin)
+        
+        let passwordField = app.secureTextFields["passwordField"]
+        let emailField = app.textFields["emailField"]
+        emailField.tap()
+        emailField.typeText(email)
+        passwordField.tap()
+        passwordField.typeText(password)
+        app.buttons["loginButton"].tap()
+        exists = app.alerts["Error!"].waitForExistence(timeout: 3)
+        if (exists == true)
+        {
+            app.alerts["Error!"].buttons["OK"].tap()
+            XCTFail()
+            exists = false
+        }
+        XCTAssertTrue(app.isDisplayingDashboard)
     }
     
     

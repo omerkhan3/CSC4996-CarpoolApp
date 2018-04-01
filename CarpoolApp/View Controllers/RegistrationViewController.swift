@@ -190,7 +190,7 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        view.accessibilityIdentifier = "registrationView"
         // Do any additional setup after loading the view.
     }
 

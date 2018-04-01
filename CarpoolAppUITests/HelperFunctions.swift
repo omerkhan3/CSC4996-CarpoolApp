@@ -16,6 +16,11 @@ extension XCUIApplication {
     var isDisplayingDashboard: Bool {
         return otherElements["dashboardView"].exists
     }
+    
+    var isDisplayingRegistration: Bool {
+        return otherElements["registrationView"].exists
+    }
+    
     func randomString() -> String {
         
         let letters : NSString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
