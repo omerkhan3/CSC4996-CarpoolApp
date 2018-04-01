@@ -33,7 +33,7 @@ class PaymentsViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var paymentsTable: UITableView!
     @IBOutlet weak var noPaymentMethods: UILabel!
     
-    @IBAction func showPaymentMethod(_ sender: Any) {
+    /*@IBAction func showPaymentMethod(_ sender: Any) {
         fetchExistingPaymentMethod(clientToken: clientToken)
         postNonceToServer(paymentMethodNonce: clientToken)
         paymentsTable.isHidden = false
@@ -49,9 +49,9 @@ class PaymentsViewController: UIViewController, UITableViewDelegate, UITableView
         }
         self.paymentsTable.delegate = self
         self.paymentsTable.dataSource = self
-    }
+    }*/
     
-    override func viewWillAppear(_ animated: Bool) {
+    /*override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         recentPaymentsTable.reloadData()
         
@@ -69,7 +69,7 @@ class PaymentsViewController: UIViewController, UITableViewDelegate, UITableView
         
         self.recentPaymentsTable.delegate = self
         self.recentPaymentsTable.dataSource = self
-    }
+    }*/
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -142,7 +142,7 @@ class PaymentsViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     // Query all recent payments from database and, decode and store into an array
-    func getRecentPayments(completed: @escaping () -> ()) {
+    /*func getRecentPayments(completed: @escaping () -> ()) {
         var viewRecentPaymentsComponents = URLComponents(string: "http://localhost:3000/payment/recentPayments")!
         viewRecentPaymentsComponents.queryItems = [URLQueryItem(name: "userID", value: userID)]
         var request = URLRequest(url: viewRecentPaymentsComponents.url!)
@@ -167,9 +167,9 @@ class PaymentsViewController: UIViewController, UITableViewDelegate, UITableView
                 }
             }
             }.resume()
-    }
+    }*/
     
-    func getPaymentMethods(completed: @escaping () -> ()) {
+    /*func getPaymentMethods(completed: @escaping () -> ()) {
         var viewPaymentMethodComponents = URLComponents(string: "http://localhost:3000/payment/getPaymentMethod")!
         viewPaymentMethodComponents.queryItems = [URLQueryItem(name: "userID", value: userID)]
         var request = URLRequest(url: viewPaymentMethodComponents.url!)
@@ -194,7 +194,7 @@ class PaymentsViewController: UIViewController, UITableViewDelegate, UITableView
                 }
             }
             }.resume()
-    }
+    }*/
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

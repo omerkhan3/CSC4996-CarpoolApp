@@ -3,6 +3,8 @@ var router = express.Router();
 var braintree = require('braintree');
 //var firebase = require('firebase');
 var admin = require('firebase-admin');  // we create an instance of the module "braintree"
+const db = require('../routes/db');
+var bodyParser = require('body-parser');
 
 var gateway = braintree.connect({
     environment:  braintree.Environment.Sandbox,  // this contains credentials for our braintree sandbox account.
@@ -14,17 +16,17 @@ var gateway = braintree.connect({
 
 router.get("/client_token",function (req, res) {
 var userID = req.query.userID;
-//Searches for the customer token(ID) and gets the customers payment methods as 
-  gateway.customer.find("customerToken", function(err, customer) {
-	customer.paymentMethods,
-	db.query("select \"Users\".\"userID\", \"Users\".\"customerToken\" from carpool.\"Users\" where \"Users\".\"userID\" = $1", userID)
-	}),
 //Generates client token when user goes on payments view pertaining to the user customerID (token)
   gateway.clientToken.generate({
   	customerId: "customerToken"
   	}, function (err, result) {
   	res.send(result.clientToken)
-  })
+  }),
+//Searches for the customer token(ID) and gets the customers payment methods as 
+  gateway.customer.find("customerToken", function(err, customer) {
+	//customer.paymentMethods,
+	db.query(`select \"userID\", \"customerToken\" from carpool.\"Users\"`)
+	})
 });
 
 //router.get("/getPaymentMethod", function (req, res) {
@@ -44,7 +46,7 @@ var userID = req.query.userID;
 //db.query("select \"paymentHistory\".\"userID\", \"paymentHistory\".\"Time\" from carpool.\"paymentHistory\" where \"paymentHistory\".\"userID\" = $1", userID)
 //.then(function(data) {
 //res.send(data);
-//  });
+  //});
 //});
 
 router.post("/checkout", function (req, res) {
@@ -63,6 +65,7 @@ var newTransaction = gateway.transaction.sale({
         	id: "customerToken"
         },
         options: {
+          failOnDuplicatePaymentMethod: true,
           storeInVaultOnSuccess: true,
           submitForSettlement: true  // this command is what tells Braintree to process the transaction.
         }
@@ -76,10 +79,11 @@ var newTransaction = gateway.transaction.sale({
             res.status(500).send(err);
           }
       })
-      if (idToken == nil) {
+      if ("customerToken" == nil) {
       gateway.customer.create ({
+      		paymentMethodNonce: nonceFromTheClient,
         	id: "customerToken",
-        	db.none("INSERT INTO carpool.\"Users\"(\"userID\", \"customerToken\") values($1, $2)");
+        	//db.none("INSERT INTO carpool.\"Users\"(\"userID\", \"customerToken\") values($1, $2)");
       	}, function(err, result) {
           if (result.success) {
             result.success;
@@ -89,8 +93,9 @@ var newTransaction = gateway.transaction.sale({
           console.log(err);
             res.status(500).send(err);
           }
-      })
-    }
+       })
+     }
+   })
 });
       
 
