@@ -43,6 +43,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.accessibilityIdentifier = "dashboardView"
         setupSideMenu()
         registerDeviceToken()
         

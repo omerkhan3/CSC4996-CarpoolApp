@@ -73,6 +73,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.accessibilityIdentifier = "loginView"
+        self.passwordField.accessibilityIdentifier = "passwordField"
+        self.passwordField.accessibilityLabel = "passwordField"
     }
 
     // Keyboard handling

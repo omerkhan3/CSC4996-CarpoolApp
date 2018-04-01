@@ -32,6 +32,7 @@
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="First Name" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="znP-8g-3nf" customClass="UITextFieldX" customModule="CarpoolApp" customModuleProvider="target">
                                                 <rect key="frame" x="16" y="243" width="164" height="40"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="firstName"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="164" id="oRf-Q9-NII"/>
                                                     <constraint firstAttribute="height" constant="40" id="ytt-lD-Y0D"/>
@@ -500,6 +501,7 @@
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Email" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="oLI-1T-PNh" customClass="UITextFieldX" customModule="CarpoolApp" customModuleProvider="target">
                                                 <rect key="frame" x="20" y="279" width="333" height="40"/>
                                                 <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="emailField"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="qjH-Ac-iaH"/>
                                                 </constraints>
@@ -522,6 +524,7 @@
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jve-PU-dlZ" customClass="RoundedButton" customModule="CarpoolApp" customModuleProvider="target">
                                                 <rect key="frame" x="39" y="433" width="300" height="45"/>
                                                 <color key="backgroundColor" red="0.0" green="0.58980089430000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="loginButton"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="45" id="4jC-Ej-DBP"/>
                                                 </constraints>
@@ -543,6 +546,7 @@
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RPY-r8-RGf" customClass="RoundedButton" customModule="CarpoolApp" customModuleProvider="target">
                                                 <rect key="frame" x="39" y="649.66666666666663" width="300" height="45"/>
                                                 <color key="backgroundColor" red="0.0" green="0.58980089430000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="registerButton" label="registerButton"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="45" id="Jem-9O-2Rg"/>
                                                 </constraints>
@@ -572,6 +576,7 @@
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2oc-Le-vNQ">
                                                 <rect key="frame" x="111" y="496.00000000000006" width="150" height="35.666666666666686"/>
+                                                <accessibility key="accessibilityConfiguration" label="resetPassword"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="150" id="MOL-EC-nBq"/>
                                                 </constraints>
@@ -600,6 +605,7 @@
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Password" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="xJE-Mf-P7T" customClass="UITextFieldX" customModule="CarpoolApp" customModuleProvider="target">
                                                 <rect key="frame" x="20" y="332" width="333" height="40"/>
                                                 <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="passwordField"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="dU9-kY-G9K"/>
                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="rvS-td-zN5"/>
