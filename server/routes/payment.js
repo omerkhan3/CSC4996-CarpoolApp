@@ -4,7 +4,6 @@ var braintree = require('braintree');
 //var firebase = require('firebase');
 var admin = require('firebase-admin');  // we create an instance of the module "braintree"
 const db = require('../routes/db');
-var bodyParser = require('body-parser');
 
 var gateway = braintree.connect({
     environment:  braintree.Environment.Sandbox,  // this contains credentials for our braintree sandbox account.
@@ -25,7 +24,7 @@ var userID = req.query.userID;
 //Searches for the customer token(ID) and gets the customers payment methods as 
   gateway.customer.find("customerToken", function(err, customer) {
 	//customer.paymentMethods,
-	db.query(`select \"userID\", \"customerToken\" from carpool.\"Users\"`)
+	db.one(`SELECT \"userID\", \"customerToken\" from carpool.\"Users\"`);
 	})
 });
 
@@ -53,9 +52,9 @@ router.post("/checkout", function (req, res) {
   var userID = req.query.userID;
   // Use the payment method nonce here
   var nonceFromTheClient = req.body.payment_method_nonce;
-  var idToken = req.body.idToken;
+  var customerToken = req.body.customerToken;
 
-admin.auth().verifyIdToken(idToken)
+admin.auth().verifyIdToken(customerToken)
 .then(function(decodedToken) {
 var uid = decodedToken.uid;
 var newTransaction = gateway.transaction.sale({
@@ -83,8 +82,8 @@ var newTransaction = gateway.transaction.sale({
       gateway.customer.create ({
       		paymentMethodNonce: nonceFromTheClient,
         	id: "customerToken",
-        	//db.none("INSERT INTO carpool.\"Users\"(\"userID\", \"customerToken\") values($1, $2)");
-      	}, function(err, result) {
+        	db.query(`INSERT INTO carpool.\"Users\"(\"userID\", \"customerToken\") values('${userID}', '${customerToken})')}),
+      	function(err, result) {
           if (result.success) {
             result.success;
             result.transaction.type;

@@ -24,21 +24,26 @@ router.post('/saveDestination', function(req, res, next) {
 	var destinationsLengthJSON = destinationJSON.length;
 	console.log("Number of Destinations JSON", destinationsLengthJSON);
 
-	for (var l = 0; l < destinationsLengthJSON; l++ )
-	{
-		var name =  destinationJSON[l]['Name'];
-		var userID = destinationJSON[l]['userID'];
-		var address = destinationJSON[l]['Address'];
+
+  for (var l = 0; l < destinationsLengthJSON; l++ )
+  {
+    var name =  destinationJSON[l]['Name'];
+    var userID = destinationJSON[l]['userID'];
+    var address = destinationJSON[l]['Address'];
     console.log("Element", l, name , destinationJSON[l]['Address'] );
-		db.none(`INSERT INTO carpool.\"frequentDestinations\"(\"userID\", \"Name\", \"Address\") VALUES ('${userID}', '${name}', '${address}') ON CONFLICT (\"userID\", \"Name\") DO UPDATE SET \"Name\" = '${name}', \"Address\" = '${address}'`)
-		.catch(function(err) {
-			console.log(err);
-		})
-	}
-	res.status(200).json({
-		status: 'Success',
-		message: 'Destinations Stored.'
-	});
+    if (name != nil && address != nil) 
+    {
+    	db.none(`INSERT INTO carpool.\"frequentDestinations\"(\"userID\", \"Name\", \"Address\") VALUES ('${userID}', '${name}', '${address}') ON CONFLICT (\"userID\", \"Name\") DO UPDATE SET \"Name\" = '${name}', \"Address\" = '${address}'`)}
+    else if (address != nil)
+    {
+    	db.none(`INSERT INTO carpool.\"frequentDestinations\"(\"userID\", \"Address\" VALUES ('${userID}', '${address}' ON CONFLICT (\"userID\", \"Address\") DO UPDATE SET \"Address\" = '${address}'))`)}
+    else if (name != nil) 
+    {
+    	db.none(`INSERT INTO carpool.\"frequentDestinations\"(\"userID\", \"Name\" VALUES ('${userID}', '${name}' ON CONFLICT (\"userID\", \"Name\") DO UPDATE SET \"Name\" = '${name}'))`)}}
+  res.status(200).json({
+    status: 'Success',
+    message: 'Destinations Stored.'
+  })
 });
 
 
