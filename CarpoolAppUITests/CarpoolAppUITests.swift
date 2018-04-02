@@ -58,6 +58,7 @@ class CarpoolAppUITests: XCTestCase {
 
     
     func testLogin(){
+        sleep(2)
         XCTAssertTrue(app.isDisplayingLogin)
         var exists = false
         app.buttons["loginButton"].tap()
@@ -152,7 +153,7 @@ class CarpoolAppUITests: XCTestCase {
     
     func testEditProfile() {
         var exists = false
-        
+        sleep(2)
         // Test login view is displayed
         XCTAssertTrue(app.isDisplayingLogin)
         
@@ -164,7 +165,13 @@ class CarpoolAppUITests: XCTestCase {
         passwordField.tap()
         passwordField.typeText("test123")
         app.buttons["loginButton"].tap()
-        
+        exists = app.alerts["Error!"].waitForExistence(timeout: 3)
+        if (exists == true)
+        {
+            app.alerts["Error!"].buttons["OK"].tap()
+            XCTFail()
+            exists = false
+        }
         // Test dashboard is displayed
         XCTAssertTrue(app.isDisplayingDashboard)
         
@@ -242,15 +249,16 @@ class CarpoolAppUITests: XCTestCase {
         
         
         app.tables["sideMenuTableView"].staticTexts["My Routes"].tap()
-        app.textFields["routeName"].tap()
-        app.textFields["routeName"].typeText("Automation Test")
+        
         app.buttons["SAVE"].tap()
-        exists = app.alerts["Error!"].waitForExistence(timeout: 3)
+        exists = app.alerts["Error!"].waitForExistence(timeout: 1)
         if (exists == true)
         {
             app.alerts["Error!"].buttons["OK"].tap()
             exists = false
         }
+        
+        sleep(2)
         app.searchFields["Starting Location"].tap()
         app.searchFields["Starting Location"].typeText("Wayne State University, 42 W Warren Ave, Detroit, MI 48202, United States")
         app.searchFields["Starting Location"].firstMatch.tap()
@@ -266,12 +274,43 @@ class CarpoolAppUITests: XCTestCase {
         app.textFields["departureTime2"].tap()
         app.datePickers["departureTime2"].adjust(toPickerWheelValue: "05:30 PM")
         
+        
+        
+        app.textFields["routeName"].tap()
+        app.textFields["routeName"].typeText("Automation Test")
+        
         app.buttons["SAVE"].tap()
         exists = app.alerts["Error!"].waitForExistence(timeout: 3)
         if (exists == true)
         {
             XCTFail()
         }
+        
+        
+        
+    }
+    
+    
+    func testStartNavigation()
+    {
+        var exists = false
+        let passwordField = app.secureTextFields["passwordField"]
+        let emailField = app.textFields["emailField"]
+        emailField.tap()
+        emailField.typeText("jim@gmail.com")
+        passwordField.tap()
+        passwordField.typeText("test123")
+        app.buttons["loginButton"].tap()
+        exists = app.alerts["Error!"].waitForExistence(timeout: 3)
+        if (exists == true)
+        {
+            app.alerts["Error!"].buttons["OK"].tap()
+            exists = false
+        }
+        XCTAssertTrue(app.isDisplayingDashboard)
+        
+        
+       
         
         
         
