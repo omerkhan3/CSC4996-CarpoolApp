@@ -169,11 +169,22 @@ class CarpoolAppUITests: XCTestCase {
         }
         
         XCTAssertTrue(app.isDisplayingDashboard)
+        
+        // Tap first navigation item (Hamburger Menu)
         app.navigationBars.buttons.element(boundBy: 0).tap()
-        //XCTAssertTrue(app.isDisplayingSideMenu)
-        // Tap row on table view
-        app.tables["sideMenuTable"].staticTexts["User Profile"].tap()
-        //XCTAssertTrue(app.isDisplayingProfile)
+        
+        // Test sideMenuTableView without helper function
+        let sideMenuTableView = app.tables["sideMenuTableView"]
+        XCTAssertTrue(sideMenuTableView.exists)
+        
+        // Test sideMenuTableView with helper function
+        XCTAssertTrue(app.isDisplayingSideMenu)
+        
+        // Tap row on table view with specific label (see string array for menu items)
+        app.tables["sideMenuTableView"].staticTexts["User Profile"].tap()
+        
+        // Test Profile View
+        XCTAssertTrue(app.isDisplayingProfile)
         
         
         

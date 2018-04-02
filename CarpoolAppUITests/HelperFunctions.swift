@@ -22,7 +22,7 @@ extension XCUIApplication {
     }
     
     var isDisplayingSideMenu: Bool {
-        return otherElements["sideMenuTableView"].exists
+        return tables["sideMenuTableView"].exists
     }
     
     var isDisplayingProfile: Bool {
