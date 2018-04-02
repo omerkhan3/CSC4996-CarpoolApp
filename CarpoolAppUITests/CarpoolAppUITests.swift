@@ -212,4 +212,69 @@ class CarpoolAppUITests: XCTestCase {
         sleep(2)
     }
     
+    
+    func testAddRoute()
+    {
+        var exists = false
+        let passwordField = app.secureTextFields["passwordField"]
+        let emailField = app.textFields["emailField"]
+        emailField.tap()
+        emailField.typeText("jim@gmail.com")
+        passwordField.tap()
+        passwordField.typeText("test123")
+        app.buttons["loginButton"].tap()
+        exists = app.alerts["Error!"].waitForExistence(timeout: 3)
+        if (exists == true)
+        {
+            app.alerts["Error!"].buttons["OK"].tap()
+            exists = false
+        }
+        XCTAssertTrue(app.isDisplayingDashboard)
+        
+        exists = app.alerts["Error!"].waitForExistence(timeout: 3)
+        if (exists == true)
+        {
+            XCTFail()
+        }
+        app.navigationBars.buttons.element(boundBy: 0).tap()
+        //XCTAssertTrue(app.isDisplayingSideMenu)
+        // Tap row on table view
+        
+        
+        app.tables["sideMenuTableView"].staticTexts["My Routes"].tap()
+        app.textFields["routeName"].tap()
+        app.textFields["routeName"].typeText("Automation Test")
+        app.buttons["SAVE"].tap()
+        exists = app.alerts["Error!"].waitForExistence(timeout: 3)
+        if (exists == true)
+        {
+            app.alerts["Error!"].buttons["OK"].tap()
+            exists = false
+        }
+        app.searchFields["Starting Location"].tap()
+        app.searchFields["Starting Location"].typeText("Wayne State University, 42 W Warren Ave, Detroit, MI 48202, United States")
+        app.searchFields["Starting Location"].firstMatch.tap()
+        app.searchFields["Ending Location"].tap()
+        app.searchFields["Ending Location"].typeText("University of Michigan, 530 S State St, Ann Arbor, MI 48109, United States")
+        app.searchFields["Ending Location"].firstMatch.tap()
+        app.textFields["arrivalTime1"].tap()
+        app.datePickers["arrivalTime1"].adjust(toPickerWheelValue: "08:30 AM")
+        app.textFields["arrivalTime2"].tap()
+        app.datePickers["arrivalTime2"].adjust(toPickerWheelValue: "09:30 AM")
+        app.textFields["departureTime1"].tap()
+        app.datePickers["departureTime1"].adjust(toPickerWheelValue: "05:00 PM")
+        app.textFields["departureTime2"].tap()
+        app.datePickers["departureTime2"].adjust(toPickerWheelValue: "05:30 PM")
+        
+        app.buttons["SAVE"].tap()
+        exists = app.alerts["Error!"].waitForExistence(timeout: 3)
+        if (exists == true)
+        {
+            XCTFail()
+        }
+        
+        
+        
+    }
+    
 }

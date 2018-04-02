@@ -243,9 +243,14 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDelegate
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        view.accessibilityIdentifier = "addRouteView"
         print("printing destinations array: " + "\(self.destinationsArray)")
-
+        self.arrivaltime1.accessibilityIdentifier = "arrivalTime1"
+        self.arrivaltime2.accessibilityIdentifier = "arrivalTime2"
+        self.departtime1.accessibilityIdentifier = "departureTime1"
+        self.departtime2.accessibilityIdentifier = "departureTime2"
+        self.routeName.accessibilityIdentifier = "routeName"
+        
         //pickerView.isHidden = true
         // pickerView.delegate = self
         // pickerView.dataSource = self
