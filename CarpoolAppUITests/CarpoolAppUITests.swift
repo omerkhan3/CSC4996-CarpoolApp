@@ -151,8 +151,12 @@ class CarpoolAppUITests: XCTestCase {
     }
     
     func testEditProfile() {
-        XCTAssertTrue(app.isDisplayingLogin)
         var exists = false
+        
+        // Test login view is displayed
+        XCTAssertTrue(app.isDisplayingLogin)
+        
+        // Test login
         let passwordField = app.secureTextFields["passwordField"]
         let emailField = app.textFields["emailField"]
         emailField.tap()
@@ -160,14 +164,8 @@ class CarpoolAppUITests: XCTestCase {
         passwordField.tap()
         passwordField.typeText("test123")
         app.buttons["loginButton"].tap()
-        exists = app.alerts["Error!"].waitForExistence(timeout: 3)
-        if (exists == true)
-        {
-            app.alerts["Error!"].buttons["OK"].tap()
-            XCTFail()
-            exists = false
-        }
         
+        // Test dashboard is displayed
         XCTAssertTrue(app.isDisplayingDashboard)
         
         // Tap first navigation item (Hamburger Menu)
@@ -183,11 +181,35 @@ class CarpoolAppUITests: XCTestCase {
         // Tap row on table view with specific label (see string array for menu items)
         app.tables["sideMenuTableView"].staticTexts["User Profile"].tap()
         
-        // Test Profile View
+        // Test Profile View Displayed
         XCTAssertTrue(app.isDisplayingProfile)
         
+        // Test Edit Profile (First Name)
+        app.buttons["editProfileButton"].tap()
+        let firstNameTest = self.randomString()
+//        let lastNameTest = self.randomString()
+//        let emailAddressTest = self.randomString()+"@test.com"
+//        let phoneTest = "12345678910"
+//        let bioTest = randomString()
         
+        // Edit first name field
+        app.textFields["editFirstNameField"].tap()
+        app.textFields["editFirstNameField"].doubleTap()
+        app.textFields["editFirstNameField"].typeText(firstNameTest)
+        app.buttons["editProfileSubmitButton"].tap()
         
+        // Handle Success Alert
+        exists = app.alerts["Success!"].waitForExistence(timeout: 3)
+        if exists == true {
+            app.alerts["Success!"].buttons["OK"].tap()
+            exists = false
+        }
+
+        // Verify update successful visually & tap back
+        sleep(3)
+        // Tap first navigation item (Hamburger Menu)
+        app.navigationBars.buttons.element(boundBy: 0).tap()
+        sleep(2)
     }
     
 }
