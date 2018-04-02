@@ -34,7 +34,7 @@ class SideMenuTableViewController: UITableViewController {
         userMenuTableView.delegate = self
         userMenuTableView.dataSource = self
         userMenuTableView.accessibilityIdentifier = "sideMenuTableView"
-        
+        view.accessibilityIdentifier = "sideMenuTableView"
 
     }
 

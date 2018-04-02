@@ -29,6 +29,10 @@ extension XCUIApplication {
         return otherElements["profileView"].exists
     }
     
+    var isDisplayingAddRoute: Bool {
+        return otherElements["addRouteView"].exists
+    }
+    
     func randomString() -> String {
         
         let letters : NSString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
