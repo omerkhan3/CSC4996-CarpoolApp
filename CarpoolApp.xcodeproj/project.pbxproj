@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2018C368202CB38900E28C08 /* LogoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2018C367202CB38900E28C08 /* LogoutViewController.swift */; };
+		2025E7802071A007000CACDE /* CarpoolAppUITestsMatching.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2025E77F2071A007000CACDE /* CarpoolAppUITestsMatching.swift */; };
 		2033C2D02026CE5C0081E53A /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2033C2CF2026CE5C0081E53A /* ProfileViewController.swift */; };
 		20509AD1204D995400B2EFA3 /* Match.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20509AD0204D995400B2EFA3 /* Match.swift */; };
 		20509AD7204D9DA800B2EFA3 /* MatchesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20509AD6204D9DA800B2EFA3 /* MatchesViewController.swift */; };
@@ -63,6 +64,7 @@
 
 /* Begin PBXFileReference section */
 		2018C367202CB38900E28C08 /* LogoutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogoutViewController.swift; sourceTree = "<group>"; };
+		2025E77F2071A007000CACDE /* CarpoolAppUITestsMatching.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarpoolAppUITestsMatching.swift; sourceTree = "<group>"; };
 		2033C2CF2026CE5C0081E53A /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		20509AD0204D995400B2EFA3 /* Match.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Match.swift; sourceTree = "<group>"; };
 		20509AD6204D9DA800B2EFA3 /* MatchesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchesViewController.swift; sourceTree = "<group>"; };
@@ -228,6 +230,7 @@
 		D19C6FE920714CF00000078D /* CarpoolAppUITests */ = {
 			isa = PBXGroup;
 			children = (
+				2025E77F2071A007000CACDE /* CarpoolAppUITestsMatching.swift */,
 				D19C6FEA20714CF10000078D /* CarpoolAppUITests.swift */,
 				D19C6FF2207150BB0000078D /* HelperFunctions.swift */,
 				D19C6FEC20714CF10000078D /* Info.plist */,
@@ -501,6 +504,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2025E7802071A007000CACDE /* CarpoolAppUITestsMatching.swift in Sources */,
 				D19C6FEB20714CF10000078D /* CarpoolAppUITests.swift in Sources */,
 				D19C6FF3207150BB0000078D /* HelperFunctions.swift in Sources */,
 			);

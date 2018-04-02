@@ -21,6 +21,14 @@ extension XCUIApplication {
         return otherElements["registrationView"].exists
     }
     
+    var isDisplayingSideMenu: Bool {
+        return otherElements["sideMenuTableView"].exists
+    }
+    
+    var isDisplayingProfile: Bool {
+        return otherElements["profileView"].exists
+    }
+    
     func randomString() -> String {
         
         let letters : NSString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"

@@ -23,7 +23,7 @@ class CarpoolAppUITests: XCTestCase {
         app = XCUIApplication()
         app.launch()
         sleep(1)
-    // XCUIApplication().launch()
+        //XCUIApplication().launch()
 
 
         // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
@@ -83,14 +83,14 @@ class CarpoolAppUITests: XCTestCase {
         passwordField.tap()
         passwordField.typeText("test123")
         app.buttons["loginButton"].tap()
-      //  exists = app.alerts["Error!"].waitForExistence(timeout: 3)
-      /*  if (exists == true)
+        exists = app.alerts["Error!"].waitForExistence(timeout: 3)
+        if (exists == true)
         {
             app.alerts["Error!"].buttons["OK"].tap()
             XCTFail()
             exists = false
         }
- */
+
         XCTAssertTrue(app.isDisplayingDashboard)
     }
     
@@ -150,6 +150,33 @@ class CarpoolAppUITests: XCTestCase {
         XCTAssertTrue(app.isDisplayingDashboard)
     }
     
-    
+    func testEditProfile() {
+        XCTAssertTrue(app.isDisplayingLogin)
+        var exists = false
+        let passwordField = app.secureTextFields["passwordField"]
+        let emailField = app.textFields["emailField"]
+        emailField.tap()
+        emailField.typeText("server@server.com")
+        passwordField.tap()
+        passwordField.typeText("test123")
+        app.buttons["loginButton"].tap()
+        exists = app.alerts["Error!"].waitForExistence(timeout: 3)
+        if (exists == true)
+        {
+            app.alerts["Error!"].buttons["OK"].tap()
+            XCTFail()
+            exists = false
+        }
+        
+        XCTAssertTrue(app.isDisplayingDashboard)
+        app.navigationBars.buttons.element(boundBy: 0).tap()
+        //XCTAssertTrue(app.isDisplayingSideMenu)
+        // Tap row on table view
+        app.tables["sideMenuTable"].staticTexts["User Profile"].tap()
+        //XCTAssertTrue(app.isDisplayingProfile)
+        
+        
+        
+    }
     
 }

@@ -173,6 +173,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.accessibilityIdentifier = "profileView"
         databaseRef = Database.database().reference()
         if let userID = Auth.auth().currentUser?.uid {
             databaseRef.child("Users").child(userID).observeSingleEvent(of: .value, with: { (snapshot) in

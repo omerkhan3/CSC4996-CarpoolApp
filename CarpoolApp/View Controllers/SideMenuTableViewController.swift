@@ -33,6 +33,7 @@ class SideMenuTableViewController: UITableViewController {
         
         userMenuTableView.delegate = self
         userMenuTableView.dataSource = self
+        userMenuTableView.accessibilityIdentifier = "sideMenuTable"
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
