@@ -15,43 +15,25 @@ import FirebaseCore
 import FirebaseAuth
 
 class PaymentsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-
+    
     //Class variables
     var clientToken: String = ""
     var recentPaymentsArray = [RecentPayments]()
     var recentPayments = RecentPayments()
-    var paymentsArray = [Payments]()
-    var payments = Payments()
-    let userID = Auth.auth().currentUser?.uid
+    var paymentDetail: RecentPayments?
+    let userID = Auth.auth().currentUser!.uid
     
     //Outlets
     @IBAction func newPaymentMethod(_ sender: Any) {
+        let paymentInfo = ["userID": userID, "Time": self.paymentDetail?.Time as Any]
         showDropIn(clientTokenOrTokenizationKey: self.clientToken)
+        
+        self.recentPaymentsDetails(paymentInfo: paymentInfo)
     }
     @IBOutlet weak var recentPaymentsTable: UITableView!
     @IBOutlet weak var noPaymentsLabel: UILabel!
-    @IBOutlet weak var paymentsTable: UITableView!
-    @IBOutlet weak var noPaymentMethods: UILabel!
     
-    /*@IBAction func showPaymentMethod(_ sender: Any) {
-        fetchExistingPaymentMethod(clientToken: clientToken)
-        postNonceToServer(paymentMethodNonce: clientToken)
-        paymentsTable.isHidden = false
-        
-        getPaymentMethods {
-            self.paymentsTable.reloadData()
-            
-            if self.paymentsArray.count == 0 {
-                self.noPaymentMethods.isHidden = false
-            } else {
-                self.noPaymentMethods.isHidden = true
-            }
-        }
-        self.paymentsTable.delegate = self
-        self.paymentsTable.dataSource = self
-    }*/
-    
-    /*override func viewWillAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         recentPaymentsTable.reloadData()
         
@@ -69,7 +51,7 @@ class PaymentsViewController: UIViewController, UITableViewDelegate, UITableView
         
         self.recentPaymentsTable.delegate = self
         self.recentPaymentsTable.dataSource = self
-    }*/
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,50 +59,36 @@ class PaymentsViewController: UIViewController, UITableViewDelegate, UITableView
             self.clientToken = clientToken
         }
     }
-
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        recentPayments = recentPaymentsArray[indexPath.row]
+        print(recentPayments)
         
-        if tableView == self.recentPaymentsTable {
-            recentPayments = recentPaymentsArray[indexPath.row]
-            print(recentPayments)
-        }
-        if tableView == self.paymentsTable {
-            payments = paymentsArray[indexPath.row]
-            print(payments)
-        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         //guard let cell = tableView.dequeueReusableCell(withIdentifier: recentPaymentsCell.reuseIdentifier, for: indexPath) as? recentPaymentsCell else { fatalError("Unable to dequeue a recentPaymentsCell") }
         
+        let cell = UITableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: "recentPayments")
+        
         //Create date formatter and reformat date
-        //let dateFormatter = DateFormatter()
-        //dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.sssZ"
-        //let date = dateFormatter.date(from: recentPaymentsArray[indexPath.row].Time)!
-        //dateFormatter.dateFormat = "MM-dd-YYYY"
-        //let dateString = dateFormatter.string(from: date)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.sssZ"
+        let date = dateFormatter.date(from: recentPaymentsArray[indexPath.row].Time)!
+        dateFormatter.dateFormat = "MM-dd-YYYY"
+        let dateString = dateFormatter.string(from: date)
         
         //var amountFormatter: NumberFormatter = {
         //    let formatter = NumberFormatter()
-          //  formatter.numberStyle = .currency
-            //return formatter
+        //  formatter.numberStyle = .currency
+        //return formatter
         //}()
-        var cell:UITableViewCell?
         
-        if tableView == self.recentPaymentsTable {
-            let cell = UITableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: "recentPayments")
-            cell.textLabel?.text = recentPaymentsArray[indexPath.row].Contact.uppercased()
-            cell.detailTextLabel?.text = recentPaymentsArray[indexPath.row].Time.uppercased()
-            //cell.detailTextLabel?.text = dateString
-        }
-        if tableView == self.paymentsTable {
-            let cell = UITableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: "viewPayments")
-            cell.textLabel?.text = paymentsArray[indexPath.row].customerToken.uppercased()
-            //cell.detailTextLabel?.text = paymentsArray[indexPath.row].customerToken.uppercased()
-        }
+        cell.textLabel?.text = recentPaymentsArray[indexPath.row].userID.uppercased()
+        cell.detailTextLabel?.text = dateString
         
-        return cell!
+        return cell
     }
     
     // Set number of sections
@@ -130,19 +98,11 @@ class PaymentsViewController: UIViewController, UITableViewDelegate, UITableView
     
     // set number of rows
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        var count:Int?
-        
-        if tableView == self.recentPaymentsTable {
-            return recentPaymentsArray.count
-        }
-        if tableView == self.paymentsTable {
-            return paymentsArray.count
-        }
-        return count!
+        return recentPaymentsArray.count
     }
     
     // Query all recent payments from database and, decode and store into an array
-    /*func getRecentPayments(completed: @escaping () -> ()) {
+    func getRecentPayments(completed: @escaping () -> ()) {
         var viewRecentPaymentsComponents = URLComponents(string: "http://localhost:3000/payment/recentPayments")!
         viewRecentPaymentsComponents.queryItems = [URLQueryItem(name: "userID", value: userID)]
         var request = URLRequest(url: viewRecentPaymentsComponents.url!)
@@ -167,34 +127,8 @@ class PaymentsViewController: UIViewController, UITableViewDelegate, UITableView
                 }
             }
             }.resume()
-    }*/
+    }
     
-    /*func getPaymentMethods(completed: @escaping () -> ()) {
-        var viewPaymentMethodComponents = URLComponents(string: "http://localhost:3000/payment/getPaymentMethod")!
-        viewPaymentMethodComponents.queryItems = [URLQueryItem(name: "userID", value: userID)]
-        var request = URLRequest(url: viewPaymentMethodComponents.url!)
-        print (viewPaymentMethodComponents.url!)
-        
-        // GET Method
-        request.httpMethod = "GET"
-        URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
-            if (error != nil){
-                print (error as Any)
-            } else {
-                guard let data = data else { return }
-                do {
-                    // Decode JSON
-                    self.paymentsArray = try JSONDecoder().decode([Payments].self, from: data)
-                    print (self.paymentsArray)
-                    DispatchQueue.main.async {
-                        completed()
-                    }
-                } catch let jsnERR {
-                    print(jsnERR)
-                }
-            }
-            }.resume()
-    }*/
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -259,12 +193,12 @@ class PaymentsViewController: UIViewController, UITableViewDelegate, UITableView
                 print (error.localizedDescription)
                 return;
             }
-            let customerToken = idToken!
+            //let userToken = idToken!
             //URL endpoint of our local node server
             let paymentURL = URL(string: "http://localhost:3000/payment/checkout")!
             var request = URLRequest(url: paymentURL)
             //payment_method_nonce is the field that the server will be looking for to receive the nonce
-            request.httpBody = "payment_method_nonce=\(paymentMethodNonce)&idToken=\(customerToken)".data(using: String.Encoding.utf8)
+            request.httpBody = "payment_method_nonce=\(paymentMethodNonce)".data(using: String.Encoding.utf8)
             //POST method
             request.httpMethod = "POST"
             
@@ -279,13 +213,32 @@ class PaymentsViewController: UIViewController, UITableViewDelegate, UITableView
                 }.resume()
         }
     }
+    
+    func recentPaymentsDetails(paymentInfo: Dictionary<String, Any>)
+    {
+        let paymentURL = URL(string: "http://localhost:3000/payment/checkout")!
+        var request = URLRequest(url: paymentURL)
+        let paymentJSON = try! JSONSerialization.data(withJSONObject: paymentInfo, options: .prettyPrinted)
+        let paymentJSONInfo = NSString(data: paymentJSON, encoding: String.Encoding.utf8.rawValue)! as String
+        request.httpBody = "paymentInfo=\(paymentJSONInfo)".data(using: String.Encoding.utf8)
+        request.httpMethod = "POST" // POST method.
+        
+        URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
+            if (error != nil){  // error handling responses.
+                print ("An error has occured.")
+            }
+            else{
+                print ("Success!")
+            }
+            
+            }.resume()
+    }
 }
 
 //class recentPaymentsCell: UITableViewCell {
-  //  static let reuseIdentifier = "recentPayments"
-    //@IBOutlet weak var dateLabel: UILabel!
-    //@IBOutlet weak var amountLabel: UILabel!
-    //@IBOutlet weak var contactLabel: UILabel!
-    
-//}
+//  static let reuseIdentifier = "recentPayments"
+//@IBOutlet weak var dateLabel: UILabel!
+//@IBOutlet weak var amountLabel: UILabel!
+//@IBOutlet weak var contactLabel: UILabel!
 
+//}

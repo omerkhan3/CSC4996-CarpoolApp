@@ -9,18 +9,18 @@
 import Foundation
 
 struct RecentPayments: Decodable {
-    let Contact: String
+    let userID: String
     let Time: String
     let Amount: String
     
     init(json: [String: Any]) {
-        Contact = json["userID"] as? String ?? ""
+        userID = json["userID"] as? String ?? ""
         Time = json["Time"] as? String ?? ""
         Amount = json["Amount"] as? String ?? ""
     }
     
     init() {
-        Contact = ""
+        userID = ""
         Time = ""
         Amount = ""
     }
