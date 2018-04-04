@@ -14,7 +14,7 @@ var gateway = braintree.connect({
 
 router.get("/client_token",function (req, res) {
   gateway.clientToken.generate({
-  customerId: "customerToken"
+  customerId: "224286744"
   }, function (err, result) {
   res.send(result.clientToken)
   });
@@ -22,7 +22,7 @@ router.get("/client_token",function (req, res) {
 
 router.get("/recentPayments", function (req, res, next) {
 var userID = req.query.userID;
-db.query(`select \"userID\", \"Time\" from carpool.\"paymentHistory\" where \"Time\" >= 'now'`)
+db.query(`select \"userID\", \"Time\", \"riderID\", \"driverID\", \"rideCost\" from carpool.\"paymentHistory\",\"Matches\"`)
 .then(function(data) {
  res.send(data);
   });
@@ -30,8 +30,6 @@ db.query(`select \"userID\", \"Time\" from carpool.\"paymentHistory\" where \"Ti
 
 router.post("/checkout", function (req, res) {
   var userID = req.query.userID;
-  var paymentInfo = req.body.paymentInfo;
-  var paymentJSON = JSON.parse(paymentInfo);
   // Use the payment method nonce here
   var nonceFromTheClient = req.body.payment_method_nonce;
   db.query(`select \"userID\", \"customerToken\" from carpool.\"Users\"`)
@@ -39,7 +37,7 @@ router.post("/checkout", function (req, res) {
         amount: "10.00",  // we have hardcoded $10 for now for all transactions, we will eventually need to add "amount" field to our HTTP message from client.
         paymentMethodNonce: nonceFromTheClient,  // we use the nonce received from client.
         customer: {
-        	id: "customerToken"
+        	id: "224286744"
         },
         options: {
           storeInVaultOnSuccess: true

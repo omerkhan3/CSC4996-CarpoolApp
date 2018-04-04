@@ -16,7 +16,8 @@ import FirebaseAuth
 
 class recentPaymentsCell: UITableViewCell {
     static let reuseIdentifier = "recentPayments"
-    @IBOutlet weak var userID: UILabel!
+    @IBOutlet weak var driverID: UILabel!
+    @IBOutlet weak var riderID: UILabel!
     @IBOutlet weak var Date: UILabel!
     @IBOutlet weak var Amount: UILabel!
 }
@@ -26,8 +27,8 @@ class PaymentsViewController: UIViewController, UITableViewDelegate, UITableView
     var clientToken: String = ""
     var recentPaymentsArray = [RecentPayments]()
     var recentPayments = RecentPayments()
-    //var scheduledRideArray = [ScheduledRide]()
-    //var scheduledRide: ScheduledRide?
+    var scheduledRideArray = [ScheduledRide]()
+    var scheduledRide = ScheduledRide()
     let userID = Auth.auth().currentUser!.uid
     
     //Outlets
@@ -62,15 +63,17 @@ class PaymentsViewController: UIViewController, UITableViewDelegate, UITableView
         makeRequest() { clientToken in
             self.clientToken = clientToken
         }
-        let paymentInfo = ["userID": self.recentPayments.userID as Any, "Time": self.recentPayments.Time as Any]
+        //let paymentInfo = ["riderID": self.scheduledRide.riderID as Any, "driverID": self.scheduledRide.driverID as Any, "Time": self.recentPayments.Time as Any, "Amount": self.scheduledRide.rideCost as Any]
         
-        recentPaymentsDetails(paymentInfo: paymentInfo)
+        //recentPaymentsDetails(paymentInfo: paymentInfo)
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         recentPayments = recentPaymentsArray[indexPath.row]
         print(recentPayments)
         
+        scheduledRide = scheduledRideArray[indexPath.row]
+        print(scheduledRide)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -84,15 +87,10 @@ class PaymentsViewController: UIViewController, UITableViewDelegate, UITableView
         dateFormatter.dateFormat = "MM-dd-YYYY"
         let dateString = dateFormatter.string(from: date)
         
-        //var amountFormatter: NumberFormatter = {
-        //    let formatter = NumberFormatter()
-        //  formatter.numberStyle = .currency
-        //return formatter
-        //}()
-        
-        cell.userID.text = recentPaymentsArray[indexPath.row].userID.uppercased()
+        cell.driverID.text = scheduledRideArray[indexPath.row].driverID.uppercased()
+        cell.riderID.text = scheduledRideArray[indexPath.row].riderID.uppercased()
         cell.Date.text = dateString
-        //cell.Amount.text = recentPaymentsArray[indexPath.row].Amount
+        cell.Amount.text = "$" + String(describing: Double(scheduledRide.rideCost))
         
         return cell
     }
@@ -104,7 +102,7 @@ class PaymentsViewController: UIViewController, UITableViewDelegate, UITableView
     
     // set number of rows
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return recentPaymentsArray.count
+        return recentPaymentsArray.count + scheduledRideArray.count
     }
     
     // Query all recent payments from database and, decode and store into an array
@@ -220,7 +218,7 @@ class PaymentsViewController: UIViewController, UITableViewDelegate, UITableView
         }
     }
     
-    func recentPaymentsDetails(paymentInfo: Dictionary<String, Any>)
+    /*func recentPaymentsDetails(paymentInfo: Dictionary<String, Any>)
     {
         let paymentURL = URL(string: "http://localhost:3000/payment/checkout")!
         var request = URLRequest(url: paymentURL)
@@ -238,5 +236,5 @@ class PaymentsViewController: UIViewController, UITableViewDelegate, UITableView
             }
             
             }.resume()
-    }
+    }*/
 }
