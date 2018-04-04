@@ -26,10 +26,10 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
     @IBOutlet weak var UserLastNameEdit: UITextField!
     @IBOutlet weak var UserPhoneNumberEdit: UITextField!
     @IBOutlet weak var UserBioEdit: UITextView!
+    @IBOutlet weak var scrollView: UIScrollView!
     
     var databaseRef: DatabaseReference!
     var storageRef: StorageReference!
-    var scrollView: UIScrollView!
     
     @IBOutlet weak var submitButton: UIButton!
     @IBOutlet weak var selectProfilePhoto: UIButton!
@@ -75,7 +75,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         dismiss(animated: true, completion: nil)
     }
     
-    //let dist = -140
+    let dist = -140
     
     @IBAction func submitButton(_ sender: UIButton) {
         let userID = Auth.auth().currentUser!.uid
@@ -219,7 +219,6 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         storageRef = Storage.storage().reference()
         loadProfileImage()
         readProfileInfo(userID: userID!)
-        scrollView = UIScrollView(frame: view.bounds)
         myPickerController.delegate = self
         let rightEditBarButtomItem: UIBarButtonItem = UIBarButtonItem(title: "Edit", style: UIBarButtonItemStyle.plain, target: self, action: #selector(ProfileViewController.editButton(_:)))
         
@@ -366,7 +365,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        //moveScrollView(textField, distance: dist, up: true)
+        moveScrollView(textField, distance: dist, up: true)
         if (textField == self.UserPhoneNumberEdit) && textField.text == ""{
             textField.text = "+"
         }
@@ -451,7 +450,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
     }
     
     // End editing within text field
-    /*func textFieldDidEndEditing(_ textField: UITextField) {
+    func textFieldDidEndEditing(_ textField: UITextField) {
         
         moveScrollView(textField, distance: dist, up: false)
     }
@@ -469,5 +468,5 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         
         let movement: CGFloat = CGFloat(up ? distance: -distance)
         self.view.frame = self.view.frame.offsetBy(dx: 0, dy: movement)
-    }*/
+    }
 }
