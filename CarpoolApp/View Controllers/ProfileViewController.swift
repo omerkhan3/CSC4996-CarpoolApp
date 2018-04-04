@@ -87,33 +87,69 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         var actionItem : String=String()
         var actionTitle : String=String()
         let exitAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)  // default action to exit out of native alerts.
-        actionTitle = "Success!"
-        actionItem = "Your profile has been successfully updated."
+        let emailEdit = UserEmailEdit.text
+        let firstNameEdit = UserFirstNameEdit.text
+        let lastNameEdit = UserLastNameEdit.text
+        let phoneNumberEdit = UserPhoneNumberEdit.text
+        let bioEdit = UserBioEdit.text
         
-        // Activate UIAlertController to display error
-        let alert = UIAlertController(title: actionTitle, message: actionItem, preferredStyle: .alert)
-        alert.addAction(exitAction)
-        self.present(alert, animated: true, completion: nil) // present error alert.
+        //Error handling for if the user has not filled out all fields
+        if ((emailEdit?.isEmpty)! || (firstNameEdit?.isEmpty)! || (lastNameEdit?.isEmpty)! || (phoneNumberEdit?.isEmpty)! || (bioEdit?.isEmpty)!)
+        {
+            actionTitle = "Error!"
+            actionItem = "Please fill in all of the fields."
+            
+            // Activate UIAlertController to display error
+            let alert = UIAlertController(title: actionTitle, message: actionItem, preferredStyle: .alert)
+            alert.addAction(exitAction)
+            self.present(alert, animated: true, completion: nil)
+            
+            self.UserFirstNameEdit.isHidden = false
+            self.UserLastNameEdit.isHidden = false
+            self.UserEmailEdit.isHidden = false
+            self.UserPhoneNumberEdit.isHidden = false
+            self.UserBioEdit.isHidden = false
+            self.submitButton.isHidden = false
+            
+            self.UserFirstName.isHidden = true
+            self.UserLastName.isHidden = true
+            self.UserEmail.isHidden = true
+            self.UserPhoneNumber.isHidden = true
+            self.UserBio.isHidden = true
+            self.ProfilePic.isHidden = true
+        }
+        else {
+            var actionItem : String=String()
+            var actionTitle : String=String()
+            let exitAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)  // default action to exit out of native alerts.
+            actionTitle = "Success!"
+            actionItem = "Your profile has been successfully updated."
+            
+            // Activate UIAlertController to display error
+            let alert = UIAlertController(title: actionTitle, message: actionItem, preferredStyle: .alert)
+            alert.addAction(exitAction)
+            self.present(alert, animated: true, completion: nil) // present error alert.
+            
+            self.UserFirstName.isHidden = false
+            self.UserLastName.isHidden = false
+            self.UserEmail.isHidden = false
+            self.UserPhoneNumber.isHidden = false
+            self.UserBio.isHidden = false
+            self.ProfilePic.isHidden = false
+            
+            self.UserFirstNameEdit.isHidden = true
+            self.UserLastNameEdit.isHidden = true
+            self.UserEmailEdit.isHidden = true
+            self.UserPhoneNumberEdit.isHidden = true
+            self.UserBioEdit.isHidden = true
+            self.submitButton.isHidden = true
+        }
         
         self.UserFirstName.text = self.UserFirstNameEdit.text
         self.UserLastName.text = self.UserLastNameEdit.text
         self.UserEmail.text = self.UserEmailEdit.text
         self.UserPhoneNumber.text = self.UserPhoneNumberEdit.text
         self.UserBio.text = self.UserBioEdit.text
-        
-        self.UserFirstName.isHidden = false
-        self.UserLastName.isHidden = false
-        self.UserEmail.isHidden = false
-        self.UserPhoneNumber.isHidden = false
-        self.UserBio.isHidden = false
-        self.ProfilePic.isHidden = false
-        
-        self.UserFirstNameEdit.isHidden = true
-        self.UserLastNameEdit.isHidden = true
-        self.UserEmailEdit.isHidden = true
-        self.UserPhoneNumberEdit.isHidden = true
-        self.UserBioEdit.isHidden = true
-        self.submitButton.isHidden = true
     }
     
     @IBAction func editButton(_ sender: UIButton) {
