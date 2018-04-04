@@ -30,7 +30,9 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
     var databaseRef: DatabaseReference!
     var storageRef: StorageReference!
     
+    @IBOutlet weak var selectProfilePhoto: UIButton!
     @IBOutlet weak var submitButton: UIButton!
+    
     let myPickerController = UIImagePickerController()
     
     @IBAction func selectProfilePhoto(_ sender: Any) {
@@ -72,7 +74,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         dismiss(animated: true, completion: nil)
     }
     
-    let dist = -140
+    //let dist = -140
     
     @IBAction func submitButton(_ sender: UIButton) {
         let userID = Auth.auth().currentUser!.uid
@@ -169,6 +171,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         self.UserBioEdit.isHidden = false
         self.ProfilePic.isHidden = false
         self.submitButton.isHidden = false
+        self.selectProfilePhoto.isHidden = false
     }
     
     override func viewDidLoad() {
@@ -205,6 +208,8 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         self.UserPhoneNumberEdit.isHidden = true
         self.UserBioEdit.isHidden = true
         self.submitButton.isHidden = true
+        self.selectProfilePhoto.isHidden = true
+        
         UserPhoneNumberEdit.delegate = self
         
         ProfilePic.layer.cornerRadius = ProfilePic.frame.size.width/2
@@ -215,6 +220,10 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         loadProfileImage()
         readProfileInfo(userID: userID!)
         myPickerController.delegate = self
+        
+        let rightEditBarButtomItem: UIBarButtonItem = UIBarButtonItem(title: "Edit", style: UIBarButtonItemStyle.plain, target: self, action: #selector(ProfileViewController.editButton(_:)))
+        
+        self.navigationItem.setRightBarButton(rightEditBarButtomItem, animated: true)
     }
 
     func loadProfileImage()
@@ -325,10 +334,10 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
+        //moveScrollView(textField, distance: dist, up: true)
         if (textField == self.UserPhoneNumberEdit) && textField.text == ""{
             textField.text = "+"
         }
-        moveScrollView(textField, distance: dist, up: true)
     }
     
     //Phone number formatting
@@ -410,7 +419,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
     }
     
     // End editing within text field
-    func textFieldDidEndEditing(_ textField: UITextField) {
+    /*func textFieldDidEndEditing(_ textField: UITextField) {
         
         moveScrollView(textField, distance: dist, up: false)
     }
@@ -428,5 +437,5 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         
         let movement: CGFloat = CGFloat(up ? distance: -distance)
         self.view.frame = self.view.frame.offsetBy(dx: 0, dy: movement)
-    }
+    }*/
 }
