@@ -947,31 +947,66 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="recentPayments" textLabel="iGV-Nt-nUp" detailTextLabel="8YZ-Lz-lum" style="IBUITableViewCellStyleSubtitle" id="wfd-35-hJG">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="recentPayments" id="wfd-35-hJG" customClass="recentPaymentsCell" customModule="CarpoolApp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="55" width="343" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="wfd-35-hJG" id="Udr-uf-Bz7">
                                             <rect key="frame" x="0.0" y="0.0" width="343" height="43.666666666666664"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="iGV-Nt-nUp">
-                                                    <rect key="frame" x="15" y="5" width="33.333333333333336" height="20.333333333333332"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FG5-Yd-9Tp">
+                                                    <rect key="frame" x="0.0" y="0.0" width="55" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="21" id="Kfq-kg-4Ni"/>
+                                                        <constraint firstAttribute="width" constant="55" id="mNX-HO-On9"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="8YZ-Lz-lum">
-                                                    <rect key="frame" x="14.999999999999996" y="25.333333333333332" width="43.666666666666664" height="14.333333333333334"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OYA-Id-WlG">
+                                                    <rect key="frame" x="0.0" y="22" width="42" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="21" id="FAA-qr-gLt"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="right" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iJJ-of-cvT">
+                                                    <rect key="frame" x="222" y="11" width="106" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="106" id="0za-qv-QGq"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="iJJ-of-cvT" firstAttribute="top" secondItem="Udr-uf-Bz7" secondAttribute="topMargin" id="15b-e1-6q8"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="iJJ-of-cvT" secondAttribute="trailing" id="Cg0-gY-Ywz"/>
+                                                <constraint firstItem="FG5-Yd-9Tp" firstAttribute="leading" secondItem="Udr-uf-Bz7" secondAttribute="leading" id="G6d-hj-uRJ"/>
+                                                <constraint firstItem="FG5-Yd-9Tp" firstAttribute="trailing" secondItem="OYA-Id-WlG" secondAttribute="trailing" constant="13" id="LLg-PW-iZt"/>
+                                                <constraint firstItem="OYA-Id-WlG" firstAttribute="bottom" secondItem="Udr-uf-Bz7" secondAttribute="bottomMargin" constant="10" id="RAL-n9-q3l"/>
+                                                <constraint firstItem="FG5-Yd-9Tp" firstAttribute="top" secondItem="Udr-uf-Bz7" secondAttribute="top" id="a3v-gR-RWd"/>
+                                                <constraint firstItem="iJJ-of-cvT" firstAttribute="top" secondItem="Udr-uf-Bz7" secondAttribute="topMargin" id="ay7-NN-0aW"/>
+                                                <constraint firstItem="OYA-Id-WlG" firstAttribute="top" secondItem="FG5-Yd-9Tp" secondAttribute="bottom" constant="1" id="e4R-gu-h60"/>
+                                                <constraint firstItem="iJJ-of-cvT" firstAttribute="centerY" secondItem="Udr-uf-Bz7" secondAttribute="centerY" id="wKs-Aa-SgG"/>
+                                                <constraint firstItem="FG5-Yd-9Tp" firstAttribute="leading" secondItem="OYA-Id-WlG" secondAttribute="leading" id="wwA-Y4-BRr"/>
+                                            </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="Amount" destination="iJJ-of-cvT" id="xgQ-G4-a9C"/>
+                                            <outlet property="Date" destination="OYA-Id-WlG" id="Pen-DC-ecK"/>
+                                            <outlet property="userID" destination="FG5-Yd-9Tp" id="XN4-sN-WwQ"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="9WU-Ze-tfc" id="icP-om-FWa"/>
+                                    <outlet property="delegate" destination="9WU-Ze-tfc" id="82s-sw-FJ3"/>
+                                </connections>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xat-9N-PAB" customClass="RoundedButton" customModule="CarpoolApp" customModuleProvider="target">
                                 <rect key="frame" x="16" y="707" width="343" height="41"/>
@@ -3515,7 +3550,6 @@
         <image name="user" width="20" height="20"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="bZC-mX-uGm"/>
         <segue reference="Mf8-Xy-6b6"/>
         <segue reference="asS-Az-c3C"/>
         <segue reference="Fu6-yk-YQr"/>

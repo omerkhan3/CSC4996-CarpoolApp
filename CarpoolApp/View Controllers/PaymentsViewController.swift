@@ -14,21 +14,25 @@ import FirebaseDatabase
 import FirebaseCore
 import FirebaseAuth
 
+class recentPaymentsCell: UITableViewCell {
+    static let reuseIdentifier = "recentPayments"
+    @IBOutlet weak var userID: UILabel!
+    @IBOutlet weak var Date: UILabel!
+    @IBOutlet weak var Amount: UILabel!
+}
 class PaymentsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     //Class variables
     var clientToken: String = ""
     var recentPaymentsArray = [RecentPayments]()
     var recentPayments = RecentPayments()
-    var paymentDetail: RecentPayments?
+    //var scheduledRideArray = [ScheduledRide]()
+    //var scheduledRide: ScheduledRide?
     let userID = Auth.auth().currentUser!.uid
     
     //Outlets
     @IBAction func newPaymentMethod(_ sender: Any) {
-        let paymentInfo = ["userID": userID, "Time": self.paymentDetail?.Time as Any]
         showDropIn(clientTokenOrTokenizationKey: self.clientToken)
-        
-        self.recentPaymentsDetails(paymentInfo: paymentInfo)
     }
     @IBOutlet weak var recentPaymentsTable: UITableView!
     @IBOutlet weak var noPaymentsLabel: UILabel!
@@ -49,8 +53,8 @@ class PaymentsViewController: UIViewController, UITableViewDelegate, UITableView
             }
         }
         
-        self.recentPaymentsTable.delegate = self
-        self.recentPaymentsTable.dataSource = self
+        //self.recentPaymentsTable.delegate = self
+        //self.recentPaymentsTable.dataSource = self
     }
     
     override func viewDidLoad() {
@@ -58,6 +62,9 @@ class PaymentsViewController: UIViewController, UITableViewDelegate, UITableView
         makeRequest() { clientToken in
             self.clientToken = clientToken
         }
+        let paymentInfo = ["userID": self.recentPayments.userID as Any, "Time": self.recentPayments.Time as Any]
+        
+        recentPaymentsDetails(paymentInfo: paymentInfo)
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -67,10 +74,8 @@ class PaymentsViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        //guard let cell = tableView.dequeueReusableCell(withIdentifier: recentPaymentsCell.reuseIdentifier, for: indexPath) as? recentPaymentsCell else { fatalError("Unable to dequeue a recentPaymentsCell") }
-        
-        let cell = UITableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: "recentPayments")
+    
+        let cell = tableView.dequeueReusableCell(withIdentifier: "recentPayments", for: indexPath) as! recentPaymentsCell
         
         //Create date formatter and reformat date
         let dateFormatter = DateFormatter()
@@ -85,8 +90,9 @@ class PaymentsViewController: UIViewController, UITableViewDelegate, UITableView
         //return formatter
         //}()
         
-        cell.textLabel?.text = recentPaymentsArray[indexPath.row].userID.uppercased()
-        cell.detailTextLabel?.text = dateString
+        cell.userID.text = recentPaymentsArray[indexPath.row].userID.uppercased()
+        cell.Date.text = dateString
+        //cell.Amount.text = recentPaymentsArray[indexPath.row].Amount
         
         return cell
     }
@@ -234,11 +240,3 @@ class PaymentsViewController: UIViewController, UITableViewDelegate, UITableView
             }.resume()
     }
 }
-
-//class recentPaymentsCell: UITableViewCell {
-//  static let reuseIdentifier = "recentPayments"
-//@IBOutlet weak var dateLabel: UILabel!
-//@IBOutlet weak var amountLabel: UILabel!
-//@IBOutlet weak var contactLabel: UILabel!
-
-//}
