@@ -178,6 +178,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         loadProfileImage()
         readProfileInfo(userID: userID!)
         myPickerController.delegate = self
+        rotateImage(image: )
     }
 
     func loadProfileImage()
@@ -265,6 +266,38 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
                 }
             }
             }.resume()
+    }
+    
+    //For flipping the profile picture when camera is used, test which one works
+    func rotateImage(image: UIImage) -> UIImage {
+        
+        if (image.imageOrientation == UIImageOrientation.up ) {
+            return image
+        }
+        
+        UIGraphicsBeginImageContext(image.size)
+        
+        image.draw(in: CGRect(origin: CGPoint.zero, size: image.size))
+        let copy = UIGraphicsGetImageFromCurrentImageContext()
+        
+        UIGraphicsEndImageContext()
+        
+        return copy!
+    }
+    //For flipping the profile picture when camera is used, test which one works
+    func fixOrientation(img:UIImage) -> UIImage {
+        
+        if (img.imageOrientation == UIImageOrientation.up) {
+            return img;
+        }
+        
+        UIGraphicsBeginImageContextWithOptions(img.size, false, img.scale);
+        let rect = CGRect(x: 0, y: 0, width: img.size.width, height: img.size.height)
+        img.draw(in: rect)
+        
+        let normalizedImage : UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext();
+        return normalizedImage;
     }
     
     func updateProfile(userInfo: Dictionary<String, Any>)
