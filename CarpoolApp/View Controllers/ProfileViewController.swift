@@ -178,7 +178,9 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         loadProfileImage()
         readProfileInfo(userID: userID!)
         myPickerController.delegate = self
-        rotateImage(image: )
+        let rightEditBarButtomItem: UIBarButtonItem = UIBarButtonItem(title: "Edit", style: UIBarButtonItemStyle.plain, target: self, action: #selector(ProfileViewController.editButton(_:)))
+        
+        self.navigationItem.setRightBarButton(rightEditBarButtomItem, animated: true)
     }
 
     func loadProfileImage()
