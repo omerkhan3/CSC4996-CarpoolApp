@@ -23,7 +23,7 @@ db.query(`select \"userID\", \"Time\", \"riderID\", \"driverID\", \"rideCost\" f
 
 router.get("/client_token",function (req, res) {
   gateway.clientToken.generate({
-  customerId: "customerToken"
+  customerId: "customerToken"          //For testing purpose, replace customerToken with "224286744" which is an existing customer
   }, function (err, result) {
   res.send(result.clientToken)
   });
@@ -47,7 +47,7 @@ router.post("/checkout", function (req, res) {
         amount: "10.00",  // we have hardcoded $10 for now for all transactions, we will eventually need to add "amount" field to our HTTP message from client.
         paymentMethodNonce: nonceFromTheClient,  // we use the nonce received from client.
         customer: {
-        	id: "customerToken"
+        	id: "customerToken"       //For testing purpose, replace customerToken with "224286744" which is an existing customer
         },
         options: {
           failOnDuplicatePaymentMethod: true,
@@ -57,7 +57,7 @@ router.post("/checkout", function (req, res) {
       }, function(err, result) {
           if (result.success) {
             //db.query(`INSERT INTO carpool.\"paymentHistory\"(\"userID\", \"Amount\", \"Time\") VALUES ('${userID}', '${Time}', '${Amount}') where \"Time\" >= 'now', \"Amount\" = [Amount]`)
-            db.query(`INSERT INTO carpool.\"paymentHistory\"(\"userID\", \"Amount\", \"Time\") values ($1, $2, $3)", [userID, ScheduledRideJSON['rideCost'], RecentPaymentsJSON['Time']])
+            db.query(`INSERT INTO carpool.\"paymentHistory\"(\"userID\", \"Amount\", \"Time\") values ($1, $2, $3)", [userID, ScheduledRideJSON['rideCost'], RecentPaymentsJSON['Time']]`)
             result.success;
             result.transaction.type;
             result.transaction.status;
