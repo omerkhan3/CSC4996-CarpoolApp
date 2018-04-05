@@ -14,6 +14,13 @@ class RiderMatchDetailViewController: UIViewController {
     
     // Class Variables
     var matchDetail: Match?
+    var perfectRiderMatch = false
+    var perfectDriverMatch = false
+    var matchDaysArray = [String]()
+    var driverDaysArray = [String]()
+    var riderDaysArray = [String]()
+    var matchStatus = ""
+    
 
     // Outlets
     @IBOutlet weak var profilePicture: UIImageView!
@@ -39,7 +46,12 @@ class RiderMatchDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         print(matchDetail!)
-        fillCheckBoxes()
+        matchStatus = (matchDetail?.Status)!
+        riderDaysArray = (matchDetail?.riderDays)!
+        driverDaysArray = (matchDetail?.driverDays)!
+        matchDaysArray = matchDays()
+        print(matchDaysArray)
+        fillCheckBoxes(daysArray: matchDaysArray)
         setView()
     }
     
@@ -57,11 +69,13 @@ class RiderMatchDetailViewController: UIViewController {
         let matchID = self.matchDetail?.matchID
         let driverRouteID = self.matchDetail?.driverRouteID
         let riderRouteID = self.matchDetail?.riderRouteID
-        let days = self.matchDetail?.riderDays
+        
         // Rider request
-        if matchDetail?.Status == "Awaiting rider request." {
+        if matchStatus == "Awaiting rider request." {
+            
             // Create POST dictionary
             let statusUpdate = ["userID": userID, "matchID": matchID!, "requestType": "riderRequest"] as [String : Any]
+            
             // Alert: Have rider confirm they would like to submit the request
             let actionTitle = "Ride Request"
             let actionItem = "Please confirm that you would like to request this ride schedule."
@@ -72,12 +86,12 @@ class RiderMatchDetailViewController: UIViewController {
                 self.performSegue(withIdentifier: "showMatches3", sender: self)
             }))
             self.present(alert, animated: true, completion: nil)
-        }
-            
+        } else {
+        
             // Driver ride confirmation
-        else {
+            
             // Create POST dictionary
-            let statusUpdate = ["userID": userID, "matchID": matchID!, "requestType": "driverRequested", "riderRouteID": riderRouteID as Any, "driverRouteID": driverRouteID as Any, "Days": days as Any] as [String : Any]
+            let statusUpdate = ["userID": userID, "matchID": matchID!, "requestType": "driverRequested", "riderRouteID": riderRouteID as Any, "driverRouteID": driverRouteID as Any, "Days": matchDaysArray as Any] as [String : Any]
             
             // Alert: have driver confirm ride request
             let actionTitle = "Confirm Ride"
@@ -99,16 +113,46 @@ class RiderMatchDetailViewController: UIViewController {
     
     // Custom class methods
     
-    func fillCheckBoxes() {
-        var array: [String]?
-        if matchDetail?.Status == "Awaiting rider request." {
-            // Rider has been matched with driver
-            array = matchDetail?.driverDays
+    // Determine days matched / imperfect match
+    func matchDays() -> [String] {
+        let riderDaysSet = Set(riderDaysArray)
+        let driverDaysSet = Set(driverDaysArray)
+        perfectRiderMatch = riderDaysSet.isSubset(of: driverDaysSet)
+        
+        
+        // Perfect Match
+        if (perfectRiderMatch == true) {
+            matchDaysArray = (matchDetail?.riderDays)!
+            print("Rider days are covered")
+            if (driverDaysArray == riderDaysArray) {
+                perfectDriverMatch = true
+            }
         } else {
-            // Driver has been requested by rider
-            array = matchDetail?.riderDays
+            
+            // Imperfect Match
+            print("Rider Driver Days are the different")
+            for riderDay in (matchDetail?.riderDays)! {
+                for driverDay in (matchDetail?.driverDays)! {
+                    if riderDay == driverDay {
+                        matchDaysArray.append(riderDay)
+                    }
+                }
+            }
         }
-        for item in array! {
+        
+        print("rider days: ")
+        print(self.matchDetail?.riderDays as Any)
+        print("driver days: ")
+        print(self.matchDetail?.driverDays as Any)
+        print("match days: ")
+        print(matchDaysArray)
+        
+        return matchDaysArray
+    }
+    
+    func fillCheckBoxes(daysArray: [String]) {
+
+        for item in daysArray {
             if item == "sunday" {
                 self.sunday.on = true
             }
@@ -135,7 +179,7 @@ class RiderMatchDetailViewController: UIViewController {
     
     func riderRequest(matchInfo: Dictionary<String, Any>)
     {
-        let requestURL = URL(string: "http://localhost:3000/matches/approval")!
+        let requestURL = URL(string: "http://141.217.48.15:3000/matches/approval")!
         var request = URLRequest(url: requestURL)
         let requestJSON = try! JSONSerialization.data(withJSONObject: matchInfo, options: .prettyPrinted)
         let requestJSONInfo = NSString(data: requestJSON, encoding: String.Encoding.utf8.rawValue)! as String
@@ -154,19 +198,50 @@ class RiderMatchDetailViewController: UIViewController {
     }
     
     func setView(){
+        
         // Set view if rider has been matched with driver
-        if matchDetail?.Status == "Awaiting rider request." {
+        if matchStatus == "Awaiting rider request." {
             // Populate ride info
             //self.profilePicture ==
             self.firstName.text = matchDetail?.driverFirstName
             self.pickupTime.text = matchDetail?.riderPickupTime
-           self.pickupLocation.text = matchDetail?.riderStartAddress
+            self.pickupLocation.text = matchDetail?.riderStartAddress
             self.destination.text = matchDetail?.driverRouteName
             self.departureTime.text = matchDetail?.driverLeaveTime
             self.cost.text = "$" + String(describing: Double(round(100 * matchDetail!.rideCost)/100))
+            
+            // Perfect Match
+            if perfectRiderMatch == true {
+                print("perfect rider match")
+                
+                // Alert: perfect match
+                let actionTitle = "Awesome!"
+                let actionItem = "You have a perfect match!"
+                
+                // Activate UIAlertController to display confirmation
+                let alert = UIAlertController(title: actionTitle, message: actionItem, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                }))
+                self.present(alert, animated: true, completion: nil)
+                
+            // Imperfect Match
+            } else {
+                    print("Imperfect match")
+                    
+                    // Alert: imperfect match
+                    let actionTitle = "Almost..."
+                    let actionItem = "You haven't been matched for each day requested. You can still request these rides for now and we will continue trying to find other driver matches in the future."
+                    
+                    // Activate UIAlertController to display confirmation
+                    let alert = UIAlertController(title: actionTitle, message: actionItem, preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                    }))
+                    self.present(alert, animated: true, completion: nil)
+                }
         }
+            
         // Set view if driver has been requested by rider
-        else if matchDetail?.Status == "driverRequested" {
+        else if matchStatus == "driverRequested" {
             //Custom buttons and fields
             self.matchScript.text = "You have been requested as a driver on the following days:"
             self.requestButton.setTitle("CONFIRM RIDE", for: .normal)
@@ -181,7 +256,35 @@ class RiderMatchDetailViewController: UIViewController {
             self.departureTime.text = matchDetail?.driverLeaveTime
             self.cost.text = "$" + String(describing: Double(round(100 * matchDetail!.rideCost)/100))
             
-        }
+            // Imperfect match check
+            if perfectDriverMatch == true {
+                print("perfect match")
+                
+                // Alert: perfect match
+                let actionTitle = "Awesome!"
+                let actionItem = "You have a perfect match!"
+                
+                // Activate UIAlertController to display confirmation
+                let alert = UIAlertController(title: actionTitle, message: actionItem, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                }))
+                self.present(alert, animated: true, completion: nil)
+                
+                // Imperfect Match
+                } else {
+                    print("Imperfect match")
+                    
+                    // Alert: imperfect match
+                    let actionTitle = "Almost..."
+                    let actionItem = "This rider is not requesting every day offered. You can still confirm these rides for now and we will notifiy you of other rider matches in the future."
+                    
+                    // Activate UIAlertController to display confirmation
+                    let alert = UIAlertController(title: actionTitle, message: actionItem, preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                    }))
+                    self.present(alert, animated: true, completion: nil)
+                }
+            }
     }
 
 }
