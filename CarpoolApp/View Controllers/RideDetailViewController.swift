@@ -8,13 +8,17 @@
 
 import UIKit
 import FirebaseAuth
-
+import FirebaseDatabase
+import FirebaseStorage
+import SDWebImage
 
 class RideDetailViewController: UIViewController {
     
     // Class variables
     var scheduledRideDetail: ScheduledRide?
     let userID = Auth.auth().currentUser!.uid
+    var databaseRef: DatabaseReference!
+    var storageRef: StorageReference!
     
     // Data outlets
     @IBOutlet weak var profilePicture: UIImageView!
@@ -36,6 +40,47 @@ class RideDetailViewController: UIViewController {
         super.viewDidLoad()
         print(scheduledRideDetail!)
         setView()
+        view.accessibilityIdentifier = "riderMatchDetail"
+        databaseRef = Database.database().reference()
+        if let userID = Auth.auth().currentUser?.uid {
+            databaseRef.child("Users").child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
+                let dictionary = snapshot.value as? NSDictionary
+                
+                if let profileImageURL = dictionary?["Photo"] as? String {
+                    let url = URL(string: profileImageURL)
+                    URLSession.shared.dataTask(with: url!, completionHandler: {
+                        (data, response, error) in
+                        if error != nil {
+                            print(error!)
+                            return
+                        }
+                        DispatchQueue.main.async {
+                            self.profilePicture.image = UIImage(data: data!)
+                        }
+                    }).resume()
+                }
+            }) { (error) in
+                print(error.localizedDescription)
+                return
+            }
+        }
+        profilePicture.layer.cornerRadius = profilePicture.frame.size.width/2
+        profilePicture.clipsToBounds = true
+        databaseRef = Database.database().reference()
+        storageRef = Storage.storage().reference()
+        loadProfileImage()
+    }
+    
+    func loadProfileImage()
+    {
+        if let userID = Auth.auth().currentUser?.uid {
+            databaseRef.child("Users").child(userID).observe(.value, with: { (snapshot) in
+                let values = snapshot.value as? NSDictionary
+                if let profileImageURL = values?["Photo"] as? String {
+                    self.profilePicture.sd_setImage(with: URL(string: profileImageURL))
+                }
+            })
+        }
     }
     
     // Button actions

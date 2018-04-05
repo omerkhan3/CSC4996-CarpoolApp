@@ -9,6 +9,9 @@
 import UIKit
 import BEMCheckBox
 import FirebaseAuth
+import FirebaseDatabase
+import FirebaseStorage
+import SDWebImage
 
 class RiderMatchDetailViewController: UIViewController {
     
@@ -20,7 +23,8 @@ class RiderMatchDetailViewController: UIViewController {
     var driverDaysArray = [String]()
     var riderDaysArray = [String]()
     var matchStatus = ""
-    
+    var databaseRef: DatabaseReference!
+    var storageRef: StorageReference!
 
     // Outlets
     @IBOutlet weak var profilePicture: UIImageView!
@@ -45,6 +49,36 @@ class RiderMatchDetailViewController: UIViewController {
     // Class method overrides
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.accessibilityIdentifier = "UpcomingRideDetail"
+        databaseRef = Database.database().reference()
+        if let userID = Auth.auth().currentUser?.uid {
+            databaseRef.child("Users").child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
+                let dictionary = snapshot.value as? NSDictionary
+                
+                if let profileImageURL = dictionary?["Photo"] as? String {
+                    let url = URL(string: profileImageURL)
+                    URLSession.shared.dataTask(with: url!, completionHandler: {
+                        (data, response, error) in
+                        if error != nil {
+                            print(error!)
+                            return
+                        }
+                        DispatchQueue.main.async {
+                            self.profilePicture.image = UIImage(data: data!)
+                        }
+                    }).resume()
+                }
+            }) { (error) in
+                print(error.localizedDescription)
+                return
+            }
+        }
+        profilePicture.layer.cornerRadius = profilePicture.frame.size.width/2
+        profilePicture.clipsToBounds = true
+        databaseRef = Database.database().reference()
+        storageRef = Storage.storage().reference()
+        loadProfileImage()
+        
         print(matchDetail!)
         matchStatus = (matchDetail?.Status)!
         riderDaysArray = (matchDetail?.riderDays)!
@@ -53,6 +87,18 @@ class RiderMatchDetailViewController: UIViewController {
         print(matchDaysArray)
         fillCheckBoxes(daysArray: matchDaysArray)
         setView()
+    }
+    
+    func loadProfileImage()
+    {
+        if let userID = Auth.auth().currentUser?.uid {
+            databaseRef.child("Users").child(userID).observe(.value, with: { (snapshot) in
+                let values = snapshot.value as? NSDictionary
+                if let profileImageURL = values?["Photo"] as? String {
+                    self.profilePicture.sd_setImage(with: URL(string: profileImageURL))
+                }
+            })
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
