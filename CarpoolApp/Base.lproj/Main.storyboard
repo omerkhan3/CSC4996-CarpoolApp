@@ -5,6 +5,7 @@
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -990,51 +991,63 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FG5-Yd-9Tp">
-                                                    <rect key="frame" x="0.0" y="0.0" width="55" height="21"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="79" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="Kfq-kg-4Ni"/>
-                                                        <constraint firstAttribute="width" constant="55" id="mNX-HO-On9"/>
+                                                        <constraint firstAttribute="width" constant="79" id="mNX-HO-On9"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OYA-Id-WlG">
-                                                    <rect key="frame" x="0.0" y="22" width="42" height="21"/>
+                                                    <rect key="frame" x="0.0" y="22" width="79" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="FAA-qr-gLt"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="right" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iJJ-of-cvT">
-                                                    <rect key="frame" x="222" y="11" width="106" height="21"/>
+                                                    <rect key="frame" x="237" y="-1" width="106" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="106" id="0za-qv-QGq"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="right" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Awh-bc-WEZ">
+                                                    <rect key="frame" x="237" y="22" width="106" height="21"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="iJJ-of-cvT" firstAttribute="top" secondItem="Udr-uf-Bz7" secondAttribute="topMargin" id="15b-e1-6q8"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="iJJ-of-cvT" secondAttribute="trailing" id="Cg0-gY-Ywz"/>
+                                                <constraint firstItem="iJJ-of-cvT" firstAttribute="top" secondItem="Udr-uf-Bz7" secondAttribute="topMargin" constant="-12" id="15b-e1-6q8"/>
+                                                <constraint firstItem="Awh-bc-WEZ" firstAttribute="top" secondItem="iJJ-of-cvT" secondAttribute="bottom" constant="2" id="28X-jS-aKR"/>
+                                                <constraint firstItem="iJJ-of-cvT" firstAttribute="leading" secondItem="Awh-bc-WEZ" secondAttribute="leading" id="8pN-nm-fcC"/>
+                                                <constraint firstItem="OYA-Id-WlG" firstAttribute="baseline" secondItem="Awh-bc-WEZ" secondAttribute="baseline" id="9rZ-SF-gld"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="iJJ-of-cvT" secondAttribute="trailing" constant="-15" id="Cg0-gY-Ywz"/>
                                                 <constraint firstItem="FG5-Yd-9Tp" firstAttribute="leading" secondItem="Udr-uf-Bz7" secondAttribute="leading" id="G6d-hj-uRJ"/>
-                                                <constraint firstItem="FG5-Yd-9Tp" firstAttribute="trailing" secondItem="OYA-Id-WlG" secondAttribute="trailing" constant="13" id="LLg-PW-iZt"/>
+                                                <constraint firstItem="FG5-Yd-9Tp" firstAttribute="trailing" secondItem="OYA-Id-WlG" secondAttribute="trailing" id="LLg-PW-iZt"/>
                                                 <constraint firstItem="OYA-Id-WlG" firstAttribute="bottom" secondItem="Udr-uf-Bz7" secondAttribute="bottomMargin" constant="10" id="RAL-n9-q3l"/>
+                                                <constraint firstItem="OYA-Id-WlG" firstAttribute="firstBaseline" secondItem="Awh-bc-WEZ" secondAttribute="firstBaseline" id="T67-rs-tEj"/>
                                                 <constraint firstItem="FG5-Yd-9Tp" firstAttribute="top" secondItem="Udr-uf-Bz7" secondAttribute="top" id="a3v-gR-RWd"/>
-                                                <constraint firstItem="iJJ-of-cvT" firstAttribute="top" secondItem="Udr-uf-Bz7" secondAttribute="topMargin" id="ay7-NN-0aW"/>
+                                                <constraint firstItem="iJJ-of-cvT" firstAttribute="top" secondItem="Udr-uf-Bz7" secondAttribute="topMargin" constant="-12" id="ay7-NN-0aW"/>
                                                 <constraint firstItem="OYA-Id-WlG" firstAttribute="top" secondItem="FG5-Yd-9Tp" secondAttribute="bottom" constant="1" id="e4R-gu-h60"/>
-                                                <constraint firstItem="iJJ-of-cvT" firstAttribute="centerY" secondItem="Udr-uf-Bz7" secondAttribute="centerY" id="wKs-Aa-SgG"/>
+                                                <constraint firstItem="iJJ-of-cvT" firstAttribute="trailing" secondItem="Awh-bc-WEZ" secondAttribute="trailing" id="vgZ-90-szU"/>
+                                                <constraint firstItem="iJJ-of-cvT" firstAttribute="centerY" secondItem="Udr-uf-Bz7" secondAttribute="centerY" constant="-12.333333333333332" id="wKs-Aa-SgG"/>
                                                 <constraint firstItem="FG5-Yd-9Tp" firstAttribute="leading" secondItem="OYA-Id-WlG" secondAttribute="leading" id="wwA-Y4-BRr"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="Amount" destination="iJJ-of-cvT" id="xgQ-G4-a9C"/>
-                                            <outlet property="Date" destination="OYA-Id-WlG" id="Pen-DC-ecK"/>
-                                            <outlet property="userID" destination="FG5-Yd-9Tp" id="XN4-sN-WwQ"/>
+                                            <outlet property="Date" destination="Awh-bc-WEZ" id="VYS-RW-oY4"/>
+                                            <outlet property="driverID" destination="FG5-Yd-9Tp" id="9Px-X3-k2J"/>
+                                            <outlet property="riderID" destination="OYA-Id-WlG" id="IAC-mi-0y0"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
