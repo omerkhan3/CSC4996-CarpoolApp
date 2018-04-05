@@ -211,12 +211,7 @@ router.post('/', function(req, res, next) {
                                 db.any(`INSERT INTO carpool.\"notificationLog\"(\"userID\", \"notificationType\", \"Date\", \"Read\") values ('${obj['riderID']}', 'Match', 'now', 'false')`);
                                db.one(`SELECT \"deviceToken\" from carpool.\"Users\" where \"userID\" = '${obj['riderID']}'`) // we need device token to target specific users with push notifications.
                                .then(function(result) {
-                               let notification = createPushNotification("You have a new match!");
-                               // Send the actual notification
-                               apnProvider.send(notification, result.deviceToken).then( result => {
-                               // Show the result of the send operation:
-                               console.log(result);
-                               });
+                                 sendPushNotification("You have a new match!", result.deviceToken);
                                })
 
                                });
