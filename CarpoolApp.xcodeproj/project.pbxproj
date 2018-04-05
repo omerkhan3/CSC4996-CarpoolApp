@@ -31,6 +31,7 @@
 		9167A6DB206A3C4000ABB37F /* MyRoutesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9167A6DA206A3C4000ABB37F /* MyRoutesViewController.swift */; };
 		917C54B8204E18FE00F2BBDC /* PaymentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 917C54B7204E18FE00F2BBDC /* PaymentsViewController.swift */; };
 		91D3ACBA206B4B700032652E /* RecentPayments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D3ACB9206B4B700032652E /* RecentPayments.swift */; };
+		C95340512075A61500755B7C /* PopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95340502075A61500755B7C /* PopUpViewController.swift */; };
 		C968E520203669E400B137B8 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C968E51F203669E400B137B8 /* RoundedButton.swift */; };
 		C96F483A204A4ACC00363162 /* FrequentDestinationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96F4839204A4ACC00363162 /* FrequentDestinationsViewController.swift */; };
 		C98BB0A0202A58A8006B054C /* otherlocations.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98BB09F202A58A8006B054C /* otherlocations.swift */; };
@@ -88,6 +89,7 @@
 		917C54B7204E18FE00F2BBDC /* PaymentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentsViewController.swift; sourceTree = "<group>"; };
 		91D3ACB9206B4B700032652E /* RecentPayments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentPayments.swift; sourceTree = "<group>"; };
 		9320C101773311FB910A13A6 /* Pods_CarpoolApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CarpoolApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C95340502075A61500755B7C /* PopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpViewController.swift; sourceTree = "<group>"; };
 		C968E51F203669E400B137B8 /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		C96F4839204A4ACC00363162 /* FrequentDestinationsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FrequentDestinationsViewController.swift; sourceTree = "<group>"; };
 		C98BB09F202A58A8006B054C /* otherlocations.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; path = otherlocations.swift; sourceTree = "<group>"; };
@@ -221,6 +223,7 @@
 				C9A8E120204E8500004C45ED /* HelpViewController.swift */,
 				2054BEDF206745B600B62FF7 /* RideDetailViewController.swift */,
 				9167A6DA206A3C4000ABB37F /* MyRoutesViewController.swift */,
+				C95340502075A61500755B7C /* PopUpViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -488,6 +491,7 @@
 				20509AD1204D995400B2EFA3 /* Match.swift in Sources */,
 				20509AD9204E2C5600B2EFA3 /* Profile.swift in Sources */,
 				C968E520203669E400B137B8 /* RoundedButton.swift in Sources */,
+				C95340512075A61500755B7C /* PopUpViewController.swift in Sources */,
 				912C7DC4204D16BD00E222A4 /* Notifications.swift in Sources */,
 				C9DE0B2A203F5C6100554E9C /* FreqDestination.swift in Sources */,
 				C9B52A8220453F2B00501AAA /* Checkbox.swift in Sources */,
