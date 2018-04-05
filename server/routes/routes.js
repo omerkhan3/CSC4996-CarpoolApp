@@ -22,6 +22,25 @@ function convertTo24Hour(time) { // Converts time from 12-hour format to 24-hour
     return (time + ':00');
 }
 
+function sendPushNotification(message, deviceToken, otherID)
+{
+  let notification = new apn.Notification();
+  notification.expiry = Math.floor(Date.now() / 1000) + 24 * 3600; // will expire in 24 hours from now
+  notification.badge = 2;
+  notification.sound = "ping.aiff";
+  notification.alert = message;
+  notification.payload = {'messageFrom': 'CarPool'};
+
+  // Replace this with your app bundle ID:
+  notification.topic = "com.CSC4996.CarpoolApp";
+
+  apnProvider.send(notification, deviceToken).then( result => {
+    // Sends a push notifications to the other party that their ride has been cancelled.
+  // Show the result of the send operation:
+     console.log(result);
+  });
+
+}
 
 
 // This GET request returns all routes a user has previously entered.
@@ -59,36 +78,21 @@ router.post('/cancel', function(req, res, next) {
 
   db.query(`UPDATE carpool.\"scheduledRoutes\" SET \"Status\" = 'CANCELLED' where \"Date\" = '${date}' AND \"matchID\" = ${matchID}`)
   .then( function (){
-    console.log(`SELECT \"deviceToken\" from carpool.\"Users\" where \"userID\" = '${otherID}'`);
+    //var deviceToken = getDeviceID(otherID);
     db.one(`SELECT \"deviceToken\", \"firstName\" from carpool.\"Users\" where \"userID\" = '${otherID}'`)
     .then(function(result) {
-      let notification = new apn.Notification();
-       notification.expiry = Math.floor(Date.now() / 1000) + 24 * 3600; // will expire in 24 hours from now
-      notification.badge = 2;
-      notification.sound = "ping.aiff";
-      notification.alert = `Your ride with ${result.firstName} on ${date} has been cancelled.`;
-      notification.payload = {'messageFrom': 'Notifications are working!'};
-
-       // Replace this with your app bundle ID:
-       notification.topic = "com.CSC4996.CarpoolApp";
-
-       // Send the actual notification
-      apnProvider.send(notification, result.deviceToken).then( result => {
-        // Sends a push notifications to the other party that their ride has been cancelled.
-      // Show the result of the send operation:
-         console.log(result);
-      });
+      sendPushNotification(`Your ride with ${result.firstName} on ${date} has been cancelled.`, result.deviceToken);
     })
-    .catch(function(error){
-        console.log('Error Cancelling Ride:', error)
-    });
+
     res.status(200)
       .json({
         status: 'Success',
-        message: 'Driver Route Stored'
+        message: 'Ride Cancelled.'
       });
-
   })
+  .catch(function(error){
+      console.log('Error Cancelling Ride:', error)
+  });
 }
 
 
@@ -101,22 +105,7 @@ else {
         db.query(`UPDATE carpool.\"Routes\" SET \"Matched\" = 'false' where \"routeID\" = ${cancelJSON['riderRouteID']} or \"routeID\" = ${cancelJSON['driverRouteID']}`) // sets route to not matched so they are available for matching again.
         db.one(`SELECT \"deviceToken\", \"firstName\" from carpool.\"Users\" where \"userID\" = '${otherID}'`)
         .then(function(result) {
-          let notification = new apn.Notification();
-           notification.expiry = Math.floor(Date.now() / 1000) + 24 * 3600; // will expire in 24 hours from now
-          notification.badge = 2;
-          notification.sound = "ping.aiff";
-          notification.alert = `Your ride series with ${result.firstName} has been cancelled.`;
-          notification.payload = {'messageFrom': 'Notifications are working!'};
-
-           // Replace this with your app bundle ID:
-           notification.topic = "com.CSC4996.CarpoolApp";
-
-           // Send the actual notification
-          apnProvider.send(notification, result.deviceToken).then( result => {
-          // Show the result of the send operation:
-          // Sends a notification to the other party that the ride series has been cancelled.
-             console.log(result);
-          });
+          sendPushNotification(`Your ride series with ${result.firstName} has been cancelled.`, result.deviceToken);
         })
       })
     })
@@ -222,21 +211,7 @@ router.post('/', function(req, res, next) {
                                 db.any(`INSERT INTO carpool.\"notificationLog\"(\"userID\", \"notificationType\", \"Date\", \"Read\") values ('${obj['riderID']}', 'Match', 'now', 'false')`);
                                db.one(`SELECT \"deviceToken\" from carpool.\"Users\" where \"userID\" = '${obj['riderID']}'`) // we need device token to target specific users with push notifications.
                                .then(function(result) {
-                               let notification = new apn.Notification();
-                               notification.expiry = Math.floor(Date.now() / 1000) + 24 * 3600; // will expire in 24 hours from now
-                               notification.badge = 2;
-                               notification.sound = "ping.aiff";
-                               notification.alert = "You have a new match!";
-                               notification.payload = {'messageFrom': 'Notifications are working!'};
-
-                               // Replace this with your app bundle ID:
-                               notification.topic = "com.CSC4996.CarpoolApp";
-
-                               // Send the actual notification
-                               apnProvider.send(notification, result.deviceToken).then( result => {
-                               // Show the result of the send operation:
-                               console.log(result);
-                               });
+                                 sendPushNotification("You have a new match!", result.deviceToken);
                                })
 
                                });
@@ -363,21 +338,7 @@ router.post('/', function(req, res, next) {
 db.any(`INSERT INTO carpool.\"notificationLog\"(\"userID\", \"notificationType\", \"Date\", \"Read\") values ('${userID}', 'Match', 'now', 'false')`); // Insert a notification into table when there is a match.
 db.one(`SELECT \"deviceToken\" from carpool.\"Users\" where \"userID\" = '${userID}'`) // we need device token to target specific users with push notifications.
 .then(function(result) {
-  let notification = new apn.Notification();
-   notification.expiry = Math.floor(Date.now() / 1000) + 24 * 3600; // will expire in 24 hours from now
-  notification.badge = 2;
-  notification.sound = "ping.aiff";
-  notification.alert = "You have a new match!";
-  notification.payload = {'messageFrom': 'Notifications are working!'};
-
-   // Replace this with your app bundle ID:
-   notification.topic = "com.CSC4996.CarpoolApp";
-
-   // Send the actual notification
-  apnProvider.send(notification, result.deviceToken).then( result => {
-  // Show the result of the send operation:
-     console.log(result);
-  });
+  sendPushNotification("You have a new match!", result.deviceToken);
 })
           }
        else {

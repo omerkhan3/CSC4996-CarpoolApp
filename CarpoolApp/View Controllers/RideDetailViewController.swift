@@ -124,7 +124,7 @@ class RideDetailViewController: UIViewController {
     }
     
     func cancelRide(cancelInfo: Dictionary<String, Any>) {
-        let cancelURL = URL(string: "http://141.217.48.15:3000/routes/cancel")!
+        let cancelURL = URL(string: "http://localhost:3000/routes/cancel")!
         var request = URLRequest(url: cancelURL)
         let cancelJSON = try! JSONSerialization.data(withJSONObject: cancelInfo, options: .prettyPrinted)
         let cancelJSONInfo = NSString(data: cancelJSON, encoding: String.Encoding.utf8.rawValue)! as String

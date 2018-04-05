@@ -7,6 +7,40 @@ const apnModule = require('../routes/apn'); // Configures connection to Apple Pu
 const apn = apnModule.apn;
 const apnProvider = apnModule.apnProvider;
 
+function sendPushNotification(message, deviceToken)
+{
+  let notification = new apn.Notification();
+  notification.expiry = Math.floor(Date.now() / 1000) + 24 * 3600; // will expire in 24 hours from now
+  notification.badge = 2;
+  notification.sound = "ping.aiff";
+  notification.alert = message;
+  notification.payload = {'messageFrom': 'CarPool'};
+
+  // Replace this with your app bundle ID:
+  notification.topic = "com.CSC4996.CarpoolApp";
+
+  apnProvider.send(notification, deviceToken).then( result => {
+    // Sends a push notifications to the other party that their ride has been cancelled.
+  // Show the result of the send operation:
+     console.log(result);
+  });
+}
+
+function createScheduledRoutes(day, dayNum, matchID)
+{
+    db.query(`select d::date from generate_series(current_date + cast(abs(extract(dow from current_date) - 7) + ${dayNum} as int), current_date + cast(abs(extract(dow from current_date) - 7) + 6 as int) + interval '1 month', '1 week'::interval) d`)
+      .then(function(result) {
+        var resultDates = result.length;
+        for (var y = 0; y < resultDates; y++)
+        {
+          db.query(`INSERT INTO carpool.\"scheduledRoutes\"(\"Day\", \"matchID\", \"Status\", \"Date\") values ('${day}', ${matchID}, 'Scheduled', $1)`, [result[y].d])
+          .catch(function (err) {
+            console.log(err);
+          });
+
+        }
+      })
+}
 
 // This POST request handles the rider/driver approval process during matching.
 router.post('/approval', function(req, res, next) {
@@ -27,24 +61,8 @@ if (requestJSON['requestType'] == 'riderRequest') // If the rider has requested 
         db.any(`INSERT INTO carpool.\"notificationLog\"(\"userID\", \"notificationType\", \"Date\", \"Read\") values ('${data.driverID}', 'Match', 'now', 'false')`);
         db.one(`SELECT \"deviceToken\" from carpool.\"Users\" where \"userID\" = '${data.driverID}'`)
         .then(function(result) {
-          let notification = new apn.Notification();
-          notification.expiry = Math.floor(Date.now() / 1000) + 24 * 3600; // will expire in 24 hours from now
-          notification.badge = 2;
-          notification.sound = "ping.aiff";
-          notification.alert = "You have a new match!";
-          notification.payload = {'messageFrom': 'Notifications are working!'};
-
-           // Replace this with your app bundle ID:
-           notification.topic = "com.CSC4996.CarpoolApp";
-
-           // Send the actual notification
-          apnProvider.send(notification, result.deviceToken).then( result => {
-          // Show the result of the send operation:
-           	console.log(result);
-          });
+          sendPushNotification("You have a new ride request!", result.deviceToken);
         })
-
-
      })
      res.status(200)
        .json({
@@ -68,23 +86,7 @@ if (requestJSON['requestType'] == 'riderRequest') // If the rider has requested 
         db.any(`INSERT INTO carpool.\"notificationLog\"(\"userID\", \"notificationType\", \"Date\", \"Read\") values ('${data.riderID}', 'Match', 'now', 'false')`);
         db.one(`SELECT \"deviceToken\" from carpool.\"Users\" where \"userID\" = '${data.riderID}'`)
         .then(function(result) {
-          let notification = new apn.Notification();
-           notification.expiry = Math.floor(Date.now() / 1000) + 24 * 3600; // will expire in 24 hours from now
-          notification.badge = 2;
-          notification.sound = "ping.aiff";
-          notification.alert = "Your ride request has been approved!";
-          notification.payload = {'messageFrom': 'CarPool'};
-
-           // Replace this with your app bundle ID:
-           notification.topic = "com.CSC4996.CarpoolApp";
-
-           // Send the actual notification
-          apnProvider.send(notification, result.deviceToken).then( result => {
-          // Show the result of the send operation:
-             console.log(result);
-          });
-
-
+          sendPushNotification("Your ride request has been approved!", result.deviceToken);
           db.query(`UPDATE carpool.\"Routes\" SET \"Matched\" = 'true' where \"routeID\" = ${requestJSON['driverRouteID']}`) // Update the matched column in driver route.
           .then(function() {
                 db.query(`UPDATE carpool.\"Routes\" SET \"Matched\" = 'true' where \"routeID\" = ${requestJSON['riderRouteID']}`) // Update matched column in rider route.
@@ -111,104 +113,37 @@ if (requestJSON['requestType'] == 'riderRequest') // If the rider has requested 
                     }
                       if (requestJSON['Days'][i] == 'monday')
                       {
-                        db.query("select d::date from generate_series(current_date + cast(abs(extract(dow from current_date) - 7) + 1 as int), current_date + cast(abs(extract(dow from current_date) - 7) + 1 as int) + interval '1 month', '1 week'::interval) d") // create ride series over the next month for every Monday.
-                          .then(function(result) {
-                            var resultDates = result.length;
-                            console.log("Results Length", resultDates);
-                            for (var y = 0; y < resultDates; y++)
-                            {
-                              db.query("INSERT INTO carpool.\"scheduledRoutes\"(\"Day\", \"matchID\", \"Status\", \"Date\") values ('monday', $1, 'Scheduled', $2)", [matchID, result[y].d])  // insert these days into the table.
-                              .catch(function (err) {
-                                console.log(err);
-                              });
-
-                            }
-                          })
+                        createScheduledRoutes('monday', 1, matchID);
                       }
-                      if (requestJSON['Days'][i] == 'tuesday')
+                      else if (requestJSON['Days'][i] == 'tuesday')
                       {
-                        db.query("select d::date from generate_series(current_date + cast(abs(extract(dow from current_date) - 7) + 2 as int), current_date + cast(abs(extract(dow from current_date) - 7) + 2 as int) + interval '1 month', '1 week'::interval) d")// create ride series over the next month for every Tuesday.
-                          .then(function(result) {
-                            var resultDates = result.length;
-                            console.log("Results Length", resultDates);
-                            for (var y = 0; y < resultDates; y++)
-                            {
-                              db.query("INSERT INTO carpool.\"scheduledRoutes\"(\"Day\", \"matchID\", \"Status\", \"Date\") values ('tuesday', $1, 'Scheduled', $2)", [matchID, result[y].d]) // insert these days into the DB.
-                              .catch(function (err) {
-                                console.log(err);
-                              });
-
-                            }
-                          })
+                        createScheduledRoutes('tuesday', 2, matchID);
                       }
 
 
-                      if (requestJSON['Days'][i] == 'wednesday')
+                      else if (requestJSON['Days'][i] == 'wednesday')
                       {
-                        db.query("select d::date from generate_series(current_date + cast(abs(extract(dow from current_date) - 7) + 3 as int), current_date + cast(abs(extract(dow from current_date) - 7) + 3 as int) + interval '1 month', '1 week'::interval) d")// create ride series over the next month for every Wednesday.
-                          .then(function(result) {
-                            var resultDates = result.length;
-                            console.log("Results Length", resultDates);
-                            for (var y = 0; y < resultDates; y++)
-                            {
-                              db.query("INSERT INTO carpool.\"scheduledRoutes\"(\"Day\", \"matchID\", \"Status\", \"Date\") values ('wednesday', $1, 'Scheduled', $2)", [matchID, result[y].d])
-                              .catch(function (err) {
-                                console.log(err);
-                              });
-
-                            }
-                          })
+                          createScheduledRoutes('wednesday', 3, matchID);
                       }
 
-                      if (requestJSON['Days'][i] == 'thursday')
+                      else if (requestJSON['Days'][i] == 'thursday')
                       {
-                        db.query("select d::date from generate_series(current_date + cast(abs(extract(dow from current_date) - 7) + 4 as int), current_date + cast(abs(extract(dow from current_date) - 7) + 4 as int) + interval '1 month', '1 week'::interval) d") // create ride series over the next month for every Thursday.
-                          .then(function(result) {
-                            var resultDates = result.length;
-                            console.log("Results Length", resultDates);
-                            for (var y = 0; y < resultDates; y++)
-                            {
-                              db.query("INSERT INTO carpool.\"scheduledRoutes\"(\"Day\", \"matchID\", \"Status\", \"Date\") values ('thursday', $1, 'Scheduled', $2)", [matchID, result[y].d])
-                              .catch(function (err) {
-                                console.log(err);
-                              });
-
-                            }
-                          })
+                          createScheduledRoutes('thursday', 4, matchID);
                       }
 
-                      if (requestJSON['Days'][i] == 'friday')
+                      else if (requestJSON['Days'][i] == 'friday')
                       {
-                        db.query("select d::date from generate_series(current_date + cast(abs(extract(dow from current_date) - 7) + 5 as int), current_date + cast(abs(extract(dow from current_date) - 7) + 5 as int) + interval '1 month', '1 week'::interval) d") // create ride series over the next month for every Friday.
-                          .then(function(result) {
-                            var resultDates = result.length;
-                            console.log("Results Length", resultDates);
-                            for (var y = 0; y < resultDates; y++)
-                            {
-                              db.query("INSERT INTO carpool.\"scheduledRoutes\"(\"Day\", \"matchID\", \"Status\", \"Date\") values ('friday', $1, 'Scheduled', $2)", [matchID, result[y].d])
-                              .catch(function (err) {
-                                console.log(err);
-                              });
-
-                            }
-                          })
+                          createScheduledRoutes('friday', 5, matchID);
                       }
 
-                      if (requestJSON['Days'][i] == 'saturday')
+                      else if (requestJSON['Days'][i] == 'saturday')
                       {
-                        db.query("select d::date from generate_series(current_date + cast(abs(extract(dow from current_date) - 7) + 6 as int), current_date + cast(abs(extract(dow from current_date) - 7) + 6 as int) + interval '1 month', '1 week'::interval) d") // create ride series over the next month for every Saturday.
-                          .then(function(result) {
-                            var resultDates = result.length;
-                            console.log("Results Length", resultDates);
-                            for (var y = 0; y < resultDates; y++)
-                            {
-                              db.query("INSERT INTO carpool.\"scheduledRoutes\"(\"Day\", \"matchID\", \"Status\", \"Date\") values ('saturday', $1, 'Scheduled', $2)", [matchID, result[y].d])
-                              .catch(function (err) {
-                                console.log(err);
-                              });
+                          createScheduledRoutes('saturday', 6, matchID);
+                      }
 
-                            }
-                          })
+                      else if (requestJSON['Days'][i] == 'sunday')
+                      {
+                          createScheduledRoutes('sunday', 0, matchID);
                       }
 
                   }
