@@ -56,6 +56,15 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
             alert.addAction(exitAction)
             self.present(alert, animated: true, completion: nil)
         }
+        else if (isValidEmail(testStr: email!) == false) {
+            actionTitle = "Error!"
+            actionItem = "Invalid email address."
+            
+            // Activate UIAlertController to display error
+            let alert = UIAlertController(title: actionTitle, message: actionItem, preferredStyle: .alert)
+            alert.addAction(exitAction)
+            self.present(alert, animated: true, completion: nil)  // present error alert.
+        }
         
         // Firebase query to create a user.
         else{
@@ -95,6 +104,13 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
             }
         })
         }
+    }
+    
+    func isValidEmail(testStr:String) -> Bool {
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        
+        let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        return emailTest.evaluate(with: testStr)
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
