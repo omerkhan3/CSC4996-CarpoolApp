@@ -335,9 +335,6 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         //moveScrollView(textField, distance: dist, up: true)
-        if (textField == self.UserPhoneNumberEdit) && textField.text == ""{
-            textField.text = "+"
-        }
     }
     
     //Phone number formatting
@@ -362,41 +359,36 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
             var endOffset = 0
             
             if length >= 1 {
-                maskString += "+"
-                indexStart = numString.index(numString.startIndex, offsetBy: 0)
-                indexEnd = numString.index(numString.startIndex, offsetBy: 1)
-                maskString += String(numString[indexStart..<indexEnd]) + " ("
-            }
-            if length > 1 {
-                endOffset = 4
+                maskString += "("
+                endOffset = 3
                 template = ") "
-                if length < 4 {
+                if length < 3 {
                     endOffset = length
                     template = ""
                 }
-                indexStart = numString.index(numString.startIndex, offsetBy: 1)
+                indexStart = numString.index(numString.startIndex, offsetBy: 0)
                 indexEnd = numString.index(numString.startIndex, offsetBy: endOffset)
                 maskString += String(numString[indexStart..<indexEnd]) + template
             }
-            if length > 4 {
-                endOffset = 7
+            if length > 3 {
+                endOffset = 6
                 template = "-"
-                if length < 7 {
+                if length < 6 {
                     endOffset = length
                     template = ""
                 }
-                indexStart = numString.index(numString.startIndex, offsetBy: 4)
+                indexStart = numString.index(numString.startIndex, offsetBy: 3)
                 indexEnd = numString.index(numString.startIndex, offsetBy: endOffset)
                 maskString += String(numString[indexStart..<indexEnd]) + template
             }
-            if length > 7 {
-                indexStart = numString.index(numString.startIndex, offsetBy: 7)
+            if length > 6 {
+                indexStart = numString.index(numString.startIndex, offsetBy: 6)
                 indexEnd = numString.index(numString.startIndex, offsetBy: length)
                 maskString += String(numString[indexStart..<indexEnd])
             }
             
             textField.text = maskString
-            if (length == 11) {
+            if (length == 10) {
                 textField.endEditing(true)
             }
             return false
