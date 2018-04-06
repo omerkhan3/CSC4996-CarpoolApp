@@ -87,7 +87,7 @@ class SideMenuTableViewController: UITableViewController {
         {
             let logoutAlert = UIAlertController(title: "Logout", message: "Are you sure you want to log out?", preferredStyle: UIAlertControllerStyle.alert)
             logoutAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-                self.performSegue(withIdentifier: "showLogout", sender: self)
+                self.performSegue(withIdentifier: "showLogin", sender: self)
             }))
             
             logoutAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))

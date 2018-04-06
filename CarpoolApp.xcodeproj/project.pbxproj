@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2018C368202CB38900E28C08 /* LogoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2018C367202CB38900E28C08 /* LogoutViewController.swift */; };
 		2033C2D02026CE5C0081E53A /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2033C2CF2026CE5C0081E53A /* ProfileViewController.swift */; };
 		20509AD1204D995400B2EFA3 /* Match.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20509AD0204D995400B2EFA3 /* Match.swift */; };
 		20509AD7204D9DA800B2EFA3 /* MatchesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20509AD6204D9DA800B2EFA3 /* MatchesViewController.swift */; };
@@ -63,7 +62,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		2018C367202CB38900E28C08 /* LogoutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogoutViewController.swift; sourceTree = "<group>"; };
 		2033C2CF2026CE5C0081E53A /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		20509AD0204D995400B2EFA3 /* Match.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Match.swift; sourceTree = "<group>"; };
 		20509AD6204D9DA800B2EFA3 /* MatchesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchesViewController.swift; sourceTree = "<group>"; };
@@ -208,7 +206,6 @@
 				D10EFE992022979700C962E1 /* RegistrationViewController.swift */,
 				D10EFE9B2022983600C962E1 /* LoginViewController.swift */,
 				D10EFE9D20229ACA00C962E1 /* PasswordResetViewController.swift */,
-				2018C367202CB38900E28C08 /* LogoutViewController.swift */,
 				20DA407E204B49FA003D8473 /* DashboardViewController.swift */,
 				20DA407C204B2F04003D8473 /* SideMenuTableViewController.swift */,
 				912C7DBF204D02CC00E222A4 /* NotificationsTableViewController.swift */,
@@ -483,7 +480,6 @@
 				20509ADB204EEE9200B2EFA3 /* RiderMatchDetailViewController.swift in Sources */,
 				C9DE0B2B203F5C6100554E9C /* LocationSearchTable.swift in Sources */,
 				C98BB0A0202A58A8006B054C /* otherlocations.swift in Sources */,
-				2018C368202CB38900E28C08 /* LogoutViewController.swift in Sources */,
 				20DA407D204B2F04003D8473 /* SideMenuTableViewController.swift in Sources */,
 				208A2E8B202829E600393D43 /* MapViewController.swift in Sources */,
 				20509AD7204D9DA800B2EFA3 /* MatchesViewController.swift in Sources */,
