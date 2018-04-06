@@ -24,8 +24,8 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
     var longitudeArray: [Float] = []
     var latitudeArray: [Float] = []
     var options = [String]()
-    let pickerData1 = ["work", "school", "gym"]
-    let pickerData2 = ["work", "school", "gym"]
+    var pickerData1 = [String]()
+    var pickerData2 = [String]()
     let my_pickerView = UIPickerView()
     var current_arr : [String] = []
     var active_textFiled : UITextField!
@@ -133,6 +133,16 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
         placeButton1.inputView = my_pickerView
         placeButton2.inputView = my_pickerView
         create_toolbar()
+        
+        for destination in destinationsArray {
+            // Destinations names for picker view
+            options.append(destination.Name)
+            // Destination longitude
+            // Destination latitudes
+        }
+        print("destinations array = \(options)")
+        self.pickerData1.append(contentsOf: options)
+        self.pickerData2.append(contentsOf: options)
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
