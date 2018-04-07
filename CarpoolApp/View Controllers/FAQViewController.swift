@@ -1,22 +1,15 @@
 //
-//  SettingsViewController.swift
+//  FAQViewController.swift
 //  CarpoolApp
 //
-//  Created by Matt on 3/5/18.
+//  Created by Matt on 4/6/18.
 //  Copyright © 2018 CSC 4996. All rights reserved.
 //
 
 import UIKit
 
-class SettingsViewController: UIViewController {
+class FAQViewController: UIViewController {
 
-    @IBAction func showPopup(_ sender: Any) {
-        let popOverVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "termsPopup") as! TermsViewController
-        self.addChildViewController(popOverVC)
-        popOverVC.view.frame = self.view.frame
-        self.view.addSubview(popOverVC.view)
-        popOverVC.didMove(toParentViewController: self)
-    }
     override func viewDidLoad() {
         super.viewDidLoad()
 

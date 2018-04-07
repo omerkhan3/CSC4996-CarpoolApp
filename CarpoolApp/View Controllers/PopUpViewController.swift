@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PopUpViewController: UIViewController {
+class TermsViewController: UIViewController {
 
     
     override func viewDidLoad() {
