@@ -125,35 +125,56 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
     }
    
     func getstart(){
-    
+        for destination in destinationsArray{
         if (self.placeButton1.text == "Home") {
-        startadd = options3[0]
+            if (destination.Name == "Home"){
+                startadd = destination.Address
+            }
+        //startadd = options3[0]
     }
         else if (self.placeButton1.text == "Work"){
-        startadd = options3[1]
+            if (destination.Name == "Work"){
+                startadd = destination.Address
+            }
+        //startadd = options3[1]
     }
         else if (self.placeButton1.text == "School"){
-        startadd = options3[2]
+            if (destination.Name == "School"){
+                startadd = destination.Address
+            }
+        //startadd = options3[2]
     }
         else if (self.placeButton1.text == ""){
             startadd = options3[3]
         }
     }
+    }
     func getend(){
+        for destination in destinationsArray{
         if (self.placeButton2.text == "Home") {
-            endadd = options3[0]
+            if (destination.Name == "Home"){
+                endadd = destination.Address
+            }
+            //endadd = options3[0]
         }
         else if (self.placeButton2.text == "Work"){
-            endadd = options3[1]
+           
+            if (destination.Name == "Work"){
+                endadd = destination.Address
+            }
+           // endadd = options3[1]
         }
         else if (self.placeButton2.text == "School"){
-            endadd = options3[2]
+            if (destination.Name == "School"){
+                endadd = destination.Address
+            }
+            //endadd = options3[2]
         }
         else if (self.placeButton2.text == ""){
             endadd = options3[3]
         }
     }
-   
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
