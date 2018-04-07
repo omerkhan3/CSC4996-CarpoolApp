@@ -25,11 +25,14 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
     var latitudeArray: [Float] = []
     var options = [String]()
     var options2 = [String]()
+    var options3 = [String]()
     var pickerData1 = [String]()
     var pickerData2 = [String]()
     let my_pickerView = UIPickerView()
     var current_arr : [String] = []
     var active_textFiled : UITextField!
+    var startadd: String = ""
+    var endadd: String = ""
     //var names: [AnyObject] = []
     
     // Starting of buttons and outlets
@@ -98,12 +101,13 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
             self.present(alert, animated: true, completion: nil)  // present error alert.
         }
         else {
-            
+            getstart()
+            getend()
             print(options.joined(separator: ", "))
             let driver = self.driverSetting.isOn
             let userID = Auth.auth().currentUser!.uid
 //            let routeInfo = ["userID": userID, "Leaving from": placeButton1.text! as Any, "Going to": placeButton2.text! as Any,  "departureTime": departtime1.text! as Any, "arrivalTime" : arrivaltime1.text! as Any, "Days" :  options, "Longitudes": longitudeArray, "Latitudes": latitudeArray, "Driver": driver, "Name": self.routeName.text! as Any] as [String : Any]
-            let routeInfo = ["userID": userID, "departureTime1": departtime1.text! as Any,"departureTime2": departtime2.text! as Any, "arrivalTime1" : arrivaltime1.text! as Any, "arrivalTime2" : arrivaltime2.text! as Any, "Days" :  options, "Longitudes": longitudeArray, "Latitudes": latitudeArray, "Driver": driver, "Name": self.routeName.text! as Any, "startAddress": self.placeButton1.text! as Any, "endAddress": self.placeButton2.text! as Any] as [String : Any]
+            let routeInfo = ["userID": userID, "departureTime1": departtime1.text! as Any,"departureTime2": departtime2.text! as Any, "arrivalTime1" : arrivaltime1.text! as Any, "arrivalTime2" : arrivaltime2.text! as Any, "Days" :  options, "Longitudes": longitudeArray, "Latitudes": latitudeArray, "Driver": driver, "Name": self.routeName.text! as Any, "startAddress": startadd as Any, "endAddress": endadd as Any] as [String : Any]
             print (routeInfo)
             addRoute(routeInfo: routeInfo)
             actionTitle = "Success"
@@ -115,8 +119,42 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
             self.present(alert, animated: true, completion: nil)
             //  print(arrivaltime.text)
             // print(departtime.text)
+            print(self.placeButton1.text!)
+            print(options3)
         }
     }
+   
+    func getstart(){
+    
+        if (self.placeButton1.text == "Home") {
+        startadd = options3[0]
+    }
+        else if (self.placeButton1.text == "Work"){
+        startadd = options3[1]
+    }
+        else if (self.placeButton1.text == "School"){
+        startadd = options3[2]
+    }
+        else if (self.placeButton1.text == ""){
+            startadd = options3[3]
+        }
+    }
+    func getend(){
+        if (self.placeButton2.text == "Home") {
+            endadd = options3[0]
+        }
+        else if (self.placeButton2.text == "Work"){
+            endadd = options3[1]
+        }
+        else if (self.placeButton2.text == "School"){
+            endadd = options3[2]
+        }
+        else if (self.placeButton2.text == ""){
+            endadd = options3[3]
+        }
+    }
+   
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -139,14 +177,44 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
             // Destinations names for picker view
             options2.append(destination.Name)
             // Destination longitude
-            // Destination latitudes
-            
+            // Destination latitude
         }
         self.pickerData1.append(contentsOf: options2)
         self.pickerData2.append(contentsOf: options2)
-        //print("destinations array = \(options)")
+        print("names array = \(options2)")
+        
+        for destination in destinationsArray{
+            options3.append(destination.Address)
+            
+        }
+        //print("address array = \(options3)")
+        //showDestionations()
         
     }
+//    func showDestionations() -> Void {
+//        for destination2 in destinationsArray{
+//            // Show home destination if saved
+//            if (placeButton1.text == "Home") {
+//
+//                self.startadd.text = destination2.Address
+//            }
+//
+//                // Show school destination if saved
+//            else if (placeButton1.text == "School")
+//            {
+//
+//                self.startadd.text = destination2.Address
+//            }
+//
+//                // Show Work destination if saved
+//            else if (placeButton1.text == "Work")
+//            {
+//
+//                self.startadd.text = destination2.Address
+//            }
+//
+//        }
+//    }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
