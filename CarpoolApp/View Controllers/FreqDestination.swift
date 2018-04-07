@@ -51,6 +51,9 @@ class FreqDestinations: UIViewController {
         if (homeInfo["Address"] != nil) {
             destinations.append(homeInfo)
         }
+        else if (homeInfo["Address"] == nil) {
+            destinations.removeAll()
+        }
         else if (schoolInfo["Address"] != nil) {
             destinations.append(schoolInfo)
         }       
