@@ -24,12 +24,13 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
     var longitudeArray: [Float] = []
     var latitudeArray: [Float] = []
     var options = [String]()
-    let pickerData1 = ["work", "school", "gym"]
-    let pickerData2 = ["work", "school", "gym"]
+    var options2 = [String]()
+    var pickerData1 = [String]()
+    var pickerData2 = [String]()
     let my_pickerView = UIPickerView()
     var current_arr : [String] = []
     var active_textFiled : UITextField!
-    var names: [AnyObject] = []
+    //var names: [AnyObject] = []
     
     // Starting of buttons and outlets
     @IBOutlet weak var sunday: BEMCheckBox!
@@ -102,7 +103,7 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
             let driver = self.driverSetting.isOn
             let userID = Auth.auth().currentUser!.uid
 //            let routeInfo = ["userID": userID, "Leaving from": placeButton1.text! as Any, "Going to": placeButton2.text! as Any,  "departureTime": departtime1.text! as Any, "arrivalTime" : arrivaltime1.text! as Any, "Days" :  options, "Longitudes": longitudeArray, "Latitudes": latitudeArray, "Driver": driver, "Name": self.routeName.text! as Any] as [String : Any]
-            let routeInfo = ["userID": userID, "departureTime": departtime2.text! as Any, "arrivalTime" : arrivaltime2.text! as Any, "Days" :  options, "Longitudes": longitudeArray, "Latitudes": latitudeArray, "Driver": driver, "Name": self.routeName.text! as Any, "startAddress": self.placeButton1.text! as Any, "endAddress": self.placeButton2.text! as Any] as [String : Any]
+            let routeInfo = ["userID": userID, "departureTime1": departtime1.text! as Any,"departureTime2": departtime2.text! as Any, "arrivalTime1" : arrivaltime1.text! as Any, "arrivalTime2" : arrivaltime2.text! as Any, "Days" :  options, "Longitudes": longitudeArray, "Latitudes": latitudeArray, "Driver": driver, "Name": self.routeName.text! as Any, "startAddress": self.placeButton1.text! as Any, "endAddress": self.placeButton2.text! as Any] as [String : Any]
             print (routeInfo)
             addRoute(routeInfo: routeInfo)
             actionTitle = "Success"
@@ -133,6 +134,18 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
         placeButton1.inputView = my_pickerView
         placeButton2.inputView = my_pickerView
         create_toolbar()
+        
+        for destination in destinationsArray {
+            // Destinations names for picker view
+            options2.append(destination.Name)
+            // Destination longitude
+            // Destination latitudes
+            
+        }
+        self.pickerData1.append(contentsOf: options2)
+        self.pickerData2.append(contentsOf: options2)
+        //print("destinations array = \(options)")
+        
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
