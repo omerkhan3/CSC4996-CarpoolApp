@@ -46,32 +46,24 @@ class FreqDestinations: UIViewController {
         let workInfo = ["userID": userID, "Name": self.WorkLabel.text! as Any, "Address": self.WorkSearchBar.text! as Any]
         let customInfo = ["userID": userID, "Name": self.otherInput.text! as Any, "Address": self.otherSearchBar.text! as Any]
         
+        var destinations: [Dictionary<String, Any>] = [homeInfo, schoolInfo, workInfo, customInfo]
+        
         if (homeInfo["Address"] != nil) {
-            let homeDestination: [Dictionary<String, Any>] = [homeInfo]
-            saveDestinations(destinationInfo: homeDestination)
-            print(homeDestination)
+            destinations.append(homeInfo)
         }
         else if (schoolInfo["Address"] != nil) {
-            let schoolDestination: [Dictionary<String, Any>] = [schoolInfo]
-            saveDestinations(destinationInfo: schoolDestination)
-            print(schoolDestination)
-        }
+            destinations.append(schoolInfo)
+        }       
         else if (workInfo["Address"] != nil) {
-            let workDestination: [Dictionary<String, Any>] = [workInfo]
-            saveDestinations(destinationInfo: workDestination)
-            print(workDestination)
+            destinations.append(workInfo)
         }
         else if (customInfo["Address"] != nil) {
-            let customDestination: [Dictionary<String, Any>] = [customInfo]
-            saveDestinations(destinationInfo: customDestination)
-            print(customDestination)
+            destinations.append(customInfo)
         }
         
-        let destinations: [Dictionary<String, Any>] = [homeInfo, schoolInfo, workInfo, customInfo]
-        
         //print(destinations)
+        saveDestinations(destinationInfo: destinations)
         
-        //saveDestinations(destinationInfo: destinations)
         actionTitle = "Success!"
         actionItem = "Your frequent destinations have been saved"
         

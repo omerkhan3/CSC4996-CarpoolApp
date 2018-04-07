@@ -25,6 +25,7 @@ class PaymentsViewController: UIViewController, UITableViewDelegate, UITableView
     
     //Class variables
     var clientToken: String = ""
+    let tokenizationKey =  "sandbox_vtqbvdrz_kjjqnn2gj7vbds9g"
     var recentPaymentsArray = [RecentPayments]()
     var recentPayments = RecentPayments()
     var scheduledRideArray = [ScheduledRide]()
@@ -197,12 +198,17 @@ class PaymentsViewController: UIViewController, UITableViewDelegate, UITableView
                 print (error.localizedDescription)
                 return;
             }
-            //let userToken = idToken!
+            let userToken = idToken!
             //URL endpoint of our local node server
-            let paymentURL = URL(string: "http://localhost:3000/payment/checkout")!
+            let paymentURL = URL(string: "http://localhost:3000/payment/create")!
             var request = URLRequest(url: paymentURL)
+            let paymentInfo = ["userID": self.userID as Any, "paymentMethodNonce": paymentMethodNonce as Any, "userToken":  userToken as Any] as [String : Any]
+            let paymentJSON = try! JSONSerialization.data(withJSONObject: paymentInfo, options: .prettyPrinted)
+            let paymentJSONInfo = NSString(data: paymentJSON, encoding: String.Encoding.utf8.rawValue)! as String
             //payment_method_nonce is the field that the server will be looking for to receive the nonce
-            request.httpBody = "payment_method_nonce=\(paymentMethodNonce)".data(using: String.Encoding.utf8)
+            request.httpBody = "paymentInfo=\(paymentJSONInfo)".data(using: String.Encoding.utf8)
+            //request.httpBody = "payment_method_nonce=\(paymentMethodNonce)".data(using: String.Encoding.utf8) // "payment_method_nonce" is the field that the server will be looking for to receive the nonce.
+            
             //POST method
             request.httpMethod = "POST"
             

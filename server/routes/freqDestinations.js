@@ -39,5 +39,4 @@ router.post('/saveDestination', function(req, res, next) {
 	});
 });
 
-
 module.exports = router;
