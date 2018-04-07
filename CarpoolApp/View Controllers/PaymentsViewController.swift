@@ -21,6 +21,7 @@ class PaymentsViewController: UIViewController, UITableViewDelegate, UITableView
     var recentPaymentsArray = [RecentPayments]()
     var recentPayments = RecentPayments()
     let userID = Auth.auth().currentUser?.uid
+    let tokenizationKey =  "sandbox_vtqbvdrz_kjjqnn2gj7vbds9g" // this is the tokenization key needed to authenticate with Braintree sandbox.  Since this is just a sandbox account, we have hard-coded the key in, but for production this key would need to be hosted elsewhere.
     
     //Outlets
     @IBAction func newPaymentMethod(_ sender: Any) {
@@ -101,7 +102,7 @@ class PaymentsViewController: UIViewController, UITableViewDelegate, UITableView
     
     // Query all recent payments from database and, decode and store into an array
     func getRecentPayments(completed: @escaping () -> ()) {
-        var viewRecentPaymentsComponents = URLComponents(string: "http://141.217.48.15:3000/payment/recentPayments")!
+        var viewRecentPaymentsComponents = URLComponents(string: "http://localhost:3000/payment/recentPayments")!
         viewRecentPaymentsComponents.queryItems = [URLQueryItem(name: "userID", value: userID)]
         var request = URLRequest(url: viewRecentPaymentsComponents.url!)
         print (viewRecentPaymentsComponents.url!)
@@ -128,14 +129,10 @@ class PaymentsViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
     func makeRequest(completion: @escaping (String) -> Void) {
-        let clientTokenURL = URL(string: "http://141.217.48.15:3000/payment/client_token")!
-        var clientTokenRequest = URLRequest(url: clientTokenURL as URL)
+        var clientTokenComponents = URLComponents(string: "http://localhost:3000/payment/client_token")!
+        clientTokenComponents.queryItems = [URLQueryItem(name: "userID", value: userID)]
+        var clientTokenRequest = URLRequest(url: clientTokenComponents.url!)
         clientTokenRequest.setValue("text/plain", forHTTPHeaderField: "Accept")
         
         URLSession.shared.dataTask(with: clientTokenRequest) { (data, response, error) -> Void in
@@ -161,6 +158,13 @@ class PaymentsViewController: UIViewController, UITableViewDelegate, UITableView
             }
         })
     }
+    
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
     
     //Shows the braintree Drop-In UI
     func showDropIn(clientTokenOrTokenizationKey: String) {
@@ -200,6 +204,8 @@ class PaymentsViewController: UIViewController, UITableViewDelegate, UITableView
             let paymentJSONInfo = NSString(data: paymentJSON, encoding: String.Encoding.utf8.rawValue)! as String
             //payment_method_nonce is the field that the server will be looking for to receive the nonce
             request.httpBody = "paymentInfo=\(paymentJSONInfo)".data(using: String.Encoding.utf8)
+            //request.httpBody = "payment_method_nonce=\(paymentMethodNonce)".data(using: String.Encoding.utf8) // "payment_method_nonce" is the field that the server will be looking for to receive the nonce.
+
             //POST method
             request.httpMethod = "POST"
             

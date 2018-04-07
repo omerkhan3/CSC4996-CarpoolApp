@@ -8,8 +8,8 @@ const pgp = db.$config.pgp;
 var gateway = braintree.connect({
    environment:  braintree.Environment.Sandbox,  // this contains credentials for our braintree sandbox account.
    merchantId:   'kjjqnn2gj7vbds9g',  // since this is a sandbox account, we have hardcoded values, but we will need to store elsewhere for security reasons when in production.
-   publicKey:    'hcvtbjyp4kmzv96d',
-   privateKey:   '7160689f99a110ba0d3950c0e0c56863'
+   publicKey:    's5vyx5cn9s7w2m6h',
+   privateKey:   '5f05063b48df7ba47d16d1380a7b3b93'
 });
 
 router.post("/create",function (req, res) {
@@ -66,6 +66,23 @@ db.query(`select \"userID\", \"Amount\", \"Time\" from carpool.\"paymentHistory\
   });
 });
 
+
+router.get("/client_token",function (req, res) {
+  var userID = req.query.userID;
+    db.one(`select \"Users\".\"customerID\" from carpool.\"Users\" where \"Users\".\"userID\" ='${userID}'`)
+    .then(function(data) {
+      gateway.clientToken.generate({
+      customerId: data.customerID
+      }, function (err, result) {
+      res.send(result.clientToken)
+      });
+    })
+    .catch(function(error){
+        console.log('Error fetching client token', error)
+    });
+
+});
+
 router.post("/checkout", function (req, res) {
   // Use the payment method nonce here
   var nonceFromTheClient = req.body.payment_method_nonce;
@@ -73,9 +90,6 @@ router.post("/checkout", function (req, res) {
   gateway.transaction.sale({
         amount: "10.00",  // we have hardcoded $10 for now for all transactions, we will eventually need to add "amount" field to our HTTP message from client.
         paymentMethodNonce: nonceFromTheClient,  // we use the nonce received from client.
-        customer: {
-        	id: "aCustomerId"
-        },
         options: {
           storeInVaultOnSuccess: true
           //submitForSettlement: true  // this commad is what tells Braintree to process the transaction.
@@ -91,5 +105,8 @@ router.post("/checkout", function (req, res) {
           }
       });
     });
+
+
+
 
 module.exports = router;
