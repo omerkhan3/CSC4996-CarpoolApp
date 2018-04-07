@@ -66,7 +66,12 @@ class FreqDestinations: UIViewController {
             saveDestinations(destinationInfo: customDestination)
             print(customDestination)
         }
-
+        
+        let destinations: [Dictionary<String, Any>] = [homeInfo, schoolInfo, workInfo, customInfo]
+        
+        //print(destinations)
+        
+        //saveDestinations(destinationInfo: destinations)
         actionTitle = "Success!"
         actionItem = "Your frequent destinations have been saved"
         

@@ -12,9 +12,6 @@ import FirebaseAuth
 
 class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    // Class Variables
-    var destinationsArray = [FrequentDestination]()
-    
     // UI Outlets
     @IBOutlet weak var UserHomeAddress: UILabel!
     @IBOutlet weak var UserSchoolAddress: UILabel!
@@ -22,9 +19,12 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var UserOtherAddress: UILabel!
     @IBOutlet weak var otherDestination: UILabel!
     
+    // Class Variables
+    var destinationsArray = [FrequentDestination]()
+    
     //Array used for retrieving the saved routes according to userID
     var myRoutesArray = [ScheduledRide]()
-    var myRoutes = ScheduledRide()
+    //var myRoutes = ScheduledRide()
     let userID = Auth.auth().currentUser?.uid
     
     //Outlets for table and no routes label
@@ -88,16 +88,16 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
         }
     }
     
-     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+     /*func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         myRoutes = myRoutesArray[indexPath.row]
         print(myRoutes)
-    }
+    }*/
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: "MyRoutesTableViewCell")
         
         cell.textLabel?.text = myRoutesArray[indexPath.row].driverRouteName.uppercased()
-        cell.detailTextLabel?.text = myRoutesArray[indexPath.row].driverEndAddress?.uppercased()
+        cell.detailTextLabel?.text = myRoutesArray[indexPath.row].driverEndAddress
         
         return cell
     }
