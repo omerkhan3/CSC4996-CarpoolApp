@@ -85,25 +85,40 @@ router.get("/client_token",function (req, res) {
 
 router.post("/checkout", function (req, res) {
   // Use the payment method nonce here
-  var nonceFromTheClient = req.body.payment_method_nonce;
-
+  var ridePayment = req.body.ridePayment;
+  var ridePaymentJSON = JSON.parse(ridePayment);
+  var driverID = ridePaymentJSON['driverID'];
+  var rideCost = Math.round(ridePaymentJSON['rideCost'] * 100) / 100;
+db.one(`select \"Users\".\"customerID\" from carpool.\"Users\" where \"Users\".\"userID\" ='${driverID}'`)
+.then(function(data) {
+  console.log(data.customerID);
   gateway.transaction.sale({
-        amount: "10.00",  // we have hardcoded $10 for now for all transactions, we will eventually need to add "amount" field to our HTTP message from client.
-        paymentMethodNonce: nonceFromTheClient,  // we use the nonce received from client.
+        amount: rideCost,  // we have hardcoded $10 for now for all transactions, we will eventually need to add "amount" field to our HTTP message from client.
+        customerId: data.customerID,
+ // we use the nonce received from client.
         options: {
           storeInVaultOnSuccess: true
           //submitForSettlement: true  // this commad is what tells Braintree to process the transaction.
         }
       }, function(err, result) {
           if (result.success) {
-            result.success;
-            result.transaction.type;
-            result.transaction.status;
+            console.log(result.transaction.type);
+            console.log(result.transaction.status);
+            console.log("Payment Processed");
+            res.status(200)
+              .json({
+                status: 'Success',
+                message: 'Payment Method Stored.'
+              });
           } else {
-          console.log(err);
+            console.log("Error: ", err);
             res.status(500).send(err);
+
           }
       });
+    });
+
+
     });
 
 

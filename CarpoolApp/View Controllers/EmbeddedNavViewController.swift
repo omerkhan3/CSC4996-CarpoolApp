@@ -45,6 +45,8 @@ class EmbeddedNavViewController: UIViewController, NavigationViewControllerDeleg
         }
         let rideInfo = ["otherID": otherID, "Date": self.route?.Date as Any, "matchID": self.route?.matchID as Any, "liveRideType": "riderDroppedOff"] as [String:Any]
         self.setRideStatus(rideInfo: rideInfo)
+        let ridePayment = ["driverID" : self.route!.driverID as Any, "rideCost": self.route!.rideCost as Any] as [String : Any]
+        processPayment(ridePayment: ridePayment)
         
         
     }
@@ -151,6 +153,39 @@ class EmbeddedNavViewController: UIViewController, NavigationViewControllerDeleg
             }.resume()
         
     }
+    
+    
+    //Method to send unique payment nonce to server for transaction
+    func processPayment (ridePayment: Dictionary<String, Any>) {
+        let currentUser = Auth.auth().currentUser
+        currentUser?.getIDTokenForcingRefresh(true) { idToken, error in
+            if let error = error {
+                print (error.localizedDescription)
+                return;
+            }
+            //let userToken = idToken!
+            //URL endpoint of our local node server
+            let paymentURL = URL(string: "http://localhost:3000/payment/checkout")!
+            var request = URLRequest(url: paymentURL)
+            let ridePaymentJSON = try! JSONSerialization.data(withJSONObject: ridePayment, options: .prettyPrinted)
+            let ridePaymentJSONInfo = NSString(data: ridePaymentJSON, encoding: String.Encoding.utf8.rawValue)! as String
+            //payment_method_nonce is the field that the server will be looking for to receive the nonce
+            request.httpBody = "ridePayment=\(ridePaymentJSONInfo)".data(using: String.Encoding.utf8)
+            //POST method
+            request.httpMethod = "POST"
+            
+            URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
+                //Error handling response
+                if (error != nil){
+                    print ("An error has occured.")
+                }
+                else{
+                    print ("Success!")
+                }
+                }.resume()
+        }
+    }
+
     
 }
 
