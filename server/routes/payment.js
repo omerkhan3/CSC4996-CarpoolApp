@@ -104,7 +104,7 @@ db.one(`select \"Users\".\"customerID\" from carpool.\"Users\" where \"Users\".\
             console.log(result.transaction.type);
             console.log(result.transaction.status);
             console.log("Payment Processed");
-            db.query(`INSERT into carpool.\"paymentHistory2\"(\"userID\", \"date\", \"amount\") values ('${riderID}', 'now', ${rideCost})`)
+            db.query(`INSERT into carpool.\"paymentHistory\"(\"driverID\", \"riderID\", \"Time\", \"Amount\") values ('${driverID}', '${riderID}', 'now', ${rideCost})`)
             .then(function() {
               res.status(200)
                 .json({
