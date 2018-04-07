@@ -17,8 +17,6 @@ router.post("/create",function (req, res) {
   var paymentJSON = JSON.parse(paymentInfo);
   var userID = paymentJSON['userID'];
   var paymentNonce = paymentJSON['paymentMethodNonce'];
-console.log(paymentInfo);
-
   db.one(`select \"Users\".\"firstName\", \"Users\".\"lastName\" from carpool.\"Users\" where \"Users\".\"userID\" ='${userID}'`) // Read query to get profile information on load.
   .then(function(data) {
     console.log(paymentNonce);
@@ -88,8 +86,9 @@ router.post("/checkout", function (req, res) {
   var ridePayment = req.body.ridePayment;
   var ridePaymentJSON = JSON.parse(ridePayment);
   var driverID = ridePaymentJSON['driverID'];
+  var riderID = ridePaymentJSON['riderID'];
   var rideCost = Math.round(ridePaymentJSON['rideCost'] * 100) / 100;
-db.one(`select \"Users\".\"customerID\" from carpool.\"Users\" where \"Users\".\"userID\" ='${driverID}'`)
+db.one(`select \"Users\".\"customerID\" from carpool.\"Users\" where \"Users\".\"userID\" = '${riderID}'`)
 .then(function(data) {
   console.log(data.customerID);
   gateway.transaction.sale({
@@ -105,17 +104,26 @@ db.one(`select \"Users\".\"customerID\" from carpool.\"Users\" where \"Users\".\
             console.log(result.transaction.type);
             console.log(result.transaction.status);
             console.log("Payment Processed");
-            res.status(200)
-              .json({
-                status: 'Success',
-                message: 'Payment Method Stored.'
-              });
+            db.query(`INSERT into carpool.\"paymentHistory2\"(\"userID\", \"date\", \"amount\") values ('${riderID}', 'now', ${rideCost})`)
+            .then(function() {
+              res.status(200)
+                .json({
+                  status: 'Success',
+                  message: 'Payment Made.'
+                });
+            })
+            .catch(function(error){
+                console.log('Error inserting into recent payments: ', error)
+            });
           } else {
             console.log("Error: ", err);
             res.status(500).send(err);
 
           }
       });
+    })
+    .catch(function(error){
+        console.log('Error processing payment: ', error)
     });
 
 

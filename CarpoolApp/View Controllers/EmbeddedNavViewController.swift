@@ -45,7 +45,7 @@ class EmbeddedNavViewController: UIViewController, NavigationViewControllerDeleg
         }
         let rideInfo = ["otherID": otherID, "Date": self.route?.Date as Any, "matchID": self.route?.matchID as Any, "liveRideType": "riderDroppedOff"] as [String:Any]
         self.setRideStatus(rideInfo: rideInfo)
-        let ridePayment = ["driverID" : self.route!.driverID as Any, "rideCost": self.route!.rideCost as Any] as [String : Any]
+        let ridePayment = ["driverID" : self.route!.driverID as Any, "riderID" : self.route!.riderID as Any, "rideCost": self.route!.rideCost as Any] as [String : Any]
         processPayment(ridePayment: ridePayment)
         
         
