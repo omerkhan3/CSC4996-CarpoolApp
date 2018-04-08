@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 import FirebaseAuth
 
-class MyRoutesViewController: UIViewController {
+class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     // Class Variables
     var destinationsArray = [FrequentDestination]()
@@ -23,6 +23,12 @@ class MyRoutesViewController: UIViewController {
     @IBOutlet weak var UserOtherAddress: UILabel!
     @IBOutlet weak var otherDestination: UILabel!
     
+    //Array used for retrieving the saved routes according to userID
+    var myRoutesArray = [SavedRoutes]()
+    let userID = Auth.auth().currentUser?.uid
+    
+    @IBOutlet weak var myRoutesTable: UITableView!
+    @IBOutlet weak var noRoutesLabel: UILabel!
     // UI Button Outlets
     @IBAction func editButton(_ sender: Any) {
         self.performSegue(withIdentifier: "showEditDestinations", sender: self)
@@ -30,7 +36,28 @@ class MyRoutesViewController: UIViewController {
     
 
     @IBAction func addRoute(_ sender: Any) {
-        self.performSegue(withIdentifier: "showAddRoute", sender: self)
+        self.performSegue(withIdentifier: "showAddRoutes", sender: self)
+    }
+    
+    //Reloading the table view and showing label if no saved routes
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        myRoutesTable.reloadData()
+        
+        getMyRoutes {
+            self.myRoutesTable.reloadData()
+            
+            // Show or hide no saved routes alert
+            if self.myRoutesArray.count == 0 {
+                // No saved routes
+                self.noRoutesLabel.isHidden = false
+            } else {
+                self.noRoutesLabel.isHidden = true
+            }
+        }
+        
+        self.myRoutesTable.delegate = self
+        self.myRoutesTable.dataSource = self
     }
     
     // Class overrides
@@ -52,8 +79,8 @@ class MyRoutesViewController: UIViewController {
     // Send data to other view controllers via segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showAddRoute" {
-            if let frequentDestinationsView = segue.destination as? FrequentDestinationsViewController {
-                frequentDestinationsView.destinationsArray = destinationsArray
+            if let frequentRoutesView = segue.destination as? FrequentDestinationsViewController {
+                frequentRoutesView.destinationsArray = destinationsArray
             } else {
                 print("Data not passed")
             }
@@ -62,12 +89,59 @@ class MyRoutesViewController: UIViewController {
         }
     }
     
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: "MyRoutesTableViewCell")
+        
+        cell.textLabel?.text = myRoutesArray[indexPath.row].Name
+        cell.detailTextLabel?.text = myRoutesArray[indexPath.row].endAddress
+        
+        return cell
+    }
+    
+    // Set number of sections
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    // set number of rows
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return myRoutesArray.count
+    }
+    
+    // Query all saved routes from database and, decode and store into an array
+    func getMyRoutes(completed: @escaping () -> ()) {
+        var viewMyRoutesComponents = URLComponents(string: "http://localhost:3000/routes/saved")!
+        viewMyRoutesComponents.queryItems = [URLQueryItem(name: "userID", value: userID)]
+        var request = URLRequest(url: viewMyRoutesComponents.url!)
+        print (viewMyRoutesComponents.url!)
+        
+        // GET Method
+        request.httpMethod = "GET"
+        URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
+            if (error != nil){
+                print (error as Any)
+            } else {
+                guard let data = data else { return }
+                do {
+                    // Decode JSON
+                    self.myRoutesArray = try JSONDecoder().decode([SavedRoutes].self, from: data)
+                    print (self.myRoutesArray)
+                    DispatchQueue.main.async {
+                        completed()
+                    }
+                } catch let jsnERR {
+                    print(jsnERR)
+                }
+            }
+            }.resume()
+    }
+    
     // Custom class functions
 
     // Function to download and save frequent destinations into an array
     func getDestinationsDecode(completed: @escaping () -> ()) {
         let userID = Auth.auth().currentUser?.uid
-        var viewDestinationCompenents = URLComponents(string: "http://141.217.48.15:3000/freqDestinations/getDestination")!
+        var viewDestinationCompenents = URLComponents(string: "http://localhost:3000/freqDestinations/getDestination")!
         viewDestinationCompenents.queryItems = [URLQueryItem(name: "userID", value: userID)]
         var request = URLRequest(url: viewDestinationCompenents.url!)
         print (viewDestinationCompenents.url!)
