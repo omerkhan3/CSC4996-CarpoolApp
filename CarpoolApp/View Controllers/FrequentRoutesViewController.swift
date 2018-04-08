@@ -1,5 +1,5 @@
 //
-//  Frequent Destinations.swift
+//  Frequent Routes.swift
 //  CarpoolApp
 //
 //  Created by Matt on 2/17/18.
@@ -12,7 +12,7 @@ import MapKit
 import Firebase
 import FirebaseAuth
 
-class FrequentDestinationsViewController: UIViewController, UIPickerViewDelegate, BEMCheckBoxDelegate, UITextFieldDelegate  {
+class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, BEMCheckBoxDelegate, UITextFieldDelegate  {
     
     var destinationsArray = [FrequentDestination]()
     var searchCompleter = MKLocalSearchCompleter()
@@ -20,10 +20,20 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDelegate
     let picker = UIDatePicker()
     let dist = -190
     
-    //let pickerData = ["work", "school", "gym"]
+    
     var longitudeArray: [Float] = []
     var latitudeArray: [Float] = []
     var options = [String]()
+    var options2 = [String]()
+    var options3 = [String]()
+    var pickerData1 = [String]()
+    var pickerData2 = [String]()
+    let my_pickerView = UIPickerView()
+    var current_arr : [String] = []
+    var active_textFiled : UITextField!
+    var startadd: String = ""
+    var endadd: String = ""
+    //var names: [AnyObject] = []
     
     // Starting of buttons and outlets
     @IBOutlet weak var sunday: BEMCheckBox!
@@ -34,19 +44,22 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDelegate
     @IBOutlet weak var friday: BEMCheckBox!
     @IBOutlet weak var saturday: BEMCheckBox!
     
+   
+    
+    
     //labels for arrive and depart time
     @IBOutlet weak var arrivaltime1: UITextField!
     @IBOutlet weak var arrivaltime2: UITextField!
     @IBOutlet weak var departtime1: UITextField!
     @IBOutlet weak var departtime2: UITextField!
     
-    //buttons for search bars and tables up top
-    @IBOutlet weak var HomeSearchBar: UISearchBar!
-    @IBOutlet weak var WorkSearchBar: UISearchBar!
-    @IBOutlet weak var searchTable: UITableView!
-    @IBOutlet weak var searchTable2: UITableView!
+
     // label that will allow the driver to save the name of a route
     @IBOutlet weak var routeName: UITextField!
+    @IBOutlet weak var placeButton1: UITextField!
+    @IBOutlet weak var placeButton2: UITextField!
+   
+    
     
     //label press action that brings up the time picker for arrival
     @IBAction func arrivalpress1(_ sender: UITextField) {
@@ -65,6 +78,184 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDelegate
         createDatePicker4()
     }
     
+    //switch for deciding if the user is going to be a driver or no
+    @IBOutlet weak var driverSetting: UISwitch!
+    
+    
+    // when this save buttons is pressed, all information will then be transfered to the database
+    @IBAction func actionSubmit(_ sender : Any)
+    {
+        var actionItem : String=String()
+        var actionTitle : String=String()
+        let exitAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)  // default action to exit out of native alerts.
+        
+        dump(options)
+        if ((placeButton1.text?.isEmpty)! || (placeButton2.text?.isEmpty)! || (arrivaltime1.text?.isEmpty)! || (departtime1.text?.isEmpty)! || (arrivaltime2.text?.isEmpty)! || (departtime2.text?.isEmpty)! || (routeName.text?.isEmpty)!)  // error handling for if all fields were filled  out.
+        {
+            actionTitle = "Error!"
+            actionItem = "You have not entered all required information."
+            
+            // Activate UIAlertController to display error
+            let alert = UIAlertController(title: actionTitle, message: actionItem, preferredStyle: .alert)
+            alert.addAction(exitAction)
+            self.present(alert, animated: true, completion: nil)  // present error alert.
+        }
+        else {
+            getstart()
+            getend()
+            print(options.joined(separator: ", "))
+            let driver = self.driverSetting.isOn
+            let userID = Auth.auth().currentUser!.uid
+//            let routeInfo = ["userID": userID, "Leaving from": placeButton1.text! as Any, "Going to": placeButton2.text! as Any,  "departureTime": departtime1.text! as Any, "arrivalTime" : arrivaltime1.text! as Any, "Days" :  options, "Longitudes": longitudeArray, "Latitudes": latitudeArray, "Driver": driver, "Name": self.routeName.text! as Any] as [String : Any]
+            let routeInfo = ["userID": userID, "departureTime1": departtime1.text! as Any,"departureTime2": departtime2.text! as Any, "arrivalTime1" : arrivaltime1.text! as Any, "arrivalTime2" : arrivaltime2.text! as Any, "Days" :  options, "Longitudes": longitudeArray, "Latitudes": latitudeArray, "Driver": driver, "Name": self.routeName.text! as Any, "startAddress": startadd as Any, "endAddress": endadd as Any] as [String : Any]
+            print (routeInfo)
+            addRoute(routeInfo: routeInfo)
+            actionTitle = "Success"
+            actionItem = "Your route information has been saved"
+            
+            // Activate UIAlertController to display error
+            let alert = UIAlertController(title: actionTitle, message: actionItem, preferredStyle: .alert)
+            alert.addAction(exitAction)
+            self.present(alert, animated: true, completion: nil)
+            //  print(arrivaltime.text)
+            // print(departtime.text)
+            print(self.placeButton1.text!)
+            print(options3)
+        }
+    }
+   
+    func getstart(){
+        for destination in destinationsArray{
+        if (self.placeButton1.text == "Home") {
+            if (destination.Name == "Home"){
+                startadd = destination.Address
+            }
+        //startadd = options3[0]
+    }
+        else if (self.placeButton1.text == "Work"){
+            if (destination.Name == "Work"){
+                startadd = destination.Address
+            }
+        //startadd = options3[1]
+    }
+        else if (self.placeButton1.text == "School"){
+            if (destination.Name == "School"){
+                startadd = destination.Address
+            }
+        //startadd = options3[2]
+    }
+        else if (self.placeButton1.text == ""){
+            startadd = options3[3]
+        }
+    }
+    }
+    func getend(){
+        for destination in destinationsArray{
+        if (self.placeButton2.text == "Home") {
+            if (destination.Name == "Home"){
+                endadd = destination.Address
+            }
+            //endadd = options3[0]
+        }
+        else if (self.placeButton2.text == "Work"){
+           
+            if (destination.Name == "Work"){
+                endadd = destination.Address
+            }
+           // endadd = options3[1]
+        }
+        else if (self.placeButton2.text == "School"){
+            if (destination.Name == "School"){
+                endadd = destination.Address
+            }
+            //endadd = options3[2]
+        }
+        else if (self.placeButton2.text == ""){
+            endadd = options3[3]
+        }
+    }
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        view.accessibilityIdentifier = "addRouteView"
+        print("printing destinations array: " + "\(self.destinationsArray)")
+        self.arrivaltime1.accessibilityIdentifier = "arrivalTime1"
+        self.arrivaltime2.accessibilityIdentifier = "arrivalTime2"
+        self.departtime1.accessibilityIdentifier = "departureTime1"
+        self.departtime2.accessibilityIdentifier = "departureTime2"
+        self.routeName.accessibilityIdentifier = "routeName"
+        
+        sunday.delegate = self
+        monday.delegate = self
+        tuesday.delegate = self
+        wednesday.delegate = self
+        thursday.delegate = self
+        friday.delegate = self
+        saturday.delegate = self
+        placeButton1.delegate = self
+        placeButton2.delegate = self
+        my_pickerView.delegate = self
+        my_pickerView.dataSource = self
+        placeButton1.inputView = my_pickerView
+        placeButton2.inputView = my_pickerView
+        create_toolbar()
+        
+        for destination in destinationsArray {
+            // Destinations names for picker view
+            options2.append(destination.Name)
+            // Destination longitude
+            // Destination latitude
+        }
+        self.pickerData1.append(contentsOf: options2)
+        self.pickerData2.append(contentsOf: options2)
+        print("names array = \(options2)")
+        
+        for destination in destinationsArray{
+            options3.append(destination.Address)
+            
+        }
+        //print("address array = \(options3)")
+        //showDestionations()
+        
+    }
+
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return current_arr.count
+    }
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return current_arr[row]
+    }
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        print ("Selected item is", current_arr[row])
+        active_textFiled.text = current_arr[row]
+    }
+    func create_toolbar()
+    {
+        let toolbar = UIToolbar()
+        toolbar.barStyle = .default
+        toolbar.sizeToFit()
+        
+        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(doneClick))
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelClick))
+        toolbar.setItems([doneButton , spaceButton, cancelButton], animated: false)
+        
+        placeButton1.inputAccessoryView = toolbar
+        placeButton2.inputAccessoryView = toolbar
+    }
+    @objc func doneClick(){
+        active_textFiled.resignFirstResponder()
+    }
+    @objc func cancelClick(){
+        active_textFiled.text = ""
+        active_textFiled.resignFirstResponder()
+        
+    }
     func createDatePicker1() {
         // toolbar
         let toolbar = UIToolbar()
@@ -196,83 +387,6 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDelegate
         self.view.endEditing(true)
     }
     
-    //switch for deciding if the user is going to be a driver or no
-    @IBOutlet weak var driverSetting: UISwitch!
-    
-    
-    // when this save buttons is pressed, all information will then be transfered to the database
-    @IBAction func actionSubmit(_ sender : Any)
-    {
-        var actionItem : String=String()
-        var actionTitle : String=String()
-        let exitAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)  // default action to exit out of native alerts.
-        
-        dump(options)
-        if ((HomeSearchBar.text?.isEmpty)! || (WorkSearchBar.text?.isEmpty)! || (arrivaltime1.text?.isEmpty)! ||
-            (arrivaltime2.text?.isEmpty)! ||
-            (departtime1.text?.isEmpty)! ||
-            (departtime2.text?.isEmpty)! ||
-            (routeName.text?.isEmpty)!)  // error handling for if all fields were filled  out.
-        {
-            actionTitle = "Error!"
-            actionItem = "You have not entered all required information."
-            
-            // Activate UIAlertController to display error
-            let alert = UIAlertController(title: actionTitle, message: actionItem, preferredStyle: .alert)
-            alert.addAction(exitAction)
-            self.present(alert, animated: true, completion: nil)  // present error alert.
-        }
-        else {
-            
-            print(options.joined(separator: ", "))
-            let driver = self.driverSetting.isOn
-            let userID = Auth.auth().currentUser!.uid
-            let routeInfo = ["userID": userID, "departureTime1": departtime1.text! as Any, "departureTime2": departtime2.text! as Any, "arrivalTime1" : arrivaltime1.text! as Any, "arrivalTime2" : arrivaltime2.text! as Any, "Days" :  options, "Longitudes": longitudeArray, "Latitudes": latitudeArray, "Driver": driver, "Name": self.routeName.text! as Any, "startAddress": self.HomeSearchBar.text! as Any, "endAddress": self.WorkSearchBar.text! as Any] as [String : Any]
-            print (routeInfo)
-            addRoute(routeInfo: routeInfo)
-            actionTitle = "Success"
-            actionItem = "Your route information has been saved"
-            
-            // Activate UIAlertController to display error
-            let alert = UIAlertController(title: actionTitle, message: actionItem, preferredStyle: .alert)
-            alert.addAction(exitAction)
-            self.present(alert, animated: true, completion: nil)
-            //  print(arrivaltime.text)
-            // print(departtime.text)
-        }
-    }
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.accessibilityIdentifier = "addRouteView"
-        print("printing destinations array: " + "\(self.destinationsArray)")
-        self.arrivaltime1.accessibilityIdentifier = "arrivalTime1"
-        self.arrivaltime2.accessibilityIdentifier = "arrivalTime2"
-        self.departtime1.accessibilityIdentifier = "departureTime1"
-        self.departtime2.accessibilityIdentifier = "departureTime2"
-        self.routeName.accessibilityIdentifier = "routeName"
-        
-        //pickerView.isHidden = true
-        // pickerView.delegate = self
-        // pickerView.dataSource = self
-        // placePicker.isHidden = true
-        // placePicker.delegate = self
-        // placePicker.dataSource = self
-        sunday.delegate = self
-        monday.delegate = self
-        tuesday.delegate = self
-        wednesday.delegate = self
-        thursday.delegate = self
-        friday.delegate = self
-        saturday.delegate = self
-        searchTable.isHidden = true
-        searchTable2.isHidden = true
-        searchCompleter.delegate = self
-       // HomeSearchBar.placeholder = "Search for Places"
-        //WorkSearchBar.placeholder = "Search for Places"
-        
-    }
-  
-    
     //start switch statement that will check if each box is checked, then print out names of checked days
     func didTap(_ checkBox: BEMCheckBox) {
         switch checkBox {
@@ -322,12 +436,27 @@ class FrequentDestinationsViewController: UIViewController, UIPickerViewDelegate
     // Keyboard handling
     // Begin editing within text field
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        moveScrollView(textField, distance: dist, up: true)
+       //moveScrollView(textField, distance: dist, up: true)
+    }
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        active_textFiled = textField
+        
+        switch textField {
+        case placeButton1:
+            current_arr = pickerData1
+        case placeButton2:
+            current_arr = pickerData2
+        default:
+            print("Default")
+        }
+        my_pickerView.reloadAllComponents()
+        return true
     }
     
     // End editing within text field
     func textFieldDidEndEditing(_ textField: UITextField) {
-        moveScrollView(textField, distance: dist, up: false)
+        //moveScrollView(textField, distance: dist, up: false)
     }
     
     // Hide keyboard if return key is pressed
@@ -362,85 +491,5 @@ func addRoute(routeInfo: Dictionary<String, Any>)
         }
         
         }.resume()
-}
-
-extension FrequentDestinationsViewController: UISearchBarDelegate {
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        
-        //When text is being inputted into search bar, table view will not be hidden depending on which search bar is clicked on
-        if searchBar == HomeSearchBar {
-            searchTable.isHidden = false
-            searchTable2.isHidden = true
-            WorkSearchBar.isHidden = true
-        }
-        if searchBar == WorkSearchBar {
-            searchTable.isHidden = true
-            searchTable2.isHidden = false
-        }
-        searchCompleter.queryFragment = searchText
-    }
-}
-
-extension FrequentDestinationsViewController: MKLocalSearchCompleterDelegate{
-    func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
-        searchResults = completer.results
-        searchTable.reloadData()
-        searchTable2.reloadData()
-    }
-    
-    func completer(_ completer: MKLocalSearchCompleter, didFailWithError error: Error) {
-        //When text is deleted in search bar, table view will be hidden
-        searchTable.isHidden = true
-        searchTable2.isHidden = true
-        WorkSearchBar.isHidden = false
-    }
-}
-
-extension FrequentDestinationsViewController: UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return searchResults.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let searchResult = searchResults[indexPath.row]
-        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: nil)
-        cell.textLabel?.text = searchResult.title
-        cell.detailTextLabel?.text = searchResult.subtitle
-        return cell
-    }
-}
-
-extension FrequentDestinationsViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        
-        //If statements for selecting an address from table view and it showing up in search bar field as well as the table view disappearing after selection
-        if tableView == searchTable {
-            let searchResult = searchResults[indexPath.row]
-            HomeSearchBar.text = searchResult.title + ", " + searchResult.subtitle
-            searchTable.isHidden = true
-            WorkSearchBar.isHidden = false
-        }
-        if tableView == searchTable2 {
-            let searchResult = searchResults[indexPath.row]
-            WorkSearchBar.text = searchResult.title + ", " + searchResult.subtitle
-            searchTable2.isHidden = true
-        }
-        
-        //Outputs latitude and longtitude of selected place
-        let completion = searchResults[indexPath.row]
-        let searchRequest = MKLocalSearchRequest(completion: completion)
-        let search = MKLocalSearch(request: searchRequest)
-        search.start { (response, error) in
-            self.longitudeArray.append(Float( response!.mapItems[0].placemark.coordinate.longitude))
-            self.latitudeArray.append(Float( response!.mapItems[0].placemark.coordinate.latitude))
-            // print(String(describing: coordinate))
-        }
-    }
-    
 }
 

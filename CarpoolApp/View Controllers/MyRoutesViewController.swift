@@ -36,7 +36,7 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
     
 
     @IBAction func addRoute(_ sender: Any) {
-        self.performSegue(withIdentifier: "showAddRoutes", sender: self)
+        self.performSegue(withIdentifier: "showAddRoute", sender: self)
     }
     
     //Reloading the table view and showing label if no saved routes
@@ -79,7 +79,7 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
     // Send data to other view controllers via segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showAddRoute" {
-            if let frequentRoutesView = segue.destination as? FrequentDestinationsViewController {
+            if let frequentRoutesView = segue.destination as? FrequentRoutesViewController {
                 frequentRoutesView.destinationsArray = destinationsArray
             } else {
                 print("Data not passed")
