@@ -54,6 +54,7 @@ struct Match: Decodable{
     // match info
     let Status: String
     let matchID: Int
+    let matchedDays: [String]
     
     // JSON Constructor
     init(json: [String: Any]) {
@@ -99,6 +100,7 @@ struct Match: Decodable{
         riderPickupTime = json["riderPickupTime"] as? String ?? ""
         driverLeaveTime = json["driverLeaveTime"] as? String ?? ""
         rideCost = json["rideCost"] as? Double ?? 0.0
+        matchedDays = json["matchedDays"] as? [String] ?? [""]
     }
     
     init(){
@@ -140,6 +142,7 @@ struct Match: Decodable{
         // match info
         Status = ""
         matchID =  0
+        matchedDays = [""]
         riderStartAddress = ""
         riderPickupTime = ""
         driverLeaveTime = ""
