@@ -16,12 +16,56 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
     var destinationsArray = [FrequentDestination]()
     
     // UI Outlets
-    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var UserHomeAddress: UILabel!
     @IBOutlet weak var UserSchoolAddress: UILabel!
     @IBOutlet weak var UserWorkAddress: UILabel!
     @IBOutlet weak var UserOtherAddress: UILabel!
     @IBOutlet weak var otherDestination: UILabel!
+    
+    @IBOutlet weak var deleteHomeAddress: UIButton!
+    @IBAction func deletetHomeAddress(_ sender: UIButton) {
+        // Activate UIAlertController to display alert
+        let alert = UIAlertController(title: "Warning!", message: "Are you sure you want to delete this destination?", preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+            
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    @IBOutlet weak var deleteWorkAddress: UIButton!
+    @IBAction func deleteWorkAddress(_ sender: UIButton) {
+        // Activate UIAlertController to display alert
+        let alert = UIAlertController(title: "Warning!", message: "Are you sure you want to delete this destination?", preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+            
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    @IBOutlet weak var deleteSchoolAddress: UIButton!
+    @IBAction func deleteSchoolAddress(_ sender: UIButton) {
+        // Activate UIAlertController to display alert
+        let alert = UIAlertController(title: "Warning!", message: "Are you sure you want to delete this destination?", preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+            
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    @IBOutlet weak var deleteCustomAddress: UIButton!
+    @IBAction func deleteCustomAddress(_ sender: UIButton) {
+        // Activate UIAlertController to display alert
+        let alert = UIAlertController(title: "Warning!", message: "Are you sure you want to delete this destination?", preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+            
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
     
     //Array used for retrieving the saved routes according to userID
     var myRoutesArray = [SavedRoutes]()
@@ -70,10 +114,15 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
             print (self.destinationsArray)
             self.showDestinations()
         }
+        
         UserHomeAddress.isHidden = true
         UserSchoolAddress.isHidden = true
         UserWorkAddress.isHidden = true
         UserOtherAddress.isHidden = true
+        deleteHomeAddress.isHidden = true
+        deleteWorkAddress.isHidden = true
+        deleteSchoolAddress.isHidden = true
+        deleteCustomAddress.isHidden = true
     }
     
     // Send data to other view controllers via segue
@@ -173,14 +222,15 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
             // Show home destination if saved
             if (destination.Name == "Home") {
                 self.UserHomeAddress.isHidden = false
+                self.deleteHomeAddress.isHidden = false
                 self.UserHomeAddress.text = destination.Address
-                            
             }
                 
             // Show school destination if saved
             else if (destination.Name == "School")
             {
                 self.UserSchoolAddress.isHidden = false
+                self.deleteSchoolAddress.isHidden = false
                 self.UserSchoolAddress.text = destination.Address
             }
             
@@ -188,11 +238,14 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
             else if (destination.Name == "Work")
             {
                 self.UserWorkAddress.isHidden = false
+                self.deleteWorkAddress.isHidden = false
                 self.UserWorkAddress.text = destination.Address
-            
+            }
+                
             // Show custom destination if saved
-            } else {
+            else {
                 self.UserOtherAddress.isHidden = false
+                self.deleteCustomAddress.isHidden = false
                 self.otherDestination.text = destination.Name
                 self.UserOtherAddress.text = destination.Address
             }
