@@ -67,11 +67,11 @@ class FreqDestinations: UIViewController {
         actionTitle = "Success!"
         actionItem = "Your frequent destinations have been saved"
         
-        let alert = UIAlertController(title: actionTitle, message: actionItem, preferredStyle: .alert)
-        let action = UIAlertAction(title: "OK", style: .default) { (action) -> Void in
-            let profileview = self.storyboard?.instantiateViewController(withIdentifier: "MyRoutes")
-            self.present(profileview!, animated: true, completion: nil)
-        }
+        let alert = UIAlertController(title: actionTitle, message: actionItem, preferredStyle: UIAlertControllerStyle.alert)
+        let action = UIAlertAction(title: "OK", style: .default, handler: { action in
+            self.performSegue(withIdentifier: "showMyRoutes", sender: self)
+        })
+        
         alert.addAction(action)
         self.present(alert, animated: true, completion: nil)
     }
