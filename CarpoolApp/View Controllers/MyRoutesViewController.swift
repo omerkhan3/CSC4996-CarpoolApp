@@ -17,12 +17,11 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
     var destinationsDetail: FrequentDestination?
     let userID = Auth.auth().currentUser?.uid
     
-    // UI Outlets
-
-    
     //Array used for retrieving the saved routes according to userID
     var myRoutesArray = [SavedRoutes]()
     
+    @IBOutlet weak var MyDestinationsTable: UITableView!
+    @IBOutlet weak var noDestinationsLabel: UILabel!
     @IBOutlet weak var myRoutesTable: UITableView!
     @IBOutlet weak var noRoutesLabel: UILabel!
     // UI Button Outlets
@@ -39,6 +38,19 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         myRoutesTable.reloadData()
+        MyDestinationsTable.reloadData()
+        
+        getDestinationsDecode {
+            self.myRoutesTable.reloadData()
+            
+            // Show or hide no saved routes alert
+            if self.destinationsArray.count == 0 {
+                // No saved routes
+                self.noDestinationsLabel.isHidden = false
+            } else {
+                self.noDestinationsLabel.isHidden = true
+            }
+        }
         
         getMyRoutes {
             self.myRoutesTable.reloadData()
@@ -54,17 +66,18 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
         
         self.myRoutesTable.delegate = self
         self.myRoutesTable.dataSource = self
+        self.MyDestinationsTable.delegate = self
+        self.MyDestinationsTable.dataSource = self
     }
     
     // Class overrides
     override func viewDidLoad() {
         super.viewDidLoad()
-        //let userID = Auth.auth().currentUser?.uid
-        //getDestinations(userID: userID!)
-        getDestinationsDecode {
+        
+        /*getDestinationsDecode {
             print ("printing destinations array: ")
             print (self.destinationsArray)
-        }
+        }*/
     }
     
     // Send data to other view controllers via segue
@@ -81,18 +94,38 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: "MyRoutesTableViewCell")
         
-        cell.textLabel?.text = myRoutesArray[indexPath.row].Name
-        cell.detailTextLabel?.text = myRoutesArray[indexPath.row].endAddress
-        let deleteButton = UIButton()
-        deleteButton.setImage(#imageLiteral(resourceName: "chris-tabbar-4-9"), for: .normal)
-        deleteButton.frame = CGRect(x: 240, y: 15, width: 20, height: 20)
-        deleteButton.addTarget(self, action: Selector(("deleteButtonPressed")), for: .touchUpInside)
-        cell.addSubview(deleteButton)
+        let cell = UITableViewCell()
         
+        if (tableView == myRoutesTable) {
+            let cell = UITableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: "MyRoutesTableViewCell")
+            
+            cell.textLabel?.text = myRoutesArray[indexPath.row].Name
+            cell.detailTextLabel?.text = myRoutesArray[indexPath.row].endAddress
+            let deleteButton = UIButton()
+            deleteButton.setImage(#imageLiteral(resourceName: "chris-tabbar-4-9"), for: .normal)
+            deleteButton.frame = CGRect(x: 240, y: 15, width: 20, height: 20)
+            deleteButton.addTarget(self, action: Selector(("deleteButtonPressed")), for: .touchUpInside)
+            cell.addSubview(deleteButton)
+            
+            return cell
+        }
+        else if (tableView == MyDestinationsTable) {
+            let cell = UITableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: "MyDestinationsTableViewCell")
+            
+            cell.textLabel?.text = destinationsArray[indexPath.row].Name
+            cell.detailTextLabel?.text = destinationsArray[indexPath.row].Address
+            let deleteButton = UIButton()
+            deleteButton.setImage(#imageLiteral(resourceName: "chris-tabbar-4-9"), for: .normal)
+            deleteButton.frame = CGRect(x: 240, y: 15, width: 20, height: 20)
+            deleteButton.addTarget(self, action: Selector(("deleteButtonPressed")), for: .touchUpInside)
+            cell.addSubview(deleteButton)
+            
+            return cell
+        }
         
         return cell
+
     }
     func deleteButtonPressed(sender: UIButton!){
         print("Delete")
@@ -105,7 +138,17 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
     
     // set number of rows
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return myRoutesArray.count
+        
+        let count = Int()
+        
+        if (tableView == myRoutesTable) {
+           return myRoutesArray.count
+        }
+        else if (tableView == MyDestinationsTable) {
+            return destinationsArray.count
+        }
+        
+        return count
     }
     
     // Query all saved routes from database and, decode and store into an array
