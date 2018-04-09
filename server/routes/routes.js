@@ -7,7 +7,21 @@ const apnModule = require('../routes/apn'); // Allows us to connect to Apple Pus
 const apn = apnModule.apn;
 const apnProvider = apnModule.apnProvider;
 
-var distance = require('google-distance');  // Google Distance Matrix API module.
+
+var distance = require('google-distance-matrix');
+
+const baseEpoch = 1535947200; // Monday September 3, 2018 12:00 AM
+
+distance.key('AIzaSyBmaYe1priemqk2O-mcT5UPA0lJZpCzRQg');
+
+
+function convertToEpoch(time)
+{
+  var sep = time.split(':');
+  var seconds = (+sep[0]) * 60 * 60 + (+sep[1]) * 60 + (+sep[2]);
+  return seconds;
+}
+
 
 function convertTo24Hour(time) { // Converts time from 12-hour format to 24-hour format.
     time = time.toUpperCase();
@@ -134,7 +148,7 @@ router.post('/', function(req, res, next) {
  if (routeJSON['Driver'] == true) // Handles Driver Routes
   {
 
-    db.any(`SELECT * FROM carpool.\"Routes\" WHERE ST_DWithin(startPoint, Geography(ST_MakePoint(${routeJSON['Latitudes'][0]}, ${routeJSON['Longitudes'][0]})),4830) AND ST_DWithin(endPoint, Geography(ST_MakePoint(${routeJSON['Latitudes'][1]}, ${routeJSON['Longitudes'][1]})),4830) AND ((\"departureTime1\" >= '${convertTo24Hour(routeJSON['departureTime1'])}' AND \"departureTime1\" <= '${convertTo24Hour(routeJSON['departureTime2'])}') OR (\"departureTime2\" >= '${convertTo24Hour(routeJSON['departureTime1'])}' AND \"departureTime2\"<= '${convertTo24Hour(routeJSON['departureTime2'])}')) AND ((\"arrivalTime2\"  >= '${convertTo24Hour(routeJSON['arrivalTime1'])}' AND \"arrivalTime2\" <= '${convertTo24Hour(routeJSON['arrivalTime2'])}') OR (\"arrivalTime1\"  >= '${convertTo24Hour(routeJSON['arrivalTime1'])}' AND \"arrivalTime1\" <= '${convertTo24Hour(routeJSON['arrivalTime2'])}')) AND \"Matched\" = 'false' AND \"Driver\" = 'false' and \"Days\" = $1 AND \"riderID\"<> '${userID}'`, [routeJSON['Days']])
+    db.any(`SELECT * FROM carpool.\"Routes\" WHERE ST_DWithin(startPoint, Geography(ST_MakePoint(${routeJSON['startPointLat']}, ${routeJSON['startPointLong']})),4830) AND ST_DWithin(endPoint, Geography(ST_MakePoint(${routeJSON['endPointLat']}, ${routeJSON['endPointLong']})),4830) AND ((\"departureTime1\" >= '${convertTo24Hour(routeJSON['departureTime1'])}' AND \"departureTime1\" <= '${convertTo24Hour(routeJSON['departureTime2'])}') OR (\"departureTime2\" >= '${convertTo24Hour(routeJSON['departureTime1'])}' AND \"departureTime2\"<= '${convertTo24Hour(routeJSON['departureTime2'])}')) AND ((\"arrivalTime2\"  >= '${convertTo24Hour(routeJSON['arrivalTime1'])}' AND \"arrivalTime2\" <= '${convertTo24Hour(routeJSON['arrivalTime2'])}') OR (\"arrivalTime1\"  >= '${convertTo24Hour(routeJSON['arrivalTime1'])}' AND \"arrivalTime1\" <= '${convertTo24Hour(routeJSON['arrivalTime2'])}')) AND \"Matched\" = 'false' AND \"Driver\" = 'false' and \"Days\" = $1 AND \"riderID\"<> '${userID}'`, [routeJSON['Days']])
     // Query to find all drivers whose routes are within a 3 mile radius of start and endpoint, within 15 minute time interval of arrival and departure, perfect match for days, and not the same rider and driver.)
     .then(function(result) {
       if (result.length > 0){
@@ -144,86 +158,152 @@ router.post('/', function(req, res, next) {
                continue; // traverse through result.
              else{
              var obj = result[key];
-             var leg1, leg2, leg3, leg1Distance, leg2Distance, leg3Distance;
-             getFirstLeg(); // We use separate functions to calculate each separate leg of the route.
+             var leg1Duration, leg2Duration, leg3Duration, leg1Distance, leg2Distance, leg3Distance, driverArrivalTime2, leg2_startTime, leg1_startTime;
+             getThirdLeg(); // We use separate functions to calculate each separate leg of the route.
 
 
-             function getFirstLeg()  // calculates the route distance and ETA of driver start point to rider start point.
-             {
-             distance.get({
-                 origin: `${routeJSON['Latitudes'][0]}, ${routeJSON['Longitudes'][0]}`,
-                 destination: `${obj['startPointLat']}, ${obj['startPointLong']}`,
-               },
-               function(err, data) {
-                   if (err) return console.log(err);
-                   leg1 = data.duration;
-                   leg1Distance = data.distanceValue;
-                   getSecondLeg(leg1, leg1Distance); // we use these embedded function calls to make sure each asynchronous request is handled sequentially.
-                 });
-               }
-           function getSecondLeg(leg1, leg1Distance){  // calculates the route distance and ETA of rider start point to rider end point.
-             distance.get({
-                 origin: `${obj['startPointLat']}, ${obj['startPointLong']}`,
-                 destination: `${obj['endPointLat']}, ${obj['endPointLong']}`,
-                   },
-                   function(err, data) {
-                       if (err) return console.log(err);
-                       leg2 = data.duration;
-                       leg2Distance = data.distanceValue;
-                       getThirdLeg(leg1, leg1Distance, leg2, leg2Distance);
-                     });
+             function getThirdLeg(){
+                // Convert driver arrival time to epoch & set as parameter
+                 driverArrivalTime2 = convertTo24Hour(`${routeJSON['arrivalTime2']}`);
+                 leg3_epoch_arrivalTime2 = convertToEpoch(driverArrivalTime2) + baseEpoch;
+
+                 // set parameter
+                 distance.departure_time(leg3_epoch_arrivalTime2);
+                 distance.units('imperial');
+
+                 // Driver final destination to rider final destination
+                 var leg3_origin = [`${routeJSON['endPointLat']}, ${routeJSON['endPointLong']}`]; // driver
+                 var leg3_destination =  [`${obj['endPointLat']}, ${obj['endPointLong']}`]; // rider
+                 //var leg3_destination =  ['2151 Kennedy Drive 48309']; // rider
+
+                 // Distance matrix api query
+                 distance.matrix(leg3_origin, leg3_destination, function (err, distances) {
+                   if (err) {
+                       return console.log(err);
                    }
+                   if(!distances) {
+                       return console.log('no distances');
+                   }
+                   if (distances.status == 'OK') {
+                       var origin = distances.origin_addresses[0];
+                       var destination = distances.destination_addresses[0];
+                       if (distances.rows[0].elements[0].status == 'OK') {
+                           leg3Duration = distances.rows[0].elements[0].duration;
+                           leg3Distance = distances.rows[0].elements[0].distance;
 
-                   function getThirdLeg(leg1, leg1Distance, leg2, leg2Distance){  // calculates the route distance and ETA of rider  end point to driver end point.
-                     distance.get({
-                         origin: `${obj['endPointLat']}, ${obj['endPointLong']}`,
-                         destination: `${routeJSON['Latitudes'][1]}, ${routeJSON['Longitudes'][1]}`,
-                       },
-                       function(err, data) {
-                           if (err) return console.log(err);
-                           leg3 = data.duration;
-                           leg3Distance = data.distanceValue;
-                            var totalCost = ((leg1Distance + leg2Distance + leg3Distance) / 1000) * 0.335;
-                            var driverLeaveTime = `time '${routeJSON['arrivalTime2']}'  - (interval '${leg1}'  + interval '${leg2}' + '${leg3}')`; // PostgreSQL queries to calculate route times using time arithmetic.
-                            var riderPickup = `${driverLeaveTime} + interval '${leg1}'`;
-                            var riderDropOff = `${riderPickup} +  interval '${leg2}'`;
-                            var riderPickup2 = `time '${routeJSON['departureTime1']}' + interval '${leg3}'`;
-                            insertMatches(driverLeaveTime, riderPickup, riderDropOff, riderPickup2, totalCost);
-                         });
+                           if (leg3Distance == null)
+                           {
+                             leg3Distance = 0;
+                           }
+                           getSecondLeg(driverArrivalTime2, leg3Duration, leg3Distance);
+                       } else {
+                           console.log(destination + ' is not reachable by land from ' + origin);
                        }
+                     }
+                  });
+              }
 
-                       function insertMatches(driverLeaveTime, riderPickup, riderDropOff, riderPickup2, totalCost){ // after all 3 legs are calculated, insert data into matches table.
-                       db.one("SELECT last_value as \"currval\" from \"riderRoutes_routeID_seq\"") // get the rider route ID in the current route table.
-                             .then(function(data2){
-                                 var driverRouteID = parseInt(data2.currval);
-                                 db.one(`select ${driverLeaveTime} as \"driverLeaveTime\"`)
-                                  .then(function(driverLeave){
-                                    db.one(`select ${riderPickup} as \"riderPickupTime\"`)
-                                    .then(function(riderPickupTime){
-                                     db.one(`select ${riderDropOff} as \"riderDropOffTime\"`)
-                                     .then(function(riderDropOffTime){
-                                  db.one(`select ${riderPickup2} as \"riderPickup2Time\"`)
-                                     .then(function(riderPickup2Time){
-                               db.query(`INSERT INTO carpool.\"Matches\"(\"riderID\", \"driverID\",  \"driverRouteID\", \"Status\", \"riderRouteID\", \"driverLeaveTime\", \"riderPickupTime\", \"riderDropOffTime\", \"riderPickupTime2\", \"rideCost\") values('${obj['riderID']}', '${userID}', ${driverRouteID}, '${"Awaiting rider request."}', ${obj['routeID']} , '${driverLeave.driverLeaveTime}', '${riderPickupTime.riderPickupTime}', '${riderDropOffTime.riderDropOffTime}', '${riderPickup2Time.riderPickup2Time}', ${totalCost})`);
-                               // insert rider and driver details into Matches table.
+              function getSecondLeg(driverArrivalTime2, leg3Duration, leg3Distance){  // calculates the route distance and ETA of rider start point to rider end point.
+                leg2_startTime = convertToEpoch(driverArrivalTime2) - leg3Duration.value + baseEpoch; // in seconds (epoch)
+                leg2_epochDeparture = leg2_startTime;
+                distance.departure_time(leg2_epochDeparture);
+                distance.units('imperial');
 
-                               db.any(`INSERT INTO carpool.\"notificationLog\"(\"userID\", \"notificationType\", \"Date\", \"Read\") values ('${userID}', 'Match', 'now', 'false')`); // Insert a notification into table when there is a match.
-                                db.any(`INSERT INTO carpool.\"notificationLog\"(\"userID\", \"notificationType\", \"Date\", \"Read\") values ('${obj['riderID']}', 'Match', 'now', 'false')`);
-                               db.one(`SELECT \"deviceToken\" from carpool.\"Users\" where \"userID\" = '${obj['riderID']}'`) // we need device token to target specific users with push notifications.
-                               .then(function(result) {
-                                 sendPushNotification("You have a new match!", result.deviceToken);
-                               })
+                 var leg2_origin = [`${obj['endPointLat']}, ${obj['endPointLong']}`]; // Rider end location
+                 var leg2_destination = [`${obj['startPointLat']}, ${obj['startPointLong']}`]; // Rider start location
 
-                               });
-                               });
-                             });
-                           });
-                         });
+                 distance.matrix(leg2_origin, leg2_destination, function (err, distances) {
+                   if (err) {
+                       return console.log(err);
+                   }
+                   if(!distances) {
+                       return console.log('no distances');
+                   }
+                   if (distances.status == 'OK') {
+                       var origin = distances.origin_addresses[0];
+                       var destination = distances.destination_addresses[0];
+                       if (distances.rows[0].elements[0].status == 'OK') {
+                           leg2Duration = distances.rows[0].elements[0].duration;
+                           leg2Distance = distances.rows[0].elements[0].distance;
+                           getFirstLeg(leg2_startTime, leg3Duration, leg3Distance, leg2Duration, leg3Distance);
+                       } else {
+                           console.log(destination + ' is not reachable by land from ' + origin);
                        }
-    }
-    }
+                   }
+                 });
+                }
 
-         }
+             function getFirstLeg(leg2_startTime, leg3Duration, leg3Distance, leg2Duration, leg3Distance)  // calculates the route distance and ETA of driver start point to rider start point.
+             {
+               // Convert driver arrival time to epoch time & set parameter
+               leg1_startTime = leg2_startTime - leg2Duration.value;
+               distance.arrival_time(leg1_startTime); //set API query parameter
+               distance.units('imperial');
+
+               // Define origin and destination arrays
+               var leg1_origin = [`${obj['startPointLat']}, ${obj['startPointLong']}`];
+               var leg1_destination = [`${routeJSON['startPointLat']}, ${routeJSON['startPointLong']}`];
+
+               distance.matrix(leg1_origin, leg1_destination, function (err, distances) {
+                 if (err) {
+                     return console.log(err);
+                 }
+                 if(!distances) {
+                     return console.log('no distances');
+                 }
+                 if (distances.status == 'OK') {
+                     var origin = distances.origin_addresses[0];
+                     var destination = distances.destination_addresses[0];
+                     if (distances.rows[0].elements[0].status == 'OK') {
+                         leg1Duration = distances.rows[0].elements[0].duration;
+                         leg1Distance = distances.rows[0].elements[0].distance;
+                        var totalDistance = (leg1Distance.value + leg2Distance.value + leg3Distance.value);
+                        var totalCost = (totalDistance / 1000) * 0.62 * 0.335 ;
+                        var totalDuration = leg1Duration.value + leg2Duration.value + leg3Duration.value;
+                        var totalDurationText = totalDuration + " seconds";
+                        var driverLeaveTime = `time '${routeJSON['arrivalTime2']}'  - interval '${totalDurationText}'`;
+                        var riderPickup = `${driverLeaveTime} + interval '${leg1Duration.value} seconds'`;
+                        var riderDropOff = `${riderPickup} +  interval '${leg2Duration.value} seconds'`;
+                        var riderPickup2 = `time '${routeJSON['departureTime1']}' + interval '${leg3Duration.value} seconds'`;
+                        insertMatches(driverLeaveTime, riderPickup, riderDropOff, riderPickup2, totalCost);
+
+                     } else {
+                         console.log(destination + ' is not reachable by land from ' + origin);
+                     }
+                 }
+               });
+               }
+
+               function insertMatches(driverLeaveTime, riderPickup, riderDropOff, riderPickup2, totalCost){ // after all 3 legs are calculated, insert data into matches table.
+               db.one("SELECT last_value as \"currval\" from \"riderRoutes_routeID_seq\"") // get the rider route ID in the current route table.
+                     .then(function(data2){
+                         var driverRouteID = parseInt(data2.currval);
+                         db.one(`select ${driverLeaveTime} as \"driverLeaveTime\"`)
+                          .then(function(driverLeave){
+                            db.one(`select ${riderPickup} as \"riderPickupTime\"`)
+                            .then(function(riderPickupTime){
+                             db.one(`select ${riderDropOff} as \"riderDropOffTime\"`)
+                             .then(function(riderDropOffTime){
+                          db.one(`select ${riderPickup2} as \"riderPickup2Time\"`)
+                             .then(function(riderPickup2Time){
+                       db.query(`INSERT INTO carpool.\"Matches\"(\"riderID\", \"driverID\",  \"driverRouteID\", \"Status\", \"riderRouteID\", \"driverLeaveTime\", \"riderPickupTime\", \"riderDropOffTime\", \"riderPickupTime2\", \"rideCost\") values('${obj['riderID']}', '${userID}', ${driverRouteID}, '${"Awaiting rider request."}', ${obj['routeID']} , '${driverLeave.driverLeaveTime}', '${riderPickupTime.riderPickupTime}', '${riderDropOffTime.riderDropOffTime}', '${riderPickup2Time.riderPickup2Time}', ${totalCost})`);
+                       // insert rider and driver details into Matches table.
+
+                       db.any(`INSERT INTO carpool.\"notificationLog\"(\"userID\", \"notificationType\", \"Date\", \"Read\") values ('${userID}', 'Match', 'now', 'false')`); // Insert a notification into table when there is a match.
+                        db.any(`INSERT INTO carpool.\"notificationLog\"(\"userID\", \"notificationType\", \"Date\", \"Read\") values ('${obj['riderID']}', 'Match', 'now', 'false')`);
+                       db.one(`SELECT \"deviceToken\" from carpool.\"Users\" where \"userID\" = '${obj['riderID']}'`) // we need device token to target specific users with push notifications.
+                       .then(function(result) {
+                         sendPushNotification("You have a new match!", result.deviceToken);
+                       })
+
+                          });
+                       });
+                     });
+                   });
+                 });
+              }
+          }}
+        }
       else {
          console.log("No match found.");
       }
@@ -231,7 +311,7 @@ router.post('/', function(req, res, next) {
 
     // Inserts Route into the Routes table.
     var addDriverRouteQuery = "INSERT INTO carpool.\"Routes\"(\"driverID\", \"departureTime1\", \"departureTime2\", \"arrivalTime1\", \"arrivalTime2\", \"startPointLong\", \"startPointLat\", \"endPointLong\", \"endPointLat\", \"Name\", \"Days\", \"Matched\", \"Driver\", \"startAddress\", \"endAddress\") values($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, 'false', 'true', $12, $13)"; // this is the query to add driver's route.
-    db.any(addDriverRouteQuery, [userID, routeJSON['departureTime1'], routeJSON['departureTime2'], routeJSON['arrivalTime1'], routeJSON['arrivalTime2'], routeJSON['Longitudes'][0], routeJSON['Latitudes'][0], routeJSON['Longitudes'][1], routeJSON['Latitudes'][1], routeJSON['Name'], routeJSON['Days'], routeJSON['startAddress'], routeJSON['endAddress']])
+    db.any(addDriverRouteQuery, [userID, routeJSON['departureTime1'], routeJSON['departureTime2'], routeJSON['arrivalTime1'], routeJSON['arrivalTime2'], routeJSON['startPointLong'], routeJSON['startPointLat'], routeJSON['endPointLong'], routeJSON['endPointLat'], routeJSON['Name'], routeJSON['Days'], routeJSON['startAddress'], routeJSON['endAddress']])
       .then(function () {
         console.log("Driver route added.");
         var setGeographyQuery = "UPDATE carpool.\"Routes\" SET startPoint = ST_POINT (\"startPointLat\", \"startPointLong\"), endPoint = ST_POINT (\"endPointLat\", \"endPointLong\")"; // Set geography object based on coordinates added by user.
@@ -256,7 +336,7 @@ router.post('/', function(req, res, next) {
 
 // Handles rider routes case.
  else {
-     db.any(`SELECT * FROM carpool.\"Routes\" WHERE ST_DWithin(startPoint, Geography(ST_MakePoint(${routeJSON['Latitudes'][0]}, ${routeJSON['Longitudes'][0]})),4830) AND ST_DWithin(endPoint, Geography(ST_MakePoint(${routeJSON['Latitudes'][1]}, ${routeJSON['Longitudes'][1]})),4830) AND ((\"departureTime1\" <= '${convertTo24Hour(routeJSON['departureTime1'])}' AND \"departureTime2\" >= '${convertTo24Hour(routeJSON['departureTime1'])}') OR (\"departureTime1\" <= '${convertTo24Hour(routeJSON['departureTime2'])}' AND \"departureTime2\" >= '${convertTo24Hour(routeJSON['departureTime2'])}')) AND ((\"arrivalTime1\" <= '${convertTo24Hour(routeJSON['arrivalTime2'])}' AND \"arrivalTime2\" >= '${convertTo24Hour(routeJSON['arrivalTime2'])}') OR (\"arrivalTime1\" <= '${convertTo24Hour(routeJSON['arrivalTime1'])}' AND \"arrivalTime2\" >= '${convertTo24Hour(routeJSON['arrivalTime1'])}')) AND \"Matched\" = 'false' AND \"Driver\" = 'true' and \"Days\" = $1 AND \"driverID\"<> '${userID}'`, [routeJSON['Days']])
+     db.any(`SELECT * FROM carpool.\"Routes\" WHERE ST_DWithin(startPoint, Geography(ST_MakePoint(${routeJSON['startPointLat']}, ${routeJSON['startPointLong']})),4830) AND ST_DWithin(endPoint, Geography(ST_MakePoint(${routeJSON['endPointLat']}, ${routeJSON['endPointLong']})),4830) AND ((\"departureTime1\" <= '${convertTo24Hour(routeJSON['departureTime1'])}' AND \"departureTime2\" >= '${convertTo24Hour(routeJSON['departureTime1'])}') OR (\"departureTime1\" <= '${convertTo24Hour(routeJSON['departureTime2'])}' AND \"departureTime2\" >= '${convertTo24Hour(routeJSON['departureTime2'])}')) AND ((\"arrivalTime1\" <= '${convertTo24Hour(routeJSON['arrivalTime2'])}' AND \"arrivalTime2\" >= '${convertTo24Hour(routeJSON['arrivalTime2'])}') OR (\"arrivalTime1\" <= '${convertTo24Hour(routeJSON['arrivalTime1'])}' AND \"arrivalTime2\" >= '${convertTo24Hour(routeJSON['arrivalTime1'])}')) AND \"Matched\" = 'false' AND \"Driver\" = 'true' and \"Days\" = $1 AND \"driverID\"<> '${userID}'`, [routeJSON['Days']])
      // Query to find all drivers whose routes are within a 3 mile radius of start and endpoint, within 15 minute time interval of arrival and departure, perfect match for days, and not the same rider and driver.)
      .then(function(result) {
        if (result.length > 0){
@@ -266,53 +346,124 @@ router.post('/', function(req, res, next) {
                 continue; // traverse through result.
               else{
               var obj = result[key];
-              var leg1, leg2, leg3, leg1Distance, leg2Distance, leg3Distance;
-              getFirstLeg(); // We use separate functions to calculate each separate leg of the route.
+              var leg1Duration, leg2Duration, leg3Duration, leg1Distance, leg2Distance, leg3Distance, driverArrivalTime2, leg2_startTime, leg1_startTime;
+              //getFirstLeg(); // We use separate functions to calculate each separate leg of the route.
+
+              getThirdLeg(); // We use separate functions to calculate each separate leg of the route.
 
 
-              function getFirstLeg()  // calculates the route distance and ETA of driver start point to rider start point.
-              {
-              distance.get({
-                  origin: `${obj['startPointLat']}, ${obj['startPointLong']}`,
-                  destination: `${routeJSON['Latitudes'][0]}, ${routeJSON['Longitudes'][0]}`,
-                },
-                function(err, data) {
-                    if (err) return console.log(err);
-                    leg1 = data.duration;
-                    leg1Distance = data.distanceValue;
-                    getSecondLeg(leg1, leg1Distance); // we use these embedded function calls to make sure each asynchronous request is handled sequentially.
+             function getThirdLeg(){
+                // Convert driver arrival time to epoch & set as parameter
+                 driverArrivalTime2 = convertTo24Hour(`${routeJSON['arrivalTime2']}`);
+                 leg3_epoch_arrivalTime2 = convertToEpoch(driverArrivalTime2) + baseEpoch;
+                 // set parameter
+                 distance.departure_time(leg3_epoch_arrivalTime2);
+                 distance.units('imperial');
+
+                 // Driver final destination to rider final destination
+                 var leg3_origin = [`${obj['endPointLat']}, ${obj['endPointLong']}`]; // driver end
+                 var leg3_destination =  [`${routeJSON['endPointLat']}, ${routeJSON['endPointLong']}`]; // rider end
+                 //var leg3_destination =  ['2151 Kennedy Drive 48309']; // rider
+
+                 // Distance matrix api query
+                 distance.matrix(leg3_origin, leg3_destination, function (err, distances) {
+                   if (err) {
+                       return console.log(err);
+                   }
+                   if(!distances) {
+                       return console.log('no distances');
+                   }
+                   if (distances.status == 'OK') {
+                       var origin = distances.origin_addresses[0];
+                       var destination = distances.destination_addresses[0];
+                       if (distances.rows[0].elements[0].status == 'OK') {
+                           leg3Duration = distances.rows[0].elements[0].duration;
+                           leg3Distance = distances.rows[0].elements[0].distance;
+
+                           if (leg3Distance == null)
+                           {
+                             leg3Distance = 0;
+                           }
+                           getSecondLeg(driverArrivalTime2, leg3Duration, leg3Distance);
+                       } else {
+                           console.log(destination + ' is not reachable by land from ' + origin);
+                       }
+                     }
                   });
-                }
-            function getSecondLeg(leg1, leg1Distance){  // calculates the route distance and ETA of rider start point to rider end point.
-              distance.get({
-                  origin: `${routeJSON['Latitudes'][0]}, ${routeJSON['Longitudes'][0]}`,
-                  destination: `${routeJSON['Latitudes'][1]}, ${routeJSON['Longitudes'][1]}`,
-                    },
-                    function(err, data) {
-                        if (err) return console.log(err);
-                        leg2 = data.duration;
-                        leg2Distance = data.distanceValue;
-                        getThirdLeg(leg1, leg1Distance, leg2, leg2Distance);
-                      });
-                    }
+              }
 
-                    function getThirdLeg(leg1, leg1Distance, leg2, leg2Distance){  // calculates the route distance and ETA of rider  end point to driver end point.
-                      distance.get({
-                          origin: `${routeJSON['Latitudes'][1]}, ${routeJSON['Longitudes'][1]}`,
-                          destination: `${obj['endPointLat']}, ${obj['endPointLong']}`,
-                        },
-                        function(err, data) {
-                            if (err) return console.log(err);
-                            leg3 = data.duration;
-                            leg3Distance = data.distanceValue;
-                             var totalCost = ((leg1Distance + leg2Distance + leg3Distance) / 1000) * 0.335;
-                             var driverLeaveTime = `time '${obj['arrivalTime2']}'  - (interval '${leg1}'  + interval '${leg2}' + '${leg3}')`; // PostgreSQL queries to calculate route times using time arithmetic.
-                             var riderPickup = `${driverLeaveTime} + interval '${leg1}'`;
-                             var riderDropOff = `${riderPickup} +  interval '${leg2}'`;
-                             var riderPickup2 = `time '${obj['departureTime1']}' + interval '${leg3}'`;
-                             insertMatches(driverLeaveTime, riderPickup, riderDropOff, riderPickup2, totalCost);
-                          });
-                        }
+              function getSecondLeg(driverArrivalTime2, leg3Duration, leg3Distance){  // calculates the route distance and ETA of rider start point to rider end point.
+
+                leg2_startTime = convertToEpoch(driverArrivalTime2) - leg3Duration.value + baseEpoch; // in seconds (epoch)
+                leg2_epochDeparture = leg2_startTime;
+
+                distance.departure_time(leg2_epochDeparture);
+                distance.units('imperial');
+
+                 var leg2_origin = [`${routeJSON['endPointLat']}, ${routeJSON['endPointLong']}`]; // Rider end location
+                 var leg2_destination = [`${routeJSON['startPointLat']}, ${routeJSON['startPointLong']}`]; // Rider start location
+
+                 distance.matrix(leg2_origin, leg2_destination, function (err, distances) {
+                   if (err) {
+                       return console.log(err);
+                   }
+                   if(!distances) {
+                       return console.log('no distances');
+                   }
+                   if (distances.status == 'OK') {
+                       var origin = distances.origin_addresses[0];
+                       var destination = distances.destination_addresses[0];
+                       if (distances.rows[0].elements[0].status == 'OK') {
+                           leg2Duration = distances.rows[0].elements[0].duration;
+                           leg2Distance = distances.rows[0].elements[0].distance;
+                           getFirstLeg(leg2_startTime, leg3Duration, leg3Distance, leg2Duration, leg3Distance);
+                       } else {
+                           console.log(destination + ' is not reachable by land from ' + origin);
+                       }
+                   }
+                 });
+                }
+
+             function getFirstLeg(leg2_startTime, leg3Duration, leg3Distance, leg2Duration, leg3Distance)  // calculates the route distance and ETA of driver start point to rider start point.
+             {
+               // Convert driver arrival time to epoch time & set parameter
+               leg1_startTime = leg2_startTime - leg2Duration.value;
+               distance.arrival_time(leg1_startTime); //set API query parameter
+               distance.units('imperial');
+
+               // Define origin and destination arrays
+               var leg1_origin = [`${routeJSON['startPointLat']}, ${routeJSON['startPointLong']}`]; // rider start point
+               var leg1_destination = [`${obj['startPointLat']}, ${obj['startPointLong']}`]; // driver start point
+
+               distance.matrix(leg1_origin, leg1_destination, function (err, distances) {
+                 if (err) {
+                     return console.log(err);
+                 }
+                 if(!distances) {
+                     return console.log('no distances');
+                 }
+                 if (distances.status == 'OK') {
+                     var origin = distances.origin_addresses[0];
+                     var destination = distances.destination_addresses[0];
+                     if (distances.rows[0].elements[0].status == 'OK') {
+                         leg1Duration = distances.rows[0].elements[0].duration;
+                         leg1Distance = distances.rows[0].elements[0].distance;
+                        var totalDistance = (leg1Distance.value + leg2Distance.value + leg3Distance.value);
+                        var totalCost = (totalDistance / 1000) * 0.62 * 0.335 ;
+                        var totalDuration = leg1Duration.value + leg2Duration.value + leg3Duration.value;
+                        var totalDurationText = totalDuration + " seconds";
+                        var driverLeaveTime = `time '${routeJSON['arrivalTime2']}'  - interval '${totalDurationText}'`;
+                        var riderPickup = `${driverLeaveTime} + interval '${leg1Duration.value} seconds'`;
+                        var riderDropOff = `${riderPickup} +  interval '${leg2Duration.value} seconds'`;
+                        var riderPickup2 = `time '${routeJSON['departureTime1']}' + interval '${leg3Duration.value} seconds'`;
+                        insertMatches(driverLeaveTime, riderPickup, riderDropOff, riderPickup2, totalCost);
+
+                     } else {
+                         console.log(destination + ' is not reachable by land from ' + origin);
+                     }
+                 }
+               });
+
 
                         function insertMatches(driverLeaveTime, riderPickup, riderDropOff, riderPickup2, totalCost){ // after all 3 legs are calculated, insert data into matches table.
                         db.one("SELECT last_value as \"currval\" from \"riderRoutes_routeID_seq\"") // get the rider route ID in the current route table.
@@ -333,20 +484,20 @@ router.post('/', function(req, res, next) {
                             });
                           });
                         }
-}
-}
+                    }
+              } // end of for loop
 db.any(`INSERT INTO carpool.\"notificationLog\"(\"userID\", \"notificationType\", \"Date\", \"Read\") values ('${userID}', 'Match', 'now', 'false')`); // Insert a notification into table when there is a match.
 db.one(`SELECT \"deviceToken\" from carpool.\"Users\" where \"userID\" = '${userID}'`) // we need device token to target specific users with push notifications.
 .then(function(result) {
   sendPushNotification("You have a new match!", result.deviceToken);
 })
-          }
+          }}
        else {
           console.log("No match found.");
        }
      });
     // insert Rider's route into Route table.
-    db.any(`INSERT INTO carpool.\"Routes\"(\"riderID\", \"departureTime1\", \"departureTime2\",  \"arrivalTime1\", \"arrivalTime2\", \"startPointLong\", \"startPointLat\", \"endPointLong\", \"endPointLat\", \"Name\", \"Days\", \"Matched\", \"Driver\", \"startAddress\", \"endAddress\") values('${userID}', '${routeJSON['departureTime1']}', '${routeJSON['departureTime2']}', '${routeJSON['arrivalTime1']}', '${routeJSON['arrivalTime2']}', ${routeJSON['Longitudes'][0]}, ${routeJSON['Latitudes'][0]}, ${routeJSON['Longitudes'][1]}, ${routeJSON['Latitudes'][1]}, '${routeJSON['Name']}', $1, 'false', 'false', '${routeJSON['startAddress']}', '${routeJSON['endAddress']}')`, [routeJSON['Days']])
+    db.any(`INSERT INTO carpool.\"Routes\"(\"riderID\", \"departureTime1\", \"departureTime2\",  \"arrivalTime1\", \"arrivalTime2\", \"startPointLong\", \"startPointLat\", \"endPointLong\", \"endPointLat\", \"Name\", \"Days\", \"Matched\", \"Driver\", \"startAddress\", \"endAddress\") values('${userID}', '${routeJSON['departureTime1']}', '${routeJSON['departureTime2']}', '${routeJSON['arrivalTime1']}', '${routeJSON['arrivalTime2']}', ${routeJSON['startPointLong']}, ${routeJSON['startPointLat']}, ${routeJSON['endPointLong']}, ${routeJSON['endPointLat']}, '${routeJSON['Name']}', $1, 'false', 'false', '${routeJSON['startAddress']}', '${routeJSON['endAddress']}')`, [routeJSON['Days']])
       .then(function () {
         console.log("Succesfully added route.");
         var setGeographyQuery = "UPDATE carpool.\"Routes\" SET startPoint = ST_POINT (\"startPointLat\", \"startPointLong\"), endPoint = ST_POINT (\"endPointLat\", \"endPointLong\")"; // Set geography objects based on coordinates entered by user.
