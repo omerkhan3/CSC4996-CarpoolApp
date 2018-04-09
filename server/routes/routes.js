@@ -148,7 +148,7 @@ router.post('/', function(req, res, next) {
  if (routeJSON['Driver'] == true) // Handles Driver Routes
   {
 
-    db.any(`SELECT * FROM carpool.\"Routes\" WHERE ST_DWithin(startPoint, Geography(ST_MakePoint(${routeJSON['startPointLat']}, ${routeJSON['startPointLong']})),4830) AND ST_DWithin(endPoint, Geography(ST_MakePoint(${routeJSON['endPointLat']}, ${routeJSON['endPointLong']})),4830) AND ((\"departureTime1\" >= '${convertTo24Hour(routeJSON['departureTime1'])}' AND \"departureTime1\" <= '${convertTo24Hour(routeJSON['departureTime2'])}') OR (\"departureTime2\" >= '${convertTo24Hour(routeJSON['departureTime1'])}' AND \"departureTime2\"<= '${convertTo24Hour(routeJSON['departureTime2'])}')) AND ((\"arrivalTime2\"  >= '${convertTo24Hour(routeJSON['arrivalTime1'])}' AND \"arrivalTime2\" <= '${convertTo24Hour(routeJSON['arrivalTime2'])}') OR (\"arrivalTime1\"  >= '${convertTo24Hour(routeJSON['arrivalTime1'])}' AND \"arrivalTime1\" <= '${convertTo24Hour(routeJSON['arrivalTime2'])}')) AND \"Matched\" = 'false' AND \"Driver\" = 'false' and \"Days\" = $1 AND \"riderID\"<> '${userID}'`, [routeJSON['Days']])
+    db.any(`SELECT * FROM carpool.\"Routes\" WHERE ST_DWithin(startPoint, Geography(ST_MakePoint(${routeJSON['startPointLat']}, ${routeJSON['startPointLong']})),4830) AND ST_DWithin(endPoint, Geography(ST_MakePoint(${routeJSON['endPointLat']}, ${routeJSON['endPointLong']})),4830) AND ((\"departureTime1\" >= '${convertTo24Hour(routeJSON['departureTime1'])}' AND \"departureTime1\" <= '${convertTo24Hour(routeJSON['departureTime2'])}') OR (\"departureTime2\" >= '${convertTo24Hour(routeJSON['departureTime1'])}' AND \"departureTime2\"<= '${convertTo24Hour(routeJSON['departureTime2'])}')) AND ((\"arrivalTime2\"  >= '${convertTo24Hour(routeJSON['arrivalTime1'])}' AND \"arrivalTime2\" <= '${convertTo24Hour(routeJSON['arrivalTime2'])}') OR (\"arrivalTime1\"  >= '${convertTo24Hour(routeJSON['arrivalTime1'])}' AND \"arrivalTime1\" <= '${convertTo24Hour(routeJSON['arrivalTime2'])}')) AND \"Matched\" = 'false' AND \"Driver\" = 'false' AND \"riderID\"<> '${userID}'`)
     // Query to find all drivers whose routes are within a 3 mile radius of start and endpoint, within 15 minute time interval of arrival and departure, perfect match for days, and not the same rider and driver.)
     .then(function(result) {
       if (result.length > 0){
@@ -286,7 +286,11 @@ router.post('/', function(req, res, next) {
                              .then(function(riderDropOffTime){
                           db.one(`select ${riderPickup2} as \"riderPickup2Time\"`)
                              .then(function(riderPickup2Time){
-                       db.query(`INSERT INTO carpool.\"Matches\"(\"riderID\", \"driverID\",  \"driverRouteID\", \"Status\", \"riderRouteID\", \"driverLeaveTime\", \"riderPickupTime\", \"riderDropOffTime\", \"riderPickupTime2\", \"rideCost\") values('${obj['riderID']}', '${userID}', ${driverRouteID}, '${"Awaiting rider request."}', ${obj['routeID']} , '${driverLeave.driverLeaveTime}', '${riderPickupTime.riderPickupTime}', '${riderDropOffTime.riderDropOffTime}', '${riderPickup2Time.riderPickup2Time}', ${totalCost})`);
+                               var matchedDays = routeJSON['Days'].filter(function(n) {
+                                   return obj['Days'].indexOf(n) > -1;
+                                   });
+                               console.log(matchedDays);
+                       db.query(`INSERT INTO carpool.\"Matches\"(\"riderID\", \"driverID\",  \"driverRouteID\", \"Status\", \"riderRouteID\", \"driverLeaveTime\", \"riderPickupTime\", \"riderDropOffTime\", \"riderPickupTime2\", \"rideCost\", \"matchedDays\") values('${obj['riderID']}', '${userID}', ${driverRouteID}, '${"Awaiting rider request."}', ${obj['routeID']} , '${driverLeave.driverLeaveTime}', '${riderPickupTime.riderPickupTime}', '${riderDropOffTime.riderDropOffTime}', '${riderPickup2Time.riderPickup2Time}', ${totalCost}, $1)`, [matchedDays]);
                        // insert rider and driver details into Matches table.
 
                        db.any(`INSERT INTO carpool.\"notificationLog\"(\"userID\", \"notificationType\", \"Date\", \"Read\") values ('${userID}', 'Match', 'now', 'false')`); // Insert a notification into table when there is a match.
@@ -336,7 +340,7 @@ router.post('/', function(req, res, next) {
 
 // Handles rider routes case.
  else {
-     db.any(`SELECT * FROM carpool.\"Routes\" WHERE ST_DWithin(startPoint, Geography(ST_MakePoint(${routeJSON['startPointLat']}, ${routeJSON['startPointLong']})),4830) AND ST_DWithin(endPoint, Geography(ST_MakePoint(${routeJSON['endPointLat']}, ${routeJSON['endPointLong']})),4830) AND ((\"departureTime1\" <= '${convertTo24Hour(routeJSON['departureTime1'])}' AND \"departureTime2\" >= '${convertTo24Hour(routeJSON['departureTime1'])}') OR (\"departureTime1\" <= '${convertTo24Hour(routeJSON['departureTime2'])}' AND \"departureTime2\" >= '${convertTo24Hour(routeJSON['departureTime2'])}')) AND ((\"arrivalTime1\" <= '${convertTo24Hour(routeJSON['arrivalTime2'])}' AND \"arrivalTime2\" >= '${convertTo24Hour(routeJSON['arrivalTime2'])}') OR (\"arrivalTime1\" <= '${convertTo24Hour(routeJSON['arrivalTime1'])}' AND \"arrivalTime2\" >= '${convertTo24Hour(routeJSON['arrivalTime1'])}')) AND \"Matched\" = 'false' AND \"Driver\" = 'true' and \"Days\" = $1 AND \"driverID\"<> '${userID}'`, [routeJSON['Days']])
+     db.any(`SELECT * FROM carpool.\"Routes\" WHERE ST_DWithin(startPoint, Geography(ST_MakePoint(${routeJSON['startPointLat']}, ${routeJSON['startPointLong']})),4830) AND ST_DWithin(endPoint, Geography(ST_MakePoint(${routeJSON['endPointLat']}, ${routeJSON['endPointLong']})),4830) AND ((\"departureTime1\" <= '${convertTo24Hour(routeJSON['departureTime1'])}' AND \"departureTime2\" >= '${convertTo24Hour(routeJSON['departureTime1'])}') OR (\"departureTime1\" <= '${convertTo24Hour(routeJSON['departureTime2'])}' AND \"departureTime2\" >= '${convertTo24Hour(routeJSON['departureTime2'])}')) AND ((\"arrivalTime1\" <= '${convertTo24Hour(routeJSON['arrivalTime2'])}' AND \"arrivalTime2\" >= '${convertTo24Hour(routeJSON['arrivalTime2'])}') OR (\"arrivalTime1\" <= '${convertTo24Hour(routeJSON['arrivalTime1'])}' AND \"arrivalTime2\" >= '${convertTo24Hour(routeJSON['arrivalTime1'])}')) AND \"Matched\" = 'false' AND \"Driver\" = 'true' AND \"driverID\"<> '${userID}'`)
      // Query to find all drivers whose routes are within a 3 mile radius of start and endpoint, within 15 minute time interval of arrival and departure, perfect match for days, and not the same rider and driver.)
      .then(function(result) {
        if (result.length > 0){
@@ -477,7 +481,11 @@ router.post('/', function(req, res, next) {
                                       .then(function(riderDropOffTime){
                                    db.one(`select ${riderPickup2} as \"riderPickup2Time\"`)
                                       .then(function(riderPickup2Time){
-                                db.query(`INSERT INTO carpool.\"Matches\"(\"riderID\", \"driverID\",  \"driverRouteID\", \"Status\", \"riderRouteID\", \"driverLeaveTime\", \"riderPickupTime\", \"riderDropOffTime\", \"riderPickupTime2\", \"rideCost\") values('${userID}', '${obj['driverID']}', ${obj['routeID']}, '${"Awaiting rider request."}', ${riderRouteID}, '${driverLeave.driverLeaveTime}', '${riderPickupTime.riderPickupTime}', '${riderDropOffTime.riderDropOffTime}', '${riderPickup2Time.riderPickup2Time}', ${totalCost})`); // insert rider and driver details into Matches table.
+                                        var matchedDays = routeJSON['Days'].filter(function(n) {
+                                            return obj['Days'].indexOf(n) > -1;
+                                            });
+                                        console.log(matchedDays);
+                                db.query(`INSERT INTO carpool.\"Matches\"(\"riderID\", \"driverID\",  \"driverRouteID\", \"Status\", \"riderRouteID\", \"driverLeaveTime\", \"riderPickupTime\", \"riderDropOffTime\", \"riderPickupTime2\", \"rideCost\", \"matchedDays\") values('${userID}', '${obj['driverID']}', ${obj['routeID']}, '${"Awaiting rider request."}', ${riderRouteID}, '${driverLeave.driverLeaveTime}', '${riderPickupTime.riderPickupTime}', '${riderDropOffTime.riderDropOffTime}', '${riderPickup2Time.riderPickup2Time}', ${totalCost}, $1)`, [matchedDays]); // insert rider and driver details into Matches table.
                                 });
                                 });
                               });

@@ -85,7 +85,7 @@ class RiderMatchDetailViewController: UIViewController {
         driverDaysArray = (matchDetail?.driverDays)!
         matchDaysArray = matchDays()
         print(matchDaysArray)
-        fillCheckBoxes(daysArray: matchDaysArray)
+        fillCheckBoxes(daysArray: (matchDetail?.matchedDays)!)
         setView()
     }
     
@@ -137,7 +137,7 @@ class RiderMatchDetailViewController: UIViewController {
             // Driver ride confirmation
             
             // Create POST dictionary
-            let statusUpdate = ["userID": userID, "matchID": matchID!, "requestType": "driverRequested", "riderRouteID": riderRouteID as Any, "driverRouteID": driverRouteID as Any, "Days": matchDaysArray as Any] as [String : Any]
+            let statusUpdate = ["userID": userID, "matchID": matchID!, "requestType": "driverRequested", "riderRouteID": riderRouteID as Any, "driverRouteID": driverRouteID as Any, "Days": matchDetail?.matchedDays as Any] as [String : Any]
             
             // Alert: have driver confirm ride request
             let actionTitle = "Confirm Ride"
