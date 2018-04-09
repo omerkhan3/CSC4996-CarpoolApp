@@ -11,6 +11,7 @@ import BEMCheckBox
 import MapKit
 import Firebase
 import FirebaseAuth
+import CoreLocation
 
 class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, BEMCheckBoxDelegate, UITextFieldDelegate  {
     
@@ -21,8 +22,12 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
     let dist = -190
     
     
-    var longitudeArray: [Float] = []
-    var latitudeArray: [Float] = []
+    // var longitudeArray: [Float] = []
+    //var latitudeArray: [Float] = []
+    var lat1 : Double = 0.0
+    var lat2: Double = 0.0
+    var lon1 : Double = 0.0
+    var lon2: Double = 0.0
     var options = [String]()
     var options2 = [String]()
     var options3 = [String]()
@@ -44,7 +49,7 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
     @IBOutlet weak var friday: BEMCheckBox!
     @IBOutlet weak var saturday: BEMCheckBox!
     
-   
+    
     
     
     //labels for arrive and depart time
@@ -53,12 +58,12 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
     @IBOutlet weak var departtime1: UITextField!
     @IBOutlet weak var departtime2: UITextField!
     
-
+    
     // label that will allow the driver to save the name of a route
     @IBOutlet weak var routeName: UITextField!
     @IBOutlet weak var placeButton1: UITextField!
     @IBOutlet weak var placeButton2: UITextField!
-   
+    
     
     
     //label press action that brings up the time picker for arrival
@@ -101,13 +106,17 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
             self.present(alert, animated: true, completion: nil)  // present error alert.
         }
         else {
-            getstart()
-            getend()
+            //  getstart()
+            //getend()
+            // getstartcoor()
+            //  getendcoor()
+            
             print(options.joined(separator: ", "))
             let driver = self.driverSetting.isOn
             let userID = Auth.auth().currentUser!.uid
-//            let routeInfo = ["userID": userID, "Leaving from": placeButton1.text! as Any, "Going to": placeButton2.text! as Any,  "departureTime": departtime1.text! as Any, "arrivalTime" : arrivaltime1.text! as Any, "Days" :  options, "Longitudes": longitudeArray, "Latitudes": latitudeArray, "Driver": driver, "Name": self.routeName.text! as Any] as [String : Any]
-            let routeInfo = ["userID": userID, "departureTime1": departtime1.text! as Any,"departureTime2": departtime2.text! as Any, "arrivalTime1" : arrivaltime1.text! as Any, "arrivalTime2" : arrivaltime2.text! as Any, "Days" :  options, "Longitudes": longitudeArray, "Latitudes": latitudeArray, "Driver": driver, "Name": self.routeName.text! as Any, "startAddress": startadd as Any, "endAddress": endadd as Any] as [String : Any]
+            //            let routeInfo = ["userID": userID, "Leaving from": placeButton1.text! as Any, "Going to": placeButton2.text! as Any,  "departureTime": departtime1.text! as Any, "arrivalTime" : arrivaltime1.text! as Any, "Days" :  options, "Longitudes": longitudeArray, "Latitudes": latitudeArray, "Driver": driver, "Name": self.routeName.text! as Any] as [String : Any]
+            let routeInfo = ["userID": userID, "departureTime1": departtime1.text! as Any,"departureTime2": departtime2.text! as Any, "arrivalTime1" : arrivaltime1.text! as Any, "arrivalTime2" : arrivaltime2.text! as Any, "Days" :  options, "startPointLat": self.lat1, "startPointLong": self.lon1, "endPointLat": self.lat2, "endPointLong": self.lon2, "Driver": driver, "Name": self.routeName.text! as Any, "startAddress": startadd as Any, "endAddress": endadd as Any] as [String : Any]
+            
             print (routeInfo)
             addRoute(routeInfo: routeInfo)
             actionTitle = "Success"
@@ -119,75 +128,73 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
                 self.performSegue(withIdentifier: "showMyRoutes", sender: self)
             }))
             self.present(alert, animated: true, completion: nil)
-            //  print(arrivaltime.text)
-            // print(departtime.text)
-            print(self.placeButton1.text!)
-            print(options3)
+            
+            
+            
+            
         }
     }
-   
+    
     func getstart(){
         for destination in destinationsArray{
-        if (self.placeButton1.text == "Home") {
-            if (destination.Name == "Home"){
-                startadd = destination.Address
+            if (self.placeButton1.text == "Home") {
+                if (destination.Name == "Home"){
+                    startadd = destination.Address
+                    getstartcoor()
+                }
+                //startadd = options3[0]
             }
-        //startadd = options3[0]
-    }
-        else if (self.placeButton1.text == "Work"){
-            if (destination.Name == "Work"){
-                startadd = destination.Address
+            else if (self.placeButton1.text == "Work"){
+                if (destination.Name == "Work"){
+                    startadd = destination.Address
+                    getstartcoor()
+                }
+                //startadd = options3[1]
             }
-        //startadd = options3[1]
-    }
-        else if (self.placeButton1.text == "School"){
-            if (destination.Name == "School"){
-                startadd = destination.Address
+            else if (self.placeButton1.text == "School"){
+                if (destination.Name == "School"){
+                    startadd = destination.Address
+                    getstartcoor()
+                }
+                //startadd = options3[2]
             }
-        //startadd = options3[2]
-    }
-        else if (self.placeButton1.text == ""){
-            startadd = options3[3]
+            else if (self.placeButton1.text == ""){
+                startadd = options3[3]
+            }
         }
-    }
     }
     func getend(){
         for destination in destinationsArray{
-        if (self.placeButton2.text == "Home") {
-            if (destination.Name == "Home"){
-                endadd = destination.Address
+            if (self.placeButton2.text == "Home") {
+                if (destination.Name == "Home"){
+                    endadd = destination.Address
+                    getendcoor()
+                }
+                //endadd = options3[0]
             }
-            //endadd = options3[0]
-        }
-        else if (self.placeButton2.text == "Work"){
-           
-            if (destination.Name == "Work"){
-                endadd = destination.Address
+            else if (self.placeButton2.text == "Work"){
+                
+                if (destination.Name == "Work"){
+                    endadd = destination.Address
+                    getendcoor()
+                }
+                // endadd = options3[1]
             }
-           // endadd = options3[1]
-        }
-        else if (self.placeButton2.text == "School"){
-            if (destination.Name == "School"){
-                endadd = destination.Address
+            else if (self.placeButton2.text == "School"){
+                if (destination.Name == "School"){
+                    endadd = destination.Address
+                    getendcoor()
+                }
+                //endadd = options3[2]
             }
-            //endadd = options3[2]
+            else if (self.placeButton2.text == ""){
+                endadd = options3[3]
+            }
         }
-        else if (self.placeButton2.text == ""){
-            endadd = options3[3]
-        }
-    }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        view.accessibilityIdentifier = "addRouteView"
-        print("printing destinations array: " + "\(self.destinationsArray)")
-        self.arrivaltime1.accessibilityIdentifier = "arrivalTime1"
-        self.arrivaltime2.accessibilityIdentifier = "arrivalTime2"
-        self.departtime1.accessibilityIdentifier = "departureTime1"
-        self.departtime2.accessibilityIdentifier = "departureTime2"
-        self.routeName.accessibilityIdentifier = "routeName"
         
         sunday.delegate = self
         monday.delegate = self
@@ -222,7 +229,56 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
         //showDestionations()
         
     }
-
+    //    func showDestionations() -> Void {
+    //        for destination2 in destinationsArray{
+    //            // Show home destination if saved
+    //            if (placeButton1.text == "Home") {
+    //
+    //                self.startadd.text = destination2.Address
+    //            }
+    //
+    //                // Show school destination if saved
+    //            else if (placeButton1.text == "School")
+    //            {
+    //
+    //                self.startadd.text = destination2.Address
+    //            }
+    //
+    //                // Show Work destination if saved
+    //            else if (placeButton1.text == "Work")
+    //            {
+    //
+    //                self.startadd.text = destination2.Address
+    //            }
+    //
+    //        }
+    //    }
+    
+    // get starting coordinates from start string
+    func getstartcoor(){
+        let geocoder = CLGeocoder()
+        geocoder.geocodeAddressString(startadd) {
+            placemarks, error in
+            let placemark = placemarks?.first
+            self.lat1 = (placemark?.location?.coordinate.latitude)!
+            self.lon1 = (placemark?.location?.coordinate.longitude)!
+            print("Lat1: \(self.lat1), Lon1: \(self.lon1)")
+        }
+        // Use your location
+    }
+    //end end coordinates
+    func getendcoor(){
+        let geocoder = CLGeocoder()
+        geocoder.geocodeAddressString(endadd) {
+            placemarks, error in
+            let placemark = placemarks?.first
+            self.lat2 = (placemark?.location?.coordinate.latitude)!
+            self.lon2 = (placemark?.location?.coordinate.longitude)!
+            print("Lat2: \(self.lat2), Lon2: \(self.lon2)")
+        }
+        // Use your location
+    }
+    
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
@@ -235,6 +291,8 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         print ("Selected item is", current_arr[row])
         active_textFiled.text = current_arr[row]
+        getstart()
+        getend()
     }
     func create_toolbar()
     {
@@ -438,7 +496,7 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
     // Keyboard handling
     // Begin editing within text field
     func textFieldDidBeginEditing(_ textField: UITextField) {
-       //moveScrollView(textField, distance: dist, up: true)
+        //moveScrollView(textField, distance: dist, up: true)
     }
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
@@ -466,7 +524,7 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
         textField.resignFirstResponder()
         return true
     }
-
+    
     
     // Move scroll view
     func moveScrollView(_ textField: UITextField, distance: Int, up: Bool) {
@@ -494,4 +552,5 @@ func addRoute(routeInfo: Dictionary<String, Any>)
         
         }.resume()
 }
+
 
