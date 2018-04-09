@@ -234,8 +234,17 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
         
         cell.textLabel?.text = myRoutesArray[indexPath.row].Name
         cell.detailTextLabel?.text = myRoutesArray[indexPath.row].endAddress
+        let deleteButton = UIButton()
+        deleteButton.setImage(#imageLiteral(resourceName: "chris-tabbar-4-9"), for: .normal)
+        deleteButton.frame = CGRect(x: 240, y: 15, width: 20, height: 20)
+        deleteButton.addTarget(self, action: Selector(("deleteButtonPressed")), for: .touchUpInside)
+        cell.addSubview(deleteButton)
+        
         
         return cell
+    }
+    func deleteButtonPressed(sender: UIButton!){
+        print("Delete")
     }
     
     // Set number of sections
