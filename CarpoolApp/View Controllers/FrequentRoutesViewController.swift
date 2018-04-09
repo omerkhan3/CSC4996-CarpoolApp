@@ -11,6 +11,7 @@ import BEMCheckBox
 import MapKit
 import Firebase
 import FirebaseAuth
+import CoreLocation
 
 class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, BEMCheckBoxDelegate, UITextFieldDelegate  {
     
@@ -21,8 +22,12 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
     let dist = -190
     
     
-    var longitudeArray: [Float] = []
-    var latitudeArray: [Float] = []
+   // var longitudeArray: [Float] = []
+    //var latitudeArray: [Float] = []
+    var lat1 : Double = 0.0
+    var lat2: Double = 0.0
+    var lon1 : Double = 0.0
+    var lon2: Double = 0.0
     var options = [String]()
     var options2 = [String]()
     var options3 = [String]()
@@ -101,13 +106,17 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
             self.present(alert, animated: true, completion: nil)  // present error alert.
         }
         else {
-            getstart()
-            getend()
+          //  getstart()
+           //getend()
+           // getstartcoor()
+          //  getendcoor()
+            
             print(options.joined(separator: ", "))
             let driver = self.driverSetting.isOn
             let userID = Auth.auth().currentUser!.uid
 //            let routeInfo = ["userID": userID, "Leaving from": placeButton1.text! as Any, "Going to": placeButton2.text! as Any,  "departureTime": departtime1.text! as Any, "arrivalTime" : arrivaltime1.text! as Any, "Days" :  options, "Longitudes": longitudeArray, "Latitudes": latitudeArray, "Driver": driver, "Name": self.routeName.text! as Any] as [String : Any]
-            let routeInfo = ["userID": userID, "departureTime1": departtime1.text! as Any,"departureTime2": departtime2.text! as Any, "arrivalTime1" : arrivaltime1.text! as Any, "arrivalTime2" : arrivaltime2.text! as Any, "Days" :  options, "Longitudes": longitudeArray, "Latitudes": latitudeArray, "Driver": driver, "Name": self.routeName.text! as Any, "startAddress": startadd as Any, "endAddress": endadd as Any] as [String : Any]
+            let routeInfo = ["userID": userID, "departureTime1": departtime1.text! as Any,"departureTime2": departtime2.text! as Any, "arrivalTime1" : arrivaltime1.text! as Any, "arrivalTime2" : arrivaltime2.text! as Any, "Days" :  options, "startPointLat": self.lat1, "startPointLong": self.lon1, "endPointLat": self.lat2, "endPointLong": self.lon2, "Driver": driver, "Name": self.routeName.text! as Any, "startAddress": startadd as Any, "endAddress": endadd as Any] as [String : Any]
+            
             print (routeInfo)
             addRoute(routeInfo: routeInfo)
             actionTitle = "Success"
@@ -117,10 +126,10 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
             let alert = UIAlertController(title: actionTitle, message: actionItem, preferredStyle: .alert)
             alert.addAction(exitAction)
             self.present(alert, animated: true, completion: nil)
-            //  print(arrivaltime.text)
-            // print(departtime.text)
-            print(self.placeButton1.text!)
-            print(options3)
+         
+            
+            
+            
         }
     }
    
@@ -129,18 +138,21 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
         if (self.placeButton1.text == "Home") {
             if (destination.Name == "Home"){
                 startadd = destination.Address
+                getstartcoor()
             }
         //startadd = options3[0]
     }
         else if (self.placeButton1.text == "Work"){
             if (destination.Name == "Work"){
                 startadd = destination.Address
+                getstartcoor()
             }
         //startadd = options3[1]
     }
         else if (self.placeButton1.text == "School"){
             if (destination.Name == "School"){
                 startadd = destination.Address
+                getstartcoor()
             }
         //startadd = options3[2]
     }
@@ -154,6 +166,7 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
         if (self.placeButton2.text == "Home") {
             if (destination.Name == "Home"){
                 endadd = destination.Address
+                getendcoor()
             }
             //endadd = options3[0]
         }
@@ -161,12 +174,14 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
            
             if (destination.Name == "Work"){
                 endadd = destination.Address
+                getendcoor()
             }
            // endadd = options3[1]
         }
         else if (self.placeButton2.text == "School"){
             if (destination.Name == "School"){
                 endadd = destination.Address
+                getendcoor()
             }
             //endadd = options3[2]
         }
@@ -237,6 +252,31 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
 //        }
 //    }
     
+    // get starting coordinates from start string
+    func getstartcoor(){
+        let geocoder = CLGeocoder()
+    geocoder.geocodeAddressString(startadd) {
+    placemarks, error in
+    let placemark = placemarks?.first
+        self.lat1 = (placemark?.location?.coordinate.latitude)!
+        self.lon1 = (placemark?.location?.coordinate.longitude)!
+        print("Lat1: \(self.lat1), Lon1: \(self.lon1)")
+    }
+    // Use your location
+    }
+    //end end coordinates
+    func getendcoor(){
+        let geocoder = CLGeocoder()
+        geocoder.geocodeAddressString(endadd) {
+            placemarks, error in
+            let placemark = placemarks?.first
+            self.lat2 = (placemark?.location?.coordinate.latitude)!
+            self.lon2 = (placemark?.location?.coordinate.longitude)!
+            print("Lat2: \(self.lat2), Lon2: \(self.lon2)")
+        }
+        // Use your location
+    }
+    
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
@@ -249,6 +289,8 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         print ("Selected item is", current_arr[row])
         active_textFiled.text = current_arr[row]
+        getstart()
+        getend()
     }
     func create_toolbar()
     {
