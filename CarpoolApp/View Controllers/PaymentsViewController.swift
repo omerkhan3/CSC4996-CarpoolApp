@@ -26,8 +26,8 @@ class PaymentsViewController: UIViewController, UITableViewDelegate, UITableView
     //Class variables
     var clientToken: String = ""
     var recentPaymentsArray = [RecentPayments]()
-    var recentPayments = RecentPayments()
-    //var recentPayments: RecentPayments?
+    //var recentPayments = RecentPayments()
+    var recentPaymentsDetail: RecentPayments?
     
     let userID = Auth.auth().currentUser?.uid
     let tokenizationKey =  "sandbox_vtqbvdrz_kjjqnn2gj7vbds9g" // this is the tokenization key needed to authenticate with Braintree sandbox.  Since this is just a sandbox account, we have hard-coded the key in, but for production this key would need to be hosted elsewhere.
@@ -79,7 +79,7 @@ class PaymentsViewController: UIViewController, UITableViewDelegate, UITableView
         
         cell.driverFirstName.text = "Driver:" + recentPaymentsArray[indexPath.row].driverID
         cell.Time?.text = dateString
-        cell.Amount.text = "$" + String(describing: Double(round(100 * recentPayments.Amount)/100))
+        cell.Amount.text = "$" + String(describing: Double(round(100 * (recentPaymentsDetail?.Amount)!)/100))
         
         return cell
     }
