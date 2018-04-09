@@ -158,8 +158,13 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
                 }
                 //startadd = options3[2]
             }
-            else if (self.placeButton1.text == ""){
-                startadd = options3[3]
+            else if (self.placeButton1.text != nil){
+                if (destination.Name == ""){
+                    startadd = destination.Address
+                    getstartcoor()
+                    
+                }
+                //startadd = options3[3]
             }
         }
     }
@@ -188,7 +193,10 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
                 //endadd = options3[2]
             }
             else if (self.placeButton2.text == ""){
-                endadd = options3[3]
+                if (destination.Name == "Other"){
+                    endadd = destination.Address
+                    getendcoor()
+                }
             }
         }
     }
@@ -229,30 +237,6 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
         //showDestionations()
         
     }
-    //    func showDestionations() -> Void {
-    //        for destination2 in destinationsArray{
-    //            // Show home destination if saved
-    //            if (placeButton1.text == "Home") {
-    //
-    //                self.startadd.text = destination2.Address
-    //            }
-    //
-    //                // Show school destination if saved
-    //            else if (placeButton1.text == "School")
-    //            {
-    //
-    //                self.startadd.text = destination2.Address
-    //            }
-    //
-    //                // Show Work destination if saved
-    //            else if (placeButton1.text == "Work")
-    //            {
-    //
-    //                self.startadd.text = destination2.Address
-    //            }
-    //
-    //        }
-    //    }
     
     // get starting coordinates from start string
     func getstartcoor(){
