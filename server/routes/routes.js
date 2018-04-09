@@ -223,7 +223,7 @@ router.post('/', function(req, res, next) {
  if (routeJSON['Driver'] == true) // Handles Driver Routes
   {
 
-    db.any(`SELECT * FROM carpool.\"Routes\" WHERE ST_DWithin(startPoint, Geography(ST_MakePoint(${routeJSON['Latitudes'][0]}, ${routeJSON['Longitudes'][0]})),4830) AND ST_DWithin(endPoint, Geography(ST_MakePoint(${routeJSON['Latitudes'][1]}, ${routeJSON['Longitudes'][1]})),4830) AND ((\"departureTime1\" >= '${convertTo24Hour(routeJSON['departureTime1'])}' AND \"departureTime1\" <= '${convertTo24Hour(routeJSON['departureTime2'])}') OR (\"departureTime2\" >= '${convertTo24Hour(routeJSON['departureTime1'])}' AND \"departureTime2\"<= '${convertTo24Hour(routeJSON['departureTime2'])}')) AND ((\"arrivalTime2\"  >= '${convertTo24Hour(routeJSON['arrivalTime1'])}' AND \"arrivalTime2\" <= '${convertTo24Hour(routeJSON['arrivalTime2'])}') OR (\"arrivalTime1\"  >= '${convertTo24Hour(routeJSON['arrivalTime1'])}' AND \"arrivalTime1\" <= '${convertTo24Hour(routeJSON['arrivalTime2'])}')) AND \"Matched\" = 'false' AND \"Driver\" = 'false' and \"Days\" = $1 AND \"riderID\"<> '${userID}'`, [routeJSON['Days']])
+    db.any(`SELECT * FROM carpool.\"Routes\" WHERE ST_DWithin(startPoint, Geography(ST_MakePoint(${routeJSON['startPointLat']}, ${routeJSON['startPointLong']})),4830) AND ST_DWithin(endPoint, Geography(ST_MakePoint(${routeJSON['endPointLat']}, ${routeJSON['endPointLong']})),4830) AND ((\"departureTime1\" >= '${convertTo24Hour(routeJSON['departureTime1'])}' AND \"departureTime1\" <= '${convertTo24Hour(routeJSON['departureTime2'])}') OR (\"departureTime2\" >= '${convertTo24Hour(routeJSON['departureTime1'])}' AND \"departureTime2\"<= '${convertTo24Hour(routeJSON['departureTime2'])}')) AND ((\"arrivalTime2\"  >= '${convertTo24Hour(routeJSON['arrivalTime1'])}' AND \"arrivalTime2\" <= '${convertTo24Hour(routeJSON['arrivalTime2'])}') OR (\"arrivalTime1\"  >= '${convertTo24Hour(routeJSON['arrivalTime1'])}' AND \"arrivalTime1\" <= '${convertTo24Hour(routeJSON['arrivalTime2'])}')) AND \"Matched\" = 'false' AND \"Driver\" = 'false' and \"Days\" = $1 AND \"riderID\"<> '${userID}'`, [routeJSON['Days']])
     // Query to find all drivers whose routes are within a 3 mile radius of start and endpoint, within 15 minute time interval of arrival and departure, perfect match for days, and not the same rider and driver.)
     .then(function(result) {
       if (result.length > 0){
@@ -255,7 +255,7 @@ router.post('/', function(req, res, next) {
                  distance2.units('imperial');
 
                  // Driver final destination to rider final destination
-                 var leg3_origin = [`${routeJSON['Latitudes'][1]}, ${routeJSON['Longitudes'][1]}`]; // driver
+                 var leg3_origin = [`${routeJSON['endPointLat']}, ${routeJSON['endPointLong']}`]; // driver
                  var leg3_destination =  [`${obj['endPointLat']}, ${obj['endPointLong']}`]; // rider
                  //var leg3_destination =  ['2151 Kennedy Drive 48309']; // rider
 
@@ -340,7 +340,7 @@ router.post('/', function(req, res, next) {
 
                // Define origin and destination arrays
                var leg1_origin = [`${obj['startPointLat']}, ${obj['startPointLong']}`];
-               var leg1_destination = [`${routeJSON['Latitudes'][0]}, ${routeJSON['Longitudes'][0]}`];
+               var leg1_destination = [`${routeJSON['startPointLat']}, ${routeJSON['startPointLong']}`];
 
                distance2.matrix(leg1_origin, leg1_destination, function (err, distances) {
                  console.log("Starting Leg 1 Distance Matrix Query...");
@@ -420,7 +420,7 @@ router.post('/', function(req, res, next) {
 
     // Inserts Route into the Routes table.
     var addDriverRouteQuery = "INSERT INTO carpool.\"Routes\"(\"driverID\", \"departureTime1\", \"departureTime2\", \"arrivalTime1\", \"arrivalTime2\", \"startPointLong\", \"startPointLat\", \"endPointLong\", \"endPointLat\", \"Name\", \"Days\", \"Matched\", \"Driver\", \"startAddress\", \"endAddress\") values($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, 'false', 'true', $12, $13)"; // this is the query to add driver's route.
-    db.any(addDriverRouteQuery, [userID, routeJSON['departureTime1'], routeJSON['departureTime2'], routeJSON['arrivalTime1'], routeJSON['arrivalTime2'], routeJSON['Longitudes'][0], routeJSON['Latitudes'][0], routeJSON['Longitudes'][1], routeJSON['Latitudes'][1], routeJSON['Name'], routeJSON['Days'], routeJSON['startAddress'], routeJSON['endAddress']])
+    db.any(addDriverRouteQuery, [userID, routeJSON['departureTime1'], routeJSON['departureTime2'], routeJSON['arrivalTime1'], routeJSON['arrivalTime2'], routeJSON['startPointLong'], routeJSON['startPointLat'], routeJSON['endPointLong'], routeJSON['endPointLat'], routeJSON['Name'], routeJSON['Days'], routeJSON['startAddress'], routeJSON['endAddress']])
       .then(function () {
         console.log("Driver route added.");
         var setGeographyQuery = "UPDATE carpool.\"Routes\" SET startPoint = ST_POINT (\"startPointLat\", \"startPointLong\"), endPoint = ST_POINT (\"endPointLat\", \"endPointLong\")"; // Set geography object based on coordinates added by user.
@@ -445,7 +445,7 @@ router.post('/', function(req, res, next) {
 
 // Handles rider routes case.
  else {
-     db.any(`SELECT * FROM carpool.\"Routes\" WHERE ST_DWithin(startPoint, Geography(ST_MakePoint(${routeJSON['Latitudes'][0]}, ${routeJSON['Longitudes'][0]})),4830) AND ST_DWithin(endPoint, Geography(ST_MakePoint(${routeJSON['Latitudes'][1]}, ${routeJSON['Longitudes'][1]})),4830) AND ((\"departureTime1\" <= '${convertTo24Hour(routeJSON['departureTime1'])}' AND \"departureTime2\" >= '${convertTo24Hour(routeJSON['departureTime1'])}') OR (\"departureTime1\" <= '${convertTo24Hour(routeJSON['departureTime2'])}' AND \"departureTime2\" >= '${convertTo24Hour(routeJSON['departureTime2'])}')) AND ((\"arrivalTime1\" <= '${convertTo24Hour(routeJSON['arrivalTime2'])}' AND \"arrivalTime2\" >= '${convertTo24Hour(routeJSON['arrivalTime2'])}') OR (\"arrivalTime1\" <= '${convertTo24Hour(routeJSON['arrivalTime1'])}' AND \"arrivalTime2\" >= '${convertTo24Hour(routeJSON['arrivalTime1'])}')) AND \"Matched\" = 'false' AND \"Driver\" = 'true' and \"Days\" = $1 AND \"driverID\"<> '${userID}'`, [routeJSON['Days']])
+     db.any(`SELECT * FROM carpool.\"Routes\" WHERE ST_DWithin(startPoint, Geography(ST_MakePoint(${routeJSON['startPointLat']}, ${routeJSON['startPointLong']})),4830) AND ST_DWithin(endPoint, Geography(ST_MakePoint(${routeJSON['endPointLat']}, ${routeJSON['endPointLong']})),4830) AND ((\"departureTime1\" <= '${convertTo24Hour(routeJSON['departureTime1'])}' AND \"departureTime2\" >= '${convertTo24Hour(routeJSON['departureTime1'])}') OR (\"departureTime1\" <= '${convertTo24Hour(routeJSON['departureTime2'])}' AND \"departureTime2\" >= '${convertTo24Hour(routeJSON['departureTime2'])}')) AND ((\"arrivalTime1\" <= '${convertTo24Hour(routeJSON['arrivalTime2'])}' AND \"arrivalTime2\" >= '${convertTo24Hour(routeJSON['arrivalTime2'])}') OR (\"arrivalTime1\" <= '${convertTo24Hour(routeJSON['arrivalTime1'])}' AND \"arrivalTime2\" >= '${convertTo24Hour(routeJSON['arrivalTime1'])}')) AND \"Matched\" = 'false' AND \"Driver\" = 'true' and \"Days\" = $1 AND \"driverID\"<> '${userID}'`, [routeJSON['Days']])
      // Query to find all drivers whose routes are within a 3 mile radius of start and endpoint, within 15 minute time interval of arrival and departure, perfect match for days, and not the same rider and driver.)
      .then(function(result) {
        if (result.length > 0){
@@ -477,7 +477,7 @@ router.post('/', function(req, res, next) {
 
                  // Driver final destination to rider final destination
                  var leg3_origin = [`${obj['endPointLat']}, ${obj['endPointLong']}`]; // driver end
-                 var leg3_destination =  [`${routeJSON['Latitudes'][1]}, ${routeJSON['Longitudes'][1]}`]; // rider end
+                 var leg3_destination =  [`${routeJSON['endPointLat']}, ${routeJSON['endPointLong']}`]; // rider end
                  //var leg3_destination =  ['2151 Kennedy Drive 48309']; // rider
 
                  // Distance matrix api query
@@ -521,8 +521,8 @@ router.post('/', function(req, res, next) {
                 distance2.departure_time(leg2_epochDeparture);
                 distance2.units('imperial');
 
-                 var leg2_origin = [`${routeJSON['Latitudes'][1]}, ${routeJSON['Longitudes'][1]}`]; // Rider end location
-                 var leg2_destination = [`${routeJSON['Latitudes'][0]}, ${routeJSON['Longitudes'][0]}`]; // Rider start location
+                 var leg2_origin = [`${routeJSON['endPointLat']}, ${routeJSON['endPointLong']}`]; // Rider end location
+                 var leg2_destination = [`${routeJSON['startPointLat']}, ${routeJSON['startPointLong']}`]; // Rider start location
 
                  distance2.matrix(leg2_origin, leg2_destination, function (err, distances) {
                     console.log("Starting Leg 2 Distance Matrix Query...");
@@ -560,7 +560,7 @@ router.post('/', function(req, res, next) {
                distance2.units('imperial');
 
                // Define origin and destination arrays
-               var leg1_origin = [`${routeJSON['Latitudes'][0]}, ${routeJSON['Longitudes'][0]}`]; // rider start point
+               var leg1_origin = [`${routeJSON['startPointLat']}, ${routeJSON['startPointLong']}`]; // rider start point
                var leg1_destination = [`${obj['startPointLat']}, ${obj['startPointLong']}`]; // driver start point
 
                distance2.matrix(leg1_origin, leg1_destination, function (err, distances) {
@@ -606,7 +606,7 @@ router.post('/', function(req, res, next) {
             //   {
             //   distance.get({
             //       origin: `${obj['startPointLat']}, ${obj['startPointLong']}`,
-            //       destination: `${routeJSON['Latitudes'][0]}, ${routeJSON['Longitudes'][0]}`,
+            //       destination: `${routeJSON['startPointLat']}, ${routeJSON['startPointLong']}`,
             //     },
             //     function(err, data) {
             //         if (err) return console.log(err);
@@ -617,8 +617,8 @@ router.post('/', function(req, res, next) {
             //     }
             // function getSecondLeg(leg1, leg1Distance){  // calculates the route distance and ETA of rider start point to rider end point.
             //   distance.get({
-            //       origin: `${routeJSON['Latitudes'][0]}, ${routeJSON['Longitudes'][0]}`,
-            //       destination: `${routeJSON['Latitudes'][1]}, ${routeJSON['Longitudes'][1]}`,
+            //       origin: `${routeJSON['startPointLat']}, ${routeJSON['startPointLong']}`,
+            //       destination: `${routeJSON['endPointLat']}, ${routeJSON['endPointLong']}`,
             //         },
             //         function(err, data) {
             //             if (err) return console.log(err);
@@ -630,7 +630,7 @@ router.post('/', function(req, res, next) {
 
             //         function getThirdLeg(leg1, leg1Distance, leg2, leg2Distance){  // calculates the route distance and ETA of rider  end point to driver end point.
             //           distance.get({
-            //               origin: `${routeJSON['Latitudes'][1]}, ${routeJSON['Longitudes'][1]}`,
+            //               origin: `${routeJSON['endPointLat']}, ${routeJSON['endPointLong']}`,
             //               destination: `${obj['endPointLat']}, ${obj['endPointLong']}`,
             //             },
             //             function(err, data) {
@@ -678,7 +678,7 @@ db.one(`SELECT \"deviceToken\" from carpool.\"Users\" where \"userID\" = '${user
        }
      });
     // insert Rider's route into Route table.
-    db.any(`INSERT INTO carpool.\"Routes\"(\"riderID\", \"departureTime1\", \"departureTime2\",  \"arrivalTime1\", \"arrivalTime2\", \"startPointLong\", \"startPointLat\", \"endPointLong\", \"endPointLat\", \"Name\", \"Days\", \"Matched\", \"Driver\", \"startAddress\", \"endAddress\") values('${userID}', '${routeJSON['departureTime1']}', '${routeJSON['departureTime2']}', '${routeJSON['arrivalTime1']}', '${routeJSON['arrivalTime2']}', ${routeJSON['Longitudes'][0]}, ${routeJSON['Latitudes'][0]}, ${routeJSON['Longitudes'][1]}, ${routeJSON['Latitudes'][1]}, '${routeJSON['Name']}', $1, 'false', 'false', '${routeJSON['startAddress']}', '${routeJSON['endAddress']}')`, [routeJSON['Days']])
+    db.any(`INSERT INTO carpool.\"Routes\"(\"riderID\", \"departureTime1\", \"departureTime2\",  \"arrivalTime1\", \"arrivalTime2\", \"startPointLong\", \"startPointLat\", \"endPointLong\", \"endPointLat\", \"Name\", \"Days\", \"Matched\", \"Driver\", \"startAddress\", \"endAddress\") values('${userID}', '${routeJSON['departureTime1']}', '${routeJSON['departureTime2']}', '${routeJSON['arrivalTime1']}', '${routeJSON['arrivalTime2']}', ${routeJSON['startPointLong']}, ${routeJSON['startPointLat']}, ${routeJSON['endPointLong']}, ${routeJSON['endPointLat']}, '${routeJSON['Name']}', $1, 'false', 'false', '${routeJSON['startAddress']}', '${routeJSON['endAddress']}')`, [routeJSON['Days']])
       .then(function () {
         console.log("Succesfully added route.");
         var setGeographyQuery = "UPDATE carpool.\"Routes\" SET startPoint = ST_POINT (\"startPointLat\", \"startPointLong\"), endPoint = ST_POINT (\"endPointLat\", \"endPointLong\")"; // Set geography objects based on coordinates entered by user.
