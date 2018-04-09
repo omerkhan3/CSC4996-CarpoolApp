@@ -40,27 +40,25 @@ class FreqDestinations: UIViewController {
         var actionItem: String=String()
         var actionTitle: String=String()
         
+        var destinations: [Dictionary<String, String>] = []
+        
         let userID = Auth.auth().currentUser!.uid
-        let homeInfo = ["userID": userID, "Name": self.HomeLabel.text! as Any, "Address": self.HomeSearchBar.text! as Any]
-        let schoolInfo = ["userID": userID, "Name": self.SchoolLabel.text! as Any, "Address": self.SchoolSearchBar.text! as Any]
-        let workInfo = ["userID": userID, "Name": self.WorkLabel.text! as Any, "Address": self.WorkSearchBar.text! as Any]
-        let customInfo = ["userID": userID, "Name": self.otherInput.text! as Any, "Address": self.otherSearchBar.text! as Any]
+        let homeInfo = ["userID": userID, "Name": self.HomeLabel.text! as String, "Address": self.HomeSearchBar.text! as String]
+        let schoolInfo = ["userID": userID, "Name": self.SchoolLabel.text! as String, "Address": self.SchoolSearchBar.text! as String]
+        let workInfo = ["userID": userID, "Name": self.WorkLabel.text! as String, "Address": self.WorkSearchBar.text! as String]
+        let customInfo = ["userID": userID, "Name": self.otherInput.text! as String, "Address": self.otherSearchBar.text! as String]
         
-        var destinations: [Dictionary<String, Any>] = [homeInfo, schoolInfo, workInfo, customInfo]
         
-        if (homeInfo["Address"] != nil) {
+        if (homeInfo["Address"] != nil && homeInfo["Address"] != "") {
             destinations.append(homeInfo)
         }
-        else if (homeInfo["Address"] == nil) {
-            destinations.removeAll()
-        }
-        else if (schoolInfo["Address"] != nil) {
+        if (schoolInfo["Address"] != nil && schoolInfo["Address"] != "") {
             destinations.append(schoolInfo)
         }       
-        else if (workInfo["Address"] != nil) {
+        if (workInfo["Address"] != nil && workInfo["Address"] != "") {
             destinations.append(workInfo)
         }
-        else if (customInfo["Address"] != nil) {
+        if (customInfo["Address"] != nil && customInfo["Address"] != "") {
             destinations.append(customInfo)
         }
         
@@ -163,7 +161,7 @@ class FreqDestinations: UIViewController {
             }.resume()
     }
     
-    func saveDestinations(destinationInfo: [Dictionary<String, Any>])
+    func saveDestinations(destinationInfo: [Dictionary<String, String>])
     {
         let editDestinationURL = URL(string: "http://localhost:3000/freqDestinations/saveDestination")!
         var request = URLRequest(url: editDestinationURL)
