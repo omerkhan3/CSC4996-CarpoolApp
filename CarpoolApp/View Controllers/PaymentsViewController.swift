@@ -27,7 +27,7 @@ class PaymentsViewController: UIViewController, UITableViewDelegate, UITableView
     var clientToken: String = ""
     var recentPaymentsArray = [RecentPayments]()
     var recentPayments = RecentPayments()
-    //var recentPayments = RecentPayments?
+    //var recentPayments: RecentPayments?
     
     let userID = Auth.auth().currentUser?.uid
     let tokenizationKey =  "sandbox_vtqbvdrz_kjjqnn2gj7vbds9g" // this is the tokenization key needed to authenticate with Braintree sandbox.  Since this is just a sandbox account, we have hard-coded the key in, but for production this key would need to be hosted elsewhere.
@@ -71,17 +71,15 @@ class PaymentsViewController: UIViewController, UITableViewDelegate, UITableView
         let cell = tableView.dequeueReusableCell(withIdentifier: "recentPayments", for: indexPath) as! recentPaymentsCell
         
         //Create date formatter and reformat date
-        /*let dateFormatter = DateFormatter()
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.sssZ"
         let date = dateFormatter.date(from: recentPaymentsArray[indexPath.row].Time)!
         dateFormatter.dateFormat = "MM-dd-YYYY"
-        let dateString = dateFormatter.string(from: date)*/
+        let dateString = dateFormatter.string(from: date)
         
-        cell.driverFirstName.text = "Driver:" + recentPaymentsArray[indexPath.row].driverFirstName
-        cell.riderFirstName.text = "Rider:" + recentPaymentsArray[indexPath.row].riderFirstName
-        //cell.Time?.text = dateString
-        //cell.Amount.text = recentPaymentsArray[indexPath.row].Amount
-        //cell.Amount.text = "$" + String(describing: Double(round(100 * recentPayments!.Amount)/100))
+        cell.driverFirstName.text = "Driver:" + recentPaymentsArray[indexPath.row].driverID
+        cell.Time?.text = dateString
+        cell.Amount.text = "$" + String(describing: Double(round(100 * recentPayments.Amount)/100))
         
         return cell
     }

@@ -145,8 +145,8 @@
 				20509AD8204E2C5600B2EFA3 /* Profile.swift */,
 				2054BEDD2066B83600B62FF7 /* ScheduledRide.swift */,
 				91D3ACB9206B4B700032652E /* RecentPayments.swift */,
-				2054BEE1206C257400B62FF7 /* FrequentDestination.swift */,
 				91F69AC52079955400EDF0FB /* SavedRoutes.swift */,
+				2054BEE1206C257400B62FF7 /* FrequentDestination.swift */,
 			);
 			name = Data;
 			path = "New Group";

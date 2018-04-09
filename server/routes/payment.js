@@ -58,7 +58,7 @@ else {
 
 router.get("/recentPayments", function (req, res, next) {
 var userID = req.query.userID;
-db.query(`select \"driverID\", \"Time\", \"Amount\", \"paymentID\" from (select \"firstName\" as \"driverID\", \"userID\" from carpool.\"Users\") carpool.\"paymentHistory\"`)
+db.one(`select \"firstName\", \"Amount\", \"Time\" from (select \"firstName\", \"userID\" from carpool.\"Users\") a JOIN (select * from carpool.\"paymentHistory\" where \"riderID\" = '${userID}') b ON a.\"userID\" = b.\"driverID\"`)
 .then(function(data) {
  res.send(data);
   });
