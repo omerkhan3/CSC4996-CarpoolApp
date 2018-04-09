@@ -129,9 +129,6 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
             }))
             self.present(alert, animated: true, completion: nil)
             
-            
-            
-            
         }
     }
     

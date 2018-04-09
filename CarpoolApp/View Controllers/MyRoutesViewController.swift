@@ -14,76 +14,13 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
     
     // Class Variables
     var destinationsArray = [FrequentDestination]()
-    var destinationsDetail: FrequentDestination?
     let userID = Auth.auth().currentUser?.uid
-    
-    // UI Outlets
-    @IBOutlet weak var UserHomeAddress: UILabel!
-    @IBOutlet weak var UserSchoolAddress: UILabel!
-    @IBOutlet weak var UserWorkAddress: UILabel!
-    @IBOutlet weak var UserOtherAddress: UILabel!
-    @IBOutlet weak var otherDestination: UILabel!
-    
-    @IBOutlet weak var deleteHomeAddress: UIButton!
-    @IBAction func deletetHomeAddress(_ sender: UIButton) {
-        // Activate UIAlertController to display alert
-        let alert = UIAlertController(title: "Warning!", message: "Are you sure you want to delete this destination?", preferredStyle: UIAlertControllerStyle.alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-            let deleteHomeDestination = ["userID": self.userID!, "Address": self.destinationsDetail?.Address as Any]
-            
-            self.deletingHomeDestination(deleteHomeDestination: deleteHomeDestination)
-            
-        }))
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        self.present(alert, animated: true, completion: nil)
-    }
-    
-    @IBOutlet weak var deleteWorkAddress: UIButton!
-    @IBAction func deleteWorkAddress(_ sender: UIButton) {
-        // Activate UIAlertController to display alert
-        let alert = UIAlertController(title: "Warning!", message: "Are you sure you want to delete this destination?", preferredStyle: UIAlertControllerStyle.alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-            let deleteWorkDestination = ["userID": self.userID!, "Address": self.destinationsDetail?.Address as Any]
-            
-            self.deletingWorkDestination(deleteWorkDestination: deleteWorkDestination)
-            
-        }))
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        self.present(alert, animated: true, completion: nil)
-    }
-    
-    @IBOutlet weak var deleteSchoolAddress: UIButton!
-    @IBAction func deleteSchoolAddress(_ sender: UIButton) {
-        // Activate UIAlertController to display alert
-        let alert = UIAlertController(title: "Warning!", message: "Are you sure you want to delete this destination?", preferredStyle: UIAlertControllerStyle.alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-            let deleteSchoolDestination = ["userID": self.userID!, "Address": self.destinationsDetail?.Address as Any]
-            
-            
-            self.deletingSchoolDestination(deleteSchoolDestination: deleteSchoolDestination)
-        }))
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        self.present(alert, animated: true, completion: nil)
-    }
-    
-    @IBOutlet weak var deleteCustomAddress: UIButton!
-    @IBAction func deleteCustomAddress(_ sender: UIButton) {
-        // Activate UIAlertController to display alert
-        let alert = UIAlertController(title: "Warning!", message: "Are you sure you want to delete this destination?", preferredStyle: UIAlertControllerStyle.alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-            let deleteCustomDestination = ["userID": self.userID!, "Name": self.destinationsDetail?.Name as Any, "Address": self.destinationsDetail?.Address as Any]
-            
-            
-            self.deletingCustomDestination(deleteCustomDestination: deleteCustomDestination)
-        }))
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        self.present(alert, animated: true, completion: nil)
-    }
-    
     
     //Array used for retrieving the saved routes according to userID
     var myRoutesArray = [SavedRoutes]()
     
+    @IBOutlet weak var MyDestinationsTable: UITableView!
+    @IBOutlet weak var noDestinationsLabel: UILabel!
     @IBOutlet weak var myRoutesTable: UITableView!
     @IBOutlet weak var noRoutesLabel: UILabel!
     // UI Button Outlets
@@ -100,6 +37,19 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         myRoutesTable.reloadData()
+        MyDestinationsTable.reloadData()
+        
+        getDestinationsDecode {
+            self.MyDestinationsTable.reloadData()
+            
+            // Show or hide no saved routes alert
+            if self.destinationsArray.count == 0 {
+                // No saved routes
+                self.noDestinationsLabel.isHidden = false
+            } else {
+                self.noDestinationsLabel.isHidden = true
+            }
+        }
         
         getMyRoutes {
             self.myRoutesTable.reloadData()
@@ -115,27 +65,18 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
         
         self.myRoutesTable.delegate = self
         self.myRoutesTable.dataSource = self
+        self.MyDestinationsTable.delegate = self
+        self.MyDestinationsTable.dataSource = self
     }
     
     // Class overrides
     override func viewDidLoad() {
         super.viewDidLoad()
-        //let userID = Auth.auth().currentUser?.uid
-        //getDestinations(userID: userID!)
-        getDestinationsDecode {
+        
+        /*getDestinationsDecode {
             print ("printing destinations array: ")
             print (self.destinationsArray)
-            self.showDestinations()
-        }
-        
-        UserHomeAddress.isHidden = true
-        UserSchoolAddress.isHidden = true
-        UserWorkAddress.isHidden = true
-        UserOtherAddress.isHidden = true
-        deleteHomeAddress.isHidden = true
-        deleteWorkAddress.isHidden = true
-        deleteSchoolAddress.isHidden = true
-        deleteCustomAddress.isHidden = true
+        }*/
     }
     
     // Send data to other view controllers via segue
@@ -151,97 +92,39 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
         }
     }
     
-    func deletingHomeDestination(deleteHomeDestination: Dictionary<String, Any>) {
-        let deleteHomeURL = URL(string: "http://localhost:3000/freqDestinations/deleteHomeDestination")!
-        var request = URLRequest(url: deleteHomeURL)
-        let deleteHomeJSON = try! JSONSerialization.data(withJSONObject: deleteHomeDestination, options: .prettyPrinted)
-        let deleteHomeJSONInfo = NSString(data: deleteHomeJSON, encoding: String.Encoding.utf8.rawValue)! as String
-        request.httpBody = "deleteHomeDestination=\(deleteHomeJSONInfo)".data(using: String.Encoding.utf8)
-        request.httpMethod = "POST" // POST method.
-        
-        URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
-            if (error != nil){  // error handling responses.
-                print ("An error has occured.")
-            }
-            else{
-                print ("Success!")
-            }
-            
-            }.resume()
-    }
-    
-    func deletingWorkDestination(deleteWorkDestination: Dictionary<String, Any>) {
-        let deleteWorkURL = URL(string: "http://localhost:3000/freqDestinations/deleteWorkDestination")!
-        var request = URLRequest(url: deleteWorkURL)
-        let deleteWorkJSON = try! JSONSerialization.data(withJSONObject: deleteWorkDestination, options: .prettyPrinted)
-        let deleteWorkJSONInfo = NSString(data: deleteWorkJSON, encoding: String.Encoding.utf8.rawValue)! as String
-        request.httpBody = "deleteWorkDestination=\(deleteWorkJSONInfo)".data(using: String.Encoding.utf8)
-        request.httpMethod = "POST" // POST method.
-        
-        URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
-            if (error != nil){  // error handling responses.
-                print ("An error has occured.")
-            }
-            else{
-                print ("Success!")
-            }
-            
-            }.resume()
-    }
-    
-    func deletingSchoolDestination(deleteSchoolDestination: Dictionary<String, Any>) {
-        let deleteSchoolURL = URL(string: "http://localhost:3000/freqDestinations/deleteSchoolDestination")!
-        var request = URLRequest(url: deleteSchoolURL)
-        let deleteSchoolJSON = try! JSONSerialization.data(withJSONObject: deleteSchoolDestination, options: .prettyPrinted)
-        let deleteSchoolJSONInfo = NSString(data: deleteSchoolJSON, encoding: String.Encoding.utf8.rawValue)! as String
-        request.httpBody = "deleteSchoolDestination=\(deleteSchoolJSONInfo)".data(using: String.Encoding.utf8)
-        request.httpMethod = "POST" // POST method.
-        
-        URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
-            if (error != nil){  // error handling responses.
-                print ("An error has occured.")
-            }
-            else{
-                print ("Success!")
-            }
-            
-            }.resume()
-    }
-    
-    func deletingCustomDestination(deleteCustomDestination: Dictionary<String, Any>) {
-        let deleteCustomURL = URL(string: "http://localhost:3000/freqDestinations/deleteCustomDestination")!
-        var request = URLRequest(url: deleteCustomURL)
-        let deleteCustomJSON = try! JSONSerialization.data(withJSONObject: deleteCustomDestination, options: .prettyPrinted)
-        let deleteCustomJSONInfo = NSString(data: deleteCustomJSON, encoding: String.Encoding.utf8.rawValue)! as String
-        request.httpBody = "deleteCustomDestination=\(deleteCustomJSONInfo)".data(using: String.Encoding.utf8)
-        request.httpMethod = "POST" // POST method.
-        
-        URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
-            if (error != nil){  // error handling responses.
-                print ("An error has occured.")
-            }
-            else{
-                print ("Success!")
-            }
-            
-            }.resume()
-    }
-    
-    
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: "MyRoutesTableViewCell")
         
-        cell.textLabel?.text = myRoutesArray[indexPath.row].Name
-        cell.detailTextLabel?.text = myRoutesArray[indexPath.row].endAddress
-        let deleteButton = UIButton()
-        deleteButton.setImage(#imageLiteral(resourceName: "chris-tabbar-4-9"), for: .normal)
-        deleteButton.frame = CGRect(x: 240, y: 15, width: 20, height: 20)
-        deleteButton.addTarget(self, action: Selector(("deleteButtonPressed")), for: .touchUpInside)
-        cell.addSubview(deleteButton)
+        let cell = UITableViewCell()
         
+        if (tableView == myRoutesTable) {
+            let cell = UITableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: "MyRoutesTableViewCell")
+            
+            cell.textLabel?.text = myRoutesArray[indexPath.row].Name
+            cell.detailTextLabel?.text = myRoutesArray[indexPath.row].endAddress
+            let deleteButton = UIButton()
+            deleteButton.setImage(#imageLiteral(resourceName: "chris-tabbar-4-9"), for: .normal)
+            deleteButton.frame = CGRect(x: 240, y: 15, width: 20, height: 20)
+            deleteButton.addTarget(self, action: Selector(("deleteButtonPressed")), for: .touchUpInside)
+            cell.addSubview(deleteButton)
+            
+            return cell
+        }
+        else if (tableView == MyDestinationsTable) {
+            let cell = UITableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: "MyDestinationsTableViewCell")
+            
+            cell.textLabel?.text = destinationsArray[indexPath.row].Name
+            cell.detailTextLabel?.text = destinationsArray[indexPath.row].Address
+            let deleteButton = UIButton()
+            deleteButton.setImage(#imageLiteral(resourceName: "chris-tabbar-4-9"), for: .normal)
+            deleteButton.frame = CGRect(x: 240, y: 15, width: 20, height: 20)
+            deleteButton.addTarget(self, action: Selector(("deleteButtonPressed")), for: .touchUpInside)
+            cell.addSubview(deleteButton)
+            
+            return cell
+        }
         
         return cell
+
     }
     func deleteButtonPressed(sender: UIButton!){
         print("Delete")
@@ -254,7 +137,17 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
     
     // set number of rows
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return myRoutesArray.count
+        
+        let count = Int()
+        
+        if (tableView == myRoutesTable) {
+           return myRoutesArray.count
+        }
+        else if (tableView == MyDestinationsTable) {
+            return destinationsArray.count
+        }
+        
+        return count
     }
     
     // Query all saved routes from database and, decode and store into an array
@@ -313,43 +206,6 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
                 }
             }
             }.resume()
-    }
-    
-    // Function to load frequent destinations onto the view
-    func showDestinations() -> Void {
-        for destination in destinationsArray {
-            
-            // Show home destination if saved
-            if (destination.Name == "Home") {
-                self.UserHomeAddress.isHidden = false
-                self.deleteHomeAddress.isHidden = false
-                self.UserHomeAddress.text = destination.Address
-            }
-                
-            // Show school destination if saved
-            else if (destination.Name == "School")
-            {
-                self.UserSchoolAddress.isHidden = false
-                self.deleteSchoolAddress.isHidden = false
-                self.UserSchoolAddress.text = destination.Address
-            }
-            
-            // Show Work destination if saved
-            else if (destination.Name == "Work")
-            {
-                self.UserWorkAddress.isHidden = false
-                self.deleteWorkAddress.isHidden = false
-                self.UserWorkAddress.text = destination.Address
-            }
-                
-            // Show custom destination if saved
-            else {
-                self.UserOtherAddress.isHidden = false
-                self.deleteCustomAddress.isHidden = false
-                self.otherDestination.text = destination.Name
-                self.UserOtherAddress.text = destination.Address
-            }
-        }
     }
 }
 
