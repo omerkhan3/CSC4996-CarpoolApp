@@ -14,7 +14,7 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
     
     // Class Variables
     var destinationsArray = [FrequentDestination]()
-    //var destinationsDetail: FrequentDestination?
+    var destinationsDetail: FrequentDestination?
     let userID = Auth.auth().currentUser?.uid
     
     // UI Outlets
@@ -29,14 +29,13 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
         // Activate UIAlertController to display alert
         let alert = UIAlertController(title: "Warning!", message: "Are you sure you want to delete this destination?", preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+            let deleteHomeDestination = ["userID": self.userID!, "Address": self.destinationsDetail?.Address as Any]
+            
+            self.deletingHomeDestination(deleteHomeDestination: deleteHomeDestination)
             
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         self.present(alert, animated: true, completion: nil)
-        
-        let deleteHomeDestination = ["userID": userID!, "Address": self.UserHomeAddress.text! as Any]
-        
-        self.deletingHomeDestination(deleteHomeDestination: deleteHomeDestination)
     }
     
     @IBOutlet weak var deleteWorkAddress: UIButton!
@@ -44,14 +43,13 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
         // Activate UIAlertController to display alert
         let alert = UIAlertController(title: "Warning!", message: "Are you sure you want to delete this destination?", preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+            let deleteWorkDestination = ["userID": self.userID!, "Address": self.destinationsDetail?.Address as Any]
+            
+            self.deletingWorkDestination(deleteWorkDestination: deleteWorkDestination)
             
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         self.present(alert, animated: true, completion: nil)
-        
-        let deleteWorkDestination = ["userID": userID!, "Address": self.UserWorkAddress.text! as Any]
-        
-        self.deletingWorkDestination(deleteWorkDestination: deleteWorkDestination)
     }
     
     @IBOutlet weak var deleteSchoolAddress: UIButton!
@@ -59,14 +57,13 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
         // Activate UIAlertController to display alert
         let alert = UIAlertController(title: "Warning!", message: "Are you sure you want to delete this destination?", preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+            let deleteSchoolDestination = ["userID": self.userID!, "Address": self.destinationsDetail?.Address as Any]
             
+            
+            self.deletingSchoolDestination(deleteSchoolDestination: deleteSchoolDestination)
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         self.present(alert, animated: true, completion: nil)
-        
-        let deleteSchoolDestination = ["userID": userID!, "Address": self.UserSchoolAddress.text! as Any]
-        
-        self.deletingSchoolDestination(deleteSchoolDestination: deleteSchoolDestination)
     }
     
     @IBOutlet weak var deleteCustomAddress: UIButton!
@@ -74,14 +71,13 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
         // Activate UIAlertController to display alert
         let alert = UIAlertController(title: "Warning!", message: "Are you sure you want to delete this destination?", preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+            let deleteCustomDestination = ["userID": self.userID!, "Name": self.destinationsDetail?.Name as Any, "Address": self.destinationsDetail?.Address as Any]
             
+            
+            self.deletingCustomDestination(deleteCustomDestination: deleteCustomDestination)
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         self.present(alert, animated: true, completion: nil)
-        
-        let deleteCustomDestination = ["userID": userID!, "Address": self.UserOtherAddress.text! as Any]
-        
-        self.deletingCustomDestination(deleteCustomDestination: deleteCustomDestination)
     }
     
     
