@@ -14,7 +14,6 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
     
     // Class Variables
     var destinationsArray = [FrequentDestination]()
-    var destinationsDetail: FrequentDestination?
     let userID = Auth.auth().currentUser?.uid
     
     //Array used for retrieving the saved routes according to userID
@@ -41,7 +40,7 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
         MyDestinationsTable.reloadData()
         
         getDestinationsDecode {
-            self.myRoutesTable.reloadData()
+            self.MyDestinationsTable.reloadData()
             
             // Show or hide no saved routes alert
             if self.destinationsArray.count == 0 {
