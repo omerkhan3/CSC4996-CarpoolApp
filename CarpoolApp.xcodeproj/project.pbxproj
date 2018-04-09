@@ -31,6 +31,8 @@
 		917C54B8204E18FE00F2BBDC /* PaymentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 917C54B7204E18FE00F2BBDC /* PaymentsViewController.swift */; };
 		91D3ACBA206B4B700032652E /* RecentPayments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D3ACB9206B4B700032652E /* RecentPayments.swift */; };
 		91F69AC62079955400EDF0FB /* SavedRoutes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F69AC52079955400EDF0FB /* SavedRoutes.swift */; };
+		C93E780F207BE3B500879495 /* TermsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93E780E207BE3B500879495 /* TermsViewController.swift */; };
+		C93E7811207BE53900879495 /* Introduction.pdf in Resources */ = {isa = PBXBuildFile; fileRef = C93E7810207BE53800879495 /* Introduction.pdf */; };
 		C95643DB2079A8F90038A497 /* FrequentRoutesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95643DA2079A8F80038A497 /* FrequentRoutesViewController.swift */; };
 		C968E520203669E400B137B8 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C968E51F203669E400B137B8 /* RoundedButton.swift */; };
 		C97DACB720786DF700E76E02 /* FAQViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97DACB620786DF700E76E02 /* FAQViewController.swift */; };
@@ -89,6 +91,8 @@
 		91D3ACB9206B4B700032652E /* RecentPayments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentPayments.swift; sourceTree = "<group>"; };
 		91F69AC52079955400EDF0FB /* SavedRoutes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedRoutes.swift; sourceTree = "<group>"; };
 		9320C101773311FB910A13A6 /* Pods_CarpoolApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CarpoolApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C93E780E207BE3B500879495 /* TermsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsViewController.swift; sourceTree = "<group>"; };
+		C93E7810207BE53800879495 /* Introduction.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = Introduction.pdf; sourceTree = "<group>"; };
 		C95643DA2079A8F80038A497 /* FrequentRoutesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FrequentRoutesViewController.swift; sourceTree = "<group>"; };
 		C968E51F203669E400B137B8 /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		C97DACB620786DF700E76E02 /* FAQViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQViewController.swift; sourceTree = "<group>"; };
@@ -139,6 +143,7 @@
 		20509ACF204D979300B2EFA3 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				C93E7810207BE53800879495 /* Introduction.pdf */,
 				912C7DC3204D16BD00E222A4 /* Notifications.swift */,
 				20509AD0204D995400B2EFA3 /* Match.swift */,
 				C9DE0B29203F5C6100554E9C /* LocationSearchTable.swift */,
@@ -224,6 +229,7 @@
 				2054BEDF206745B600B62FF7 /* RideDetailViewController.swift */,
 				9167A6DA206A3C4000ABB37F /* MyRoutesViewController.swift */,
 				C97DACB620786DF700E76E02 /* FAQViewController.swift */,
+				C93E780E207BE3B500879495 /* TermsViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -351,6 +357,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C93E7811207BE53900879495 /* Introduction.pdf in Resources */,
 				7824139F201D0F3A00F06D99 /* Assets.xcassets in Resources */,
 				20F47A0420277D4800D79394 /* GoogleService-Info.plist in Resources */,
 				206736E32026A929008714A7 /* LaunchScreen.storyboard in Resources */,
@@ -498,6 +505,7 @@
 				2054BEDE2066B83600B62FF7 /* ScheduledRide.swift in Sources */,
 				917C54B8204E18FE00F2BBDC /* PaymentsViewController.swift in Sources */,
 				C9E8631F204D40BF008F6158 /* SettingsViewController.swift in Sources */,
+				C93E780F207BE3B500879495 /* TermsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -588,7 +596,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -640,7 +648,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
