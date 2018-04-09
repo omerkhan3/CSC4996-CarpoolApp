@@ -58,7 +58,7 @@ else {
 
 router.get("/recentPayments", function (req, res, next) {
 var userID = req.query.userID;
-db.query(`select \"userID\", \"Amount\", \"Time\" from carpool.\"paymentHistory\" where \"Time\" >= 'now'`)
+db.query(`select \"driverID\", \"Time\", \"Amount\", \"paymentID\" from (select \"firstName\" as \"driverID\", \"userID\" from carpool.\"Users\") carpool.\"paymentHistory\"`)
 .then(function(data) {
  res.send(data);
   });

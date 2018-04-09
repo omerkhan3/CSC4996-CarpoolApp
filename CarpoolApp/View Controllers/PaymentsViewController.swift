@@ -16,10 +16,9 @@ import FirebaseAuth
 
 class recentPaymentsCell: UITableViewCell {
     static let reuseIdentifier = "recentPayments"
-    @IBOutlet weak var Date: UILabel!
+    @IBOutlet weak var driverFirstName: UILabel!
     @IBOutlet weak var Amount: UILabel!
-    @IBOutlet weak var riderID: UILabel!
-    @IBOutlet weak var driverID: UILabel!
+    @IBOutlet weak var Time: UILabel!
 }
 
 class PaymentsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
@@ -28,8 +27,7 @@ class PaymentsViewController: UIViewController, UITableViewDelegate, UITableView
     var clientToken: String = ""
     var recentPaymentsArray = [RecentPayments]()
     var recentPayments = RecentPayments()
-    var scheduledRideArray = [ScheduledRide]()
-    var scheduledRide = ScheduledRide()
+    //var recentPayments = RecentPayments?
     
     let userID = Auth.auth().currentUser?.uid
     let tokenizationKey =  "sandbox_vtqbvdrz_kjjqnn2gj7vbds9g" // this is the tokenization key needed to authenticate with Braintree sandbox.  Since this is just a sandbox account, we have hard-coded the key in, but for production this key would need to be hosted elsewhere.
@@ -68,29 +66,22 @@ class PaymentsViewController: UIViewController, UITableViewDelegate, UITableView
         }
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        recentPayments = recentPaymentsArray[indexPath.row]
-        print(recentPayments)
-        
-        scheduledRide = scheduledRideArray[indexPath.row]
-        print(scheduledRide)
-    }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "recentPayments", for: indexPath) as! recentPaymentsCell
         
         //Create date formatter and reformat date
-        let dateFormatter = DateFormatter()
+        /*let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.sssZ"
-        let date = dateFormatter.date(from: recentPaymentsArray[indexPath.row].Date)!
+        let date = dateFormatter.date(from: recentPaymentsArray[indexPath.row].Time)!
         dateFormatter.dateFormat = "MM-dd-YYYY"
-        let dateString = dateFormatter.string(from: date)
+        let dateString = dateFormatter.string(from: date)*/
         
-        cell.driverID.text = scheduledRideArray[indexPath.row].driverID.uppercased()
-        cell.riderID.text = scheduledRideArray[indexPath.row].riderID.uppercased()
-        cell.Date.text = dateString
-        cell.Amount.text = "$" + String(describing: Double(scheduledRide.rideCost))
+        cell.driverFirstName.text = "Driver:" + recentPaymentsArray[indexPath.row].driverFirstName
+        cell.riderFirstName.text = "Rider:" + recentPaymentsArray[indexPath.row].riderFirstName
+        //cell.Time?.text = dateString
+        //cell.Amount.text = recentPaymentsArray[indexPath.row].Amount
+        //cell.Amount.text = "$" + String(describing: Double(round(100 * recentPayments!.Amount)/100))
         
         return cell
     }
@@ -102,7 +93,7 @@ class PaymentsViewController: UIViewController, UITableViewDelegate, UITableView
     
     // set number of rows
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return recentPaymentsArray.count + scheduledRideArray.count
+        return recentPaymentsArray.count
     }
     
     // Query all recent payments from database and, decode and store into an array

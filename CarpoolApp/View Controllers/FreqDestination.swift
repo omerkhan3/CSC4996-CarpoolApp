@@ -40,17 +40,30 @@ class FreqDestinations: UIViewController {
         var actionItem: String=String()
         var actionTitle: String=String()
         
+        var destinations: [Dictionary<String, String>] = []
+        
         let userID = Auth.auth().currentUser!.uid
-        let homeInfo = ["userID": userID, "Name": self.HomeLabel.text! as Any, "Address": self.HomeSearchBar.text! as Any]
-        let schoolInfo = ["userID": userID, "Name": self.SchoolLabel.text! as Any, "Address": self.SchoolSearchBar.text! as Any]
-        let workInfo = ["userID": userID, "Name": self.WorkLabel.text! as Any, "Address": self.WorkSearchBar.text! as Any]
-        let customInfo = ["userID": userID, "Name": self.otherInput.text! as Any, "Address": self.otherSearchBar.text! as Any]
+        let homeInfo = ["userID": userID, "Name": self.HomeLabel.text! as String, "Address": self.HomeSearchBar.text! as String]
+        let schoolInfo = ["userID": userID, "Name": self.SchoolLabel.text! as String, "Address": self.SchoolSearchBar.text! as String]
+        let workInfo = ["userID": userID, "Name": self.WorkLabel.text! as String, "Address": self.WorkSearchBar.text! as String]
+        let customInfo = ["userID": userID, "Name": self.otherInput.text! as String, "Address": self.otherSearchBar.text! as String]
         
-        let destinations: [Dictionary<String, Any>] = [homeInfo, schoolInfo, workInfo, customInfo]
+        if (homeInfo["Address"] != nil && homeInfo["Address"] != "") {
+            destinations.append(homeInfo)
+        }
+        if (schoolInfo["Address"] != nil && schoolInfo["Address"] != "") {
+            destinations.append(schoolInfo)
+        }
+        if (workInfo["Address"] != nil && workInfo["Address"] != "") {
+            destinations.append(workInfo)
+        }
+        if (customInfo["Address"] != nil && customInfo["Address"] != "") {
+            destinations.append(customInfo)
+        }
         
-        print(destinations)
-        
+        //print(destinations)
         saveDestinations(destinationInfo: destinations)
+        
         actionTitle = "Success!"
         actionItem = "Your frequent destinations have been saved"
         
@@ -86,7 +99,7 @@ class FreqDestinations: UIViewController {
     }
     
     func getDestinations(userID: String) {
-        var viewDestinationComponents = URLComponents(string: "http://141.217.48.15:3000/freqDestinations/getDestination")!
+        var viewDestinationComponents = URLComponents(string: "http://localhost:3000/freqDestinations/getDestination")!
         viewDestinationComponents.queryItems = [
             URLQueryItem(name: "userID", value: userID)
         ]
@@ -147,9 +160,9 @@ class FreqDestinations: UIViewController {
             }.resume()
     }
     
-    func saveDestinations(destinationInfo: [Dictionary<String, Any>])
+    func saveDestinations(destinationInfo: [Dictionary<String, String>])
     {
-        let editDestinationURL = URL(string: "http://141.217.48.15:3000/freqDestinations/saveDestination")!
+        let editDestinationURL = URL(string: "http://localhost:3000/freqDestinations/saveDestination")!
         var request = URLRequest(url: editDestinationURL)
         let destinationJSON = try! JSONSerialization.data(withJSONObject: destinationInfo, options: .prettyPrinted)
         let destinationJSONInfo = NSString(data: destinationJSON, encoding: String.Encoding.utf8.rawValue)! as String
