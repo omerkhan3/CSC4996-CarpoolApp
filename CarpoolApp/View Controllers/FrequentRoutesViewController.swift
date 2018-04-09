@@ -114,8 +114,10 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
             actionItem = "Your route information has been saved"
             
             // Activate UIAlertController to display error
-            let alert = UIAlertController(title: actionTitle, message: actionItem, preferredStyle: .alert)
-            alert.addAction(exitAction)
+            let alert = UIAlertController(title: actionTitle, message: actionItem, preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                self.performSegue(withIdentifier: "showMyRoutes", sender: self)
+            }))
             self.present(alert, animated: true, completion: nil)
             //  print(arrivaltime.text)
             // print(departtime.text)

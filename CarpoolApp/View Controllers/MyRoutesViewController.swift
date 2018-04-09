@@ -14,6 +14,8 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
     
     // Class Variables
     var destinationsArray = [FrequentDestination]()
+    //var destinationsDetail: FrequentDestination?
+    let userID = Auth.auth().currentUser?.uid
     
     // UI Outlets
     @IBOutlet weak var UserHomeAddress: UILabel!
@@ -31,6 +33,10 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         self.present(alert, animated: true, completion: nil)
+        
+        let deleteHomeDestination = ["userID": userID!, "Address": self.UserHomeAddress.text! as Any]
+        
+        self.deletingHomeDestination(deleteHomeDestination: deleteHomeDestination)
     }
     
     @IBOutlet weak var deleteWorkAddress: UIButton!
@@ -42,6 +48,10 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         self.present(alert, animated: true, completion: nil)
+        
+        let deleteWorkDestination = ["userID": userID!, "Address": self.UserWorkAddress.text! as Any]
+        
+        self.deletingWorkDestination(deleteWorkDestination: deleteWorkDestination)
     }
     
     @IBOutlet weak var deleteSchoolAddress: UIButton!
@@ -53,6 +63,10 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         self.present(alert, animated: true, completion: nil)
+        
+        let deleteSchoolDestination = ["userID": userID!, "Address": self.UserSchoolAddress.text! as Any]
+        
+        self.deletingSchoolDestination(deleteSchoolDestination: deleteSchoolDestination)
     }
     
     @IBOutlet weak var deleteCustomAddress: UIButton!
@@ -64,12 +78,15 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         self.present(alert, animated: true, completion: nil)
+        
+        let deleteCustomDestination = ["userID": userID!, "Address": self.UserOtherAddress.text! as Any]
+        
+        self.deletingCustomDestination(deleteCustomDestination: deleteCustomDestination)
     }
     
     
     //Array used for retrieving the saved routes according to userID
     var myRoutesArray = [SavedRoutes]()
-    let userID = Auth.auth().currentUser?.uid
     
     @IBOutlet weak var myRoutesTable: UITableView!
     @IBOutlet weak var noRoutesLabel: UILabel!
@@ -137,6 +154,84 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
             print("Segue id mismatch")
         }
     }
+    
+    func deletingHomeDestination(deleteHomeDestination: Dictionary<String, Any>) {
+        let deleteHomeURL = URL(string: "http://localhost:3000/freqDestinations/deleteHomeDestination")!
+        var request = URLRequest(url: deleteHomeURL)
+        let deleteHomeJSON = try! JSONSerialization.data(withJSONObject: deleteHomeDestination, options: .prettyPrinted)
+        let deleteHomeJSONInfo = NSString(data: deleteHomeJSON, encoding: String.Encoding.utf8.rawValue)! as String
+        request.httpBody = "deleteHomeDestination=\(deleteHomeJSONInfo)".data(using: String.Encoding.utf8)
+        request.httpMethod = "POST" // POST method.
+        
+        URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
+            if (error != nil){  // error handling responses.
+                print ("An error has occured.")
+            }
+            else{
+                print ("Success!")
+            }
+            
+            }.resume()
+    }
+    
+    func deletingWorkDestination(deleteWorkDestination: Dictionary<String, Any>) {
+        let deleteWorkURL = URL(string: "http://localhost:3000/freqDestinations/deleteWorkDestination")!
+        var request = URLRequest(url: deleteWorkURL)
+        let deleteWorkJSON = try! JSONSerialization.data(withJSONObject: deleteWorkDestination, options: .prettyPrinted)
+        let deleteWorkJSONInfo = NSString(data: deleteWorkJSON, encoding: String.Encoding.utf8.rawValue)! as String
+        request.httpBody = "deleteWorkDestination=\(deleteWorkJSONInfo)".data(using: String.Encoding.utf8)
+        request.httpMethod = "POST" // POST method.
+        
+        URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
+            if (error != nil){  // error handling responses.
+                print ("An error has occured.")
+            }
+            else{
+                print ("Success!")
+            }
+            
+            }.resume()
+    }
+    
+    func deletingSchoolDestination(deleteSchoolDestination: Dictionary<String, Any>) {
+        let deleteSchoolURL = URL(string: "http://localhost:3000/freqDestinations/deleteSchoolDestination")!
+        var request = URLRequest(url: deleteSchoolURL)
+        let deleteSchoolJSON = try! JSONSerialization.data(withJSONObject: deleteSchoolDestination, options: .prettyPrinted)
+        let deleteSchoolJSONInfo = NSString(data: deleteSchoolJSON, encoding: String.Encoding.utf8.rawValue)! as String
+        request.httpBody = "deleteSchoolDestination=\(deleteSchoolJSONInfo)".data(using: String.Encoding.utf8)
+        request.httpMethod = "POST" // POST method.
+        
+        URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
+            if (error != nil){  // error handling responses.
+                print ("An error has occured.")
+            }
+            else{
+                print ("Success!")
+            }
+            
+            }.resume()
+    }
+    
+    func deletingCustomDestination(deleteCustomDestination: Dictionary<String, Any>) {
+        let deleteCustomURL = URL(string: "http://localhost:3000/freqDestinations/deleteCustomDestination")!
+        var request = URLRequest(url: deleteCustomURL)
+        let deleteCustomJSON = try! JSONSerialization.data(withJSONObject: deleteCustomDestination, options: .prettyPrinted)
+        let deleteCustomJSONInfo = NSString(data: deleteCustomJSON, encoding: String.Encoding.utf8.rawValue)! as String
+        request.httpBody = "deleteCustomDestination=\(deleteCustomJSONInfo)".data(using: String.Encoding.utf8)
+        request.httpMethod = "POST" // POST method.
+        
+        URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
+            if (error != nil){  // error handling responses.
+                print ("An error has occured.")
+            }
+            else{
+                print ("Success!")
+            }
+            
+            }.resume()
+    }
+    
+    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: "MyRoutesTableViewCell")
