@@ -66,6 +66,18 @@ db.query(`select * from carpool.\"Routes\" where \"driverID\" = '${userID}' OR \
   });
 });
 
+//This post method will delete a single route from the database
+router.post('/cancelRoute', function(req, res, next) {
+var userID = req.query.userID;
+db.query(`DELETE from carpool.\"Routes\" where \"routeID\" = ${routeID}`) // delete from Routes table.)
+.then(function(data) {
+  res.status(200)
+    .json({
+      status: 'Success',
+      message: 'Route Deleted.'
+    });
+});
+
 
 
 //This GET request returns all routes a user is currently scheduled for.
