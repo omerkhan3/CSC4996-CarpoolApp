@@ -103,11 +103,6 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
             cell.textLabel?.text = myRoutesArray[indexPath.row].Name
             cell.textLabel?.textColor = color
             cell.detailTextLabel?.text = myRoutesArray[indexPath.row].endAddress
-//            let deleteButton = UIButton()
-//            deleteButton.setImage(#imageLiteral(resourceName: "chris-tabbar-4-9"), for: .normal)
-//            deleteButton.frame = CGRect(x: 240, y: 15, width: 20, height: 20)
-//            deleteButton.addTarget(self, action: Selector(("deleteButtonPressed")), for: .touchUpInside)
-//            cell.addSubview(deleteButton)
             
             return cell
         }
@@ -117,13 +112,6 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
             cell.textLabel?.text = destinationsArray[indexPath.row].Name
             cell.textLabel?.textColor = color
             cell.detailTextLabel?.text = destinationsArray[indexPath.row].Address
-//            let deleteButton = UIButton()
-//            deleteButton.setImage(#imageLiteral(resourceName: "chris-tabbar-4-9"), for: .normal)
-//            deleteButton.frame = CGRect(x: 240, y: 15, width: 20, height: 20)
-//            deleteButton.addTarget(self, action: Selector(("deleteButtonPressed")), for: .touchUpInside)
-//            cell.addSubview(deleteButton)
-            
-            let deletingDestination = ["userID": userID!, "Name": self.destinationsArray[indexPath.row].Name as Any, "Address": self.destinationsArray[indexPath.row].Address as Any]
             
             return cell
         }
@@ -131,11 +119,6 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
         return cell
 
     }
-    
-//    func deleteButtonPressed(sender: UIButton!){
-//       deleteDestination(deletingDestination: deletingDestination)
-//        print("Deleted")
-//    }
     
     // Set number of sections
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -160,6 +143,7 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             destinationsArray.remove(at: indexPath.row)
+            myRoutesArray.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
