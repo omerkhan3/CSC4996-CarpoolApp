@@ -18,7 +18,7 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
     
     //Array used for retrieving the saved routes according to userID
     var myRoutesArray = [SavedRoutes]()
-    let color = UIColor(red: 0, green: 150, blue: 255, alpha: 1.0)
+    let color = UIColor(red:0.00, green:0.59, blue:1.00, alpha:1.0)
     
     @IBOutlet weak var MyDestinationsTable: UITableView!
     @IBOutlet weak var noDestinationsLabel: UILabel!
