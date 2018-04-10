@@ -18,6 +18,7 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
     
     //Array used for retrieving the saved routes according to userID
     var myRoutesArray = [SavedRoutes]()
+    let color = UIColor(red: 0, green: 150, blue: 255, alpha: 1.0)
     
     @IBOutlet weak var MyDestinationsTable: UITableView!
     @IBOutlet weak var noDestinationsLabel: UILabel!
@@ -100,6 +101,7 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
             let cell = UITableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: "MyRoutesTableViewCell")
             
             cell.textLabel?.text = myRoutesArray[indexPath.row].Name
+            cell.textLabel?.textColor = color
             cell.detailTextLabel?.text = myRoutesArray[indexPath.row].endAddress
             let deleteButton = UIButton()
             deleteButton.setImage(#imageLiteral(resourceName: "chris-tabbar-4-9"), for: .normal)
@@ -113,6 +115,7 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
             let cell = UITableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: "MyDestinationsTableViewCell")
             
             cell.textLabel?.text = destinationsArray[indexPath.row].Name
+            cell.textLabel?.textColor = color
             cell.detailTextLabel?.text = destinationsArray[indexPath.row].Address
             let deleteButton = UIButton()
             deleteButton.setImage(#imageLiteral(resourceName: "chris-tabbar-4-9"), for: .normal)
