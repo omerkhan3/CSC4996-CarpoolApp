@@ -78,6 +78,7 @@ db.query(`DELETE from carpool.\"Routes\" where \"routeID\" = ${routeID}`) // del
       message: 'Route Deleted.'
     });
 });
+});
 
 
 
