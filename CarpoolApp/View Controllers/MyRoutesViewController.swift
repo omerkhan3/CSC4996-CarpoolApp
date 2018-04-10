@@ -122,7 +122,6 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
     
 
     func deleteButtonPressed(sender: UIButton!){
-        //deleteDestination(deletingDestination: deletingDestination)
         print("Deleted")
     }
 
@@ -147,12 +146,18 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            destinationsArray.remove(at: indexPath.row)
-            
-            myRoutesArray.remove(at: indexPath.row)
-            //cancelRoute(cancelInfo: cancelInfo)
-            tableView.deleteRows(at: [indexPath], with: .fade)
+        
+        if (tableView == MyDestinationsTable) {
+            if editingStyle == .delete {
+                destinationsArray.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .fade)
+            }
+        }
+        if (tableView == myRoutesTable) {
+            if editingStyle == .delete {
+                myRoutesArray.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .fade)
+            }
         }
     }
     
