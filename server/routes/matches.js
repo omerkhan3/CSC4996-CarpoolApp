@@ -95,22 +95,6 @@ if (requestJSON['requestType'] == 'riderRequest') // If the rider has requested 
                   console.log("Number of Days", numOfDays);
                   // Each individual day will have its own row in the DB, this will allow us to manage cancellations, etc.
                   for (var i = 0; i < numOfDays; i++) {
-                    if (requestJSON['Days'][i] == 'sunday')
-                    {
-                      db.query("select d::date from generate_series(current_date + cast(abs(extract(dow from current_date) - 7) as int), current_date + cast(abs(extract(dow from current_date) - 7) as int) + interval '1 month', '1 week'::interval) d") // create ride series over the next month for every Sunday.
-                        .then(function(result) {
-                          var resultDates = result.length;
-                          console.log("Results Length", resultDates);
-                          for (var y = 0; y < resultDates; y++)
-                          {
-                            db.query("INSERT INTO carpool.\"scheduledRoutes\"(\"Day\", \"matchID\", \"Status\", \"Date\") values ('sunday', $1, 'Scheduled', $2)", [matchID, result[y].d]) // insert each day as its own row in the DB.
-                            .catch(function (err) {
-                              console.log(err);
-                            });
-
-                          }
-                        })
-                    }
                       if (requestJSON['Days'][i] == 'monday')
                       {
                         createScheduledRoutes('monday', 1, matchID);
