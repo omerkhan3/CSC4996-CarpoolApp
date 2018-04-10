@@ -33,6 +33,7 @@
 		91F69AC62079955400EDF0FB /* SavedRoutes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F69AC52079955400EDF0FB /* SavedRoutes.swift */; };
 		C93E780F207BE3B500879495 /* TermsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93E780E207BE3B500879495 /* TermsViewController.swift */; };
 		C93E7811207BE53900879495 /* Introduction.pdf in Resources */ = {isa = PBXBuildFile; fileRef = C93E7810207BE53800879495 /* Introduction.pdf */; };
+		C93E7815207CA65D00879495 /* FAQSs.pdf in Resources */ = {isa = PBXBuildFile; fileRef = C93E7814207CA65D00879495 /* FAQSs.pdf */; };
 		C95643DB2079A8F90038A497 /* FrequentRoutesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95643DA2079A8F80038A497 /* FrequentRoutesViewController.swift */; };
 		C968E520203669E400B137B8 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C968E51F203669E400B137B8 /* RoundedButton.swift */; };
 		C97DACB720786DF700E76E02 /* FAQViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97DACB620786DF700E76E02 /* FAQViewController.swift */; };
@@ -93,6 +94,7 @@
 		9320C101773311FB910A13A6 /* Pods_CarpoolApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CarpoolApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C93E780E207BE3B500879495 /* TermsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsViewController.swift; sourceTree = "<group>"; };
 		C93E7810207BE53800879495 /* Introduction.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = Introduction.pdf; sourceTree = "<group>"; };
+		C93E7814207CA65D00879495 /* FAQSs.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = FAQSs.pdf; sourceTree = "<group>"; };
 		C95643DA2079A8F80038A497 /* FrequentRoutesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FrequentRoutesViewController.swift; sourceTree = "<group>"; };
 		C968E51F203669E400B137B8 /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		C97DACB620786DF700E76E02 /* FAQViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQViewController.swift; sourceTree = "<group>"; };
@@ -143,6 +145,7 @@
 		20509ACF204D979300B2EFA3 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				C93E7814207CA65D00879495 /* FAQSs.pdf */,
 				C93E7810207BE53800879495 /* Introduction.pdf */,
 				912C7DC3204D16BD00E222A4 /* Notifications.swift */,
 				20509AD0204D995400B2EFA3 /* Match.swift */,
@@ -362,6 +365,7 @@
 				20F47A0420277D4800D79394 /* GoogleService-Info.plist in Resources */,
 				206736E32026A929008714A7 /* LaunchScreen.storyboard in Resources */,
 				7824139D201D0F3A00F06D99 /* Main.storyboard in Resources */,
+				C93E7815207CA65D00879495 /* FAQSs.pdf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
