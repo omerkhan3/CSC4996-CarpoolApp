@@ -67,12 +67,11 @@ class FreqDestinations: UIViewController {
         actionTitle = "Success!"
         actionItem = "Your frequent destinations have been saved"
         
+        //Active UIAlertController to display error
         let alert = UIAlertController(title: actionTitle, message: actionItem, preferredStyle: UIAlertControllerStyle.alert)
-        let action = UIAlertAction(title: "OK", style: .default, handler: { action in
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
             self.performSegue(withIdentifier: "showMyRoutes", sender: self)
-        })
-        
-        alert.addAction(action)
+        }))
         self.present(alert, animated: true, completion: nil)
     }
     

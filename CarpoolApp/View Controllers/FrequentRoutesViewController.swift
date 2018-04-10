@@ -125,7 +125,7 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
             // Activate UIAlertController to display error
             let alert = UIAlertController(title: actionTitle, message: actionItem, preferredStyle: UIAlertControllerStyle.alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-                self.performSegue(withIdentifier: "showMyRoutes", sender: self)
+                self.performSegue(withIdentifier: "showRoutes", sender: self)
             }))
             self.present(alert, animated: true, completion: nil)
             
