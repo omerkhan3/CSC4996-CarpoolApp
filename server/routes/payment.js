@@ -58,9 +58,13 @@ else {
 
 router.get("/recentPayments", function (req, res, next) {
 var userID = req.query.userID;
-db.one(`select \"firstName\", \"Amount\", \"Time\" from (select \"firstName\", \"userID\" from carpool.\"Users\") a JOIN (select * from carpool.\"paymentHistory\" where \"riderID\" = '${userID}') b ON a.\"userID\" = b.\"driverID\"`)
+db.query(`select \"firstName\", \"Amount\", \"Time\" from (select \"firstName\", \"userID\" from carpool.\"Users\") a JOIN (select * from carpool.\"paymentHistory\" where \"riderID\" = '${userID}') b ON a.\"userID\" = b.\"driverID\"`)
 .then(function(data) {
+  console.log(data);
  res.send(data);
+  })
+  .catch(function(error){
+      console.log('Error fetching recent payments', error);
   });
 });
 
@@ -76,7 +80,7 @@ router.get("/client_token",function (req, res) {
       });
     })
     .catch(function(error){
-        console.log('Error fetching client token', error)
+        console.log('Error fetching client token', error);
     });
 
 });

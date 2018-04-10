@@ -77,12 +77,15 @@ class PaymentsViewController: UIViewController, UITableViewDelegate, UITableView
         dateFormatter.dateFormat = "MM-dd-YYYY"
         let dateString = dateFormatter.string(from: date)
         
-        cell.driverFirstName.text = "Driver:" + recentPaymentsArray[indexPath.row].driverID
+        cell.driverFirstName.text = "Driver:" + recentPaymentsArray[indexPath.row].firstName
         cell.Time?.text = dateString
-        cell.Amount.text = "$" + String(describing: Double(round(100 * (recentPaymentsDetail?.Amount)!)/100))
+        cell.Amount.text = "$" + String(describing: Double(round(100 * recentPaymentsArray[indexPath.row].Amount)/100))
         
         return cell
     }
+    
+    
+ 
     
     // Set number of sections
     func numberOfSections(in tableView: UITableView) -> Int {

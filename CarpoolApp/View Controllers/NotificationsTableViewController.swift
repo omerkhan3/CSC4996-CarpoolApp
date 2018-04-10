@@ -95,7 +95,7 @@ class NotificationsTableViewController: UITableViewController {
     func getNotifications(completed: @escaping () -> ()) {
         // get userID
         let userID = Auth.auth().currentUser?.uid
-        var viewNotificationComponents = URLComponents(string: "http://141.217.48.15:3000/notifications")!
+        var viewNotificationComponents = URLComponents(string: "http://localhost:3000/notifications")!
         viewNotificationComponents.queryItems = [URLQueryItem(name: "userID", value: userID)]
         var request = URLRequest(url: viewNotificationComponents.url!)  // Pass Parameter in URL
         print (viewNotificationComponents.url!)

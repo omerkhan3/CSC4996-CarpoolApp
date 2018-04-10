@@ -15,6 +15,7 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
     // Class Variables
     var destinationsArray = [FrequentDestination]()
     let userID = Auth.auth().currentUser?.uid
+    let routeID = int()
     
     //Array used for retrieving the saved routes according to userID
     var myRoutesArray = [SavedRoutes]()
@@ -156,6 +157,7 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
         if (tableView == myRoutesTable) {
             if editingStyle == .delete {
                 myRoutesArray.remove(at: indexPath.row)
+                //destinationsArray[indexPath.row]
                 tableView.deleteRows(at: [indexPath], with: .fade)
             }
         }
