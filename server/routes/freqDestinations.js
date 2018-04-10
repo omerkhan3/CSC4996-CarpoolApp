@@ -14,78 +14,6 @@ router.get('/getDestination', function(req, res, next) {
   });
 });
 
-router.post('/deleteHomeDestination', function(req, res, next) {
-	var deleteHomedestination = req.body.deleteHomeDestination;
-	var deleteHomeJSON = JSON.parse(deleteHomeDestination);
-	console.log(deleteHomeJSON);
-
-	var userID = deleteHomeJSON['userID'];
-	var address = deleteHomeJSON['Address'];
-	db.query(`DELETE * from carpool.\"frequentDestinations\"`)
-	.then(function () {
-          console.log("Home Destination Deleted.");
-        });
-        res.status(200)
-          .json({
-            status: 'Success',
-            message: 'Destination Deleted.'
-          });
-});
-
-router.post('/deleteWorkDestination', function(req, res, next) {
-	var deleteWorkdestination = req.body.deleteWorkDestination;
-	var deleteWorkJSON = JSON.parse(deleteWorkDestination);
-	console.log(deleteWorkJSON);
-
-	var userID = deleteWorkJSON['userID'];
-	var address = deleteWorkJSON['Address'];
-	db.query(`DELETE * from carpool.\"frequentDestinations\"`)
-	.then(function () {
-          console.log("Work Destination Deleted.");
-        });
-        res.status(200)
-          .json({
-            status: 'Success',
-            message: 'Destination Deleted.'
-          });
-});
-
-router.post('/deleteSchoolDestination', function(req, res, next) {
-	var deleteSchooldestination = req.body.deleteSchoolDestination;
-	var deleteSchoolJSON = JSON.parse(deleteSchoolDestination);
-	console.log(deleteSchoolJSON);
-
-	var userID = deleteSchoolJSON['userID'];
-	var address = deleteSchoolJSON['Address'];
-	db.query(`DELETE * from carpool.\"frequentDestinations\"`)
-	.then(function () {
-          console.log("School Destination Deleted.");
-        });
-        res.status(200)
-          .json({
-            status: 'Success',
-            message: 'Destination Deleted.'
-          });
-});
-
-router.post('/deleteCustomDestination', function(req, res, next) {
-	var deleteCustomdestination = req.body.deleteCustomkDestination;
-	var deleteCustomJSON = JSON.parse(deleteCustomDestination);
-	console.log(deleteCustomJSON);
-
-	var userID = deleteCustomJSON['userID'];
-	var address = deleteCustomJSON['Address'];
-	db.query(`DELETE * from carpool.\"frequentDestinations\"`)
-	.then(function () {
-          console.log("Custom Destination Deleted.");
-        });
-        res.status(200)
-          .json({
-            status: 'Success',
-            message: 'Rider route stored.'
-          });
-});
-
 
 router.post('/saveDestination', function(req, res, next) {
 	var destinationInfo = req.body.destinationInfo;
@@ -110,6 +38,31 @@ router.post('/saveDestination', function(req, res, next) {
 		message: 'Destinations Stored.'
 	});
 });
+
+router.post('/deleteDestination', function(req, res, next) {
+	var deletingDestination = req.body.deletingDestination;
+	var deleteDestinationJSON = JSON.parse(deletingDestination);
+	console.log(deleteDestinationJSON);
+	var destinationsLengthJSON = deleteDestinationJSON.length;
+	console.log("Number of Destinations JSON", destinationsLengthJSON);
+
+	for (var l = 0; l < destinationsLengthJSON; l++ )
+	{
+		var name =  deleteDestinationJSON[l]['Name'];
+		var userID = deleteDestinationJSON[l]['userID'];
+		var address = deleteDestinationJSON[l]['Address'];
+    console.log("Element", l, name , deleteDestinationJSON[l]['Address'] );
+		db.none(`DELETE from carpool.\"frequentDestinations\"(\"userID\", \"Name\", \"Address\") VALUES ('${userID}', '${name}', '${address}') ON CONFLICT (\"userID\", \"Name\") DO UPDATE SET \"Name\" = '${name}', \"Address\" = '${address}'`)
+		.catch(function(err) {
+			console.log(err);
+		})
+	}
+	res.status(200).json({
+		status: 'Success',
+		message: 'Destinations Stored.'
+	});
+});
+
 
 
 module.exports = router;
