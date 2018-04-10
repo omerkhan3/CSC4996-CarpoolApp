@@ -26,7 +26,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
     @IBOutlet weak var UserLastNameEdit: UITextField!
     @IBOutlet weak var UserPhoneNumberEdit: UITextField!
     @IBOutlet weak var UserBioEdit: UITextView!
-    
+    let dist = 0 
     var databaseRef: DatabaseReference!
     var storageRef: StorageReference!
     
@@ -333,9 +333,9 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
             }.resume()
     }
     
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        //moveScrollView(textField, distance: dist, up: true)
-    }
+//    func textFieldDidBeginEditing(_ textField: UITextField) {
+//        //moveScrollView(textField, distance: dist, up: true)
+//    }
     
     //Phone number formatting
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
@@ -411,7 +411,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
     }
     
     // End editing within text field
-    /*func textFieldDidEndEditing(_ textField: UITextField) {
+    func textFieldDidEndEditing(_ textField: UITextField) {
         
         moveScrollView(textField, distance: dist, up: false)
     }
@@ -429,5 +429,5 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         
         let movement: CGFloat = CGFloat(up ? distance: -distance)
         self.view.frame = self.view.frame.offsetBy(dx: 0, dy: movement)
-    }*/
+    }
 }
