@@ -130,7 +130,7 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func deleteButtonPressed(sender: UIButton!){
-        deleteDestination(deletingDestination: deletingDestination)
+        //deleteDestination(deletingDestination: deletingDestination)
         print("Deleted")
     }
     
