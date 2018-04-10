@@ -120,6 +120,12 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
 
     }
     
+
+    func deleteButtonPressed(sender: UIButton!){
+        //deleteDestination(deletingDestination: deletingDestination)
+        print("Deleted")
+    }
+
     // Set number of sections
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1

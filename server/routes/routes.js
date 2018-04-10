@@ -7,6 +7,7 @@ const apnModule = require('../routes/apn'); // Allows us to connect to Apple Pus
 const apn = apnModule.apn;
 const apnProvider = apnModule.apnProvider;
 
+require('datejs')
 
 var distance = require('google-distance-matrix');
 
@@ -306,16 +307,30 @@ router.post('/', function(req, res, next) {
                              .then(function(riderDropOffTime){
                           db.one(`select ${riderPickup2} as \"riderPickup2Time\"`)
                              .then(function(riderPickup2Time){
+                          var riderStartInterval1 = Date.parse(obj['arrivalTime1']);
+                          var riderStartInterval2 = Date.parse(obj['arrivalTime2']);
+                          var riderEndInterval1 = Date.parse(obj['departureTime1']);
+                          var riderEndInterval2 = Date.parse(obj['departureTime2']);
+                          var riderArrivalTime = Date.parse(riderDropOffTime.riderDropOffTime);
+                          var riderDepartureTime = Date.parse(riderPickup2Time.riderPickup2Time);
 
-                       db.query(`INSERT INTO carpool.\"Matches\"(\"riderID\", \"driverID\",  \"driverRouteID\", \"Status\", \"riderRouteID\", \"driverLeaveTime\", \"riderPickupTime\", \"riderDropOffTime\", \"riderPickupTime2\", \"rideCost\", \"matchedDays\") values('${obj['riderID']}', '${userID}', ${driverRouteID}, '${"Awaiting rider request."}', ${obj['routeID']} , '${driverLeave.driverLeaveTime}', '${riderPickupTime.riderPickupTime}', '${riderDropOffTime.riderDropOffTime}', '${riderPickup2Time.riderPickup2Time}', ${totalCost}, $1)`, [matchedDays]);
-                       // insert rider and driver details into Matches table.
+                          if (riderArrivalTime.between(riderStartInterval1, riderStartInterval2) == true && riderDepartureTime.between(riderEndInterval1, riderEndInterval2) ==  true){
+                            db.query(`INSERT INTO carpool.\"Matches\"(\"riderID\", \"driverID\",  \"driverRouteID\", \"Status\", \"riderRouteID\", \"driverLeaveTime\", \"riderPickupTime\", \"riderDropOffTime\", \"riderPickupTime2\", \"rideCost\", \"matchedDays\") values('${obj['riderID']}', '${userID}', ${driverRouteID}, '${"Awaiting rider request."}', ${obj['routeID']} , '${driverLeave.driverLeaveTime}', '${riderPickupTime.riderPickupTime}', '${riderDropOffTime.riderDropOffTime}', '${riderPickup2Time.riderPickup2Time}', ${totalCost}, $1)`, [matchedDays]);
+                            // insert rider and driver details into Matches table.
 
-                       db.any(`INSERT INTO carpool.\"notificationLog\"(\"userID\", \"notificationType\", \"Date\", \"Read\") values ('${userID}', 'Match', 'now', 'false')`); // Insert a notification into table when there is a match.
-                        db.any(`INSERT INTO carpool.\"notificationLog\"(\"userID\", \"notificationType\", \"Date\", \"Read\") values ('${obj['riderID']}', 'Match', 'now', 'false')`);
-                       db.one(`SELECT \"deviceToken\" from carpool.\"Users\" where \"userID\" = '${obj['riderID']}'`) // we need device token to target specific users with push notifications.
-                       .then(function(result) {
-                         sendPushNotification("You have a new match!", result.deviceToken);
-                       })
+                            db.any(`INSERT INTO carpool.\"notificationLog\"(\"userID\", \"notificationType\", \"Date\", \"Read\") values ('${userID}', 'Match', 'now', 'false')`); // Insert a notification into table when there is a match.
+                             db.any(`INSERT INTO carpool.\"notificationLog\"(\"userID\", \"notificationType\", \"Date\", \"Read\") values ('${obj['riderID']}', 'Match', 'now', 'false')`);
+                            db.one(`SELECT \"deviceToken\" from carpool.\"Users\" where \"userID\" = '${obj['riderID']}'`) // we need device token to target specific users with push notifications.
+                            .then(function(result) {
+                              sendPushNotification("You have a new match!", result.deviceToken);
+                            })
+                          }
+
+                          else{
+                            console.log("Calculated route times do not comply with rider intervals.");
+                          }
+
+
 
                           });
                        });
@@ -507,7 +522,22 @@ router.post('/', function(req, res, next) {
                                    db.one(`select ${riderPickup2} as \"riderPickup2Time\"`)
                                       .then(function(riderPickup2Time){
 
-                                db.query(`INSERT INTO carpool.\"Matches\"(\"riderID\", \"driverID\",  \"driverRouteID\", \"Status\", \"riderRouteID\", \"driverLeaveTime\", \"riderPickupTime\", \"riderDropOffTime\", \"riderPickupTime2\", \"rideCost\", \"matchedDays\") values('${userID}', '${obj['driverID']}', ${obj['routeID']}, '${"Awaiting rider request."}', ${riderRouteID}, '${driverLeave.driverLeaveTime}', '${riderPickupTime.riderPickupTime}', '${riderDropOffTime.riderDropOffTime}', '${riderPickup2Time.riderPickup2Time}', ${totalCost}, $1)`, [matchedDays]); // insert rider and driver details into Matches table.
+                                        var riderStartInterval1 = Date.parse(routeJSON['arrivalTime1']);
+                                        var riderStartInterval2 = Date.parse(routeJSON['arrivalTime2']);
+                                        var riderEndInterval1 = Date.parse(routeJSON['departureTime1']);
+                                        var riderEndInterval2 = Date.parse(routeJSON['departureTime2']);
+                                        var riderArrivalTime = Date.parse(riderDropOffTime.riderDropOffTime);
+                                        var riderDepartureTime = Date.parse(riderPickup2Time.riderPickup2Time);
+
+                                        if (riderArrivalTime.between(riderStartInterval1, riderStartInterval2) == true && riderDepartureTime.between(riderEndInterval1, riderEndInterval2) ==  true){
+                                          db.query(`INSERT INTO carpool.\"Matches\"(\"riderID\", \"driverID\",  \"driverRouteID\", \"Status\", \"riderRouteID\", \"driverLeaveTime\", \"riderPickupTime\", \"riderDropOffTime\", \"riderPickupTime2\", \"rideCost\", \"matchedDays\") values('${userID}', '${obj['driverID']}', ${obj['routeID']}, '${"Awaiting rider request."}', ${riderRouteID}, '${driverLeave.driverLeaveTime}', '${riderPickupTime.riderPickupTime}', '${riderDropOffTime.riderDropOffTime}', '${riderPickup2Time.riderPickup2Time}', ${totalCost}, $1)`, [matchedDays]); // insert rider and driver details into Matches table.
+                                        }
+
+                                        else{
+                                          console.log("Calculated route times do not comply with rider intervals.");
+                                        }
+
+
                                 });
                                 });
                               });
