@@ -158,6 +158,13 @@ router.post('/', function(req, res, next) {
                continue; // traverse through result.
              else{
              var obj = result[key];
+             var matchedDays = routeJSON['Days'].filter(function(n) {
+                 return obj['Days'].indexOf(n) > -1;
+                 });
+             console.log(matchedDays);
+             if (matchedDays === undefined || matchedDays.length == 0){
+               continue;
+             }
              var leg1Duration, leg2Duration, leg3Duration, leg1Distance, leg2Distance, leg3Distance, driverArrivalTime2, leg2_startTime, leg1_startTime;
              getThirdLeg(); // We use separate functions to calculate each separate leg of the route.
 
@@ -265,6 +272,7 @@ router.post('/', function(req, res, next) {
                         var riderPickup = `${driverLeaveTime} + interval '${leg1Duration.value} seconds'`;
                         var riderDropOff = `${riderPickup} +  interval '${leg2Duration.value} seconds'`;
                         var riderPickup2 = `time '${routeJSON['departureTime1']}' + interval '${leg3Duration.value} seconds'`;
+
                         insertMatches(driverLeaveTime, riderPickup, riderDropOff, riderPickup2, totalCost);
 
                      } else {
@@ -286,10 +294,7 @@ router.post('/', function(req, res, next) {
                              .then(function(riderDropOffTime){
                           db.one(`select ${riderPickup2} as \"riderPickup2Time\"`)
                              .then(function(riderPickup2Time){
-                               var matchedDays = routeJSON['Days'].filter(function(n) {
-                                   return obj['Days'].indexOf(n) > -1;
-                                   });
-                               console.log(matchedDays);
+
                        db.query(`INSERT INTO carpool.\"Matches\"(\"riderID\", \"driverID\",  \"driverRouteID\", \"Status\", \"riderRouteID\", \"driverLeaveTime\", \"riderPickupTime\", \"riderDropOffTime\", \"riderPickupTime2\", \"rideCost\", \"matchedDays\") values('${obj['riderID']}', '${userID}', ${driverRouteID}, '${"Awaiting rider request."}', ${obj['routeID']} , '${driverLeave.driverLeaveTime}', '${riderPickupTime.riderPickupTime}', '${riderDropOffTime.riderDropOffTime}', '${riderPickup2Time.riderPickup2Time}', ${totalCost}, $1)`, [matchedDays]);
                        // insert rider and driver details into Matches table.
 
@@ -350,6 +355,14 @@ router.post('/', function(req, res, next) {
                 continue; // traverse through result.
               else{
               var obj = result[key];
+              var matchedDays = routeJSON['Days'].filter(function(n) {
+                  return obj['Days'].indexOf(n) > -1;
+                  });
+              console.log(matchedDays);
+              if (matchedDays === undefined || matchedDays.length == 0){
+                continue;
+              }
+
               var leg1Duration, leg2Duration, leg3Duration, leg1Distance, leg2Distance, leg3Distance, driverArrivalTime2, leg2_startTime, leg1_startTime;
               //getFirstLeg(); // We use separate functions to calculate each separate leg of the route.
 
@@ -481,10 +494,7 @@ router.post('/', function(req, res, next) {
                                       .then(function(riderDropOffTime){
                                    db.one(`select ${riderPickup2} as \"riderPickup2Time\"`)
                                       .then(function(riderPickup2Time){
-                                        var matchedDays = routeJSON['Days'].filter(function(n) {
-                                            return obj['Days'].indexOf(n) > -1;
-                                            });
-                                        console.log(matchedDays);
+
                                 db.query(`INSERT INTO carpool.\"Matches\"(\"riderID\", \"driverID\",  \"driverRouteID\", \"Status\", \"riderRouteID\", \"driverLeaveTime\", \"riderPickupTime\", \"riderDropOffTime\", \"riderPickupTime2\", \"rideCost\", \"matchedDays\") values('${userID}', '${obj['driverID']}', ${obj['routeID']}, '${"Awaiting rider request."}', ${riderRouteID}, '${driverLeave.driverLeaveTime}', '${riderPickupTime.riderPickupTime}', '${riderDropOffTime.riderDropOffTime}', '${riderPickup2Time.riderPickup2Time}', ${totalCost}, $1)`, [matchedDays]); // insert rider and driver details into Matches table.
                                 });
                                 });
