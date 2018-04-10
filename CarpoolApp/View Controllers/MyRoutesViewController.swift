@@ -123,14 +123,18 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
             deleteButton.addTarget(self, action: Selector(("deleteButtonPressed")), for: .touchUpInside)
             cell.addSubview(deleteButton)
             
+            let deletingDestination = ["userID": userID!, "Name": self.destinationsArray[indexPath.row].Name as Any, "Address": self.destinationsArray[indexPath.row].Address as Any]
+            
             return cell
         }
         
         return cell
 
     }
+    
     func deleteButtonPressed(sender: UIButton!){
-        print("Delete")
+        deleteDestination(deletingDestination: deletingDestination)
+        print("Deleted")
     }
     
     // Set number of sections
@@ -151,6 +155,13 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
         }
         
         return count
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            destinationsArray.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
     }
     
     // Query all saved routes from database and, decode and store into an array
@@ -208,6 +219,26 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
                     print(jsnERR)
                 }
             }
+            }.resume()
+    }
+    
+    func deleteDestination(deletingDestination: Dictionary<String, Any>)
+    {
+        let deleteDestinationURL = URL(string: "http://localhost:3000/freqDestinations/deleteDestination")!
+        var request = URLRequest(url: deleteDestinationURL)
+        let deleteDestinationJSON = try! JSONSerialization.data(withJSONObject: deletingDestination, options: .prettyPrinted)
+        let deletingDestinationJSONInfo = NSString(data: deleteDestinationJSON, encoding: String.Encoding.utf8.rawValue)! as String
+        request.httpBody = "deletingDestination=\(deletingDestinationJSONInfo)".data(using: String.Encoding.utf8)
+        request.httpMethod = "POST" // POST method.
+        
+        URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
+            if (error != nil){  // error handling responses.
+                print ("An error has occured.")
+            }
+            else{
+                print ("Success!")
+            }
+            
             }.resume()
     }
 }
