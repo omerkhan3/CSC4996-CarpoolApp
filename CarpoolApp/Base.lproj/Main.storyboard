@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="GxV-tU-TEk">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="GxV-tU-TEk">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -2229,7 +2229,7 @@
         <!--Help-->
         <scene sceneID="VBm-uF-GTc">
             <objects>
-                <viewController storyboardIdentifier="Help View Controller" title="Help" id="LeS-2e-37d" customClass="HelpViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Help View Controller" title="Help" id="LeS-2e-37d" customClass="HelpViewController" customModule="CarpoolApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ZUE-Tr-EYq" customClass="UIViewX" customModule="CarpoolApp" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2346,6 +2346,14 @@
                                             <constraint firstItem="II1-8C-7rI" firstAttribute="centerX" secondItem="kNm-Sl-PYG" secondAttribute="centerX" id="ym9-qU-RaV"/>
                                         </constraints>
                                     </view>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8ua-48-Ujx">
+                                        <rect key="frame" x="164" y="628" width="46" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Button"/>
+                                        <connections>
+                                            <action selector="sendMail:" destination="LeS-2e-37d" eventType="touchUpInside" id="XCX-QF-QFf"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="812" id="3oB-OC-FCj"/>
@@ -2373,6 +2381,10 @@
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </view>
+                    <connections>
+                        <outlet property="messageField" destination="qDl-9J-Bz7" id="yfT-yd-Vb7"/>
+                        <outlet property="subjectField" destination="kNm-Sl-PYG" id="Gf3-FK-ws6"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="K5O-yg-IXk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -3736,9 +3748,10 @@
         <image name="user" width="20" height="20"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="CPb-Np-Bm2"/>
+        <segue reference="E0f-q0-Mm5"/>
+        <segue reference="QTM-Ti-a0B"/>
         <segue reference="0bk-jd-Utd"/>
-        <segue reference="asS-Az-c3C"/>
+        <segue reference="uGi-aO-aia"/>
         <segue reference="UO1-Vm-wHx"/>
         <segue reference="M74-mj-rb8"/>
         <segue reference="cOY-IK-lfO"/>

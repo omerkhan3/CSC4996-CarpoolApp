@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import MessageUI
 
-class HelpViewController: UIViewController,UITextFieldDelegate {
+class HelpViewController: UIViewController,UITextFieldDelegate, MFMailComposeViewControllerDelegate {
     
     let dist = -140
 
@@ -20,11 +21,6 @@ class HelpViewController: UIViewController,UITextFieldDelegate {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
@@ -46,14 +42,43 @@ class HelpViewController: UIViewController,UITextFieldDelegate {
         let movement: CGFloat = CGFloat(up ? distance: -distance)
         self.view.frame = self.view.frame.offsetBy(dx: 0, dy: movement)
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+ 
+    
+    @IBAction func sendMail(_ sender: Any) {
+        
+        let mailComposeViewController = configureMailController()
+        if MFMailComposeViewController.canSendMail() {
+            self.present(mailComposeViewController, animated: true, completion: nil)
+        } else {
+            showMailError()
+        }
     }
-    */
-
+    
+    
+    
+    func configureMailController() -> MFMailComposeViewController {
+        let mailComposerVC = MFMailComposeViewController()
+        mailComposerVC.mailComposeDelegate = self
+        
+        
+        mailComposerVC.setToRecipients(["afmatt47@hotmail.com"])
+        mailComposerVC.setSubject("Carpool App")
+        mailComposerVC.setMessageBody("this is a test ", isHTML: false)
+        
+        return mailComposerVC
+    }
+    
+    func showMailError() {
+        let sendMailErrorAlert = UIAlertController(title: "Could not send email", message: "Your device could not send email", preferredStyle: .alert)
+        let dismiss = UIAlertAction(title: "Ok", style: .default, handler: nil)
+        sendMailErrorAlert.addAction(dismiss)
+        self.present(sendMailErrorAlert, animated: true, completion: nil)
+    }
+    
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true, completion: nil)
+    }
+    
 }
+
+
