@@ -91,7 +91,7 @@ class MatchesViewController: UIViewController, UITableViewDelegate, UITableViewD
         func getMatches(completed: @escaping () -> ()) {
             // get userID
             let userID = Auth.auth().currentUser?.uid
-            var viewMatchComponents = URLComponents(string: "http://141.217.48.15:3000/matches")!
+            var viewMatchComponents = URLComponents(string: "http://localhost:3000/matches")!
             viewMatchComponents.queryItems = [URLQueryItem(name: "userID", value: userID)]
             var request = URLRequest(url: viewMatchComponents.url!)  // Pass Parameter in URL
             print (viewMatchComponents.url!)

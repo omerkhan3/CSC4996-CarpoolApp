@@ -211,6 +211,7 @@ class RideDetailViewController: UIViewController {
     
     func setView(){
         // If user is a driver populate rider name
+        if scheduledRideDetail?.routeType == "toDestination"{
         if userID == scheduledRideDetail?.driverID {
             self.firstName.text = scheduledRideDetail?.riderFirstName
             self.pickupLbl.text = "Rider Pickup Location"
@@ -225,8 +226,27 @@ class RideDetailViewController: UIViewController {
         self.pickupLocation.text = scheduledRideDetail?.riderStartAddress
         self.pickupTime.text = scheduledRideDetail?.riderPickupTime
         self.destination.text = scheduledRideDetail?.riderEndAddress
-        self.departureTime.text =  scheduledRideDetail?.riderPickupTime2
+        self.departureTime.text =  scheduledRideDetail?.driverLeaveTime
         self.cost.text = "$" + String(describing: Double(round(100 * scheduledRideDetail!.rideCost)/100))
+        }
+        else{
+            if userID == scheduledRideDetail?.driverID {
+                self.firstName.text = scheduledRideDetail?.riderFirstName
+                self.pickupLbl.text = "Rider Pickup Location"
+                self.destinationLbl.text = "Rider Destination"
+                
+            } else {
+                // Populate driver name
+                self.firstName.text = scheduledRideDetail?.driverFirstName
+                startRideBtn.isHidden = true
+            }
+            // Remaining information
+            self.pickupLocation.text = scheduledRideDetail?.riderEndAddress
+            self.pickupTime.text = scheduledRideDetail?.riderPickupTime2
+            self.destination.text = scheduledRideDetail?.riderStartAddress
+            self.departureTime.text =  scheduledRideDetail?.driverDepartureTime1
+            self.cost.text = "$" + String(describing: Double(round(100 * scheduledRideDetail!.rideCost)/100))
+        }
     }
     
     // Send data to map overview

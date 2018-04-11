@@ -33,13 +33,14 @@ function createScheduledRoutes(day, dayNum, matchID)
         var resultDates = result.length;
         for (var y = 0; y < resultDates; y++)
         {
-          db.query(`INSERT INTO carpool.\"scheduledRoutes\"(\"Day\", \"matchID\", \"Status\", \"Date\") values ('${day}', ${matchID}, 'Scheduled', $1)`, [result[y].d])
-          .catch(function (err) {
-            console.log(err);
-          });
-
+          db.query(`INSERT INTO carpool.\"scheduledRoutes\"(\"Day\", \"matchID\", \"Status\", \"Date\", \"routeType\") values ('${day}', ${matchID}, 'Scheduled', $1, 'toDestination')`, [result[y].d]);
+          db.query(`INSERT INTO carpool.\"scheduledRoutes\"(\"Day\", \"matchID\", \"Status\", \"Date\", \"routeType\") values ('${day}', ${matchID}, 'Scheduled', $1, 'fromDestination')`, [result[y].d]);
         }
       })
+      .catch(function (err) {
+        console.log(err);
+      });
+
 }
 
 // This POST request handles the rider/driver approval process during matching.

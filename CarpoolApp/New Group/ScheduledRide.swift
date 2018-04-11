@@ -40,6 +40,8 @@ struct ScheduledRide: Decodable {
     let driverRouteName: String
     let riderRouteName: String
     let rideCost: Double
+    let routeType: String
+    let driverDepartureTime1: String
 
     // JSON constructor
     init(json: [String: Any]) {
@@ -73,6 +75,8 @@ struct ScheduledRide: Decodable {
         riderRouteName = json["riderRouteName"] as? String ?? "<rider route name>"
         driverRouteName = json["driverRouteName"] as? String ?? "<driver route name>"
         rideCost = json["rideCost"] as? Double ?? 0.0
+        routeType = json["routeType"] as? String ?? "<route type>"
+        driverDepartureTime1 = json["driverDepartureTime1"] as? String ?? ""
     }
     
     init() {
@@ -106,5 +110,7 @@ struct ScheduledRide: Decodable {
         riderRouteName = "<rider route name"
         driverRouteName = "<driver route name>"
         rideCost = 0.0
+        routeType = ""
+        driverDepartureTime1 = ""
     }
 }

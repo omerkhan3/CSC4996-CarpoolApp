@@ -81,7 +81,8 @@ class EmbeddedNavViewController: UIViewController, NavigationViewControllerDeleg
     }
     
     func calculateDirections() {
-        
+        if (route?.routeType == "toDestination")
+            {
         //if userID == route?.driverID {
         let origin = Waypoint(coordinate: CLLocationCoordinate2DMake((route?.driverStartPointLat)!, (route?.driverStartPointLong)!))
         let destination = Waypoint(coordinate: CLLocationCoordinate2DMake((route?.driverEndPointLat)!, (route?.driverEndPointLong)!))
@@ -97,6 +98,24 @@ class EmbeddedNavViewController: UIViewController, NavigationViewControllerDeleg
             }
             //self.route = route
             self.startEmbeddedNavigation(route2: route2)
+        }
+        }
+            else{
+            let origin = Waypoint(coordinate: CLLocationCoordinate2DMake((route?.driverEndPointLat)!, (route?.driverEndPointLong)!))
+            let destination = Waypoint(coordinate: CLLocationCoordinate2DMake((route?.driverStartPointLat)!, (route?.driverStartPointLong)!))
+            let riderPickup = Waypoint(coordinate: CLLocationCoordinate2DMake((route?.riderEndPointLat)!, (route?.riderEndPointLong)!))
+            let riderDropoff = Waypoint(coordinate: CLLocationCoordinate2DMake((route?.riderStartPointLat)!, (route?.riderStartPointLong)!))
+            
+            //}
+            let options = NavigationRouteOptions(waypoints: [origin, riderPickup, riderDropoff, destination], profileIdentifier: . automobile)
+            _ = Directions.shared.calculate(options) { (waypoints, routes, error) in
+                guard let route2 = routes?.first, error == nil else {
+                    print(error!.localizedDescription)
+                    return
+                }
+                //self.route = route
+                self.startEmbeddedNavigation(route2: route2)
+            }
         }
     }
     
