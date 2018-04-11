@@ -70,12 +70,15 @@ db.query(`select * from carpool.\"Routes\" where \"driverID\" = '${userID}' OR \
 //This post method will delete a single route from the database
 router.post('/cancelRoute', function(req, res, next) {
   var cancelrouteInfo = req.body.cancelrouteInfo;
-	var cancelrouteJSON = JSON.parse(cancelrouteInfo);
-	console.log(cancelrouteJSON);
-		db.query(`DELETE from carpool.\"Routes\" where \"routeID\" = '${routeID}'`)
-    .then(function(data) {
-      console.log(data);
-     res.send(data);
+	var cancelRouteJSON = JSON.parse(cancelrouteInfo);
+	console.log(cancelRouteJSON);
+		db.query(`DELETE from carpool.\"Routes\" where \"routeID\" = ${cancelRouteJSON['routeID']}`)
+    .then(function() {
+      res.status(200)
+        .json({
+          status: 'Success',
+          message: 'Route deleted'
+        });
       })
       .catch(function(error){
           console.log('Error deleting routeID', error);
