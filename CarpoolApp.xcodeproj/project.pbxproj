@@ -149,7 +149,6 @@
 				C93E7810207BE53800879495 /* Introduction.pdf */,
 				912C7DC3204D16BD00E222A4 /* Notifications.swift */,
 				20509AD0204D995400B2EFA3 /* Match.swift */,
-				C9A2AD4020689766000B8674 /* EmbeddedNavViewController.swift */,
 				C9DE0B29203F5C6100554E9C /* LocationSearchTable.swift */,
 				20509AD8204E2C5600B2EFA3 /* Profile.swift */,
 				2054BEDD2066B83600B62FF7 /* ScheduledRide.swift */,
@@ -213,6 +212,7 @@
 		C98966FC203A183500521450 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				C9A2AD4020689766000B8674 /* EmbeddedNavViewController.swift */,
 				205A4B42202569DC005AE87C /* LaunchViewController.swift */,
 				D10EFE992022979700C962E1 /* RegistrationViewController.swift */,
 				D10EFE9B2022983600C962E1 /* LoginViewController.swift */,
