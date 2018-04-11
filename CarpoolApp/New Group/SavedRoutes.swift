@@ -11,17 +11,17 @@ import Foundation
 struct SavedRoutes: Decodable {
     let Name: String
     let endAddress: String
-    //let routeID : String
+    let routeID : Int
     
     init(json: [String: Any]) {
         Name = json["Name"] as? String ?? ""
         endAddress = json["endAddress"] as? String ?? ""
-        //routeID = json["routeId"] as? String ?? ""
+        routeID = json["routeID"] as? Int ?? 0
     }
     
     init() {
         Name =  ""
         endAddress = ""
-        //routeID = ""
+        routeID = 0
     }
 }
