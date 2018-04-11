@@ -55,6 +55,66 @@ else {
 
 });
 
+router.post("/creatingPaymentMethod", function (req, res) {
+  var paymentInfo = req.body.paymentInfo;
+  var paymentJSON = JSON.parse(paymentInfo);
+  var userID = paymentJSON['userID'];
+  var paymentNonce = paymentJSON['paymentMethodNonce'];
+   db.one(`select \"Users\".\"firstName\", \"Users\".\"lastName\" from carpool.\"Users\" where \"Users\".\"userID\" ='${userID}'`) // Read query to get profile information on load.
+  	.then(function(data) {
+    console.log(paymentNonce);
+  	gateway.paymentMethod.create ({
+  		customerID: data.userID,
+  		paymentMethodNonce: paymentNonce,
+  		token: data.theToken
+  		}, function (err, result) {
+  		if (result.paymentMethod)
+  		{
+  			console.log (result.success);
+  			db.query(`UPDATE carpool.\"Users\" SET \"theToken\" = '${result.paymentMethod.token}' where \"userID\" = '${userID}'`)
+			.then(function (data) {
+  			console.log ("Successfully stored token.");
+			})
+		}
+		else {
+  			console.log("Error.");
+		}
+	});
+})
+  .catch(function(error){
+      console.log('Error storing payment method:', error)
+  });
+  res.status(200)
+    .json({
+      status: 'Success',
+      message: 'Payment method created.'
+    });
+});
+
+router.post("/storingOnlyOnePaymentMethod", function (req, res) {
+  var paymentInfo = req.body.paymentInfo;
+  var paymentJSON = JSON.parse(paymentInfo);
+  var userID = paymentJSON['userID'];
+  var paymentNonce = paymentJSON['paymentMethodNonce'];
+   db.one(`select \"Users\".\"firstName\", \"Users\".\"lastName\" from carpool.\"Users\" where \"Users\".\"userID\" ='${userID}'`) // Read query to get profile information on load.
+  	.then(function(data) {
+    console.log(paymentNonce);
+    gateway.customer.find("userID", function (err, customer) {
+    	if (customer.paymentMethods.length > 1)
+    	{
+    		for (var i = 1; i < customer.paymentMethods.length; i++)
+    		{
+    			console.log(customer.paymentMethods[i].token);
+    			gateway.paymentMethod.delete({
+    			//customer.paymentMethods[i].token, 
+    			}, function (err) { });
+    		}
+    	}
+     });
+   })
+});
+
+
 
 router.get("/recentPayments", function (req, res, next) {
 var userID = req.query.userID;
