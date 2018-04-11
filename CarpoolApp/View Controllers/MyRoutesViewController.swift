@@ -164,9 +164,10 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
         
         if (tableView == MyDestinationsTable) {
             if editingStyle == .delete {
+                let destinationID = destinationsArray[indexPath.row].frequentDestinationID
                 destinationsArray.remove(at: indexPath.row)
                 tableView.deleteRows(at: [indexPath], with: .fade)
-                let deletingDestination = ["userID": userID, "frequentDestinationID": self.destinationDetail?.DestinationID as Any]
+                let deletingDestination = ["userID": userID, "frequentDestinationID": destinationID as Any]
                 self.deleteDestination(deletingDestination: deletingDestination)
             }
         }
