@@ -41,11 +41,11 @@ else if (customer.paymentMethods.length > 1) {
     		for (var i = 1; i < customer.paymentMethods.length; i++)
     		{
     			console.log(customer.paymentMethods[i].token);
-    			gateway.paymentMethod.delete({
-    				customer.paymentMethods[i].token
-    			}, function (err) { 
-    			
-    			});
+    			// gateway.paymentMethod.delete({
+    			// 	customer.paymentMethods[i].token
+    			// }, function (err) {
+
+    			// });
     		}
     	}
 else {
@@ -117,7 +117,7 @@ else {
 //    		{
 //    			console.log(customer.paymentMethods[i].token);
 //    			gateway.paymentMethod.delete({
-//    			//customer.paymentMethods[i].token, 
+//    			//customer.paymentMethods[i].token,
 //    			}, function (err) { });
 //    		}
 //    	}
