@@ -18,6 +18,7 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
     var myRoutesArray = [SavedRoutes]()
     var routeDetail : SavedRoutes?
     let userID = Auth.auth().currentUser?.uid
+    var options = [Int]()
 
     
     //Array used for retrieving the saved routes according to userID
@@ -77,11 +78,10 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
     // Class overrides
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        /*getDestinationsDecode {
-            print ("printing destinations array: ")
-            print (self.destinationsArray)
-        }*/
+        for route in myRoutesArray{
+            options.append(route.routeID)
+            print(options)
+        }
     }
     
     // Send data to other view controllers via segue
@@ -148,9 +148,19 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
         
         return count
     }
-    
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        if (tableView == myRoutesTable) {
+//            print(myRoutesArray[indexPath.row].Name)
+//        }
+//        else if (tableView == MyDestinationsTable) {
+//            print(destinationsArray[indexPath.row])
+//        }
+//
+//}
+
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         let userID = Auth.auth().currentUser!.uid
+       // let routeid = self.routeDetail?.routeID
         
         if (tableView == MyDestinationsTable) {
             if editingStyle == .delete {
@@ -162,10 +172,12 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
         }
         if (tableView == myRoutesTable) {
             if editingStyle == .delete {
+                print("removed row is \(myRoutesArray[indexPath.row].Name)")
+                let goodRouteID = myRoutesArray[indexPath.row].routeID
                 myRoutesArray.remove(at: indexPath.row)
                 tableView.deleteRows(at: [indexPath], with: .fade)
-                let cancelInfo = ["userID": userID, "routeID": self.routeDetail?.routeID as Any]
-                self.cancelRoute(cancelInfo: cancelInfo)
+                let cancelrouteInfo = ["routeID": goodRouteID as Any]
+                self.cancelRoute(cancelrouteInfo: cancelrouteInfo)
             }
         }
     }
@@ -249,12 +261,12 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     
-    func cancelRoute(cancelInfo: Dictionary<String, Any>) {
+    func cancelRoute(cancelrouteInfo: Dictionary<String, Any>) {
         let cancelURL = URL(string: "http://localhost:3000/routes/cancelRoute")!
         var request = URLRequest(url: cancelURL)
-        let cancelJSON = try! JSONSerialization.data(withJSONObject: cancelInfo, options: .prettyPrinted)
-        let cancelJSONInfo = NSString(data: cancelJSON, encoding: String.Encoding.utf8.rawValue)! as String
-        request.httpBody = "cancelInfo=\(cancelJSONInfo)".data(using: String.Encoding.utf8)
+        let cancelrouteJSON = try! JSONSerialization.data(withJSONObject: cancelrouteInfo, options: .prettyPrinted)
+        let cancelrouteJSONInfo = NSString(data: cancelrouteJSON, encoding: String.Encoding.utf8.rawValue)! as String
+        request.httpBody = "cancelrouteInfo=\(cancelrouteJSONInfo)".data(using: String.Encoding.utf8)
         request.httpMethod = "POST" // POST method.
         
         URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
