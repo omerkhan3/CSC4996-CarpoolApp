@@ -23,7 +23,10 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        ridesTableView.reloadData()
+        
+        self.ridesTableView.delegate = self
+        self.ridesTableView.dataSource = self
+        
         
         getScheduledRides {
             self.ridesTableView.reloadData()
@@ -37,8 +40,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
             }
         }
         
-        self.ridesTableView.delegate = self
-        self.ridesTableView.dataSource = self
+        ridesTableView.reloadData()
     }
     
     override func viewDidLoad() {
@@ -46,7 +48,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         view.accessibilityIdentifier = "dashboardView"
         setupSideMenu()
         registerDeviceToken()
-        
+        ridesTableView.reloadData()
         
     }
     
@@ -71,7 +73,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = UITableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: "rideCell")
+        let cell = ridesTableView.dequeueReusableCell(withIdentifier: "rideCell") as! ScheduledRideTableViewCell
         
         // Create date formatter and reformat date
         let dateFormatter = DateFormatter()
@@ -82,11 +84,15 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         
         // Set title based on whether the user is a rider or a driver for the ride
         if scheduledRidesArray[indexPath.row].driverID == userID {
-            cell.textLabel?.text = "Driving on: " + scheduledRidesArray[indexPath.row].Day.uppercased()
-            cell.detailTextLabel?.text = dateString
+            cell.rideIcon.image = UIImage(named: "driver-96")
+            cell.drivingLbl.text = "Driving"
+            cell.dateLbl.text = scheduledRidesArray[indexPath.row].Day.uppercased() + " " + dateString
+            cell.nameLbl.text = "Rider: " + scheduledRidesArray[indexPath.row].riderFirstName
         } else {
-            cell.textLabel?.text = "Riding on:  " + scheduledRidesArray[indexPath.row].Day.uppercased()
-            cell.detailTextLabel?.text = dateString
+            cell.rideIcon.image = UIImage(named: "passenger-96")
+            cell.drivingLbl.text = "Riding"
+            cell.dateLbl.text = scheduledRidesArray[indexPath.row].Day.uppercased() + " " + dateString
+            cell.nameLbl.text = "Driver: " + scheduledRidesArray[indexPath.row].driverFirstName
         }
         return cell
     }

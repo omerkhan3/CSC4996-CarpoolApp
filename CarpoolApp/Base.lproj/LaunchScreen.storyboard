@@ -41,6 +41,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Splashscreen" width="1242" height="2436"/>
+        <image name="Splashscreen" width="621" height="1218"/>
     </resources>
 </document>
