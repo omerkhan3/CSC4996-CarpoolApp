@@ -16,6 +16,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     var scheduledRidesArray = [ScheduledRide]()
     var scheduledRide = ScheduledRide()
     let userID = Auth.auth().currentUser?.uid
+    var notificationsArray = [Notifications]()
     
     // Outlets
     @IBOutlet weak var noRidesLabel: UILabel!
@@ -27,6 +28,21 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         self.ridesTableView.delegate = self
         self.ridesTableView.dataSource = self
         
+        getNotifications {
+            for notification in self.notificationsArray {
+                if notification.Read == 0 {
+                    // activate notification alert
+                    let actionTitle = "You have new notifications!"
+                    let actionItem = "Click on the notification icon in the upper right or got to notifications from the user menu to view."
+                    
+                    // Activate UIAlertController to display confirmation
+                    let alert = UIAlertController(title: actionTitle, message: actionItem, preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                    }))
+                    self.present(alert, animated: true, completion: nil)
+                }
+            }
+        }
         
         getScheduledRides {
             self.ridesTableView.reloadData()
@@ -57,6 +73,12 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         if segue.identifier == "showRideDetail" {
             if let rideDetailViewController = segue.destination as? RideDetailViewController {
                 rideDetailViewController.scheduledRideDetail = scheduledRide
+            }
+        }
+        
+        if segue.identifier == "showNotifications" {
+            if let notificationsViewController = segue.destination as? NotificationsTableViewController {
+                notificationsViewController.notificationsArray = notificationsArray
             }
         }
     }
@@ -184,6 +206,36 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         
         // Set up a cool background image for demo purposes
         //SideMenuManager.default.menuAnimationBackgroundColor = UIColor(patternImage: UIImage(named: "background")!)
+    }
+
+
+    // Download notifications JSON and decode into an array
+    func getNotifications(completed: @escaping () -> ()) {
+        // get userID
+        let userID = Auth.auth().currentUser?.uid
+        var viewNotificationComponents = URLComponents(string: "http://localhost:3000/notifications")!
+        viewNotificationComponents.queryItems = [URLQueryItem(name: "userID", value: userID)]
+        var request = URLRequest(url: viewNotificationComponents.url!)  // Pass Parameter in URL
+        print (viewNotificationComponents.url!)
+        
+        request.httpMethod = "GET" // GET METHOD
+        URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
+            if (error != nil){  // error handling responses.
+                print (error as Any)
+            } else {
+                guard let data = data else { return }
+                do {
+                    // decode JSON into Notifications[] array type
+                    self.notificationsArray = try JSONDecoder().decode([Notifications].self, from: data)
+                    print(self.notificationsArray)
+                    DispatchQueue.main.async {
+                        completed()
+                    }
+                } catch let jsnErr {
+                    print(jsnErr)
+                }
+            }
+            }.resume()
     }
 }
     
