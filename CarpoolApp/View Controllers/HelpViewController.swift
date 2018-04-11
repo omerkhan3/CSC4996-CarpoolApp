@@ -10,12 +10,7 @@ import UIKit
 import MessageUI
 
 class HelpViewController: UIViewController,UITextFieldDelegate, MFMailComposeViewControllerDelegate {
-    
-    let dist = -140
 
-    
-    @IBOutlet weak var subjectField: UITextField!
-    @IBOutlet weak var messageField: UITextView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,26 +18,18 @@ class HelpViewController: UIViewController,UITextFieldDelegate, MFMailComposeVie
         // Do any additional setup after loading the view.
     }
     
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        moveScrollView(textField, distance: dist, up: true)
-    }
-    
-    // End editing within text field
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        moveScrollView(textField, distance: dist, up: false)
-    }
-    
-    // Hide keyboard if return key is pressed
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
-    }
-    // Move scroll view
-    func moveScrollView(_ textField: UITextField, distance: Int, up: Bool) {
-        let movement: CGFloat = CGFloat(up ? distance: -distance)
-        self.view.frame = self.view.frame.offsetBy(dx: 0, dy: movement)
-    }
+
  
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     @IBAction func sendMail(_ sender: Any) {
         
