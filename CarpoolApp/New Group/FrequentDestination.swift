@@ -12,15 +12,18 @@ struct FrequentDestination: Decodable {
     
     let Name: String
     let Address: String
+    let DestinationID: Int
     
     // JSON constructor
     init(json: [String: Any]) {
         Name = json["Name"] as? String ?? ""
         Address = json["Address"] as? String ?? ""
+        DestinationID = json["frequentDestinationID"] as? Int ?? -1
     }
     
     init(){
         Name = ""
         Address = ""
+        DestinationID = -1
     }
 }

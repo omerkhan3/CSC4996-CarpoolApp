@@ -14,8 +14,8 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
     
     // Class Variables
     var destinationsArray = [FrequentDestination]()
+    var destinationDetail: FrequentDestination?
     let userID = Auth.auth().currentUser?.uid
-    let routeID = int()
     
     //Array used for retrieving the saved routes according to userID
     var myRoutesArray = [SavedRoutes]()
@@ -147,11 +147,14 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        let userID = Auth.auth().currentUser!.uid
         
         if (tableView == MyDestinationsTable) {
             if editingStyle == .delete {
                 destinationsArray.remove(at: indexPath.row)
                 tableView.deleteRows(at: [indexPath], with: .fade)
+                let deletingDestination = ["userID": userID, "frequentDestinationID": self.destinationDetail?.DestinationID as Any]
+                self.deleteDestination(deletingDestination: deletingDestination)
             }
         }
         if (tableView == myRoutesTable) {

@@ -43,24 +43,15 @@ router.post('/deleteDestination', function(req, res, next) {
 	var deletingDestination = req.body.deletingDestination;
 	var deleteDestinationJSON = JSON.parse(deletingDestination);
 	console.log(deleteDestinationJSON);
-	var destinationsLengthJSON = deleteDestinationJSON.length;
-	console.log("Number of Destinations JSON", destinationsLengthJSON);
-
-	for (var l = 0; l < destinationsLengthJSON; l++ )
-	{
-		var name =  deleteDestinationJSON[l]['Name'];
-		var userID = deleteDestinationJSON[l]['userID'];
-		var address = deleteDestinationJSON[l]['Address'];
-    console.log("Element", l, name , deleteDestinationJSON[l]['Address'] );
-		db.none(`DELETE from carpool.\"frequentDestinations\"(\"userID\", \"Name\", \"Address\") VALUES ('${userID}', '${name}', '${address}') ON CONFLICT (\"userID\", \"Name\") DO UPDATE SET \"Name\" = '${name}', \"Address\" = '${address}'`)
+		db.none(`DELETE from carpool.\"frequentDestinations\" where \"frequentDestinationID\" = '${frequentDestinationID}'`
+		)
 		.catch(function(err) {
 			console.log(err);
 		})
-	}
 	res.status(200).json({
 		status: 'Success',
-		message: 'Destinations Stored.'
-	});
+		message: 'Destination deleted.'
+	})
 });
 
 

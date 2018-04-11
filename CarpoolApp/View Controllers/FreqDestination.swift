@@ -16,6 +16,7 @@ class FreqDestinations: UIViewController {
     //Used for search results being shown in table view and for table view to autocomplete address results
     var searchCompleter = MKLocalSearchCompleter()
     var searchResults = [MKLocalSearchCompletion]()
+    var destinationID: FrequentDestination?
     
     //Linking each table view and search bar
     @IBOutlet weak var HomeLabel: UILabel!
