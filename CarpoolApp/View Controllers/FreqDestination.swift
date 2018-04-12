@@ -63,17 +63,20 @@ class FreqDestinations: UIViewController {
         }
         
         //print(destinations)
-        saveDestinations(destinationInfo: destinations)
+        
         
         actionTitle = "Success!"
         actionItem = "Your frequent destinations have been saved"
         
         //Active UIAlertController to display error
-        let alert = UIAlertController(title: actionTitle, message: actionItem, preferredStyle: UIAlertControllerStyle.alert)
+        
+        let alert = UIAlertController(title: actionTitle, message: actionItem, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-            self.performSegue(withIdentifier: "showMyRoutes", sender: self)
+            self.saveDestinations(destinationInfo: destinations)
+            self.performSegue(withIdentifier: "showDash", sender: self)
         }))
         self.present(alert, animated: true, completion: nil)
+       
     }
     
     @IBAction func addInput(_ sender: UIButton) {
@@ -277,15 +280,6 @@ class FreqDestinations: UIViewController {
                 let searchResult = searchResults[indexPath.row]
                 otherSearchBar.text = searchResult.title + ", " + searchResult.subtitle
                 searchTable4.isHidden = true
-            }
-            
-            //Outputs latitude and longtitude of selected place
-            let completion = searchResults[indexPath.row]
-            let searchRequest = MKLocalSearchRequest(completion: completion)
-            let search = MKLocalSearch(request: searchRequest)
-            search.start { (response, error) in
-                self.longitudeArray.append(Double( response!.mapItems[0].placemark.coordinate.longitude))
-                self.latitudeArray.append(Double( response!.mapItems[0].placemark.coordinate.latitude))
             }
         }
     }

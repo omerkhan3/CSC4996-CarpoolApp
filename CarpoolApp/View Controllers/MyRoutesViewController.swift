@@ -18,11 +18,6 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
     var myRoutesArray = [SavedRoutes]()
     var routeDetail : SavedRoutes?
     let userID = Auth.auth().currentUser?.uid
-    var options = [Int]()
-
-    
-    //Array used for retrieving the saved routes according to userID
-    
     let color = UIColor(red:0.00, green:0.59, blue:1.00, alpha:1.0)
     
     @IBOutlet weak var MyDestinationsTable: UITableView!
@@ -34,7 +29,6 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
         self.performSegue(withIdentifier: "showEditDestinations", sender: self)
     }
     
-
     @IBAction func addRoute(_ sender: Any) {
         self.performSegue(withIdentifier: "showAddRoute", sender: self)
     }
@@ -78,10 +72,6 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
     // Class overrides
     override func viewDidLoad() {
         super.viewDidLoad()
-        for route in myRoutesArray{
-            options.append(route.routeID)
-            print(options)
-        }
     }
     
     // Send data to other view controllers via segue

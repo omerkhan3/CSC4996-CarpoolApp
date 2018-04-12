@@ -106,15 +106,9 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
             self.present(alert, animated: true, completion: nil)  // present error alert.
         }
         else {
-            //  getstart()
-            //getend()
-            // getstartcoor()
-            //  getendcoor()
-            
             print(options.joined(separator: ", "))
             let driver = self.driverSetting.isOn
             let userID = Auth.auth().currentUser!.uid
-            //            let routeInfo = ["userID": userID, "Leaving from": placeButton1.text! as Any, "Going to": placeButton2.text! as Any,  "departureTime": departtime1.text! as Any, "arrivalTime" : arrivaltime1.text! as Any, "Days" :  options, "Longitudes": longitudeArray, "Latitudes": latitudeArray, "Driver": driver, "Name": self.routeName.text! as Any] as [String : Any]
             let routeInfo = ["userID": userID, "departureTime1": departtime1.text! as Any,"departureTime2": departtime2.text! as Any, "arrivalTime1" : arrivaltime1.text! as Any, "arrivalTime2" : arrivaltime2.text! as Any, "Days" :  options, "startPointLat": self.lat1, "startPointLong": self.lon1, "endPointLat": self.lat2, "endPointLong": self.lon2, "Driver": driver, "Name": self.routeName.text! as Any, "startAddress": startadd as Any, "endAddress": endadd as Any] as [String : Any]
             
             print (routeInfo)
@@ -125,7 +119,7 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
             // Activate UIAlertController to display error
             let alert = UIAlertController(title: actionTitle, message: actionItem, preferredStyle: UIAlertControllerStyle.alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-                self.performSegue(withIdentifier: "showRoutes", sender: self)
+                self.performSegue(withIdentifier: "showDash", sender: self)
             }))
             self.present(alert, animated: true, completion: nil)
             
@@ -190,10 +184,10 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
                 //endadd = options3[2]
             }
             else if (self.placeButton2.text == ""){
-                if (destination.Name == "Other"){
+                //if (destination.Name == "Other"){
                     endadd = destination.Address
                     getendcoor()
-                }
+                //}
             }
         }
     }
