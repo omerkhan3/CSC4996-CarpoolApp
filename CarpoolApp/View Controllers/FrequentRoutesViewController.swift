@@ -21,6 +21,7 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
     let picker = UIDatePicker()
     let dist = -225
     
+    var paymentMethod : Bool = false
     
     // var longitudeArray: [Float] = []
     //var latitudeArray: [Float] = []
