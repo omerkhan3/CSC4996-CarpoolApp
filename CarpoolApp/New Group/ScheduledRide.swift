@@ -35,7 +35,7 @@ struct ScheduledRide: Decodable {
     let driverID: String
     let riderPickupTime: String?
     let riderDropoffTime: String?
-    let driverLeaveTime: String?
+    let driverLeaveTime: String
     let riderPickupTime2: String?
     let driverRouteName: String
     let riderRouteName: String
