@@ -19,7 +19,7 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
     var searchCompleter = MKLocalSearchCompleter()
     var searchResults = [MKLocalSearchCompletion]()
     let picker = UIDatePicker()
-    let dist = -190
+    let dist = -210
     
     
     // var longitudeArray: [Float] = []
@@ -471,15 +471,12 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
         }
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
     // Keyboard handling
     // Begin editing within text field
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        //moveScrollView(textField, distance: dist, up: true)
+        if active_textFiled == routeName{
+        moveScrollView(textField, distance: dist, up: true)
+        }
     }
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
@@ -499,7 +496,10 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
     
     // End editing within text field
     func textFieldDidEndEditing(_ textField: UITextField) {
-        //moveScrollView(textField, distance: dist, up: false)
+        if active_textFiled == routeName{
+            moveScrollView(textField, distance: dist, up: false)
+        }
+      
     }
     
     // Hide keyboard if return key is pressed
