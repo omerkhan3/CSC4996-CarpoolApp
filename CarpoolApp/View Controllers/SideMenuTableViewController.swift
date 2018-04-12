@@ -13,7 +13,7 @@ import SideMenu
 class SideMenuTableViewController: UITableViewController {
     
     @IBOutlet var userMenuTableView: UITableView!
-    let menuOptions = ["User Profile", "Matches", "My Routes", "Payments", "Settings", "Help", "Logout"]
+    let menuOptions = ["User Profile", "Matches", "My Routes", "Payments", "Help", "Logout"]
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -39,9 +39,7 @@ class SideMenuTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        //let cell = super.tableView(tableView, cellForRowAt: indexPath) as! UITableViewVibrantCell
         let cell = userMenuTableView.dequeueReusableCell(withIdentifier: "menuCell")
-        
         cell?.textLabel?.text = menuOptions[indexPath.row]
         
         return cell!
@@ -72,18 +70,13 @@ class SideMenuTableViewController: UITableViewController {
         {
             self.performSegue(withIdentifier: "showPayments", sender: self)
         }
-        
+            
         else if indexPath.row == 4
-        {
-            self.performSegue(withIdentifier: "showSettings", sender: self)
-        }
-        
-        else if indexPath.row == 5
         {
             self.performSegue(withIdentifier: "showHelp", sender: self)
        }
         
-        else if indexPath.row == 6
+        else if indexPath.row == 5
         {
             let logoutAlert = UIAlertController(title: "Logout", message: "Are you sure you want to log out?", preferredStyle: UIAlertControllerStyle.alert)
             logoutAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
