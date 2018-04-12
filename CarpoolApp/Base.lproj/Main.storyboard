@@ -271,11 +271,11 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="color" keyPath="secondColor">
+                                <color key="value" red="0.3548229034" green="0.78342023039999997" blue="0.98624674479999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="color" keyPath="firstColor">
                                 <color key="value" red="0.80937156300000002" green="0.96697524010000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </userDefinedRuntimeAttribute>
-                            <userDefinedRuntimeAttribute type="color" keyPath="secondColor">
-                                <color key="value" red="0.61032963080000002" green="0.85112856370000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </view>
@@ -313,11 +313,11 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="P7e-FK-e5d"/>
                         <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="color" keyPath="firstColor">
-                                <color key="value" red="1" green="0.056511778030000001" blue="0.0052194360419999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="color" keyPath="secondColor">
-                                <color key="value" red="0.61032963080000002" green="0.85112856370000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="value" red="0.3548229034" green="0.78342023039999997" blue="0.98624674479999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="firstColor">
+                                <color key="value" red="0.80937156300000002" green="0.96697524010000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </view>
@@ -439,6 +439,14 @@
                             <constraint firstItem="pMa-Wp-2cw" firstAttribute="bottom" secondItem="saE-xn-pJM" secondAttribute="bottom" constant="20" id="stP-Cp-f76"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="pMa-Wp-2cw"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="color" keyPath="secondColor">
+                                <color key="value" red="0.3548229034" green="0.78342023039999997" blue="0.98624674479999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="firstColor">
+                                <color key="value" red="0.80937156300000002" green="0.96697524010000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
                     </view>
                     <connections>
                         <outlet property="logo" destination="XXF-uU-C2C" id="BRi-Pc-NrA"/>
@@ -580,11 +588,11 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="pSI-86-HNY"/>
                         <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="color" keyPath="secondColor">
+                                <color key="value" red="0.3548229034" green="0.78342023039999997" blue="0.98624674479999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="color" keyPath="firstColor">
                                 <color key="value" red="0.80937156300000002" green="0.96697524010000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </userDefinedRuntimeAttribute>
-                            <userDefinedRuntimeAttribute type="color" keyPath="secondColor">
-                                <color key="value" red="0.61032963080000002" green="0.85112856370000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </view>
@@ -790,11 +798,11 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Lc9-cz-iGf"/>
                         <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="color" keyPath="firstColor">
-                                <color key="value" red="0.80937156300000002" green="0.96697524010000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="color" keyPath="secondColor">
                                 <color key="value" red="0.3548229034" green="0.78342023039999997" blue="0.98624674479999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="firstColor">
+                                <color key="value" red="0.80937156300000002" green="0.96697524010000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </view>
@@ -1069,11 +1077,11 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="GyJ-KJ-jzV"/>
                         <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="color" keyPath="secondColor">
+                                <color key="value" red="0.3548229034" green="0.78342023039999997" blue="0.98624674479999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="color" keyPath="firstColor">
                                 <color key="value" red="0.80937156300000002" green="0.96697524010000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </userDefinedRuntimeAttribute>
-                            <userDefinedRuntimeAttribute type="color" keyPath="secondColor">
-                                <color key="value" red="0.61032963080000002" green="0.85112856370000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </view>
@@ -1218,11 +1226,11 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="y8I-Qn-P8p"/>
                         <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="color" keyPath="secondColor">
+                                <color key="value" red="0.3548229034" green="0.78342023039999997" blue="0.98624674479999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="color" keyPath="firstColor">
                                 <color key="value" red="0.80937156300000002" green="0.96697524010000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </userDefinedRuntimeAttribute>
-                            <userDefinedRuntimeAttribute type="color" keyPath="secondColor">
-                                <color key="value" red="0.61032963080000002" green="0.85112856370000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </view>
@@ -1239,7 +1247,7 @@
         <scene sceneID="H9r-bw-QAE">
             <objects>
                 <viewController storyboardIdentifier="UpcomingRideDetail" id="PDm-qq-hig" userLabel="Upcoming Ride Detail View Controller" customClass="RideDetailViewController" customModule="CarpoolApp" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Wkb-kb-kxO">
+                    <view key="view" contentMode="scaleToFill" id="Wkb-kb-kxO" customClass="UIViewX" customModule="CarpoolApp" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -1455,6 +1463,14 @@
                             <constraint firstItem="8Hf-UP-308" firstAttribute="trailing" secondItem="fTH-Li-urD" secondAttribute="trailing" constant="16" id="qkv-HG-015"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="8Hf-UP-308"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="color" keyPath="secondColor">
+                                <color key="value" red="0.3548229034" green="0.78342023039999997" blue="0.98624674479999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="firstColor">
+                                <color key="value" red="0.80937156300000002" green="0.96697524010000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
                     </view>
                     <connections>
                         <outlet property="cost" destination="qVW-dc-x2F" id="g5t-uz-sV2"/>
@@ -1479,7 +1495,7 @@
         <scene sceneID="fcX-qA-c9T">
             <objects>
                 <viewController storyboardIdentifier="riderMatchDetail" id="8Dh-y9-VUL" customClass="RiderMatchDetailViewController" customModule="CarpoolApp" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="UVU-qO-Tut">
+                    <view key="view" contentMode="scaleToFill" id="UVU-qO-Tut" customClass="UIViewX" customModule="CarpoolApp" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -1954,6 +1970,14 @@
                             <constraint firstItem="YIB-G1-6ct" firstAttribute="top" secondItem="wuK-Gh-Clh" secondAttribute="top" constant="10" id="va7-U8-zPg"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="wuK-Gh-Clh"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="color" keyPath="secondColor">
+                                <color key="value" red="0.3548229034" green="0.78342023039999997" blue="0.98624674479999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="firstColor">
+                                <color key="value" red="0.80937156300000002" green="0.96697524010000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
                     </view>
                     <connections>
                         <outlet property="cost" destination="4m0-UV-O2J" id="pwv-Za-OLe"/>
@@ -2250,11 +2274,11 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="XOE-Xv-Bpa"/>
                         <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="color" keyPath="secondColor">
+                                <color key="value" red="0.3548229034" green="0.78342023039999997" blue="0.98624674479999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="color" keyPath="firstColor">
                                 <color key="value" red="0.80937156300000002" green="0.96697524010000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </userDefinedRuntimeAttribute>
-                            <userDefinedRuntimeAttribute type="color" keyPath="secondColor">
-                                <color key="value" red="0.61032963080000002" green="0.85112856370000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </view>
@@ -2381,11 +2405,11 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Lvc-0K-yaP"/>
                         <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="color" keyPath="secondColor">
+                                <color key="value" red="0.3548229034" green="0.78342023039999997" blue="0.98624674479999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="color" keyPath="firstColor">
                                 <color key="value" red="0.80937156300000002" green="0.96697524010000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </userDefinedRuntimeAttribute>
-                            <userDefinedRuntimeAttribute type="color" keyPath="secondColor">
-                                <color key="value" red="0.61032963080000002" green="0.85112856370000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </view>
@@ -2420,11 +2444,11 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="4cX-Uq-Ys4"/>
                         <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="color" keyPath="secondColor">
+                                <color key="value" red="0.3548229034" green="0.78342023039999997" blue="0.98624674479999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="color" keyPath="firstColor">
                                 <color key="value" red="0.80937156300000002" green="0.96697524010000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </userDefinedRuntimeAttribute>
-                            <userDefinedRuntimeAttribute type="color" keyPath="secondColor">
-                                <color key="value" red="0.61032963080000002" green="0.85112856370000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </view>
@@ -2614,11 +2638,11 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Bws-F1-pMV"/>
                         <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="color" keyPath="secondColor">
+                                <color key="value" red="0.3548229034" green="0.78342023039999997" blue="0.98624674479999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="color" keyPath="firstColor">
                                 <color key="value" red="0.80937156300000002" green="0.96697524010000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </userDefinedRuntimeAttribute>
-                            <userDefinedRuntimeAttribute type="color" keyPath="secondColor">
-                                <color key="value" red="0.61032963080000002" green="0.85112856370000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </view>
@@ -2823,11 +2847,11 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="VWh-pU-TEX"/>
                         <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="color" keyPath="secondColor">
+                                <color key="value" red="0.3548229034" green="0.78342023039999997" blue="0.98624674479999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="color" keyPath="firstColor">
                                 <color key="value" red="0.80937156300000002" green="0.96697524010000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </userDefinedRuntimeAttribute>
-                            <userDefinedRuntimeAttribute type="color" keyPath="secondColor">
-                                <color key="value" red="0.61032963080000002" green="0.85112856370000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </view>
@@ -3353,11 +3377,11 @@
                             <userDefinedRuntimeAttribute type="number" keyPath="boxLineWidth">
                                 <real key="value" value="1"/>
                             </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="secondColor">
+                                <color key="value" red="0.3548229034" green="0.78342023039999997" blue="0.98624674479999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="color" keyPath="firstColor">
                                 <color key="value" red="0.80937156300000002" green="0.96697524010000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </userDefinedRuntimeAttribute>
-                            <userDefinedRuntimeAttribute type="color" keyPath="secondColor">
-                                <color key="value" red="0.61032963080000002" green="0.85112856370000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </view>
@@ -3564,7 +3588,6 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="BZU-VB-AUw" firstAttribute="top" secondItem="MWR-lf-Nfl" secondAttribute="top" constant="14" id="Cw6-dM-2c8"/>
                             <constraint firstItem="mGE-1w-Qmk" firstAttribute="leading" secondItem="MWR-lf-Nfl" secondAttribute="leading" constant="31" id="OrZ-37-98H"/>
@@ -3576,11 +3599,11 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="MWR-lf-Nfl"/>
                         <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="color" keyPath="secondColor">
+                                <color key="value" red="0.3548229034" green="0.78342023039999997" blue="0.98624674479999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="color" keyPath="firstColor">
                                 <color key="value" red="0.80937156300000002" green="0.96697524010000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </userDefinedRuntimeAttribute>
-                            <userDefinedRuntimeAttribute type="color" keyPath="secondColor">
-                                <color key="value" red="0.61032963080000002" green="0.85112856370000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </view>
@@ -3779,11 +3802,11 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="V1j-ZY-5j7"/>
                         <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="color" keyPath="secondColor">
+                                <color key="value" red="0.3548229034" green="0.78342023039999997" blue="0.98624674479999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="color" keyPath="firstColor">
                                 <color key="value" red="0.80937156300000002" green="0.96697524010000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </userDefinedRuntimeAttribute>
-                            <userDefinedRuntimeAttribute type="color" keyPath="secondColor">
-                                <color key="value" red="0.61032963080000002" green="0.85112856370000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </view>
@@ -3822,10 +3845,10 @@
         <image name="user" width="20" height="20"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="eR0-bL-HS2"/>
+        <segue reference="Mf8-Xy-6b6"/>
         <segue reference="uGi-aO-aia"/>
-        <segue reference="UO1-Vm-wHx"/>
-        <segue reference="P6H-22-ef1"/>
-        <segue reference="cOY-IK-lfO"/>
+        <segue reference="Fu6-yk-YQr"/>
+        <segue reference="0zA-rS-j0u"/>
+        <segue reference="m1u-IC-JYZ"/>
     </inferredMetricsTieBreakers>
 </document>
