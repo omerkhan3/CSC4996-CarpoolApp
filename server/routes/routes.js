@@ -251,7 +251,7 @@ router.post('/', function(req, res, next) {
                        if (distances.rows[0].elements[0].status == 'OK') {
                            leg2Duration = distances.rows[0].elements[0].duration;
                            leg2Distance = distances.rows[0].elements[0].distance;
-                           getFirstLeg(leg2_startTime, leg3Duration, leg3Distance, leg2Duration, leg3Distance);
+                           getFirstLeg(leg2_startTime, leg3Duration, leg3Distance, leg2Duration, leg2Distance);
                        } else {
                            console.log(destination + ' is not reachable by land from ' + origin);
                        }
@@ -259,7 +259,7 @@ router.post('/', function(req, res, next) {
                  });
                 }
 
-             function getFirstLeg(leg2_startTime, leg3Duration, leg3Distance, leg2Duration, leg3Distance)  // calculates the route distance and ETA of driver start point to rider start point.
+             function getFirstLeg(leg2_startTime, leg3Duration, leg3Distance, leg2Duration, leg2Distance)  // calculates the route distance and ETA of driver start point to rider start point.
              {
                // Convert driver arrival time to epoch time & set parameter
                leg1_startTime = leg2_startTime - leg2Duration.value;
@@ -283,22 +283,61 @@ router.post('/', function(req, res, next) {
                      if (distances.rows[0].elements[0].status == 'OK') {
                          leg1Duration = distances.rows[0].elements[0].duration;
                          leg1Distance = distances.rows[0].elements[0].distance;
-                        var totalDistance = (leg1Distance.value + leg2Distance.value + leg3Distance.value);
-                        var totalCost = (totalDistance / 1000) * 0.62 * 0.335 ;
-                        var totalDuration = leg1Duration.value + leg2Duration.value + leg3Duration.value;
-                        var totalDurationText = totalDuration + " seconds";
-                        var driverLeaveTime = `time '${routeJSON['arrivalTime2']}'  - interval '${totalDurationText}'`;
-                        var riderPickup = `${driverLeaveTime} + interval '${leg1Duration.value} seconds'`;
-                        var riderDropOff = `${riderPickup} +  interval '${leg2Duration.value} seconds'`;
-                        var riderPickup2 = `time '${routeJSON['departureTime1']}' + interval '${leg3Duration.value} seconds'`;
-
-                        insertMatches(driverLeaveTime, riderPickup, riderDropOff, riderPickup2, totalCost);
+                        
+                         getReturnLeg1(leg2_startTime, leg3Duration, leg3Distance, leg2Duration, leg2Distance, let1Duration, leg1Distance)
 
                      } else {
                          console.log(destination + ' is not reachable by land from ' + origin);
                      }
                  }
                });
+               }
+
+               function getReturnLeg1(leg2_startTime, leg3Duration, leg3Distance, leg2Duration, leg2Distance, leg1Duration, leg1Distance) {
+                 return_startTime = convertTo24Hour(`${routeJSON['departureTime2']}`);
+                 return_startTimeEpoch = convertToEpoch(return_startTime) + baseEpoch;
+                 console.log("departure time: ", return_startTimeEpoch);
+                 distance.departure_time(return_startTimeEpoch); //set API query parameter
+                distance.units('imperial');
+
+                // Driver final destination to rider final destination
+                var returnLeg1_origin = [`${routeJSON['endPointLat']}, ${routeJSON['endPointLong']}`]; // driver
+                var returnLeg1_destination =  [`${obj['endPointLat']}, ${obj['endPointLong']}`]; // rider
+
+                // Distance matrix api query
+                distance.matrix(returnLeg1_origin, returnLeg1_destination, function (err, distances) {
+                  if (err) {
+                      return console.log(err);
+                  }
+                  if(!distances) {
+                      return console.log('no distances');
+                  }
+                  if (distances.status == 'OK') {
+                      var origin = distances.origin_addresses[0];
+                      var destination = distances.destination_addresses[0];
+                      if (distances.rows[0].elements[0].status == 'OK') {
+                          returnLeg1Duration = distances.rows[0].elements[0].duration;
+                          returnLeg1Distance = distances.rows[0].elements[0].distance;
+
+                          if (leg3Distance == null)
+                          {
+                            leg3Distance = 0;
+                          }
+                          var totalCost = (let2Distance.value / 1000) * 0.62 * 0.335 ;
+                          var totalDuration = leg1Duration.value + leg2Duration.value + leg3Duration.value;
+                          var totalDurationText = totalDuration + " seconds";
+                          var driverLeaveTime = `time '${routeJSON['arrivalTime2']}'  - interval '${totalDurationText}'`;
+                          var driverDepartTime = `${routeJSON['departureTime2']}`;
+                          var riderPickup = `${driverLeaveTime} + interval '${leg1Duration.value} seconds'`;
+                          var riderDropOff = `${riderPickup} +  interval '${leg2Duration.value} seconds'`;
+                          var riderPickup2 = `time '${routeJSON['departureTime2']}' - interval '${returnLeg1Duration.value} seconds'`;
+
+                        insertMatches(driverLeaveTime, riderPickup, riderDropOff, riderPickup2, totalCost);
+                      } else {
+                          console.log(destination + ' is not reachable by land from ' + origin);
+                      }
+                    }
+                 });
                }
 
                function insertMatches(driverLeaveTime, riderPickup, riderDropOff, riderPickup2, totalCost){ // after all 3 legs are calculated, insert data into matches table.

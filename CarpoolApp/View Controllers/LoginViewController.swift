@@ -53,26 +53,27 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             
             // Check login successful
             if error == nil {
-                if Auth.auth().currentUser?.isEmailVerified == true {
-                    // Segue to dashboard
-                    self.performSegue(withIdentifier: "showDashboard", sender: self)
-                } else {
-                    actionTitle = "Error!"
-                    actionItem = "Please verify your email address by following the link provided. Would you like for us to resend the link?"
-                    
-                    // Activate UIAlertController to display error
-                    let alert = UIAlertController(title: actionTitle, message: actionItem, preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-                        // resend verification email
-                            Auth.auth().currentUser?.sendEmailVerification{ (error) in
-                            print("email auth sent")
-                        }
-                    }))
-                    alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { action in
-                    }))
-                    self.present(alert, animated: true, completion: nil)  // present error alert.
-                }
-                
+                self.performSegue(withIdentifier: "showDashboard", sender: self)
+//                if Auth.auth().currentUser?.isEmailVerified == true {
+//                    // Segue to dashboard
+//
+//                } else {
+//                    actionTitle = "Error!"
+//                    actionItem = "Please verify your email address by following the link provided. Would you like for us to resend the link?"
+//
+//                    // Activate UIAlertController to display error
+//                    let alert = UIAlertController(title: actionTitle, message: actionItem, preferredStyle: .alert)
+//                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+//                        // resend verification email
+//                            Auth.auth().currentUser?.sendEmailVerification{ (error) in
+//                            print("email auth sent")
+//                        }
+//                    }))
+//                    alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { action in
+//                    }))
+//                    self.present(alert, animated: true, completion: nil)  // present error alert.
+//                }
+//
             } else {
                 // Login error handling
                 actionTitle = "Error!"
