@@ -175,10 +175,20 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
             if editingStyle == .delete {
                 print("removed row is \(myRoutesArray[indexPath.row].Name)")
                 let goodRouteID = myRoutesArray[indexPath.row].routeID
+                if myRoutesArray[indexPath.row].Matched == true {
+                    let actionTitle = "Error!"
+                    let actionItem = "You must cancel any scheduled rides associated with this route before deleting."
+                    let exitAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+                    // Activate UIAlertController to display error
+                    let alert = UIAlertController(title: actionTitle, message: actionItem, preferredStyle: .alert)
+                    alert.addAction(exitAction)
+                    self.present(alert, animated: true, completion: nil)  // present error alert.
+                } else {
                 myRoutesArray.remove(at: indexPath.row)
                 tableView.deleteRows(at: [indexPath], with: .fade)
                 let cancelrouteInfo = ["routeID": goodRouteID as Any]
                 self.cancelRoute(cancelrouteInfo: cancelrouteInfo)
+                }
             }
         }
     }
