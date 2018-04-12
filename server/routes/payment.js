@@ -139,6 +139,21 @@ db.query(`select \"firstName\", \"Amount\", \"Time\" from (select \"firstName\",
   });
 });
 
+router.get("/checkMethod", function (req, res, next) {
+var userID = req.query.userID;
+db.one(`select \"Users\".\"customerID\" from carpool.\"Users\" where \"Users\".\"userID\" = '${userID}'`)
+.then(function(data) {
+  if (data.customerID == null)
+  {
+    data.customerID = "NULL";
+  }
+  res.send(data);
+  })
+  .catch(function(error){
+      console.log('Error fetching recent payments', error);
+  });
+});
+
 
 router.get("/client_token",function (req, res) {
   var userID = req.query.userID;

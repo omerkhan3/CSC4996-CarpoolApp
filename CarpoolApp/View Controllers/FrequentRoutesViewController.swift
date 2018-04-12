@@ -105,6 +105,17 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
             alert.addAction(exitAction)
             self.present(alert, animated: true, completion: nil)  // present error alert.
         }
+            
+        else if (self.paymentMethod == false)
+        {
+            actionTitle = "Error!"
+            actionItem = "You are required to have a payment method on file before adding a route."
+            
+            // Activate UIAlertController to display error
+            let alert = UIAlertController(title: actionTitle, message: actionItem, preferredStyle: .alert)
+            alert.addAction(exitAction)
+            self.present(alert, animated: true, completion: nil)  // present error alert.
+        }
         else {
             print(options.joined(separator: ", "))
             let driver = self.driverSetting.isOn
@@ -234,6 +245,8 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
         }
         //print("address array = \(options3)")
         //showDestionations()
+        
+        checkPaymentMethod()
         
     }
     
@@ -499,7 +512,7 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
         if active_textFiled == routeName{
             moveScrollView(textField, distance: dist, up: false)
         }
-      
+
     }
     
     // Hide keyboard if return key is pressed
@@ -513,6 +526,44 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
     func moveScrollView(_ textField: UITextField, distance: Int, up: Bool) {
         let movement: CGFloat = CGFloat(up ? distance: -distance)
         self.view.frame = self.view.frame.offsetBy(dx: 0, dy: movement)
+    }
+    
+    func checkPaymentMethod(){
+        let userID = Auth.auth().currentUser?.uid
+        var checkMethodCompenents = URLComponents(string: "http://localhost:3000/payment/checkMethod")!
+        checkMethodCompenents.queryItems = [URLQueryItem(name: "userID", value: userID)]
+        var request = URLRequest(url: checkMethodCompenents.url!)
+        print (checkMethodCompenents.url!)
+        
+        // GET Method
+        request.httpMethod = "GET"
+        URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
+            if (error != nil){
+                print (error as Any)
+            }
+            else if let data = data {
+                print(data)
+                let userInfoString:NSString = NSString(data: data, encoding: String.Encoding.utf8.rawValue)!
+                if let data = userInfoString.data(using: String.Encoding.utf8.rawValue) {
+                    do {
+                        let json = try JSONSerialization.jsonObject(with: data, options: []) as! [String:String]
+                        print (json as Any)
+                        
+                        if (json["customerID"] != "NULL")
+                        {
+                            self.paymentMethod = true
+                        }
+                        
+                        
+                    }
+                    catch let error as NSError {
+                        print(error)
+                    }
+                    
+                }
+            }
+            }.resume()
+        
     }
 }
 
@@ -535,5 +586,7 @@ func addRoute(routeInfo: Dictionary<String, Any>)
         
         }.resume()
 }
+
+
 
 

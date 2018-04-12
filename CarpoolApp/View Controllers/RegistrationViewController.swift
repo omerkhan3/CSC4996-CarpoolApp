@@ -70,8 +70,11 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
         else{
         Auth.auth().createUser(withEmail: email!, password: password!, completion: { (user: User?, error) in
             if error == nil {
+                Auth.auth().currentUser?.sendEmailVerification{ (error) in
+                    print("email auth sent")
+                }
                 actionTitle = "Success!"
-                actionItem = "Congratulations, you have successfully registered!"
+                actionItem = "Congratulations, you have successfully registered! Please follow the link sent to the email address you provided to verify you account."
                 
                 // Activate UIAlertController to display confirmation
                 let alert = UIAlertController(title: actionTitle, message: actionItem, preferredStyle: .alert)
