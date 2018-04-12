@@ -11,16 +11,19 @@ struct Notifications: Decodable{
     let notificationType: String
     let Date: String
     let Read: Int
+    let notificationID: Int
     
     init(json: [String: Any]) {
         Date = json["Date"] as? String ?? ""
         Read = json["Read"] as? Int ?? -1
         notificationType = json["notificationType"] as? String ?? ""
-    }
+        notificationID = json["notificationID"] as? Int ?? -1
+     }
     
     init() {
         Date = ""
         notificationType = ""
         Read = -1
+        notificationID = -1
     }
 }

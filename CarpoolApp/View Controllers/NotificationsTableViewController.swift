@@ -94,8 +94,11 @@ class NotificationsTableViewController: UITableViewController {
     //Deleting functionality
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
+            let notificationID = notificationsArray[indexPath.row].notificationID
             notificationsArray.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
+            let deletingNotification = ["notificationID" : notificationID]
+            self.deleteNotification(deletingNotification: deletingNotification)
         }
     }
     
@@ -128,6 +131,27 @@ class NotificationsTableViewController: UITableViewController {
             }
         }.resume()
     }
+    
+    func deleteNotification(deletingNotification: Dictionary<String, Any>)
+    {
+        let deleteNotificationURL = URL(string: "http://localhost:3000/notifications/deleteIndividual")!
+        var request = URLRequest(url: deleteNotificationURL)
+        let deleteNotificationJSON = try! JSONSerialization.data(withJSONObject: deletingNotification, options: .prettyPrinted)
+        let deletingNotificationJSONInfo = NSString(data: deleteNotificationJSON, encoding: String.Encoding.utf8.rawValue)! as String
+        request.httpBody = "deletingNotification=\(deletingNotificationJSONInfo)".data(using: String.Encoding.utf8)
+        request.httpMethod = "POST" // POST method.
+        
+        URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
+            if (error != nil){  // error handling responses.
+                print ("An error has occured.")
+            }
+            else{
+                print ("Success!")
+            }
+            
+            }.resume()
+    }
+    
     
     func formatDate(date: String) -> String {
         // Create date formatter and reformat date
