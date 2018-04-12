@@ -26,7 +26,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
     @IBOutlet weak var UserLastNameEdit: UITextField!
     @IBOutlet weak var UserPhoneNumberEdit: UITextField!
     @IBOutlet weak var UserBioEdit: UITextView!
-    let dist = 0 
+    let dist = -140
     var databaseRef: DatabaseReference!
     var storageRef: StorageReference!
     

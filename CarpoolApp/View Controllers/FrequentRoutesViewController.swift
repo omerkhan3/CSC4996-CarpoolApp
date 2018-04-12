@@ -19,7 +19,7 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
     var searchCompleter = MKLocalSearchCompleter()
     var searchResults = [MKLocalSearchCompletion]()
     let picker = UIDatePicker()
-    let dist = -210
+    let dist = -225
     
     
     // var longitudeArray: [Float] = []
@@ -95,7 +95,7 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
         let exitAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)  // default action to exit out of native alerts.
         
         dump(options)
-        if ((placeButton1.text?.isEmpty)! || (placeButton2.text?.isEmpty)! || (arrivaltime1.text?.isEmpty)! || (departtime1.text?.isEmpty)! || (arrivaltime2.text?.isEmpty)! || (departtime2.text?.isEmpty)! || (routeName.text?.isEmpty)!)  // error handling for if all fields were filled  out.
+        if ((placeButton1.text == "Select Place") || (placeButton1.text == "") || (placeButton2.text == "") || (placeButton2.text == "Select Place") || (arrivaltime1.text?.isEmpty)! || (departtime1.text?.isEmpty)! || (arrivaltime2.text?.isEmpty)! || (departtime2.text?.isEmpty)! || (routeName.text?.isEmpty)!)  // error handling for if all fields were filled  out.
         {
             actionTitle = "Error!"
             actionItem = "You have not entered all required information."
@@ -295,7 +295,7 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
         active_textFiled.resignFirstResponder()
     }
     @objc func cancelClick(){
-        active_textFiled.text = ""
+        //active_textFiled.text = ""
         active_textFiled.resignFirstResponder()
         
     }
