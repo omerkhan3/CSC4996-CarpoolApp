@@ -29,6 +29,7 @@
 		912C7DC0204D02CC00E222A4 /* NotificationsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 912C7DBF204D02CC00E222A4 /* NotificationsTableViewController.swift */; };
 		912C7DC4204D16BD00E222A4 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 912C7DC3204D16BD00E222A4 /* Notifications.swift */; };
 		9167A6DB206A3C4000ABB37F /* MyRoutesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9167A6DA206A3C4000ABB37F /* MyRoutesViewController.swift */; };
+		916919A4207F46B2008A3759 /* RootPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916919A3207F46B2008A3759 /* RootPageViewController.swift */; };
 		917C54B8204E18FE00F2BBDC /* PaymentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 917C54B7204E18FE00F2BBDC /* PaymentsViewController.swift */; };
 		91D3ACBA206B4B700032652E /* RecentPayments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D3ACB9206B4B700032652E /* RecentPayments.swift */; };
 		91F69AC62079955400EDF0FB /* SavedRoutes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F69AC52079955400EDF0FB /* SavedRoutes.swift */; };
@@ -90,6 +91,7 @@
 		912C7DBF204D02CC00E222A4 /* NotificationsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationsTableViewController.swift; sourceTree = "<group>"; };
 		912C7DC3204D16BD00E222A4 /* Notifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Notifications.swift; path = "CarpoolApp/New Group/Notifications.swift"; sourceTree = SOURCE_ROOT; };
 		9167A6DA206A3C4000ABB37F /* MyRoutesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRoutesViewController.swift; sourceTree = "<group>"; };
+		916919A3207F46B2008A3759 /* RootPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootPageViewController.swift; sourceTree = "<group>"; };
 		917C54B7204E18FE00F2BBDC /* PaymentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentsViewController.swift; sourceTree = "<group>"; };
 		91D3ACB9206B4B700032652E /* RecentPayments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentPayments.swift; sourceTree = "<group>"; };
 		91F69AC52079955400EDF0FB /* SavedRoutes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedRoutes.swift; sourceTree = "<group>"; };
@@ -157,6 +159,7 @@
 				91D3ACB9206B4B700032652E /* RecentPayments.swift */,
 				91F69AC52079955400EDF0FB /* SavedRoutes.swift */,
 				2054BEE1206C257400B62FF7 /* FrequentDestination.swift */,
+				916919A3207F46B2008A3759 /* RootPageViewController.swift */,
 			);
 			name = Data;
 			path = "New Group";
@@ -483,6 +486,7 @@
 				912C7DC0204D02CC00E222A4 /* NotificationsTableViewController.swift in Sources */,
 				20DA407F204B49FA003D8473 /* DashboardViewController.swift in Sources */,
 				C9D8928F2033629B005EC683 /* UITextFieldX.swift in Sources */,
+				916919A4207F46B2008A3759 /* RootPageViewController.swift in Sources */,
 				D10EFE9C2022983600C962E1 /* LoginViewController.swift in Sources */,
 				205A4B43202569DC005AE87C /* LaunchViewController.swift in Sources */,
 				C97DACB720786DF700E76E02 /* FAQViewController.swift in Sources */,
@@ -680,7 +684,7 @@
 				DEVELOPMENT_TEAM = 3Z83W2KF98;
 				ENABLE_TESTABILITY = NO;
 				INFOPLIST_FILE = CarpoolApp/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.CSC4996.CarpoolApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -700,7 +704,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3Z83W2KF98;
 				INFOPLIST_FILE = CarpoolApp/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.CSC4996.CarpoolApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
