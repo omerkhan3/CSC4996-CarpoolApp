@@ -70,8 +70,8 @@ class PaymentsViewController: UIViewController, UITableViewDelegate, UITableView
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "recentPayments", for: indexPath) as! recentPaymentsCell
         
-        cell.driverFirstName.text = "Driver:" + recentPaymentsArray[indexPath.row].firstName
-        cell.Time?.text = recentPaymentsArray[indexPath.row].Time
+        cell.driverFirstName.text = "Driver:  " + recentPaymentsArray[indexPath.row].firstName
+        cell.Time?.text = "Date:  " + recentPaymentsArray[indexPath.row].Time
         cell.Amount.text = "$" + String(describing: Double(round(100 * recentPaymentsArray[indexPath.row].Amount)/100))
         
         return cell
