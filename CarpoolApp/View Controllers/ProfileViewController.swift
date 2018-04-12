@@ -333,10 +333,6 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
             }.resume()
     }
     
-//    func textFieldDidBeginEditing(_ textField: UITextField) {
-//        //moveScrollView(textField, distance: dist, up: true)
-//    }
-    
     //Phone number formatting
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if textField == self.UserPhoneNumberEdit {
@@ -410,10 +406,14 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         super.viewWillDisappear(animated)
     }
     
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        moveScrollView(textField, distance: dist, up: true)
+           }
+    
     // End editing within text field
     func textFieldDidEndEditing(_ textField: UITextField) {
         
-        moveScrollView(textField, distance: dist, up: false)
+//        moveScrollView(textField, distance: dist, up: false)
     }
     
     // Hide keyboard if return key is pressed

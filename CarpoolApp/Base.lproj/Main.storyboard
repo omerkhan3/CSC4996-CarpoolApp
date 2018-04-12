@@ -69,7 +69,7 @@
                                                     <outlet property="delegate" destination="BYZ-38-t0r" id="u5F-3K-55b"/>
                                                 </connections>
                                             </textField>
-                                            <textField opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Email Address" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="LZv-4b-P4p" customClass="UITextFieldX" customModule="CarpoolApp" customModuleProvider="target">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Email Address" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="LZv-4b-P4p" customClass="UITextFieldX" customModule="CarpoolApp" customModuleProvider="target">
                                                 <rect key="frame" x="16" y="339" width="343" height="40"/>
                                                 <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <accessibility key="accessibilityConfiguration" identifier="emailField"/>
@@ -200,6 +200,7 @@
                                             <constraint firstItem="LzU-66-RPC" firstAttribute="leading" secondItem="znP-8g-3nf" secondAttribute="leading" id="MUh-GG-ICT"/>
                                             <constraint firstItem="M8r-cr-ehA" firstAttribute="top" secondItem="LZv-4b-P4p" secondAttribute="bottom" constant="8" symbolic="YES" id="NBN-kO-IAE"/>
                                             <constraint firstItem="LZv-4b-P4p" firstAttribute="top" secondItem="QbA-aT-NW9" secondAttribute="bottom" constant="8" id="Ovw-wy-taT"/>
+                                            <constraint firstItem="LZv-4b-P4p" firstAttribute="leading" secondItem="was-cx-GKo" secondAttribute="leading" constant="16" id="PeF-L9-XAT"/>
                                             <constraint firstItem="QbA-aT-NW9" firstAttribute="leading" secondItem="was-cx-GKo" secondAttribute="leading" constant="16" id="QEN-vV-dU0"/>
                                             <constraint firstItem="hNW-J5-Y1Y" firstAttribute="trailing" secondItem="saX-K2-d5y" secondAttribute="trailing" constant="4" id="QV6-og-oP7"/>
                                             <constraint firstAttribute="trailing" secondItem="QbA-aT-NW9" secondAttribute="trailing" constant="16" id="RWs-aM-TTu"/>
@@ -207,6 +208,7 @@
                                             <constraint firstItem="LzU-66-RPC" firstAttribute="trailing" secondItem="QgW-kR-L6I" secondAttribute="trailing" id="T9Z-Tt-xiN"/>
                                             <constraint firstItem="qZq-J0-Sbn" firstAttribute="leading" secondItem="was-cx-GKo" secondAttribute="leading" constant="31" id="X7f-00-JUH"/>
                                             <constraint firstItem="qZq-J0-Sbn" firstAttribute="centerX" secondItem="LZv-4b-P4p" secondAttribute="centerX" id="Z5c-mi-IL4"/>
+                                            <constraint firstAttribute="trailing" secondItem="LZv-4b-P4p" secondAttribute="trailing" constant="16" id="aRc-es-LAh"/>
                                             <constraint firstItem="QbA-aT-NW9" firstAttribute="centerX" secondItem="LZv-4b-P4p" secondAttribute="centerX" id="cfQ-NG-s1g"/>
                                             <constraint firstAttribute="height" constant="741" id="ksn-lT-mAf"/>
                                             <constraint firstItem="znP-8g-3nf" firstAttribute="baseline" secondItem="QgW-kR-L6I" secondAttribute="baseline" id="oBb-AO-dYu"/>
@@ -288,7 +290,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2167" y="210"/>
+            <point key="canvasLocation" x="-2167.1999999999998" y="209.85221674876848"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="fdk-tQ-Vk3">
@@ -602,9 +604,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CarPool" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dtt-nS-ANc">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CarPool" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dtt-nS-ANc" customClass="MBStylableLabel" customModule="CarpoolApp" customModuleProvider="target">
                                 <rect key="frame" x="111" y="123" width="150" height="85"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="40"/>
+                                <fontDescription key="fontDescription" name=".SFNSDisplay" family=".SF NS Display" pointSize="40"/>
                                 <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -792,7 +794,7 @@
                                 <color key="value" red="0.80937156300000002" green="0.96697524010000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="color" keyPath="secondColor">
-                                <color key="value" red="0.61032963080000002" green="0.85112856370000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="value" red="0.3548229034" green="0.78342023039999997" blue="0.98624674479999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </view>
@@ -1041,10 +1043,10 @@
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="color" keyPath="firstColor">
-                                                <color key="value" red="0.0" green="0.98106676339999999" blue="0.57369142770000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="value" red="0.80937156300000002" green="0.96697524010000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="color" keyPath="secondColor">
-                                                <color key="value" red="0.61032963080000002" green="0.85112856370000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="value" red="0.35482290336944444" green="0.78342023036666653" blue="0.98624674479166663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </view>
