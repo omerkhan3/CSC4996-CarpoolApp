@@ -993,7 +993,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="SS9-wt-Dab">
-                                <rect key="frame" x="16" y="138" width="343" height="335"/>
+                                <rect key="frame" x="16" y="182" width="343" height="335"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="335" id="HB5-xG-9OB"/>
@@ -1075,7 +1075,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You currently have no recent payments!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="59W-Gy-qrj">
-                                <rect key="frame" x="80" y="329" width="214" height="218"/>
+                                <rect key="frame" x="80" y="373" width="214" height="174"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -1700,7 +1700,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Destination" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rhA-QO-A69">
-                                                        <rect key="frame" x="0.0" y="124" width="270" height="20"/>
+                                                        <rect key="frame" x="0.0" y="123.99999999999994" width="270" height="20"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="20" id="BGc-MR-exb"/>
                                                         </constraints>
@@ -1709,7 +1709,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(destination)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ic8-7m-CRS">
-                                                        <rect key="frame" x="0.0" y="150" width="270" height="20"/>
+                                                        <rect key="frame" x="0.0" y="149.99999999999994" width="270" height="20"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="20" id="Lfd-tr-FLi"/>
                                                         </constraints>
@@ -1718,7 +1718,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Departure Time" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UuU-Z9-DG2">
-                                                        <rect key="frame" x="0.0" y="176" width="270" height="20"/>
+                                                        <rect key="frame" x="0.0" y="175.99999999999994" width="270" height="20"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="20" id="wJW-ap-1oU"/>
                                                         </constraints>
@@ -1727,7 +1727,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(departure time)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lcb-ZM-8ri">
-                                                        <rect key="frame" x="0.0" y="202" width="270" height="20"/>
+                                                        <rect key="frame" x="0.0" y="201.99999999999994" width="270" height="20"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="20" id="jLx-Qh-dt4"/>
                                                         </constraints>
@@ -1736,7 +1736,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ride Cost (One Way)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d8f-Gs-Js4">
-                                                        <rect key="frame" x="0.0" y="228" width="270" height="20"/>
+                                                        <rect key="frame" x="0.0" y="227.99999999999994" width="270" height="20"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="20" id="Fl8-9j-Lv5"/>
                                                         </constraints>
@@ -1745,7 +1745,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(cost)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4m0-UV-O2J">
-                                                        <rect key="frame" x="0.0" y="254" width="270" height="20"/>
+                                                        <rect key="frame" x="0.0" y="253.99999999999994" width="270" height="20"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="20" id="HGc-Rf-ojQ"/>
                                                         </constraints>
@@ -2161,7 +2161,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HxB-S8-yx5">
-                                <rect key="frame" x="0.0" y="44" width="375" height="734"/>
+                                <rect key="frame" x="0.0" y="88" width="375" height="690"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <wkWebViewConfiguration key="configuration">
                                     <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
@@ -2346,7 +2346,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="PNQ-4t-REG">
-                                <rect key="frame" x="0.0" y="44" width="375" height="768"/>
+                                <rect key="frame" x="0.0" y="88" width="375" height="724"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="matchCell" textLabel="Vvo-zo-gnc" detailTextLabel="qFP-Kh-Lg9" style="IBUITableViewCellStyleSubtitle" id="MJV-IH-cAY">
@@ -2411,7 +2411,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="vNH-mh-SyX">
-                                <rect key="frame" x="0.0" y="114" width="375" height="535"/>
+                                <rect key="frame" x="0.0" y="158" width="375" height="535"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="535" id="R6B-7F-IdH"/>
@@ -2430,7 +2430,7 @@
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Driving" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dJZ-ks-WB4">
                                                             <rect key="frame" x="65" y="0.0" width="77" height="82.666666666666671"/>
                                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="23"/>
-                                                            <nil key="textColor"/>
+                                                            <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iFb-Xa-TTR">
@@ -2447,6 +2447,7 @@
                                                         </label>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="driver-96" translatesAutoresizingMaskIntoConstraints="NO" id="DN1-hK-fI6">
                                                             <rect key="frame" x="5" y="0.0" width="50" height="82"/>
+                                                            <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="50" id="cbb-tJ-gi3"/>
                                                                 <constraint firstAttribute="height" constant="82" id="zUn-DS-xz8"/>
@@ -2491,7 +2492,7 @@
                                 </prototypes>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Upcoming Rides" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w7u-pA-Rd6">
-                                <rect key="frame" x="95.333333333333329" y="63.999999999999993" width="183.66666666666669" height="28.666666666666664"/>
+                                <rect key="frame" x="95.333333333333329" y="108" width="183.66666666666669" height="28.666666666666657"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                                 <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -3703,6 +3704,7 @@
         <image name="user" width="20" height="20"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="gHE-U5-aZe"/>
         <segue reference="0Xe-wP-jtL"/>
         <segue reference="HTZ-zT-dho"/>
         <segue reference="asS-Az-c3C"/>

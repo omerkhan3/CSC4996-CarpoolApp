@@ -7,7 +7,7 @@ router.get('/getDestination', function(req, res, next) {
 	var userID = req.query.userID;
 	//var destination
 	console.log(userID);
-	db.query("select \"frequentDestinations\".\"Name\", \"frequentDestinations\".\"Address\" from carpool.\"frequentDestinations\" where \"frequentDestinations\".\"userID\" = $1", userID)
+	db.query("select \"frequentDestinations\".\"Name\", \"frequentDestinations\".\"Address\", \"frequentDestinationID\" from carpool.\"frequentDestinations\" where \"frequentDestinations\".\"userID\" = $1", userID)
 .then(function(data) {
   console.log(data);
   res.send(data);
@@ -43,15 +43,17 @@ router.post('/deleteDestination', function(req, res, next) {
 	var deletingDestination = req.body.deletingDestination;
 	var deleteDestinationJSON = JSON.parse(deletingDestination);
 	console.log(deleteDestinationJSON);
-		db.none(`DELETE from carpool.\"frequentDestinations\" where \"frequentDestinationID\" = '${frequentDestinationID}'`
-		)
+		db.none(`DELETE from carpool.\"frequentDestinations\" where \"frequentDestinationID\" = ${deleteDestinationJSON['frequentDestinationID']}`)
+		.then(function() {
+			res.status(200).json({
+				status: 'Success',
+				message: 'Destination deleted.'
+			})
+		})
 		.catch(function(err) {
 			console.log(err);
 		})
-	res.status(200).json({
-		status: 'Success',
-		message: 'Destination deleted.'
-	})
+
 });
 
 
