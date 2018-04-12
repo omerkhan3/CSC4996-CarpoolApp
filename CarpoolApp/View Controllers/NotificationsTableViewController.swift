@@ -91,6 +91,15 @@ class NotificationsTableViewController: UITableViewController {
         return notificationsArray.count
     }
     
+    //Deleting functionality
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            notificationsArray.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+    }
+    
+    
     // Download notifications JSON and decode into an array
     func getNotifications(completed: @escaping () -> ()) {
         // get userID

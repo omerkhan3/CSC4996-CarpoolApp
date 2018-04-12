@@ -148,15 +148,6 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
         
         return count
     }
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        if (tableView == myRoutesTable) {
-//            print(myRoutesArray[indexPath.row].Name)
-//        }
-//        else if (tableView == MyDestinationsTable) {
-//            print(destinationsArray[indexPath.row])
-//        }
-//
-//}
 
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         let userID = Auth.auth().currentUser!.uid

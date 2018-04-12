@@ -37,7 +37,7 @@ db.query(`UPDATE carpool.\"Users\" SET \"customerID\" = '${result.customer.id}',
 //  console.log(result.customer.paymentMethods[0].token);
 
 }
-else if (customer.paymentMethods.length > 1) {
+if (customer.paymentMethods.length > 1) {
     		for (var i = 1; i < customer.paymentMethods.length; i++)
     		{
     			console.log(customer.paymentMethods[i].token);
