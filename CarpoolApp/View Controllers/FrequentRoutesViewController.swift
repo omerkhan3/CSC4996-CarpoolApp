@@ -150,12 +150,10 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
                 //startadd = options3[2]
             }
             else if (self.placeButton1.text != nil){
-                if (destination.Name == ""){
-                    startadd = destination.Address
-                    getstartcoor()
-                    
+                if( self.placeButton1.text == destination.Name){
+                    endadd = destination.Address
+                    getendcoor()
                 }
-                //startadd = options3[3]
             }
         }
     }
@@ -166,7 +164,6 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
                     endadd = destination.Address
                     getendcoor()
                 }
-                //endadd = options3[0]
             }
             else if (self.placeButton2.text == "Work"){
                 
@@ -174,26 +171,37 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
                     endadd = destination.Address
                     getendcoor()
                 }
-                // endadd = options3[1]
             }
             else if (self.placeButton2.text == "School"){
                 if (destination.Name == "School"){
                     endadd = destination.Address
                     getendcoor()
                 }
-                //endadd = options3[2]
             }
-            else if (self.placeButton2.text == ""){
-                //if (destination.Name == "Other"){
+            else if (self.placeButton2.text != nil){
+                if( self.placeButton2.text == destination.Name){
                     endadd = destination.Address
                     getendcoor()
-                //}
+                }
             }
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    
+        let myColor = UIColor.black
+        placeButton1.layer.borderColor = myColor.cgColor
+        placeButton2.layer.borderColor = myColor.cgColor
+        arrivaltime1.layer.borderColor = myColor.cgColor
+        arrivaltime2.layer.borderColor = myColor.cgColor
+        departtime1.layer.borderColor = myColor.cgColor
+        departtime2.layer.borderColor = myColor.cgColor
+        routeName.layer.borderColor = myColor.cgColor
+        placeButton1.layer.borderWidth = 1.0
+        placeButton2.layer.borderWidth = 1.0
+        placeButton1.layer.cornerRadius = 8.0
+        placeButton2.layer.cornerRadius = 8.0
         
         sunday.delegate = self
         monday.delegate = self
