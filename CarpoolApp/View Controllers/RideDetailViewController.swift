@@ -222,9 +222,11 @@ class RideDetailViewController: UIViewController {
             let startRideTimeString = formatter.string(from: startRideTime)
             let startRideIntervalString = formatter.string(from: startRideInterval)
             //print (scheduledRideDetail?.Date as Any)
-            //formatter.dateFormat = "YYYY-MM-dd'T'HH:mm:ss.Z"
-            //let rideDate = formatter.date(from: (scheduledRideDetail!.Date))
-            
+            formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.sssZ"
+            let rideDate = formatter.date(from: (scheduledRideDetail!.Date))
+            print("Ride Date: ", rideDate as Any)
+            //formatter.dateFormat()
+            //let rideDateString =
             print ("Current Time: ", currentTime, " Earliest Time to Start Ride: ", startRideIntervalString, "Driver Leave Time: ", startRideTimeString)
             
             if (currentTime > startRideIntervalString && currentTime < startRideTimeString)

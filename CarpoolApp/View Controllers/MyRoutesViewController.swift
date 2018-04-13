@@ -46,8 +46,10 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
             if self.destinationsArray.count == 0 {
                 // No saved routes
                 self.noDestinationsLabel.isHidden = false
+                self.MyDestinationsTable.isHidden = false
             } else {
                 self.noDestinationsLabel.isHidden = true
+                self.MyDestinationsTable.isHidden = true
             }
         }
         
