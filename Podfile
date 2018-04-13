@@ -14,4 +14,5 @@ pod 'BEMCheckBox'
 pod 'SideMenu'
 pod 'Mapbox-iOS-SDK', '~>3.7'
 pod 'MapboxNavigation'
+pod 'IQKeyboardManagerSwift'
 end
