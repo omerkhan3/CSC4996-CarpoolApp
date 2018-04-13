@@ -211,11 +211,38 @@ class RideDetailViewController: UIViewController {
     
     func setView(){
         // If user is a driver populate rider name
+        let now = NSDate()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm:ss"
+        let currentTime = formatter.string(from: now as Date)
+        
         if scheduledRideDetail?.routeType == "toDestination"{
         if userID == scheduledRideDetail?.driverID {
             self.firstName.text = scheduledRideDetail?.riderFirstName
             self.pickupLbl.text = "Rider Pickup Location"
             self.destinationLbl.text = "Rider Destination"
+            let driverLeaveTime = scheduledRideDetail!.driverLeaveTime
+            let startRideTime = formatter.date(from: (driverLeaveTime))!
+            let startRideInterval = startRideTime.addingTimeInterval(-15.0 * 60)
+            let startRideTimeString = formatter.string(from: startRideTime)
+            let startRideIntervalString = formatter.string(from: startRideInterval)
+            //print (scheduledRideDetail?.Date as Any)
+            //formatter.dateFormat = "YYYY-MM-dd'T'HH:mm:ss.Z"
+            //let rideDate = formatter.date(from: (scheduledRideDetail!.Date))
+            
+            print ("Current Time: ", currentTime, " Earliest Time to Start Ride: ", startRideIntervalString, "Driver Leave Time: ", startRideTimeString)
+            
+            if (currentTime > startRideIntervalString && currentTime < startRideTimeString)
+            {
+                self.startRideBtn.isEnabled = true
+            }
+            else{
+                //self.startRideBtn.isEnabled = false
+                //self.startRideBtn.setTitleColor(UIColor.gray, for: .disabled)
+                self.startRideBtn.isHidden = true
+                
+            }
+
             
         } else {
             // Populate driver name
@@ -234,6 +261,26 @@ class RideDetailViewController: UIViewController {
                 self.firstName.text = scheduledRideDetail?.riderFirstName
                 self.pickupLbl.text = "Rider Pickup Location"
                 self.destinationLbl.text = "Rider Destination"
+                
+                let driverLeaveTime = scheduledRideDetail!.driverDepartureTime1
+                let startRideTime = formatter.date(from: (driverLeaveTime))!
+                let startRideInterval = startRideTime.addingTimeInterval(-15.0 * 60)
+                let startRideTimeString = formatter.string(from: startRideTime)
+                let startRideIntervalString = formatter.string(from: startRideInterval)
+                
+                print ("Current Time: ", currentTime, " Earliest Time to Start Ride: ", startRideIntervalString, "Driver Leave Time: ", startRideTimeString)
+                
+                if (currentTime > startRideIntervalString && currentTime < startRideTimeString)
+                {
+                    self.startRideBtn.isEnabled = true
+                }
+                else{
+                    //self.startRideBtn.isEnabled = false
+                    //self.startRideBtn.setTitleColor(UIColor.gray, for: .disabled)
+                    self.startRideBtn.isHidden = true
+                    
+                }
+                
                 
             } else {
                 // Populate driver name
