@@ -20,12 +20,14 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
     @IBOutlet weak var UserPhoneNumber: UILabel!
     @IBOutlet weak var UserBio: UILabel!
     @IBOutlet weak var ProfilePic: UIImageView!
+    @IBOutlet weak var scrollView: UIScrollView!
     
     @IBOutlet weak var UserFirstNameEdit: UITextField!
     @IBOutlet weak var UserEmailEdit: UITextField!
     @IBOutlet weak var UserLastNameEdit: UITextField!
     @IBOutlet weak var UserPhoneNumberEdit: UITextField!
     @IBOutlet weak var UserBioEdit: UITextView!
+    
     let dist = -140
     var databaseRef: DatabaseReference!
     var storageRef: StorageReference!
@@ -410,17 +412,23 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         moveScrollView(textField, distance: dist, up: true)
            }
     
+    /*func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
+     if (text == "\n")
+     {
+     textView.resignFirstResponder()
+     return false
+     }
+     return true
+     }*/
+    
     // End editing within text field
     func textFieldDidEndEditing(_ textField: UITextField) {
-        
-//        moveScrollView(textField, distance: dist, up: false)
+        moveScrollView(textField, distance: dist, up: false)
     }
     
     // Hide keyboard if return key is pressed
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        
         textField.resignFirstResponder()
-        
         return true
     }
     

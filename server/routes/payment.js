@@ -37,16 +37,16 @@ db.query(`UPDATE carpool.\"Users\" SET \"customerID\" = '${result.customer.id}',
 //  console.log(result.customer.paymentMethods[0].token);
 
 }
-if (customer.paymentMethods.length > 1) {
-    		for (var i = 1; i < customer.paymentMethods.length; i++)
+if (result.customer.paymentMethods.length > 1) {
+    		for (var i = 1; i < result.customer.paymentMethods.length; i++)
     		{
-    			console.log(customer.paymentMethods[i].token);
-    			// gateway.paymentMethod.delete({
-    			// 	customer.paymentMethods[i].token
-    			// }, function (err) {
+    			console.log(result.customer.paymentMethods[i].token);
+    			 gateway.paymentMethod.delete(
+    			 	result.customer.paymentMethods[i].token
+    			  //function (err) {
 
-    			// });
-    		}
+    			 //});
+    		)}
     	}
 else {
   console.log("Error.");
