@@ -100,6 +100,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         // Create date formatter and reformat date
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.sssZ"
+        print(self.scheduledRidesArray[indexPath.row].Date)
         let date = dateFormatter.date(from: scheduledRidesArray[indexPath.row].Date)!
         dateFormatter.dateFormat = "MM-dd-YYYY"
         let dateString = dateFormatter.string(from: date)

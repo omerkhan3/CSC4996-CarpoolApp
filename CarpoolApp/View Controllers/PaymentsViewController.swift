@@ -70,7 +70,7 @@ class PaymentsViewController: UIViewController, UITableViewDelegate, UITableView
         let cell = tableView.dequeueReusableCell(withIdentifier: "recentPayments", for: indexPath) as! recentPaymentsCell
         
         cell.driverFirstName.text = "Driver:  " + recentPaymentsArray[indexPath.row].firstName
-        cell.Time?.text = "Date:  " + recentPaymentsArray[indexPath.row].Time
+        cell.Time?.text = "Date:  " + formatDate(date: recentPaymentsArray[indexPath.row].Time)
         cell.Amount.text = "$" + String(describing: Double(round(100 * recentPaymentsArray[indexPath.row].Amount)/100))
         
         return cell
@@ -200,5 +200,17 @@ class PaymentsViewController: UIViewController, UITableViewDelegate, UITableView
                 }
                 }.resume()
         }
+    }
+    
+    func formatDate(date: String) -> String {
+        // Create date formatter and reformat date
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        print(date)
+        let formattedDate = dateFormatter.date(from: date)!
+        dateFormatter.dateFormat = "MM-dd-YYYY h:mm a"
+        let dateString = dateFormatter.string(from: formattedDate)
+        
+        return dateString
     }
 }
