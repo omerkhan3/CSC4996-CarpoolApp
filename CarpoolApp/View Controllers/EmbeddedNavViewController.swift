@@ -5,19 +5,14 @@ import MapboxDirections
 import FirebaseAuth
 
 class EmbeddedNavViewController: UIViewController, NavigationViewControllerDelegate, UITextFieldDelegate  {
-    
-    @IBOutlet weak var container: UIView!
-    
-    
+
     var route: ScheduledRide?
     let userID = Auth.auth().currentUser!.uid
     
-    
-    
+    @IBOutlet weak var container: UIView!
     @IBOutlet weak var pickedUp: RoundedButton!
     @IBOutlet weak var droppedOff: RoundedButton!
     @IBOutlet weak var cancelDrive: RoundedButton!
-    
     
     @IBAction func pickPress(_ sender: RoundedButton) {
         //cancelDrive.isEnabled = false
@@ -47,8 +42,6 @@ class EmbeddedNavViewController: UIViewController, NavigationViewControllerDeleg
         self.setRideStatus(rideInfo: rideInfo)
         let ridePayment = ["driverID" : self.route!.driverID as Any, "riderID" : self.route!.riderID as Any, "rideCost": self.route!.rideCost as Any] as [String : Any]
         processPayment(ridePayment: ridePayment)
-        
-        
     }
     
     @IBAction func cancelPress(_ sender: RoundedButton) {
@@ -70,9 +63,6 @@ class EmbeddedNavViewController: UIViewController, NavigationViewControllerDeleg
             print("hi")
         }
     }
-    
-    
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -138,7 +128,6 @@ class EmbeddedNavViewController: UIViewController, NavigationViewControllerDeleg
         self.didMove(toParentViewController: self)
     }
     
-    
     func navigationViewController(_ navigationViewController: NavigationViewController, didArriveAt waypoint: Waypoint) -> Bool {
         
         let alert = UIAlertController(title: "Arrived at \(String(describing: waypoint.name))", message: "Would you like to continue?", preferredStyle: .alert)
@@ -150,7 +139,6 @@ class EmbeddedNavViewController: UIViewController, NavigationViewControllerDeleg
         
         return false
     }
-    
     
     func setRideStatus(rideInfo: Dictionary<String, Any>)
     {
@@ -170,9 +158,7 @@ class EmbeddedNavViewController: UIViewController, NavigationViewControllerDeleg
             }
             
             }.resume()
-        
     }
-    
     
     //Method to send unique payment nonce to server for transaction
     func processPayment (ridePayment: Dictionary<String, Any>) {
@@ -204,7 +190,4 @@ class EmbeddedNavViewController: UIViewController, NavigationViewControllerDeleg
                 }.resume()
         }
     }
-
-    
 }
-

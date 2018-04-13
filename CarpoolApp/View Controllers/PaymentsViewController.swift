@@ -26,7 +26,6 @@ class PaymentsViewController: UIViewController, UITableViewDelegate, UITableView
     //Class variables
     var clientToken: String = ""
     var recentPaymentsArray = [RecentPayments]()
-    //var recentPayments = RecentPayments()
     var recentPaymentsDetail: RecentPayments?
     
     let userID = Auth.auth().currentUser?.uid
@@ -70,22 +69,12 @@ class PaymentsViewController: UIViewController, UITableViewDelegate, UITableView
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "recentPayments", for: indexPath) as! recentPaymentsCell
         
-        // Create date formatter and reformat date
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.sssZ"
-        let date = dateFormatter.date(from: recentPaymentsArray[indexPath.row].Time)!
-        dateFormatter.dateFormat = "MM-dd-YYYY"
-        let dateString = dateFormatter.string(from: date)
-        
         cell.driverFirstName.text = "Driver:  " + recentPaymentsArray[indexPath.row].firstName
-        cell.Time?.text = "Date:  " + dateString
+        cell.Time?.text = "Date:  " + recentPaymentsArray[indexPath.row].Time
         cell.Amount.text = "$" + String(describing: Double(round(100 * recentPaymentsArray[indexPath.row].Amount)/100))
         
         return cell
     }
-    
-    
- 
     
     // Set number of sections
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -125,7 +114,6 @@ class PaymentsViewController: UIViewController, UITableViewDelegate, UITableView
             }.resume()
     }
     
-    
     func makeRequest(completion: @escaping (String) -> Void) {
         var clientTokenComponents = URLComponents(string: "http://localhost:3000/payment/client_token")!
         clientTokenComponents.queryItems = [URLQueryItem(name: "userID", value: userID)]
@@ -156,12 +144,10 @@ class PaymentsViewController: UIViewController, UITableViewDelegate, UITableView
         })
     }
     
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
     
     //Shows the braintree Drop-In UI
     func showDropIn(clientTokenOrTokenizationKey: String) {
@@ -201,8 +187,6 @@ class PaymentsViewController: UIViewController, UITableViewDelegate, UITableView
             let paymentJSONInfo = NSString(data: paymentJSON, encoding: String.Encoding.utf8.rawValue)! as String
             //payment_method_nonce is the field that the server will be looking for to receive the nonce
             request.httpBody = "paymentInfo=\(paymentJSONInfo)".data(using: String.Encoding.utf8)
-            //request.httpBody = "payment_method_nonce=\(paymentMethodNonce)".data(using: String.Encoding.utf8) // "payment_method_nonce" is the field that the server will be looking for to receive the nonce.
-
             //POST method
             request.httpMethod = "POST"
             

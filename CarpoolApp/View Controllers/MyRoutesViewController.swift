@@ -109,12 +109,9 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
             
             return cell
         }
-        
         return cell
-
     }
     
-
     func deleteButtonPressed(sender: UIButton!){
         print("Deleted")
     }
@@ -135,7 +132,6 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
         else if (tableView == MyDestinationsTable) {
             return destinationsArray.count
         }
-        
         return count
     }
 
@@ -201,8 +197,6 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
             }
             }.resume()
     }
-    
-    // Custom class functions
 
     // Function to download and save frequent destinations into an array
     func getDestinationsDecode(completed: @escaping () -> ()) {
@@ -252,7 +246,6 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
             }.resume()
     }
     
-    
     func cancelRoute(cancelrouteInfo: Dictionary<String, Any>) {
         let cancelURL = URL(string: "http://localhost:3000/routes/cancelRoute")!
         var request = URLRequest(url: cancelURL)
@@ -270,7 +263,5 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
             }
             
             }.resume()
-        
     }
 }
-

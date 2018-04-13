@@ -50,9 +50,6 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
     @IBOutlet weak var friday: BEMCheckBox!
     @IBOutlet weak var saturday: BEMCheckBox!
     
-    
-    
-    
     //labels for arrive and depart time
     @IBOutlet weak var arrivaltime1: UITextField!
     @IBOutlet weak var arrivaltime2: UITextField!
@@ -64,8 +61,6 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
     @IBOutlet weak var routeName: UITextField!
     @IBOutlet weak var placeButton1: UITextField!
     @IBOutlet weak var placeButton2: UITextField!
-    
-    
     
     //label press action that brings up the time picker for arrival
     @IBAction func arrivalpress1(_ sender: UITextField) {
@@ -136,8 +131,6 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
             alert.addAction(exitAction)
             self.present(alert, animated: true, completion: nil)  // present error alert.
         }
-            
-            
             
         else if (self.paymentMethod == false)
         {
@@ -280,7 +273,6 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
         //showDestionations()
         
         checkPaymentMethod()
-        
     }
     
     // get starting coordinates from start string
@@ -545,7 +537,6 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
         if active_textFiled == routeName{
             moveScrollView(textField, distance: dist, up: false)
         }
-
     }
     
     // Hide keyboard if return key is pressed
@@ -553,7 +544,6 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
         textField.resignFirstResponder()
         return true
     }
-    
     
     // Move scroll view
     func moveScrollView(_ textField: UITextField, distance: Int, up: Bool) {
@@ -586,17 +576,13 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
                         {
                             self.paymentMethod = true
                         }
-                        
-                        
                     }
                     catch let error as NSError {
                         print(error)
                     }
-                    
                 }
             }
             }.resume()
-        
     }
 }
 
@@ -619,7 +605,3 @@ func addRoute(routeInfo: Dictionary<String, Any>)
         
         }.resume()
 }
-
-
-
-

@@ -155,8 +155,6 @@ class RiderMatchDetailViewController: UIViewController {
         
     }
     
-    
-    
     // Custom class methods
     
     // Determine days matched / imperfect match
@@ -164,7 +162,6 @@ class RiderMatchDetailViewController: UIViewController {
         let riderDaysSet = Set(riderDaysArray)
         let driverDaysSet = Set(driverDaysArray)
         perfectRiderMatch = riderDaysSet.isSubset(of: driverDaysSet)
-        
         
         // Perfect Match
         if (perfectRiderMatch == true) {
@@ -332,5 +329,4 @@ class RiderMatchDetailViewController: UIViewController {
                 }
             }
     }
-
 }

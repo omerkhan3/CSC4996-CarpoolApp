@@ -13,17 +13,17 @@ import FirebaseAuth
 class RegistrationViewController: UIViewController, UITextFieldDelegate {
     
     // UI components
-    @IBOutlet weak var firstNameField: UITextField! // first name text field.
-    @IBOutlet weak var lastNameField: UITextField! // last name text field.
-    @IBOutlet weak var emailField: UITextField! // email text field.
-    @IBOutlet weak var passwordField: UITextField! // password text field.
-    @IBOutlet weak var confirmPasswordField: UITextField! // confirm password text field.
-    @IBOutlet weak var phoneNumberField: UITextField! // phone number text field
+    @IBOutlet weak var firstNameField: UITextField!
+    @IBOutlet weak var lastNameField: UITextField!
+    @IBOutlet weak var emailField: UITextField!
+    @IBOutlet weak var passwordField: UITextField!
+    @IBOutlet weak var confirmPasswordField: UITextField!
+    @IBOutlet weak var phoneNumberField: UITextField!
     
     let dist = -140 // distance to adjust for keyboard
     
     // Register button isClicked method
-    @IBAction func registerButton(_ sender: UIButton) {// on click of the register button.
+    @IBAction func registerButton(_ sender: UIButton) {
         var actionItem : String=String()
         var actionTitle : String=String()
         let exitAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)  // default action to exit out of native alerts.

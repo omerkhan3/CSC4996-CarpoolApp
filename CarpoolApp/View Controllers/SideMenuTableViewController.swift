@@ -87,5 +87,4 @@ class SideMenuTableViewController: UITableViewController {
             self.present(logoutAlert, animated: true)
         }
     }
-
 }

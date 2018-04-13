@@ -49,7 +49,6 @@
 		C9D8928F2033629B005EC683 /* UITextFieldX.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D8928E2033629B005EC683 /* UITextFieldX.swift */; };
 		C9DE0B2A203F5C6100554E9C /* FreqDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DE0B28203F5C5F00554E9C /* FreqDestination.swift */; };
 		C9DE0B2B203F5C6100554E9C /* LocationSearchTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DE0B29203F5C6100554E9C /* LocationSearchTable.swift */; };
-		C9E8631F204D40BF008F6158 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E8631E204D40BF008F6158 /* SettingsViewController.swift */; };
 		D10EFE9A2022979700C962E1 /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10EFE992022979700C962E1 /* RegistrationViewController.swift */; };
 		D10EFE9C2022983600C962E1 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10EFE9B2022983600C962E1 /* LoginViewController.swift */; };
 		D10EFE9E20229ACA00C962E1 /* PasswordResetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10EFE9D20229ACA00C962E1 /* PasswordResetViewController.swift */; };
@@ -112,7 +111,6 @@
 		C9D8928E2033629B005EC683 /* UITextFieldX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITextFieldX.swift; sourceTree = "<group>"; };
 		C9DE0B28203F5C5F00554E9C /* FreqDestination.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FreqDestination.swift; sourceTree = "<group>"; };
 		C9DE0B29203F5C6100554E9C /* LocationSearchTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationSearchTable.swift; sourceTree = "<group>"; };
-		C9E8631E204D40BF008F6158 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		D10EFE992022979700C962E1 /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
 		D10EFE9B2022983600C962E1 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		D10EFE9D20229ACA00C962E1 /* PasswordResetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordResetViewController.swift; sourceTree = "<group>"; };
@@ -232,7 +230,6 @@
 				20509ADA204EEE9200B2EFA3 /* RiderMatchDetailViewController.swift */,
 				208A2E8A202829E600393D43 /* MapViewController.swift */,
 				917C54B7204E18FE00F2BBDC /* PaymentsViewController.swift */,
-				C9E8631E204D40BF008F6158 /* SettingsViewController.swift */,
 				C9A8E120204E8500004C45ED /* HelpViewController.swift */,
 				2054BEDF206745B600B62FF7 /* RideDetailViewController.swift */,
 				9167A6DA206A3C4000ABB37F /* MyRoutesViewController.swift */,
@@ -518,7 +515,6 @@
 				C9B52A8220453F2B00501AAA /* Checkbox.swift in Sources */,
 				2054BEDE2066B83600B62FF7 /* ScheduledRide.swift in Sources */,
 				917C54B8204E18FE00F2BBDC /* PaymentsViewController.swift in Sources */,
-				C9E8631F204D40BF008F6158 /* SettingsViewController.swift in Sources */,
 				C93E780F207BE3B500879495 /* TermsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

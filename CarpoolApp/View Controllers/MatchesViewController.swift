@@ -11,11 +11,10 @@ import Firebase
 import FirebaseAuth
 
 class MatchesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-
         
-        // array of matches
-        var matchesArray = [Match]()
-        var match = Match()
+    // array of matches
+    var matchesArray = [Match]()
+    var match = Match()
         
     @IBOutlet weak var matchesTableView: UITableView!
     
@@ -115,6 +114,4 @@ class MatchesViewController: UIViewController, UITableViewDelegate, UITableViewD
                 }
                 }.resume()
         }
-
-
 }

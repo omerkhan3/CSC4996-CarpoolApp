@@ -30,11 +30,9 @@ class RideDetailViewController: UIViewController {
     @IBOutlet weak var cost: UILabel!
     @IBOutlet weak var startRideBtn: RoundedButton!
     
-    
     // Label outlets
     @IBOutlet weak var pickupLbl: UILabel!
     @IBOutlet weak var destinationLbl: UILabel!
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -104,8 +102,6 @@ class RideDetailViewController: UIViewController {
     @IBAction func cancelRide(_ sender: Any) {
         let actionTitle = "Cancel Ride"
         let actionItem = "Would you like to cancel this single ride or the entire ride series?"
-        
-        
         
         // Cancel single ride option
         let alert = UIAlertController(title: actionTitle, message: actionItem, preferredStyle: .alert)
@@ -206,7 +202,6 @@ class RideDetailViewController: UIViewController {
             }
             
             }.resume()
-        
     }
     
     func setView(){
@@ -240,9 +235,7 @@ class RideDetailViewController: UIViewController {
                 //self.startRideBtn.isEnabled = false
                 //self.startRideBtn.setTitleColor(UIColor.gray, for: .disabled)
                 self.startRideBtn.isHidden = true
-                
             }
-
             
         } else {
             // Populate driver name
@@ -256,6 +249,7 @@ class RideDetailViewController: UIViewController {
         self.departureTime.text =  scheduledRideDetail?.driverLeaveTime
         self.cost.text = "$" + String(describing: Double(round(100 * scheduledRideDetail!.rideCost)/100))
         }
+            
         else{
             if userID == scheduledRideDetail?.driverID {
                 self.firstName.text = scheduledRideDetail?.riderFirstName
@@ -280,7 +274,6 @@ class RideDetailViewController: UIViewController {
                     self.startRideBtn.isHidden = true
                     
                 }
-                
                 
             } else {
                 // Populate driver name
@@ -310,6 +303,4 @@ class RideDetailViewController: UIViewController {
                 }
         }
     }
-
-        
 }

@@ -76,8 +76,6 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         dismiss(animated: true, completion: nil)
     }
     
-    //let dist = -140
-    
     @IBAction func submitButton(_ sender: UIButton) {
         let userID = Auth.auth().currentUser!.uid
         let userInfo = ["userID": userID, "Biography": self.UserBioEdit.text as Any, "firstName": UserFirstNameEdit.text as Any, "lastName": UserLastNameEdit.text as Any, "Phone": UserPhoneNumberEdit.text as Any, "Email":  UserEmailEdit.text as Any] as [String : Any]
@@ -411,15 +409,6 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
     func textFieldDidBeginEditing(_ textField: UITextField) {
         moveScrollView(textField, distance: dist, up: true)
            }
-    
-    /*func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
-     if (text == "\n")
-     {
-     textView.resignFirstResponder()
-     return false
-     }
-     return true
-     }*/
     
     // End editing within text field
     func textFieldDidEndEditing(_ textField: UITextField) {

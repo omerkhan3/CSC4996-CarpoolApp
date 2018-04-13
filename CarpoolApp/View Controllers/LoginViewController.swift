@@ -19,8 +19,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var dashboardButton: RoundedButton!
     
-    
-    
     let dist = 0 // distance to adjust for keyboard
     
     // Login button isPressed method
@@ -33,7 +31,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         var actionItem : String=String()
         var actionTitle : String=String()
         let exitAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)  // default action to exit out of native alerts.
-        
         
         // Check that both fields are completed
         if ((email?.isEmpty)! || (password?.isEmpty)!)  // error handling for if all fields were filled  out.

@@ -174,7 +174,6 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         
     }
     
-    
     func updateDevice(userInfo: Dictionary<String, Any>)
     {
         let editDeviceURL = URL(string: "http://141.217.48.15:3000/users/device")!
@@ -207,7 +206,6 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         // Set up a cool background image for demo purposes
         //SideMenuManager.default.menuAnimationBackgroundColor = UIColor(patternImage: UIImage(named: "background")!)
     }
-
 
     // Download notifications JSON and decode into an array
     func getNotifications(completed: @escaping () -> ()) {
@@ -258,4 +256,3 @@ extension DashboardViewController: UISideMenuNavigationControllerDelegate {
     }
         
 }
-

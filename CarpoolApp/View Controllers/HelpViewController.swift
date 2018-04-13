@@ -11,25 +11,9 @@ import MessageUI
 
 class HelpViewController: UIViewController,UITextFieldDelegate, MFMailComposeViewControllerDelegate {
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
-    
-
- 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     @IBAction func sendMail(_ sender: Any) {
         
@@ -41,12 +25,9 @@ class HelpViewController: UIViewController,UITextFieldDelegate, MFMailComposeVie
         }
     }
     
-    
-    
     func configureMailController() -> MFMailComposeViewController {
         let mailComposerVC = MFMailComposeViewController()
         mailComposerVC.mailComposeDelegate = self
-        
         
         mailComposerVC.setToRecipients(["afmatt47@hotmail.com"])
         mailComposerVC.setSubject("Carpool App")
@@ -65,7 +46,4 @@ class HelpViewController: UIViewController,UITextFieldDelegate, MFMailComposeVie
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         controller.dismiss(animated: true, completion: nil)
     }
-    
 }
-
-

@@ -14,12 +14,10 @@ import FirebaseAuth
 
 class NotificationsTableViewController: UITableViewController {
     
-    
-    @IBOutlet var notificationsTableView: UITableView!
-    
     // array of notifications
     var notificationsArray = [Notifications]()
     
+    @IBOutlet var notificationsTableView: UITableView!
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -71,8 +69,6 @@ class NotificationsTableViewController: UITableViewController {
 
         let cell = UITableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: "notificationCell")
         
-        
-        
         // set title to notification type
         cell.textLabel?.text = "You have a new " + notificationsArray[indexPath.row].notificationType
         //cell.detailTextLabel?.text = "\(formatDate(date: notificationsArray[indexPath.row].Date))"
@@ -101,8 +97,7 @@ class NotificationsTableViewController: UITableViewController {
             self.deleteNotification(deletingNotification: deletingNotification)
         }
     }
-    
-    
+
     // Download notifications JSON and decode into an array
     func getNotifications(completed: @escaping () -> ()) {
         // get userID
@@ -151,7 +146,6 @@ class NotificationsTableViewController: UITableViewController {
             
             }.resume()
     }
-    
     
     func formatDate(date: String) -> String {
         // Create date formatter and reformat date

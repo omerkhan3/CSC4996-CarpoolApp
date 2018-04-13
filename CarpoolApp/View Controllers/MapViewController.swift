@@ -22,7 +22,6 @@ protocol MapSearch {
 class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     
     // Class variables
-
     var mapMatchDetail: Match?
     var scheduledRideDetail: ScheduledRide?
     var isMatchDetail = false
@@ -47,12 +46,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     let locationManager = CLLocationManager()
     var currentPlacemark:CLPlacemark?
     
-
-    
-
     //linking mapview to this class
     @IBOutlet weak var mapView: MKMapView!
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -172,9 +167,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             self.mapView.add((route.polyline), level: MKOverlayLevel.aboveRoads)
             let rect = route.polyline.boundingMapRect
             self.mapView.setRegion(MKCoordinateRegionForMapRect(rect), animated: true)
-            
         }
-        
     }
     
     func showDriverRouteOnMap(start: CLLocationCoordinate2D, riderPickup: CLLocationCoordinate2D, riderDropoff: CLLocationCoordinate2D, destination: CLLocationCoordinate2D) {
@@ -270,8 +263,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
                 
                 self.mapView.add((route1.polyline), level: MKOverlayLevel.aboveRoads)
                 //let rect1 = route1.polyline.boundingMapRect
-
-                
             }
         
             // Route from rider dropoff to driver destination
@@ -293,7 +284,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
                     destinationAnnotation2.coordinate = location2.coordinate
                 }
 
-                
                 let directionRequest2 = MKDirectionsRequest()
                 directionRequest2.source = startMapItem2
                 directionRequest2.destination = endMapItem2
@@ -315,7 +305,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
                     let route2 = response.routes[0]
                     
                     self.mapView.add((route2.polyline), level: MKOverlayLevel.aboveRoads)
-
                 }
         
         self.mapView.showAnnotations([sourceAnnotation, destinationAnnotation, sourceAnnotation2, destinationAnnotation2], animated: true)
@@ -340,28 +329,3 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         return renderer
     }
 }
-
-
-
-////Uses the protocol we created mapsearch, clears map of any other annotations on it, and mkpointannotation has the coordinate, subtitle(city, state), and title of the place(ex. H&M)
-//extension MapViewController: MapSearch {
-//    func dropPinZoomIn(placemark:MKPlacemark) {
-//        selectedPin = placemark
-//        // clear existing pins
-//        mapView.removeAnnotations(mapView.annotations)
-//        let annotation = MKPointAnnotation()
-//        annotation.coordinate = placemark.coordinate
-//        annotation.title = placemark.name
-//        if let city = placemark.locality,
-//            let state = placemark.administrativeArea {
-//            annotation.subtitle = "(city) (state)"
-//        }
-//        //Add the annotation stated above(city, state)
-//        mapView.addAnnotation(annotation)
-//        let span = MKCoordinateSpanMake(0.05, 0.05)
-//        //Will zoom in the map to the coordinate of the place chosen
-//        let region = MKCoordinateRegionMake(placemark.coordinate, span)
-//        mapView.setRegion(region, animated: true)
-//    }
-//}
-

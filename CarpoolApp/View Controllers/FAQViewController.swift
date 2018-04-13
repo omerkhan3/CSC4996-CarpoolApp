@@ -21,6 +21,4 @@ class FAQViewController: UIViewController {
         
         webView.load(request)
     }
-
-   
 }
