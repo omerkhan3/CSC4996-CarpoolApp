@@ -105,7 +105,7 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
             
             cell.textLabel?.text = destinationsArray[indexPath.row].Name
             cell.textLabel?.textColor = color
-            cell.detailTextLabel?.text = destinationsArray[indexPath.row].Address
+            cell.detailTextLabel?.text = ("To: ",destinationsArray[indexPath.row].Address)
             
             return cell
         }

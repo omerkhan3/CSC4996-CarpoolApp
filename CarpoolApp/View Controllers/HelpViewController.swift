@@ -29,7 +29,7 @@ class HelpViewController: UIViewController,UITextFieldDelegate, MFMailComposeVie
         let mailComposerVC = MFMailComposeViewController()
         mailComposerVC.mailComposeDelegate = self
         
-        mailComposerVC.setToRecipients(["afmatt47@hotmail.com"])
+        mailComposerVC.setToRecipients(["ajmattia@umich.edu"])
         mailComposerVC.setSubject("Carpool App")
         mailComposerVC.setMessageBody("this is a test ", isHTML: false)
         
