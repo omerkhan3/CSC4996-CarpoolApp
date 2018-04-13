@@ -46,10 +46,11 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
             if self.destinationsArray.count == 0 {
                 // No saved routes
                 self.noDestinationsLabel.isHidden = false
-                self.MyDestinationsTable.isHidden = false
-            } else {
-                self.noDestinationsLabel.isHidden = true
                 self.MyDestinationsTable.isHidden = true
+            }
+            else {
+                self.noDestinationsLabel.isHidden = true
+                self.MyDestinationsTable.isHidden = false
             }
         }
         
@@ -60,8 +61,10 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
             if self.myRoutesArray.count == 0 {
                 // No saved routes
                 self.noRoutesLabel.isHidden = false
+                self.myRoutesTable.isHidden = true
             } else {
                 self.noRoutesLabel.isHidden = true
+                self.myRoutesTable.isHidden = false
             }
         }
         
@@ -98,7 +101,7 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
             
             cell.textLabel?.text = myRoutesArray[indexPath.row].Name
             cell.textLabel?.textColor = color
-            cell.detailTextLabel?.text = myRoutesArray[indexPath.row].endAddress
+            cell.detailTextLabel?.text = "To:" + myRoutesArray[indexPath.row].endAddress
             
             return cell
         }
@@ -107,7 +110,7 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
             
             cell.textLabel?.text = destinationsArray[indexPath.row].Name
             cell.textLabel?.textColor = color
-            cell.detailTextLabel?.text = ("To: ",destinationsArray[indexPath.row].Address)
+            cell.detailTextLabel?.text = destinationsArray[indexPath.row].Address
             
             return cell
         }
