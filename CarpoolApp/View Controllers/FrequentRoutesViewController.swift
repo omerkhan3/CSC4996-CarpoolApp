@@ -91,7 +91,7 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
         let exitAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)  // default action to exit out of native alerts.
         
         dump(options)
-        if ((placeButton1.text == "Select Place") || (placeButton1.text == "") || (placeButton2.text == "") || (placeButton2.text == "Select Place") || (arrivaltime1.text?.isEmpty)! || (departtime1.text?.isEmpty)! || (arrivaltime2.text?.isEmpty)! || (departtime2.text?.isEmpty)! || (routeName.text?.isEmpty)!)  // error handling for if all fields were filled  out.
+        if ((placeButton1.text == "Select Place") || (options.count == 0) || (placeButton1.text == "") || (placeButton2.text == "") || (placeButton2.text == "Select Place") || (arrivaltime1.text?.isEmpty)! || (departtime1.text?.isEmpty)! || (arrivaltime2.text?.isEmpty)! || (departtime2.text?.isEmpty)! || (routeName.text?.isEmpty)!)  // error handling for if all fields were filled  out.
         {
             actionTitle = "Error!"
             actionItem = "You have not entered all required information."
