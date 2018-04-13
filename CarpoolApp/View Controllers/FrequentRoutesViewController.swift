@@ -107,6 +107,38 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
             self.present(alert, animated: true, completion: nil)  // present error alert.
         }
             
+        else if (arrivaltime1.text! >= arrivaltime2.text!){
+            actionTitle = "Error!"
+            actionItem = "You have entered an invalid arrival time interval."
+            
+            // Activate UIAlertController to display error
+            let alert = UIAlertController(title: actionTitle, message: actionItem, preferredStyle: .alert)
+            alert.addAction(exitAction)
+            self.present(alert, animated: true, completion: nil)  // present error alert.
+        }
+            
+        else if (departtime1.text! >= departtime2.text!){
+            actionTitle = "Error!"
+            actionItem = "You have entered an invalid departure time interval."
+            
+            // Activate UIAlertController to display error
+            let alert = UIAlertController(title: actionTitle, message: actionItem, preferredStyle: .alert)
+            alert.addAction(exitAction)
+            self.present(alert, animated: true, completion: nil)  // present error alert.
+        }
+            
+        else if (arrivaltime2.text! >= departtime1.text!){
+            actionTitle = "Error!"
+            actionItem = "Your departure time interval cannot be before your arrival time"
+            
+            // Activate UIAlertController to display error
+            let alert = UIAlertController(title: actionTitle, message: actionItem, preferredStyle: .alert)
+            alert.addAction(exitAction)
+            self.present(alert, animated: true, completion: nil)  // present error alert.
+        }
+            
+            
+            
         else if (self.paymentMethod == false)
         {
             actionTitle = "Error!"
