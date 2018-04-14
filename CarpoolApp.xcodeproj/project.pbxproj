@@ -33,6 +33,7 @@
 		917C54B8204E18FE00F2BBDC /* PaymentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 917C54B7204E18FE00F2BBDC /* PaymentsViewController.swift */; };
 		91D3ACBA206B4B700032652E /* RecentPayments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D3ACB9206B4B700032652E /* RecentPayments.swift */; };
 		91F69AC62079955400EDF0FB /* SavedRoutes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F69AC52079955400EDF0FB /* SavedRoutes.swift */; };
+		C90666BD2082A23C0069173C /* mapboxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90666BC2082A23C0069173C /* mapboxViewController.swift */; };
 		C93E780F207BE3B500879495 /* TermsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93E780E207BE3B500879495 /* TermsViewController.swift */; };
 		C93E7811207BE53900879495 /* Introduction.pdf in Resources */ = {isa = PBXBuildFile; fileRef = C93E7810207BE53800879495 /* Introduction.pdf */; };
 		C93E7815207CA65D00879495 /* FAQSs.pdf in Resources */ = {isa = PBXBuildFile; fileRef = C93E7814207CA65D00879495 /* FAQSs.pdf */; };
@@ -95,6 +96,7 @@
 		91D3ACB9206B4B700032652E /* RecentPayments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentPayments.swift; sourceTree = "<group>"; };
 		91F69AC52079955400EDF0FB /* SavedRoutes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedRoutes.swift; sourceTree = "<group>"; };
 		9320C101773311FB910A13A6 /* Pods_CarpoolApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CarpoolApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C90666BC2082A23C0069173C /* mapboxViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mapboxViewController.swift; sourceTree = "<group>"; };
 		C93E780E207BE3B500879495 /* TermsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsViewController.swift; sourceTree = "<group>"; };
 		C93E7810207BE53800879495 /* Introduction.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = Introduction.pdf; sourceTree = "<group>"; };
 		C93E7814207CA65D00879495 /* FAQSs.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = FAQSs.pdf; sourceTree = "<group>"; };
@@ -236,6 +238,7 @@
 				C97DACB620786DF700E76E02 /* FAQViewController.swift */,
 				C93E780E207BE3B500879495 /* TermsViewController.swift */,
 				20F3E636207E9C5B00C48532 /* ScheduledRideTableViewCell.swift */,
+				C90666BC2082A23C0069173C /* mapboxViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -503,6 +506,7 @@
 				C98BB0A0202A58A8006B054C /* otherlocations.swift in Sources */,
 				20DA407D204B2F04003D8473 /* SideMenuTableViewController.swift in Sources */,
 				208A2E8B202829E600393D43 /* MapViewController.swift in Sources */,
+				C90666BD2082A23C0069173C /* mapboxViewController.swift in Sources */,
 				20509AD7204D9DA800B2EFA3 /* MatchesViewController.swift in Sources */,
 				C95643DB2079A8F90038A497 /* FrequentRoutesViewController.swift in Sources */,
 				C9A2AD4120689766000B8674 /* EmbeddedNavViewController.swift in Sources */,
