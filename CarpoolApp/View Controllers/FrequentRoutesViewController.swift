@@ -102,7 +102,7 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
             self.present(alert, animated: true, completion: nil)  // present error alert.
         }
             
-        else if (arrivaltime1.text! >= arrivaltime2.text!){
+        else if (getMilitaryTime(date: arrivaltime1.text!) >= getMilitaryTime(date: arrivaltime2.text!)){
             actionTitle = "Error!"
             actionItem = "You have entered an invalid arrival time interval."
             
@@ -112,7 +112,7 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
             self.present(alert, animated: true, completion: nil)  // present error alert.
         }
             
-        else if (departtime1.text! >= departtime2.text!){
+        else if (getMilitaryTime(date: departtime1.text!) >= getMilitaryTime(date: departtime2.text!)){
             actionTitle = "Error!"
             actionItem = "You have entered an invalid departure time interval."
             
@@ -122,7 +122,7 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
             self.present(alert, animated: true, completion: nil)  // present error alert.
         }
             
-      /*  else if (arrivaltime2.text! >= departtime1.text!){
+       else if (getMilitaryTime(date: arrivaltime2.text!) >= getMilitaryTime(date: departtime1.text!)){
             actionTitle = "Error!"
             actionItem = "Your departure time interval cannot be before your arrival time"
             
@@ -131,7 +131,6 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
             alert.addAction(exitAction)
             self.present(alert, animated: true, completion: nil)  // present error alert.
         }
- */
             
         else if (self.paymentMethod == false)
         {
@@ -606,3 +605,19 @@ func addRoute(routeInfo: Dictionary<String, Any>)
         
         }.resume()
 }
+
+func getMilitaryTime(date: String) -> String {
+    // Create date formatter and reformat date
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "h:mm a"
+    print(date)
+    let formattedDate = dateFormatter.date(from: date)!
+    dateFormatter.dateFormat = "HH:mm"
+    let dateString = dateFormatter.string(from: formattedDate)
+
+    
+    return dateString
+}
+
+
+
