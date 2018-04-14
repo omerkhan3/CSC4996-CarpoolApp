@@ -21,6 +21,7 @@
 		20DA407D204B2F04003D8473 /* SideMenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DA407C204B2F04003D8473 /* SideMenuTableViewController.swift */; };
 		20DA407F204B49FA003D8473 /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DA407E204B49FA003D8473 /* DashboardViewController.swift */; };
 		20F3E637207E9C5B00C48532 /* ScheduledRideTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20F3E636207E9C5B00C48532 /* ScheduledRideTableViewCell.swift */; };
+		20F3E63920829C5E00C48532 /* NotificationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20F3E63820829C5E00C48532 /* NotificationTableViewCell.swift */; };
 		20F47A0420277D4800D79394 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 20F47A0320277D4800D79394 /* GoogleService-Info.plist */; };
 		63917F3C2F967485C2582052 /* Pods_CarpoolApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9320C101773311FB910A13A6 /* Pods_CarpoolApp.framework */; };
 		78241398201D0F3A00F06D99 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78241397201D0F3A00F06D99 /* AppDelegate.swift */; };
@@ -81,6 +82,7 @@
 		20DA407C204B2F04003D8473 /* SideMenuTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuTableViewController.swift; sourceTree = "<group>"; };
 		20DA407E204B49FA003D8473 /* DashboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewController.swift; sourceTree = "<group>"; };
 		20F3E636207E9C5B00C48532 /* ScheduledRideTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduledRideTableViewCell.swift; sourceTree = "<group>"; };
+		20F3E63820829C5E00C48532 /* NotificationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTableViewCell.swift; sourceTree = "<group>"; };
 		20F47A0320277D4800D79394 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		78241394201D0F3A00F06D99 /* CarpoolApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CarpoolApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		78241397201D0F3A00F06D99 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -236,6 +238,7 @@
 				C97DACB620786DF700E76E02 /* FAQViewController.swift */,
 				C93E780E207BE3B500879495 /* TermsViewController.swift */,
 				20F3E636207E9C5B00C48532 /* ScheduledRideTableViewCell.swift */,
+				20F3E63820829C5E00C48532 /* NotificationTableViewCell.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -422,6 +425,8 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-CarpoolApp/Pods-CarpoolApp-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/AWSCore/AWSCore.framework",
+				"${BUILT_PRODUCTS_DIR}/AWSPolly/AWSPolly.framework",
 				"${BUILT_PRODUCTS_DIR}/BEMCheckBox/BEMCheckBox.framework",
 				"${BUILT_PRODUCTS_DIR}/Braintree/Braintree.framework",
 				"${BUILT_PRODUCTS_DIR}/BraintreeDropIn/BraintreeDropIn.framework",
@@ -434,7 +439,6 @@
 				"${BUILT_PRODUCTS_DIR}/MapboxDirections.swift/MapboxDirections.framework",
 				"${BUILT_PRODUCTS_DIR}/MapboxMobileEvents/MapboxMobileEvents.framework",
 				"${BUILT_PRODUCTS_DIR}/MapboxNavigation/MapboxNavigation.framework",
-				"${BUILT_PRODUCTS_DIR}/MapboxSpeech/MapboxSpeech.framework",
 				"${BUILT_PRODUCTS_DIR}/Polyline/Polyline.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/SideMenu/SideMenu.framework",
@@ -445,6 +449,8 @@
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSCore.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSPolly.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BEMCheckBox.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Braintree.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BraintreeDropIn.framework",
@@ -457,7 +463,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MapboxDirections.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MapboxMobileEvents.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MapboxNavigation.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MapboxSpeech.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Polyline.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SideMenu.framework",
@@ -504,6 +509,7 @@
 				20509AD7204D9DA800B2EFA3 /* MatchesViewController.swift in Sources */,
 				C95643DB2079A8F90038A497 /* FrequentRoutesViewController.swift in Sources */,
 				C9A2AD4120689766000B8674 /* EmbeddedNavViewController.swift in Sources */,
+				20F3E63920829C5E00C48532 /* NotificationTableViewCell.swift in Sources */,
 				20509AD1204D995400B2EFA3 /* Match.swift in Sources */,
 				91F69AC62079955400EDF0FB /* SavedRoutes.swift in Sources */,
 				20509AD9204E2C5600B2EFA3 /* Profile.swift in Sources */,

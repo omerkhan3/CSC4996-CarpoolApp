@@ -67,11 +67,13 @@ class NotificationsTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        let cell = UITableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: "notificationCell")
+//        let cell = notificationsTableView.dequeueReusableCell(withIdentifier: "notificationCell") as! NotificationTableViewCell
+        
+        let cell = super.tableView.dequeueReusableCell(withIdentifier: "notificationCell") as! NotificationTableViewCell
         
         // set title to notification type
-        cell.textLabel?.text = "You have a new " + notificationsArray[indexPath.row].notificationType
-        cell.detailTextLabel?.text = formatDate(date: notificationsArray[indexPath.row].Date)
+        cell.notificationLbl.text = notificationsArray[indexPath.row].notificationType
+        cell.notificationDateLbl.text = formatDate(date: notificationsArray[indexPath.row].Date)
 
         return cell
     }

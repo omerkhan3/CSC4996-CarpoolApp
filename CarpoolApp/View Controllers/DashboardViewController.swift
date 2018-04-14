@@ -199,6 +199,11 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         // Define the menus
         SideMenuManager.default.menuLeftNavigationController = storyboard!.instantiateViewController(withIdentifier: "UserMenuNavigationController") as? UISideMenuNavigationController
         
+        let menuRightNavigationController = storyboard!.instantiateViewController(withIdentifier: "NotificationsTableViewController") as! UISideMenuNavigationController
+        SideMenuManager.default.menuRightNavigationController = menuRightNavigationController
+        menuRightNavigationController.menuWidth = UIScreen.main.bounds.width * 0.80
+        
+        
         // Enable gestures. The left and/or right menus must be set up above for these to work.
         // Note that these continue to work on the Navigation Controller independent of the View Controller it displays!
         SideMenuManager.default.menuAddPanGestureToPresent(toView: self.navigationController!.navigationBar)
