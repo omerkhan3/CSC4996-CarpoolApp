@@ -122,7 +122,7 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
             self.present(alert, animated: true, completion: nil)  // present error alert.
         }
             
-        else if (arrivaltime2.text! >= departtime1.text!){
+      /*  else if (arrivaltime2.text! >= departtime1.text!){
             actionTitle = "Error!"
             actionItem = "Your departure time interval cannot be before your arrival time"
             
@@ -131,6 +131,7 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
             alert.addAction(exitAction)
             self.present(alert, animated: true, completion: nil)  // present error alert.
         }
+ */
             
         else if (self.paymentMethod == false)
         {
