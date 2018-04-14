@@ -108,14 +108,14 @@ router.post('/cancel', function(req, res, next) {
   if (cancelJSON['cancelType'] == "Individual") // Case for cancelling an individual ride.
   {
   var date = cancelJSON['Date']; // Date of the cancelled ride.
-
+ console.log(date.slice(5,10));
   db.query(`UPDATE carpool.\"scheduledRoutes\" SET \"Status\" = 'CANCELLED' where \"Date\" = '${date}' AND \"matchID\" = ${matchID}`)
   .then( function (){
     //var deviceToken = getDeviceID(otherID);
     db.one(`SELECT \"deviceToken\", \"firstName\" from carpool.\"Users\" where \"userID\" = '${otherID}'`)
     .then(function(result) {
-      sendPushNotification(`Your ride with ${result.firstName} on ${date} has been cancelled.`, result.deviceToken);
-      db.any(`INSERT INTO carpool.\"notificationLog\"(\"userID\", \"notificationType\", \"Date\", \"Read\") values ('${otherID}', '${result.firstName} has cancelled your ride on ${date}.', 'now', 'false')`)
+      sendPushNotification(`Your ride with ${result.firstName} on ${date.slice(5,10)} has been cancelled.`, result.deviceToken);
+      db.any(`INSERT INTO carpool.\"notificationLog\"(\"userID\", \"notificationType\", \"Date\", \"Read\") values ('${otherID}', '${result.firstName} has cancelled your ride on ${date.slice(5,10)}.', 'now', 'false')`)
       .then(function(){
         res.status(200)
           .json({
