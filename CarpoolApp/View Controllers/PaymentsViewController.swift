@@ -33,8 +33,16 @@ class PaymentsViewController: UIViewController, UITableViewDelegate, UITableView
     
     //Outlets
     @IBAction func newPaymentMethod(_ sender: Any) {
-        showDropIn(clientTokenOrTokenizationKey: self.clientToken)
+        if (self.clientToken == "")
+        {
+            showDropIn(clientTokenOrTokenizationKey: self.tokenizationKey)
+            
+        }
+        else{
+            showDropIn(clientTokenOrTokenizationKey: self.clientToken)
+        }
     }
+    
     @IBOutlet weak var recentPaymentsTable: UITableView!
     @IBOutlet weak var noPaymentsLabel: UILabel!
     
