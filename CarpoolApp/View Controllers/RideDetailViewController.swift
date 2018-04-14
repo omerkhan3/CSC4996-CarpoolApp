@@ -208,30 +208,24 @@ class RideDetailViewController: UIViewController {
         // If user is a driver populate rider name
         let now = NSDate()
         let formatter = DateFormatter()
-        formatter.dateFormat = "HH:mm:ss"
+        formatter.dateFormat = "HH:mm"
         let currentTime = formatter.string(from: now as Date)
+        formatter.dateFormat = "MMM d"
+        let currentDate = formatter.string(from: now as Date)
         
         if scheduledRideDetail?.routeType == "toDestination"{
         if userID == scheduledRideDetail?.driverID {
             self.firstName.text = scheduledRideDetail?.riderFirstName
             self.pickupLbl.text = "Rider Pickup Location"
             self.destinationLbl.text = "Rider Destination"
-            let driverLeaveTime = scheduledRideDetail!.driverLeaveTime
-            let startRideTime = formatter.date(from: (driverLeaveTime))!
-            let startRideInterval = startRideTime.addingTimeInterval(-15.0 * 60)
-            let startRideTimeString = formatter.string(from: startRideTime)
-            let startRideIntervalString = formatter.string(from: startRideInterval)
-            //print (scheduledRideDetail?.Date as Any)
-            formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.sssZ"
-            let rideDate = formatter.date(from: (scheduledRideDetail!.Date))
-            print("Ride Date: ", rideDate as Any)
-            //formatter.dateFormat()
-            //let rideDateString =
-            print ("Current Time: ", currentTime, " Earliest Time to Start Ride: ", startRideIntervalString, "Driver Leave Time: ", startRideTimeString)
+            let startRideTime = getTime(date: scheduledRideDetail!.driverLeaveTime)
+            let startRideInterval = getStartInterval(date: scheduledRideDetail!.driverLeaveTime)
+            let rideDate = getDay(date: (scheduledRideDetail?.Date)!)
+            print ("Current Time: ", currentTime, " Earliest Time to Start Ride: ", startRideInterval, "Driver Leave Time: ", startRideTime, "Ride Date: ", rideDate, "currentDate: ", currentDate)
             
-            if (currentTime > startRideIntervalString && currentTime < startRideTimeString)
+            if (currentTime > startRideInterval && currentTime < startRideTime && rideDate == currentDate)
             {
-                self.startRideBtn.isEnabled = true
+               self.startRideBtn.isEnabled = true
             }
             else{
                 //self.startRideBtn.isEnabled = false
@@ -257,16 +251,14 @@ class RideDetailViewController: UIViewController {
                 self.firstName.text = scheduledRideDetail?.riderFirstName
                 self.pickupLbl.text = "Rider Pickup Location"
                 self.destinationLbl.text = "Rider Destination"
+                let startRideTime = getTime(date: scheduledRideDetail!.driverDepartureTime1)
+                let startRideInterval = getStartInterval(date: scheduledRideDetail!.driverDepartureTime1)
+                let rideDate = getDay(date: (scheduledRideDetail?.Date)!)
                 
-                let driverLeaveTime = scheduledRideDetail!.driverDepartureTime1
-                let startRideTime = formatter.date(from: (driverLeaveTime))!
-                let startRideInterval = startRideTime.addingTimeInterval(-15.0 * 60)
-                let startRideTimeString = formatter.string(from: startRideTime)
-                let startRideIntervalString = formatter.string(from: startRideInterval)
+                print ("Current Time: ", currentTime, " Earliest Time to Start Ride: ", startRideInterval, "Driver Leave Time: ", startRideTime, "Ride Date: ", rideDate, "currentDate: ", currentDate)
+
                 
-                print ("Current Time: ", currentTime, " Earliest Time to Start Ride: ", startRideIntervalString, "Driver Leave Time: ", startRideTimeString)
-                
-                if (currentTime > startRideIntervalString && currentTime < startRideTimeString)
+                if (currentTime > startRideInterval && currentTime < startRideTime && rideDate == currentDate)
                 {
                     self.startRideBtn.isEnabled = true
                 }
@@ -305,4 +297,43 @@ class RideDetailViewController: UIViewController {
                 }
         }
     }
+    
+    
+    func getTime(date: String) -> String {
+        // Create date formatter and reformat date
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm:ss"
+        print(date)
+        let formattedDate = dateFormatter.date(from: date)!
+        dateFormatter.dateFormat = "HH:mm"
+        let dateString = dateFormatter.string(from: formattedDate)
+        
+        return dateString
+    }
+    
+    
+    func getDay(date: String) -> String {
+        // Create date formatter and reformat date
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.sssZ"
+        let formattedDate = dateFormatter.date(from: date)!
+        dateFormatter.dateFormat = "MMM d"
+        let dateString = dateFormatter.string(from: formattedDate)
+        
+        return dateString
+    }
+    
+    func getStartInterval(date: String) -> String {
+        // Create date formatter and reformat date
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm:ss"
+        print(date)
+        var formattedDate = dateFormatter.date(from: date)!
+        formattedDate = formattedDate.addingTimeInterval(-15.0 * 60)
+        dateFormatter.dateFormat = "HH:mm"
+        let dateString = dateFormatter.string(from: formattedDate)
+        return dateString
+    }
+    
+    
 }
