@@ -256,8 +256,8 @@ class RiderMatchDetailViewController: UIViewController {
             //self.profilePicture ==
             self.firstName.text = matchDetail?.driverFirstName
             self.pickupTime.text = getTime(date: (matchDetail?.riderPickupTime)!)
-            self.pickupLocation.text = matchDetail?.riderStartAddress
-            self.destination.text = matchDetail?.riderEndAddress
+            self.pickupLocation.text = String(describing: matchDetail!.riderStartAddress[..<(matchDetail!.riderStartAddress.range(of: ",")!.lowerBound)])
+            self.destination.text = String(describing: matchDetail!.riderEndAddress[..<(matchDetail!.riderEndAddress.range(of: ",")!.lowerBound)])
             self.departureTime.text = getTime(date: (matchDetail?.riderPickupTime2)!)
             self.cost.text = "$" + String(describing: Double(round(100 * matchDetail!.rideCost)/100))
             
@@ -302,8 +302,8 @@ class RiderMatchDetailViewController: UIViewController {
             //self.profilePicture ==
             self.firstName.text = matchDetail?.driverFirstName
             self.pickupTime.text = getTime(date: (matchDetail?.riderPickupTime)!)
-            self.pickupLocation.text = matchDetail?.riderStartAddress
-            self.destination.text = matchDetail?.riderEndAddress
+            self.pickupLocation.text = String(describing: matchDetail!.riderStartAddress[..<(matchDetail!.riderStartAddress.range(of: ",")!.lowerBound)])
+            self.destination.text = String(describing: matchDetail!.riderEndAddress[..<(matchDetail!.riderStartAddress.range(of: ",")!.lowerBound)])
             self.departureTime.text = getTime(date: (matchDetail?.driverDeparture2)!)
             self.cost.text = "$" + String(describing: Double(round(100 * matchDetail!.rideCost)/100))
             
