@@ -33,7 +33,19 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     @IBAction func addRoute(_ sender: Any) {
+        if destinationsArray.count < 2 {
+            let actionTitle = "Error!"
+            let actionItem = "You must have at least 2 destinations saved before you can add a route."
+            let exitAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+            // Activate UIAlertController to display error
+            let alert = UIAlertController(title: actionTitle, message: actionItem, preferredStyle: .alert)
+            alert.addAction(exitAction)
+            self.present(alert, animated: true, completion: nil)  // present error alert.
+            
+        }
+        else{
         self.performSegue(withIdentifier: "showAddRoute", sender: self)
+        }
     }
     
     //Reloading the table view and showing label if no saved routes

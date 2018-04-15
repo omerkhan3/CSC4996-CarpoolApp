@@ -131,6 +131,10 @@ class RiderMatchDetailViewController: UIViewController {
                 self.riderRequest(matchInfo: statusUpdate)
                 self.performSegue(withIdentifier: "unwindtoMatches", sender: self)
             }))
+            
+            alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { action in
+            }))
+            
             self.present(alert, animated: true, completion: nil)
         } else {
         
@@ -150,6 +154,10 @@ class RiderMatchDetailViewController: UIViewController {
                 self.riderRequest(matchInfo: statusUpdate)
                 self.performSegue(withIdentifier: "showDashboardFromMatch", sender: self)
             }))
+            
+            alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { action in
+            }))
+            
             self.present(alert, animated: true, completion: nil)
         }
         
