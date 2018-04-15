@@ -181,6 +181,20 @@ class FreqDestinations: UIViewController {
             }
             }.resume()
     }
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        self.WorkSearchBar.endEditing(true)
+        self.SchoolSearchBar.endEditing(true)
+        self.HomeSearchBar.endEditing(true)
+        self.otherSearchBar.endEditing(true)
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        self.WorkSearchBar.endEditing(true)
+        self.SchoolSearchBar.endEditing(true)
+        self.HomeSearchBar.endEditing(true)
+        self.otherSearchBar.endEditing(true)
+    }
 }
 
     extension FreqDestinations: UISearchBarDelegate {
