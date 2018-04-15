@@ -73,7 +73,10 @@ class FreqDestinations: UIViewController {
         let alert = UIAlertController(title: actionTitle, message: actionItem, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
             self.saveDestinations(destinationInfo: destinations)
-            self.performSegue(withIdentifier: "showMyRoutes", sender: self)
+            self.performSegue(withIdentifier: "unwindtoMyRoutes", sender: self)
+            //self.performSegue(withIdentifier: "showMyRoutes", sender: self)
+           
+            
         }))
         self.present(alert, animated: true, completion: nil)
        

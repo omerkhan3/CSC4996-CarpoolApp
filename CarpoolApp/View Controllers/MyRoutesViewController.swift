@@ -24,6 +24,9 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var noDestinationsLabel: UILabel!
     @IBOutlet weak var myRoutesTable: UITableView!
     @IBOutlet weak var noRoutesLabel: UILabel!
+    @IBAction func prepareForUnwind(segue: UIStoryboardSegue) {
+        
+    }
     // UI Button Outlets
     @IBAction func editButton(_ sender: Any) {
         self.performSegue(withIdentifier: "showEditDestinations", sender: self)
@@ -77,6 +80,7 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
     // Class overrides
     override func viewDidLoad() {
         super.viewDidLoad()
+        
     }
     
     // Send data to other view controllers via segue
