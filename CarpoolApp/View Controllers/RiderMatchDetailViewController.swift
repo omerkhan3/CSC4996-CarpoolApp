@@ -247,10 +247,10 @@ class RiderMatchDetailViewController: UIViewController {
             // Populate ride info
             //self.profilePicture ==
             self.firstName.text = matchDetail?.driverFirstName
-            self.pickupTime.text = matchDetail?.riderPickupTime
+            self.pickupTime.text = getTime(date: (matchDetail?.riderPickupTime)!)
             self.pickupLocation.text = matchDetail?.riderStartAddress
-            self.destination.text = matchDetail?.driverRouteName
-            self.departureTime.text = matchDetail?.driverLeaveTime
+            self.destination.text = matchDetail?.riderEndAddress
+            self.departureTime.text = getTime(date: (matchDetail?.riderPickupTime2)!)
             self.cost.text = "$" + String(describing: Double(round(100 * matchDetail!.rideCost)/100))
             
             // Perfect Match
@@ -293,10 +293,10 @@ class RiderMatchDetailViewController: UIViewController {
             // Populate ride info
             //self.profilePicture ==
             self.firstName.text = matchDetail?.driverFirstName
-            self.pickupTime.text = matchDetail?.riderPickupTime
+            self.pickupTime.text = getTime(date: (matchDetail?.riderPickupTime)!)
             self.pickupLocation.text = matchDetail?.riderStartAddress
-            self.destination.text = matchDetail?.driverRouteName
-            self.departureTime.text = matchDetail?.driverLeaveTime
+            self.destination.text = matchDetail?.riderEndAddress
+            self.departureTime.text = getTime(date: (matchDetail?.driverDeparture2)!)
             self.cost.text = "$" + String(describing: Double(round(100 * matchDetail!.rideCost)/100))
             
             // Imperfect match check
@@ -328,5 +328,17 @@ class RiderMatchDetailViewController: UIViewController {
                     self.present(alert, animated: true, completion: nil)
                 }
             }
+    }
+    
+    func getTime(date: String) -> String {
+        // Create date formatter and reformat date
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm:ss"
+        print(date)
+        let formattedDate = dateFormatter.date(from: date)!
+        dateFormatter.dateFormat = "h:mm a"
+        let dateString = dateFormatter.string(from: formattedDate)
+        
+        return dateString
     }
 }

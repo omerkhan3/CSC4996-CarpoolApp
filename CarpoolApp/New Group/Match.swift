@@ -24,9 +24,10 @@ struct Match: Decodable{
 //    let driverArrival1: String
 //    let driverArrival2: String
 //    let driverDeparture1: String
-//    let driverDeparture2: String
+    let driverDeparture2: String
     let driverRouteName: String
     let driverRouteID: Int?
+    
     
     
     // rider info
@@ -47,8 +48,12 @@ struct Match: Decodable{
     let riderRouteName: String
     let riderRouteID: Int?
     let riderStartAddress: String
+    let riderEndAddress: String
     let riderPickupTime: String
+    let riderDropOffTime: String
+    let riderPickupTime2: String
     let driverLeaveTime: String
+    // let driverLeaveTime2: String
     let rideCost: Double
     
     // match info
@@ -72,7 +77,7 @@ struct Match: Decodable{
 //        driverArrival1 = json["driverArrival1"] as? String ?? ""
 //        driverArrival2 = json["driverArrival2"] as? String ?? ""
 //        driverDeparture1 = json["driverDeparture1"] as? String ?? ""
-//        driverDeparture2 = json["driverDeparture2"] as? String ?? ""
+        driverDeparture2 = json["driverDeparture2"] as? String ?? ""
         driverRouteName = json["driverRouteName"] as? String ?? ""
         driverRouteID = json["driverRouteID"] as? Int ?? 0
         
@@ -97,8 +102,11 @@ struct Match: Decodable{
         Status = json["Status"] as? String ?? ""
         matchID = json["matchID"] as? Int ?? 0
         riderStartAddress = json["riderStartAddress"] as? String ?? ""
+        riderEndAddress = json["riderEndAddress"] as? String ?? ""
         riderPickupTime = json["riderPickupTime"] as? String ?? ""
+        riderDropOffTime = json["riderDropOffTime"] as? String ?? ""
         driverLeaveTime = json["driverLeaveTime"] as? String ?? ""
+        riderPickupTime2 = json["riderPickupTime2"] as? String ?? ""
         rideCost = json["rideCost"] as? Double ?? 0.0
         matchedDays = json["matchedDays"] as? [String] ?? [""]
     }
@@ -117,8 +125,8 @@ struct Match: Decodable{
         driverDays = [""]
 //        driverArrival1 =  ""
 //        driverArrival2 =  ""
-//        driverDeparture1 =  ""
-//        driverDeparture2 =  ""
+        //driverDeparture1 =  ""
+        driverDeparture2 =  ""
         driverRouteName =  ""
         driverRouteID =  0
         
@@ -144,8 +152,11 @@ struct Match: Decodable{
         matchID =  0
         matchedDays = [""]
         riderStartAddress = ""
+        riderEndAddress = ""
         riderPickupTime = ""
+        riderDropOffTime = ""
         driverLeaveTime = ""
+        riderPickupTime2 = ""
         rideCost = 0.0
     }
 }
