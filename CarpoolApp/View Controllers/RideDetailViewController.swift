@@ -239,10 +239,10 @@ class RideDetailViewController: UIViewController {
             startRideBtn.isHidden = true
         }
         // Remaining information
-        self.pickupLocation.text = scheduledRideDetail?.riderStartAddress
-        self.pickupTime.text = scheduledRideDetail?.riderPickupTime
-        self.destination.text = scheduledRideDetail?.riderEndAddress
-        self.departureTime.text =  scheduledRideDetail?.driverLeaveTime
+            self.pickupLocation.text = String(describing: scheduledRideDetail!.riderStartAddress![..<(scheduledRideDetail!.riderStartAddress!.range(of: ",")!.lowerBound)])
+            self.pickupTime.text = get12HourTime(date: (scheduledRideDetail?.riderPickupTime)!)
+            self.destination.text = String(describing: scheduledRideDetail!.riderEndAddress![..<(scheduledRideDetail!.riderEndAddress!.range(of: ",")!.lowerBound)])
+            self.departureTime.text =  get12HourTime(date: (scheduledRideDetail?.driverLeaveTime)!)
         self.cost.text = "$" + String(describing: Double(round(100 * scheduledRideDetail!.rideCost)/100))
         }
             
@@ -275,10 +275,10 @@ class RideDetailViewController: UIViewController {
                 startRideBtn.isHidden = true
             }
             // Remaining information
-            self.pickupLocation.text = scheduledRideDetail?.riderEndAddress
-            self.pickupTime.text = scheduledRideDetail?.riderPickupTime2
-            self.destination.text = scheduledRideDetail?.riderStartAddress
-            self.departureTime.text =  scheduledRideDetail?.driverDepartureTime1
+            self.pickupLocation.text = String(describing: scheduledRideDetail!.riderEndAddress![..<(scheduledRideDetail!.riderEndAddress!.range(of: ",")!.lowerBound)])
+            self.pickupTime.text = get12HourTime(date: (scheduledRideDetail?.riderPickupTime2)!)
+            self.destination.text = String(describing: scheduledRideDetail!.riderStartAddress![..<(scheduledRideDetail!.riderStartAddress!.range(of: ",")!.lowerBound)])
+            self.departureTime.text =  get12HourTime(date: (scheduledRideDetail?.driverDepartureTime1)!)
             self.cost.text = "$" + String(describing: Double(round(100 * scheduledRideDetail!.rideCost)/100))
         }
     }
@@ -332,6 +332,18 @@ class RideDetailViewController: UIViewController {
         formattedDate = formattedDate.addingTimeInterval(-15.0 * 60)
         dateFormatter.dateFormat = "HH:mm"
         let dateString = dateFormatter.string(from: formattedDate)
+        return dateString
+    }
+    
+    func get12HourTime(date: String) -> String {
+        // Create date formatter and reformat date
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm:ss"
+        print(date)
+        let formattedDate = dateFormatter.date(from: date)!
+        dateFormatter.dateFormat = "h:mm a"
+        let dateString = dateFormatter.string(from: formattedDate)
+        
         return dateString
     }
     
