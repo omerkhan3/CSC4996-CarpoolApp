@@ -4,6 +4,7 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -21,6 +22,13 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Splashscreen" translatesAutoresizingMaskIntoConstraints="NO" id="IjE-AT-dF5">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                             </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Car Logo" translatesAutoresizingMaskIntoConstraints="NO" id="GjX-z2-Frc">
+                                <rect key="frame" x="67" y="299" width="240" height="214"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="214" id="j6h-8m-b9c"/>
+                                    <constraint firstAttribute="width" constant="240" id="lSN-hi-8GV"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <accessibility key="accessibilityConfiguration">
@@ -28,9 +36,15 @@
                         </accessibility>
                         <constraints>
                             <constraint firstAttribute="bottomMargin" secondItem="IjE-AT-dF5" secondAttribute="bottom" constant="-34" id="2U6-sq-K7K"/>
+                            <constraint firstItem="IjE-AT-dF5" firstAttribute="leading" secondItem="Bcu-3y-fUS" secondAttribute="leading" id="6Zg-00-Lgh"/>
+                            <constraint firstItem="IjE-AT-dF5" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="B02-vF-m57"/>
+                            <constraint firstItem="IjE-AT-dF5" firstAttribute="trailing" secondItem="Bcu-3y-fUS" secondAttribute="trailing" id="S7C-tm-1TZ"/>
                             <constraint firstItem="IjE-AT-dF5" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="topMargin" constant="-44" id="S8M-PD-4fw"/>
+                            <constraint firstAttribute="bottom" secondItem="IjE-AT-dF5" secondAttribute="bottom" id="fu9-Cj-dmf"/>
                             <constraint firstItem="IjE-AT-dF5" firstAttribute="trailing" secondItem="Bcu-3y-fUS" secondAttribute="trailing" id="hBv-oa-Y84"/>
                             <constraint firstItem="IjE-AT-dF5" firstAttribute="leading" secondItem="Bcu-3y-fUS" secondAttribute="leading" id="m1p-gT-liY"/>
+                            <constraint firstItem="GjX-z2-Frc" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="mBa-sd-93R"/>
+                            <constraint firstItem="GjX-z2-Frc" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="t2G-Fb-pKc"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Bcu-3y-fUS"/>
                     </view>
@@ -41,6 +55,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Splashscreen" width="621" height="1218"/>
+        <image name="Car Logo" width="840" height="775"/>
+        <image name="Splashscreen" width="562" height="1218"/>
     </resources>
 </document>
