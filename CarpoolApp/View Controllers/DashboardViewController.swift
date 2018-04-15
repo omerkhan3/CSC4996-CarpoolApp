@@ -50,8 +50,10 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
             // Show or hide no schedules rides alert
             if self.scheduledRidesArray.count == 0 {
                 // No scheduled rides
+                self.ridesTableView.isHidden = true
                 self.noRidesLabel.isHidden = false
             } else {
+                self.ridesTableView.isHidden = false
                 self.noRidesLabel.isHidden = true
             }
         }
