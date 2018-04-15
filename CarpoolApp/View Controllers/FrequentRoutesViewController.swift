@@ -170,21 +170,21 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
                     startadd = destination.Address
                     getstartcoor()
                 }
-                //startadd = options3[0]
+               
             }
             else if (self.placeButton1.text == "Work"){
                 if (destination.Name == "Work"){
                     startadd = destination.Address
                     getstartcoor()
                 }
-                //startadd = options3[1]
+                
             }
             else if (self.placeButton1.text == "School"){
                 if (destination.Name == "School"){
                     startadd = destination.Address
                     getstartcoor()
                 }
-                //startadd = options3[2]
+                
             }
             else if (self.placeButton1.text != nil){
                 if( self.placeButton1.text == destination.Name){
@@ -228,6 +228,7 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
         super.viewDidLoad()
     
         let myColor = UIColor.black
+       // let myColor2 = UIColor(red:0.00, green:0.59, blue:1.00, alpha:1.0)
         placeButton1.layer.borderColor = myColor.cgColor
         placeButton2.layer.borderColor = myColor.cgColor
         arrivaltime1.layer.borderColor = myColor.cgColor
@@ -237,8 +238,17 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
         routeName.layer.borderColor = myColor.cgColor
         placeButton1.layer.borderWidth = 1.0
         placeButton2.layer.borderWidth = 1.0
+        arrivaltime1.layer.borderWidth = 1.0
+        arrivaltime2.layer.borderWidth = 1.0
+        departtime1.layer.borderWidth = 1.0
+        departtime2.layer.borderWidth = 1.0
         placeButton1.layer.cornerRadius = 8.0
         placeButton2.layer.cornerRadius = 8.0
+        arrivaltime1.layer.cornerRadius = 8.0
+        arrivaltime2.layer.cornerRadius = 8.0
+        departtime1.layer.cornerRadius = 8.0
+        departtime2.layer.cornerRadius = 8.0
+       
         
         sunday.delegate = self
         monday.delegate = self
