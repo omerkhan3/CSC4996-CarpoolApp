@@ -17,8 +17,9 @@ class MatchesViewController: UIViewController, UITableViewDelegate, UITableViewD
     var match = Match()
         
     @IBOutlet weak var matchesTableView: UITableView!
-    
-        override func viewWillAppear(_ animated: Bool) {
+    @IBAction func prepareForUnwind(segue: UIStoryboardSegue) {
+    }
+    override func viewWillAppear(_ animated: Bool) {
             super.viewWillAppear(animated)
             matchesTableView.reloadData()
         }
