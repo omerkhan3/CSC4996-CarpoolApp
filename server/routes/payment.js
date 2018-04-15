@@ -16,13 +16,14 @@ router.post("/create",function (req, res) {
   var paymentJSON = JSON.parse(paymentInfo);
   var userID = paymentJSON['userID'];
   var paymentNonce = paymentJSON['paymentMethodNonce'];
-  db.one(`select \"Users\".\"firstName\", \"Users\".\"lastName\" from carpool.\"Users\" where \"Users\".\"userID\" ='${userID}'`) // Read query to get profile information on load.
+  db.one(`select \"Users\".\"firstName\", \"Users\".\"lastName\", \"customerID\" from carpool.\"Users\" where \"Users\".\"userID\" ='${userID}'`) // Read query to get profile information on load.
   .then(function(data) {
+    if (data.customerID == null)
+    {
     console.log(paymentNonce);
    gateway.customer.create({
       firstName: data.firstName,
       lastName: data.lastName,
-      token: data.theToken,
       paymentMethodNonce: paymentNonce
 }, function (err, result) {
   if (result.customer)
@@ -33,27 +34,43 @@ router.post("/create",function (req, res) {
 db.query(`UPDATE carpool.\"Users\" SET \"customerID\" = '${result.customer.id}', \"theToken\" = '{result.customer.token}' where \"userID\" = '${userID}'`)
 .then(function (data) {
   console.log ("Successfully stored customer ID and token.");
+  console.log(result.customer.paymentMethods.length);
+
+  /**/
 })
+
 //  console.log(result.customer.paymentMethods[0].token);
 
 }
-if (result.customer.paymentMethods.length > 1) {
-    		for (var i = 1; i < result.customer.paymentMethods.length; i++)
-    		{
-    			console.log(result.customer.paymentMethods[i].token);
-    			 gateway.paymentMethod.delete(
-    			 	result.customer.paymentMethods[i].token
-    			  //function (err) {
 
-    			 //});
-    		)}
-    	}
 else {
-  console.log("Error.");
+  console.log("Error: ", err);
 }
 
   // e.g f28wm
 });
+}
+
+else {
+  gateway.customer.update(data.customerID, {
+  paymentMethodNonce: paymentNonce
+}, function (err, result) {
+  if (result.customer)
+  {
+    if (result.customer.paymentMethods.length > 1) {
+        		for (var i = 1; i < result.customer.paymentMethods.length; i++)
+        		{
+        			 gateway.paymentMethod.delete(
+        			 	result.customer.paymentMethods[i].token
+        		)}
+        	}
+          console.log("Successly updated payment methods!");
+  }
+  else{
+    console.log("Error");
+  }
+});
+}
 })
   .catch(function(error){
       console.log('Error storing payment method:', error)
