@@ -12,17 +12,29 @@ class LaunchViewController: UIViewController {
 
     @IBOutlet weak var logo: UIImageView!
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         animateLogo() // Animation function
+        
+        //check if first
     }
     
     override func viewDidAppear(_ animated: Bool) {
         // delay to allow for animation
-        let time = DispatchTime.now() + 2
+        let time = DispatchTime.now() + 2.5
+        
+        // Go to onboarding
+        if firstTime == "firstTime" {
+            DispatchQueue.main.asyncAfter(deadline: time){
+                self.performSegue(withIdentifier: "showOnboarding", sender: self) // manually perform segue
+            }
+            // Go to login
+        } else {
         DispatchQueue.main.asyncAfter(deadline: time){
             self.performSegue(withIdentifier: "showLogin", sender: self) // manually perform segue
-        }
+                }
+            }
     }
 
     override func didReceiveMemoryWarning() {

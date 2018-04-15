@@ -11,6 +11,9 @@ import Firebase
 import UserNotifications
 import IQKeyboardManagerSwift
 
+// Global launch variable
+var firstTime = ""
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -19,9 +22,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        // Check if first time launch
+        let launchedBefore = UserDefaults.standard.bool(forKey: "launchedBefore")
+        
+        // Should be false on first run
+        if launchedBefore {
+            print("App has launched before")
+            firstTime = "notFirstTime"
+        } else {
+            print("First time launch")
+            UserDefaults.standard.set(true, forKey: "launchedBefore")
+            firstTime = "firstTime"
+        }
+        
+        // Configure firebase
         FirebaseApp.configure()
         UNUserNotificationCenter.current().requestAuthorization(options: [.badge, .alert, .sound], completionHandler: {(granted, error) in
-            
         })
         application.registerForRemoteNotifications()
         IQKeyboardManager.sharedManager().enable = true
