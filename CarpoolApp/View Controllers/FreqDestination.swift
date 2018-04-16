@@ -62,21 +62,13 @@ class FreqDestinations: UIViewController {
             destinations.append(customInfo)
         }
         
-        //print(destinations)
-        
-        
         actionTitle = "Success!"
         actionItem = "Your frequent destinations have been saved"
-        
-        //Active UIAlertController to display error
         
         let alert = UIAlertController(title: actionTitle, message: actionItem, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
             self.saveDestinations(destinationInfo: destinations)
             self.performSegue(withIdentifier: "unwindtoMyRoutes", sender: self)
-            //self.performSegue(withIdentifier: "showMyRoutes", sender: self)
-           
-            
         }))
         self.present(alert, animated: true, completion: nil)
        
@@ -201,7 +193,6 @@ class FreqDestinations: UIViewController {
 }
 
     extension FreqDestinations: UISearchBarDelegate {
-        
             func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
             
                 //When text is being inputted into search bar, table view will not be hidden depending on which search bar is clicked on
@@ -229,13 +220,11 @@ class FreqDestinations: UIViewController {
                     searchTable3.isHidden = true
                     searchTable4.isHidden = false
                 }
-                
             searchCompleter.queryFragment = searchText
         }
     }
     
     extension FreqDestinations: MKLocalSearchCompleterDelegate {
-        
         func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
             searchResults = completer.results
             searchTable.reloadData()
@@ -254,7 +243,6 @@ class FreqDestinations: UIViewController {
     }
     
     extension FreqDestinations: UITableViewDataSource {
-        
         func numberOfSections(in tableView: UITableView) -> Int {
             return 1
         }
@@ -273,11 +261,9 @@ class FreqDestinations: UIViewController {
     }
     
     extension FreqDestinations: UITableViewDelegate {
-        
         func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
             tableView.deselectRow(at: indexPath, animated: true)
-            
-            //If statements for selecting an address from table view and it showing up in search bar field as well as the table view disappearing after selection
+
             if tableView == searchTable {
                 let searchResult = searchResults[indexPath.row]
                 HomeSearchBar.text = searchResult.title + ", " + searchResult.subtitle

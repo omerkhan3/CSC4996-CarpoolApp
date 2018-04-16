@@ -394,14 +394,12 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
-    
-    // Detatch listener
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
     }
@@ -409,19 +407,16 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
     func textFieldDidBeginEditing(_ textField: UITextField) {
         moveScrollView(textField, distance: dist, up: true)
            }
-    
-    // End editing within text field
+
     func textFieldDidEndEditing(_ textField: UITextField) {
         moveScrollView(textField, distance: dist, up: false)
     }
-    
-    // Hide keyboard if return key is pressed
+
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
-    
-    // Move scroll view
+
     func moveScrollView(_ textField: UITextField, distance: Int, up: Bool) {
         
         let movement: CGFloat = CGFloat(up ? distance: -distance)

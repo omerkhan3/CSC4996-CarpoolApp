@@ -203,7 +203,6 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     func registerDeviceToken()
     {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        //print("Device Token:", appDelegate.deviceToken)
         if ((appDelegate.deviceToken?.isEmpty)!)
         {
             print ("Device already registered.")
@@ -243,20 +242,13 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         let menuRightNavigationController = storyboard!.instantiateViewController(withIdentifier: "NotificationsTableViewController") as! UISideMenuNavigationController
         SideMenuManager.default.menuRightNavigationController = menuRightNavigationController
         menuRightNavigationController.menuWidth = UIScreen.main.bounds.width * 0.80
-        
-        
-        // Enable gestures. The left and/or right menus must be set up above for these to work.
-        // Note that these continue to work on the Navigation Controller independent of the View Controller it displays!
+
         SideMenuManager.default.menuAddPanGestureToPresent(toView: self.navigationController!.navigationBar)
         SideMenuManager.default.menuAddScreenEdgePanGesturesToPresent(toView: self.navigationController!.view)
-        
-        // Set up a cool background image for demo purposes
-        //SideMenuManager.default.menuAnimationBackgroundColor = UIColor(patternImage: UIImage(named: "background")!)
     }
 
     // Download notifications JSON and decode into an array
     func getNotifications(completed: @escaping () -> ()) {
-        // get userID
         let userID = Auth.auth().currentUser?.uid
         var viewNotificationComponents = URLComponents(string: "http://localhost:3000/notifications")!
         viewNotificationComponents.queryItems = [URLQueryItem(name: "userID", value: userID)]
@@ -301,5 +293,4 @@ extension DashboardViewController: UISideMenuNavigationControllerDelegate {
     func sideMenuDidDisappear(menu: UISideMenuNavigationController, animated: Bool) {
         print("SideMenu Disappeared! (animated: \(animated))")
     }
-        
 }

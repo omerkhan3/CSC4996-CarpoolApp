@@ -139,7 +139,6 @@ class RiderMatchDetailViewController: UIViewController {
         } else {
         
             // Driver ride confirmation
-            
             // Create POST dictionary
             let statusUpdate = ["userID": userID, "matchID": matchID!, "requestType": "driverRequested", "riderRouteID": riderRouteID as Any, "driverRouteID": driverRouteID as Any, "Days": matchDetail?.matchedDays as Any] as [String : Any]
             
@@ -252,8 +251,6 @@ class RiderMatchDetailViewController: UIViewController {
         
         // Set view if rider has been matched with driver
         if matchStatus == "Awaiting rider request." {
-            // Populate ride info
-            //self.profilePicture ==
             self.firstName.text = matchDetail?.driverFirstName
             self.pickupTime.text = getTime(date: (matchDetail?.riderPickupTime)!)
             self.pickupLocation.text = String(describing: matchDetail!.riderStartAddress[..<(matchDetail!.riderStartAddress.range(of: ",")!.lowerBound)])
