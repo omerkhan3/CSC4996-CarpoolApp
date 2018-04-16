@@ -21,7 +21,8 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     // Outlets
     @IBOutlet weak var noRidesLabel: UILabel!
     @IBOutlet weak var ridesTableView: UITableView!
-
+    @IBOutlet weak var payoutLbl: UILabel!
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
