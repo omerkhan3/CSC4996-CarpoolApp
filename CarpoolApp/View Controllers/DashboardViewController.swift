@@ -179,7 +179,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     
     func updateDevice(userInfo: Dictionary<String, Any>)
     {
-        let editDeviceURL = URL(string: "http://141.217.48.15:3000/users/device")!
+        let editDeviceURL = URL(string: "http://localhost:3000/users/device")!
         var request = URLRequest(url: editDeviceURL)
         let userJSON = try! JSONSerialization.data(withJSONObject: userInfo, options: .prettyPrinted)
         let userJSONInfo = NSString(data: userJSON, encoding: String.Encoding.utf8.rawValue)! as String
