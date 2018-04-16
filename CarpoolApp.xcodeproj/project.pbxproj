@@ -19,6 +19,7 @@
 		205A4B43202569DC005AE87C /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205A4B42202569DC005AE87C /* LaunchViewController.swift */; };
 		206736E32026A929008714A7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 206736E52026A929008714A7 /* LaunchScreen.storyboard */; };
 		208A2E8B202829E600393D43 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208A2E8A202829E600393D43 /* MapViewController.swift */; };
+		208C565C20840BE00042ED90 /* MatchesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208C565B20840BE00042ED90 /* MatchesTableViewCell.swift */; };
 		20DA407D204B2F04003D8473 /* SideMenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DA407C204B2F04003D8473 /* SideMenuTableViewController.swift */; };
 		20DA407F204B49FA003D8473 /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DA407E204B49FA003D8473 /* DashboardViewController.swift */; };
 		20F3E637207E9C5B00C48532 /* ScheduledRideTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20F3E636207E9C5B00C48532 /* ScheduledRideTableViewCell.swift */; };
@@ -81,6 +82,7 @@
 		205A4B42202569DC005AE87C /* LaunchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
 		206736E42026A929008714A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		208A2E8A202829E600393D43 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		208C565B20840BE00042ED90 /* MatchesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchesTableViewCell.swift; sourceTree = "<group>"; };
 		20DA407C204B2F04003D8473 /* SideMenuTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuTableViewController.swift; sourceTree = "<group>"; };
 		20DA407E204B49FA003D8473 /* DashboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewController.swift; sourceTree = "<group>"; };
 		20F3E636207E9C5B00C48532 /* ScheduledRideTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduledRideTableViewCell.swift; sourceTree = "<group>"; };
@@ -242,6 +244,7 @@
 				20F3E636207E9C5B00C48532 /* ScheduledRideTableViewCell.swift */,
 				20F3E63820829C5E00C48532 /* NotificationTableViewCell.swift */,
 				203857D720839F0900582871 /* OnboardingPageViewController.swift */,
+				208C565B20840BE00042ED90 /* MatchesTableViewCell.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -514,6 +517,7 @@
 				C95643DB2079A8F90038A497 /* FrequentRoutesViewController.swift in Sources */,
 				C9A2AD4120689766000B8674 /* EmbeddedNavViewController.swift in Sources */,
 				20F3E63920829C5E00C48532 /* NotificationTableViewCell.swift in Sources */,
+				208C565C20840BE00042ED90 /* MatchesTableViewCell.swift in Sources */,
 				20509AD1204D995400B2EFA3 /* Match.swift in Sources */,
 				91F69AC62079955400EDF0FB /* SavedRoutes.swift in Sources */,
 				20509AD9204E2C5600B2EFA3 /* Profile.swift in Sources */,

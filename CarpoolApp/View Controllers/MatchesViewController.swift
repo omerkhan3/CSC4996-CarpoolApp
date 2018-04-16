@@ -64,15 +64,15 @@ class MatchesViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
             
-            let cell = UITableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: "matchCell")
+            let cell = matchesTableView.dequeueReusableCell(withIdentifier: "matchCell") as! MatchesTableViewCell
             
             // set title based on notification type
             if matchesArray[indexPath.row].Status == "Awaiting rider request." {
-                cell.textLabel?.text = "Matched with driver:  " + matchesArray[indexPath.row].driverFirstName
-                cell.detailTextLabel?.text = "Riding to: " + matchesArray[indexPath.row].driverRouteName.capitalized
+                cell.matchLbl.text = "Matched with driver:  " + matchesArray[indexPath.row].driverFirstName
+                cell.matchImage.image = UIImage(named: "driver-96")
             } else if matchesArray[indexPath.row].Status == "driverRequested" {
-                cell.textLabel?.text = "Matched with rider:  " + matchesArray[indexPath.row].riderFirstName
-                cell.detailTextLabel?.text = "Riding to: " + matchesArray[indexPath.row].driverRouteName.capitalized
+                cell.matchLbl.text = "Matched with rider:  " + matchesArray[indexPath.row].riderFirstName
+                cell.matchImage.image = UIImage(named: "passenger-96")
             }
             return cell
         }

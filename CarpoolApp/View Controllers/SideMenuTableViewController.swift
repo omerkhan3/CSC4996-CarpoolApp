@@ -26,6 +26,10 @@ class SideMenuTableViewController: UITableViewController {
         }
         
         // set background image
+        let imageView = UIImageView(image: UIImage(named: "menuBackground"))
+        imageView.contentMode = .scaleAspectFill
+        imageView.backgroundColor = UIColor.black.withAlphaComponent(0.2)
+        tableView.backgroundView = imageView
     }
     
     override func viewDidLoad() {
