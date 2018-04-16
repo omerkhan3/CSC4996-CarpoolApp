@@ -57,8 +57,10 @@ class PaymentsViewController: UIViewController, UITableViewDelegate, UITableView
             if self.recentPaymentsArray.count == 0 {
                 // No recent payments
                 self.noPaymentsLabel.isHidden = false
+                self.recentPaymentsTable.isHidden = true
             } else {
                 self.noPaymentsLabel.isHidden = true
+                self.recentPaymentsTable.isHidden = false
             }
         }
         
