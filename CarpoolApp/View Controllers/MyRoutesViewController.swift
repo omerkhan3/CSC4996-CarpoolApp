@@ -158,7 +158,6 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
 
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         let userID = Auth.auth().currentUser!.uid
-       // let routeid = self.routeDetail?.routeID
         
         if (tableView == MyDestinationsTable) {
             if editingStyle == .delete {
@@ -282,7 +281,6 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
             else{
                 print ("Success!")
             }
-            
             }.resume()
     }
 }

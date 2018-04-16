@@ -66,24 +66,10 @@ class RideDetailViewController: UIViewController {
         profilePicture.clipsToBounds = true
         databaseRef = Database.database().reference()
         storageRef = Storage.storage().reference()
-        loadProfileImage()
-    }
-    
-    func loadProfileImage()
-    {
-        if let userID = Auth.auth().currentUser?.uid {
-            databaseRef.child("Users").child(userID).observe(.value, with: { (snapshot) in
-                let values = snapshot.value as? NSDictionary
-                if let profileImageURL = values?["Photo"] as? String {
-                    self.profilePicture.sd_setImage(with: URL(string: profileImageURL))
-                }
-            })
-        }
     }
     
     // Button actions
     @IBAction func startRide(_ sender: Any) {
-        //self.performSegue(withIdentifier: "showDashboardRideCancel", sender: self)
         var otherID = ""
         if (self.scheduledRideDetail?.driverID == self.userID){
             otherID = (self.scheduledRideDetail?.riderID)!
@@ -228,8 +214,6 @@ class RideDetailViewController: UIViewController {
                self.startRideBtn.isEnabled = true
             }
             else{
-                //self.startRideBtn.isEnabled = false
-                //self.startRideBtn.setTitleColor(UIColor.gray, for: .disabled)
                 self.startRideBtn.isHidden = true
             }
             
@@ -263,8 +247,6 @@ class RideDetailViewController: UIViewController {
                     self.startRideBtn.isEnabled = true
                 }
                 else{
-                    //self.startRideBtn.isEnabled = false
-                    //self.startRideBtn.setTitleColor(UIColor.gray, for: .disabled)
                     self.startRideBtn.isHidden = true
                     
                 }
@@ -346,6 +328,4 @@ class RideDetailViewController: UIViewController {
         
         return dateString
     }
-    
-    
 }

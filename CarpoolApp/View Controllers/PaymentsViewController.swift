@@ -156,7 +156,6 @@ class PaymentsViewController: UIViewController, UITableViewDelegate, UITableView
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     //Shows the braintree Drop-In UI
@@ -195,9 +194,7 @@ class PaymentsViewController: UIViewController, UITableViewDelegate, UITableView
             let paymentInfo = ["userID": self.userID as Any, "paymentMethodNonce": paymentMethodNonce as Any, "userToken":  userToken as Any] as [String : Any]
             let paymentJSON = try! JSONSerialization.data(withJSONObject: paymentInfo, options: .prettyPrinted)
             let paymentJSONInfo = NSString(data: paymentJSON, encoding: String.Encoding.utf8.rawValue)! as String
-            //payment_method_nonce is the field that the server will be looking for to receive the nonce
             request.httpBody = "paymentInfo=\(paymentJSONInfo)".data(using: String.Encoding.utf8)
-            //POST method
             request.httpMethod = "POST"
             
             URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in

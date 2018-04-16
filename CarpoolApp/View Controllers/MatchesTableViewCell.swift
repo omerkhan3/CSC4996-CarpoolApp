@@ -14,11 +14,8 @@ class MatchesTableViewCell: UITableViewCell {
     @IBOutlet weak var matchImage: UIImageView!
     @IBOutlet weak var matchLbl: UILabel!
     
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
-
-
 }

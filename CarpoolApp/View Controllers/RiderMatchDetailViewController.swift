@@ -77,7 +77,6 @@ class RiderMatchDetailViewController: UIViewController {
         profilePicture.clipsToBounds = true
         databaseRef = Database.database().reference()
         storageRef = Storage.storage().reference()
-        loadProfileImage()
         
         print(matchDetail!)
         matchStatus = (matchDetail?.Status)!
@@ -87,18 +86,6 @@ class RiderMatchDetailViewController: UIViewController {
         print(matchDaysArray)
         fillCheckBoxes(daysArray: (matchDetail?.matchedDays)!)
         setView()
-    }
-    
-    func loadProfileImage()
-    {
-        if let userID = Auth.auth().currentUser?.uid {
-            databaseRef.child("Users").child(userID).observe(.value, with: { (snapshot) in
-                let values = snapshot.value as? NSDictionary
-                if let profileImageURL = values?["Photo"] as? String {
-                    self.profilePicture.sd_setImage(with: URL(string: profileImageURL))
-                }
-            })
-        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

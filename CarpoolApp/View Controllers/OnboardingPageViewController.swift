@@ -97,5 +97,4 @@ class OnboardingPageViewController: UIPageViewController, UIPageViewControllerDe
         let pageContentViewController = pageViewController.viewControllers![0]
         self.pageControl.currentPage = orderedViewControllers.index(of: pageContentViewController)!
     }
-
 }

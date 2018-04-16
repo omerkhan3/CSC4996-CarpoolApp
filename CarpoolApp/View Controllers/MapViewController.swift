@@ -14,7 +14,6 @@ import FirebaseDatabase
 import FirebaseCore
 import FirebaseAuth
 
-//MOE
 protocol MapSearch {
     func dropPinZoomIn(placemark:MKPlacemark)
 }
@@ -56,7 +55,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         if (isMatchDetail == true){
             driverStartLat = mapMatchDetail?.driverStartPointLat
             driverStartLong = mapMatchDetail?.driverStartPointLong
-            //let driverDestinationName = mapMatchDetail?.driverRouteName
             driverDestinationLat = mapMatchDetail?.driverEndPointLat
             driverDestinationLong = mapMatchDetail?.driverEndPointLong
             driverStartCoord = CLLocationCoordinate2D(latitude: driverStartLat!, longitude: driverStartLong!)
@@ -76,7 +74,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             
             driverStartLat = scheduledRideDetail?.driverStartPointLat
             driverStartLong = scheduledRideDetail?.driverStartPointLong
-            //let driverDestinationName = scheduledRideDetail?.driverRouteName
             driverDestinationLat = scheduledRideDetail?.driverEndPointLat
             driverDestinationLong = scheduledRideDetail?.driverEndPointLong
             driverStartCoord = CLLocationCoordinate2D(latitude: driverStartLat!, longitude: driverStartLong!)
@@ -191,9 +188,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             destinationAnnotation.coordinate = location.coordinate
         }
         
-        //self.mapView.showAnnotations([sourceAnnotation, destinationAnnotation], animated: true)
-        //self.mapView.showAnnotations(self.mapView.annotations, animated: true)
-        
         let directionRequest = MKDirectionsRequest()
         directionRequest.source = startMapItem
         directionRequest.destination = endMapItem
@@ -211,12 +205,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
                 }
                 return
             }
-            
             let route = response.routes[0]
             
-            //self.mapView.add((route.polyline), level: MKOverlayLevel.aboveRoads)
-          //  let rect = route.polyline.boundingMapRect
-            //self.mapView.setRegion(MKCoordinateRegionForMapRect(rect), animated: true)
         }
             
         // Route from rider pickup to rider dropoff
@@ -237,9 +227,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             if let location1 = destinationPlacemark.location {
                 destinationAnnotation1.coordinate = location1.coordinate
             }
-        
-            //self.mapView.showAnnotations([sourceAnnotation1, destinationAnnotation1], animated: true)
-            //self.mapView.showAnnotations(self.mapView.annotations, animated: true)
         
             let directionRequest1 = MKDirectionsRequest()
             directionRequest1.source = startMapItem1
@@ -262,7 +249,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
                 let route1 = response.routes[0]
                 
                 self.mapView.add((route1.polyline), level: MKOverlayLevel.aboveRoads)
-                //let rect1 = route1.polyline.boundingMapRect
             }
         
             // Route from rider dropoff to driver destination

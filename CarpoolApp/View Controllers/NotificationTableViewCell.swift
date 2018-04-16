@@ -11,7 +11,6 @@ import SideMenu
 
 class NotificationTableViewCell: UITableViewCell {
 
-    
     @IBOutlet weak var cellView: UIView!
     @IBOutlet weak var notificationLbl: UILabel!
     @IBOutlet weak var notificationDateLbl: UILabel!
