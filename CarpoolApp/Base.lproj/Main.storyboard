@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="GxV-tU-TEk">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="GxV-tU-TEk">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -1124,7 +1124,7 @@
                                     <constraint firstAttribute="height" constant="335" id="HB5-xG-9OB"/>
                                 </constraints>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="recentPayments" id="wfd-35-hJG" customClass="recentPaymentsCell" customModule="CarpoolApp" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="recentPayments" id="wfd-35-hJG" customClass="recentPaymentsCell" customModule="CarpoolApp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="343" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="wfd-35-hJG" id="Udr-uf-Bz7">
@@ -1142,7 +1142,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J5P-Rk-lin">
-                                                    <rect key="frame" x="243" y="10" width="92" height="23"/>
+                                                    <rect key="frame" x="251" y="10" width="92" height="23"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="92" id="ohF-Xd-VKm"/>
                                                     </constraints>
@@ -1151,7 +1151,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qse-7F-lhD">
-                                                    <rect key="frame" x="0.0" y="21" width="235" height="22"/>
+                                                    <rect key="frame" x="0.0" y="21" width="243" height="22"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -1260,10 +1260,10 @@
                                 <rect key="frame" x="16" y="53" width="343" height="725"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="45" translatesAutoresizingMaskIntoConstraints="NO" id="iD6-tg-vom">
-                                        <rect key="frame" x="-25" y="28.666666666666686" width="394.33333333333331" height="674"/>
+                                        <rect key="frame" x="-25.666666666666657" y="28.666666666666686" width="395.66666666666663" height="674"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleAspectFit" axis="vertical" alignment="center" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="W4L-Um-hAv" userLabel="Top Stack View">
-                                                <rect key="frame" x="139.66666666666666" y="0.0" width="115" height="130"/>
+                                                <rect key="frame" x="140.33333333333331" y="0.0" width="115" height="130"/>
                                                 <subviews>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile icon 100" translatesAutoresizingMaskIntoConstraints="NO" id="nLn-Ow-irB">
                                                         <rect key="frame" x="10" y="0.0" width="95" height="95"/>
@@ -1285,7 +1285,7 @@
                                                 </constraints>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="11" translatesAutoresizingMaskIntoConstraints="NO" id="xoU-Hb-wjP" userLabel="Middle Stack View">
-                                                <rect key="frame" x="62.333333333333343" y="175" width="270" height="339"/>
+                                                <rect key="frame" x="63" y="175" width="270" height="339"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pickup Location" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gi1-NJ-2Uh">
                                                         <rect key="frame" x="0.0" y="0.0" width="270" height="20"/>
@@ -1381,7 +1381,7 @@
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="H0P-ci-2vS" userLabel="Button Stack View">
-                                                <rect key="frame" x="72.333333333333343" y="559" width="250.00000000000003" height="115"/>
+                                                <rect key="frame" x="73" y="559" width="250" height="115"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kEA-P6-w8I" customClass="RoundedButton" customModule="CarpoolApp" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="250" height="35"/>
@@ -1512,16 +1512,19 @@
                                 <rect key="frame" x="16" y="98" width="343" height="673"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="E4S-EV-bxl">
-                                        <rect key="frame" x="3.6666666666666572" y="5" width="337" height="654"/>
+                                        <rect key="frame" x="3" y="5" width="337" height="654"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleAspectFit" axis="vertical" alignment="center" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="huh-m7-jhf" userLabel="Top Stack View">
-                                                <rect key="frame" x="10.666666666666657" y="0.0" width="316" height="175"/>
+                                                <rect key="frame" x="-19" y="0.0" width="0.0" height="175"/>
                                                 <subviews>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile icon 100" translatesAutoresizingMaskIntoConstraints="NO" id="oGW-X0-cqw">
-                                                        <rect key="frame" x="108" y="0.0" width="100" height="89"/>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile icon 100" translatesAutoresizingMaskIntoConstraints="NO" id="oGW-X0-cqw">
+                                                        <rect key="frame" x="140" y="0.0" width="95" height="89"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="95" id="BIi-92-Cwd"/>
+                                                        </constraints>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(driver name)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LAe-HN-7Kx">
-                                                        <rect key="frame" x="94" y="95" width="127.66666666666669" height="24"/>
+                                                        <rect key="frame" x="123.66666666666666" y="95" width="127.66666666666666" height="24"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="24" id="Mqa-hB-Dyt"/>
                                                         </constraints>
@@ -1530,7 +1533,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You have been matched as a rider on the following days:" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nad-4D-9a0">
-                                                        <rect key="frame" x="0.0" y="125" width="316" height="50"/>
+                                                        <rect key="frame" x="0.0" y="125" width="0.0" height="50"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="m4u-jX-pas"/>
                                                         </constraints>
@@ -1547,7 +1550,7 @@
                                                 <rect key="frame" x="0.0" y="181.66666666666669" width="337" height="90"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sun" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="amk-RE-MlC">
-                                                        <rect key="frame" x="13.333333333333332" y="21" width="31.999999999999996" height="20.333333333333329"/>
+                                                        <rect key="frame" x="14" y="21" width="32" height="20.333333333333329"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="32" id="YKP-yA-QWS"/>
                                                         </constraints>
@@ -1556,7 +1559,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mon" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UdR-78-75a">
-                                                        <rect key="frame" x="57.333333333333329" y="21" width="34" height="20.333333333333329"/>
+                                                        <rect key="frame" x="58" y="21" width="34" height="20.333333333333329"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="34" id="heU-Hd-Dzb"/>
                                                         </constraints>
@@ -1565,7 +1568,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tue" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="quJ-rl-ggD">
-                                                        <rect key="frame" x="105.33333333333333" y="21" width="27.999999999999986" height="20.333333333333329"/>
+                                                        <rect key="frame" x="106" y="21" width="28" height="20.333333333333329"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="28" id="t1n-Te-MMo"/>
                                                         </constraints>
@@ -1574,13 +1577,13 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NXe-qa-YRi">
-                                                        <rect key="frame" x="149" y="20.666666666666629" width="38" height="20.333333333333329"/>
+                                                        <rect key="frame" x="149.66666666666666" y="20.666666666666629" width="38" height="20.333333333333329"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <color key="textColor" red="0.0" green="0.58980089430000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Thu" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IRE-cp-oY8">
-                                                        <rect key="frame" x="195.33333333333334" y="21" width="30" height="20.333333333333329"/>
+                                                        <rect key="frame" x="196" y="21" width="30" height="20.333333333333329"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="30" id="aDw-W7-Vdt"/>
                                                         </constraints>
@@ -1589,7 +1592,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fri" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zl1-U5-dGs">
-                                                        <rect key="frame" x="243.33333333333334" y="21" width="25.000000000000028" height="20.333333333333329"/>
+                                                        <rect key="frame" x="244" y="21" width="25" height="20.333333333333329"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="25" id="70l-yu-dza"/>
                                                         </constraints>
@@ -1598,7 +1601,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uo9-DV-c1O" userLabel="Sun Check" customClass="BEMCheckBox">
-                                                        <rect key="frame" x="14.333333333333332" y="48.333333333333314" width="29.999999999999996" height="30.666666666666671"/>
+                                                        <rect key="frame" x="15" y="48.333333333333314" width="30" height="30.666666666666671"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="animationDuration">
@@ -1619,7 +1622,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CO6-N6-aDs" userLabel="Mon Check" customClass="BEMCheckBox">
-                                                        <rect key="frame" x="59.333333333333329" y="48.333333333333314" width="30" height="30.666666666666671"/>
+                                                        <rect key="frame" x="60" y="48.333333333333314" width="30" height="30.666666666666671"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="animationDuration">
@@ -1641,7 +1644,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dga-s9-dg1" userLabel="Tue Check" customClass="BEMCheckBox">
-                                                        <rect key="frame" x="104.33333333333333" y="48.333333333333314" width="29.999999999999986" height="30.666666666666671"/>
+                                                        <rect key="frame" x="105" y="48.333333333333314" width="30" height="30.666666666666671"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="animationDuration">
@@ -1663,7 +1666,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w1Z-8n-c0f" userLabel="Wed Check" customClass="BEMCheckBox">
-                                                        <rect key="frame" x="149.33333333333334" y="48" width="39" height="31"/>
+                                                        <rect key="frame" x="150" y="48" width="39" height="31"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="animationDuration">
@@ -1685,7 +1688,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ysz-2t-RY0" userLabel="Thu Check" customClass="BEMCheckBox">
-                                                        <rect key="frame" x="195.33333333333334" y="48.333333333333314" width="30" height="30.666666666666671"/>
+                                                        <rect key="frame" x="196" y="48.333333333333314" width="30" height="30.666666666666671"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="animationDuration">
@@ -1707,7 +1710,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tAm-m9-B4K" userLabel="Fri Check" customClass="BEMCheckBox">
-                                                        <rect key="frame" x="239.33333333333337" y="48" width="40" height="31"/>
+                                                        <rect key="frame" x="240" y="48" width="40" height="31"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="animationDuration">
@@ -1729,7 +1732,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LSu-gU-pMi" userLabel="Sat Check" customClass="BEMCheckBox">
-                                                        <rect key="frame" x="287.33333333333331" y="48.333333333333314" width="34" height="30.666666666666671"/>
+                                                        <rect key="frame" x="288" y="48.333333333333314" width="34" height="30.666666666666671"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="animationDuration">
@@ -1750,7 +1753,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sat" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LEM-Us-gVN">
-                                                        <rect key="frame" x="287.33333333333331" y="21" width="26" height="20.333333333333329"/>
+                                                        <rect key="frame" x="288" y="21" width="26" height="20.333333333333329"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="26" id="lpY-0t-BwC"/>
                                                         </constraints>
@@ -1807,7 +1810,7 @@
                                                 </constraints>
                                             </view>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="nGm-Kw-zkx" userLabel="Middle Stack View">
-                                                <rect key="frame" x="33.666666666666686" y="278.33333333333331" width="270" height="293.99999999999994"/>
+                                                <rect key="frame" x="33.666666666666657" y="278.33333333333331" width="270" height="293.99999999999994"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pickup Location" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6ea-dP-C0d">
                                                         <rect key="frame" x="0.0" y="0.0" width="270" height="20"/>
@@ -1906,7 +1909,7 @@
                                                 </constraints>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="qpm-Hd-aai" userLabel="Button Stack View">
-                                                <rect key="frame" x="43.666666666666686" y="579" width="250" height="75"/>
+                                                <rect key="frame" x="43.666666666666657" y="579" width="249.99999999999997" height="75"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wHZ-sZ-f1Z" customClass="RoundedButton" customModule="CarpoolApp" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="250" height="35"/>
@@ -3973,10 +3976,9 @@
         <image name="user" width="20" height="20"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Z2h-3S-Lqv"/>
-        <segue reference="Mf8-Xy-6b6"/>
+        <segue reference="HTZ-zT-dho"/>
         <segue reference="asS-Az-c3C"/>
-        <segue reference="Fu6-yk-YQr"/>
+        <segue reference="UO1-Vm-wHx"/>
         <segue reference="0zA-rS-j0u"/>
         <segue reference="cOY-IK-lfO"/>
     </inferredMetricsTieBreakers>
