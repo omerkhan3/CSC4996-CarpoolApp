@@ -15,7 +15,6 @@ class EmbeddedNavViewController: UIViewController, NavigationViewControllerDeleg
     @IBOutlet weak var cancelDrive: RoundedButton!
     
     @IBAction func pickPress(_ sender: RoundedButton) {
-        //cancelDrive.isEnabled = false
         cancelDrive.alpha = 0.2
         var otherID = ""
         if (self.route?.driverID == self.userID){
@@ -29,7 +28,6 @@ class EmbeddedNavViewController: UIViewController, NavigationViewControllerDeleg
     }
     
     @IBAction func dropPress(_ sender: RoundedButton) {
-        //cancelDrive.isEnabled = true
         cancelDrive.alpha = 1.0
         var otherID = ""
         if (self.route?.driverID == self.userID){
@@ -73,20 +71,17 @@ class EmbeddedNavViewController: UIViewController, NavigationViewControllerDeleg
     func calculateDirections() {
         if (route?.routeType == "toDestination")
             {
-        //if userID == route?.driverID {
         let origin = Waypoint(coordinate: CLLocationCoordinate2DMake((route?.driverStartPointLat)!, (route?.driverStartPointLong)!))
         let destination = Waypoint(coordinate: CLLocationCoordinate2DMake((route?.driverEndPointLat)!, (route?.driverEndPointLong)!))
         let riderPickup = Waypoint(coordinate: CLLocationCoordinate2DMake((route?.riderStartPointLat)!, (route?.riderStartPointLong)!))
         let riderDropoff = Waypoint(coordinate: CLLocationCoordinate2DMake((route?.riderEndPointLat)!, (route?.riderEndPointLong)!))
-        
-        //}
+
         let options = NavigationRouteOptions(waypoints: [origin, riderPickup, riderDropoff, destination], profileIdentifier: . automobile)
         _ = Directions.shared.calculate(options) { (waypoints, routes, error) in
             guard let route2 = routes?.first, error == nil else {
                 print(error!.localizedDescription)
                 return
             }
-            //self.route = route
             self.startEmbeddedNavigation(route2: route2)
         }
         }
@@ -95,15 +90,13 @@ class EmbeddedNavViewController: UIViewController, NavigationViewControllerDeleg
             let destination = Waypoint(coordinate: CLLocationCoordinate2DMake((route?.driverStartPointLat)!, (route?.driverStartPointLong)!))
             let riderPickup = Waypoint(coordinate: CLLocationCoordinate2DMake((route?.riderEndPointLat)!, (route?.riderEndPointLong)!))
             let riderDropoff = Waypoint(coordinate: CLLocationCoordinate2DMake((route?.riderStartPointLat)!, (route?.riderStartPointLong)!))
-            
-            //}
+
             let options = NavigationRouteOptions(waypoints: [origin, riderPickup, riderDropoff, destination], profileIdentifier: . automobile)
             _ = Directions.shared.calculate(options) { (waypoints, routes, error) in
                 guard let route2 = routes?.first, error == nil else {
                     print(error!.localizedDescription)
                     return
                 }
-                //self.route = route
                 self.startEmbeddedNavigation(route2: route2)
             }
         }
@@ -168,15 +161,12 @@ class EmbeddedNavViewController: UIViewController, NavigationViewControllerDeleg
                 print (error.localizedDescription)
                 return;
             }
-            //let userToken = idToken!
             //URL endpoint of our local node server
             let paymentURL = URL(string: "http://localhost:3000/payment/checkout")!
             var request = URLRequest(url: paymentURL)
             let ridePaymentJSON = try! JSONSerialization.data(withJSONObject: ridePayment, options: .prettyPrinted)
             let ridePaymentJSONInfo = NSString(data: ridePaymentJSON, encoding: String.Encoding.utf8.rawValue)! as String
-            //payment_method_nonce is the field that the server will be looking for to receive the nonce
             request.httpBody = "ridePayment=\(ridePaymentJSONInfo)".data(using: String.Encoding.utf8)
-            //POST method
             request.httpMethod = "POST"
             
             URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in

@@ -91,7 +91,6 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
                 let phone = self.phoneNumberField.text ?? "Unknown"
                 // Create new user entry in database
                 let userInfo = ["userID": userID,   "provider": provider, "firstName": firstName, "lastName": lastName, "email": email, "phone": phone] as [String:Any] // store information that user has submitted in a dictionary.
-               // DataService.inst.createUser(id: (user?.uid)!, userInfo: userInfo)  // we userInfo to store data in the DB under the user's unique identifier.
 
                 self.storeUserInfo(userInfo: userInfo)
                 
@@ -205,25 +204,21 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.accessibilityIdentifier = "registrationView"
-        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
-    
-    // End editing within text field
+
     func textFieldDidEndEditing(_ textField: UITextField) {
         moveScrollView(textField, distance: dist, up: false)
     }
-    
-    // Hide keyboard if return key is pressed
+
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
-    // Move scroll view
+
     func moveScrollView(_ textField: UITextField, distance: Int, up: Bool) {
         let movement: CGFloat = CGFloat(up ? distance: -distance)
         self.view.frame = self.view.frame.offsetBy(dx: 0, dy: movement)

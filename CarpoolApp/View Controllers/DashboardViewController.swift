@@ -17,6 +17,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     var scheduledRide = ScheduledRide()
     let userID = Auth.auth().currentUser?.uid
     var notificationsArray = [Notifications]()
+    var payout = [DriverPayment]()
     
     // Outlets
     @IBOutlet weak var noRidesLabel: UILabel!
@@ -42,6 +43,15 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
                     }))
                     self.present(alert, animated: true, completion: nil)
                 }
+            }
+        }
+        
+        getPayout {
+            if self.payout[0].sum > 0 {
+                self.payoutLbl.isHidden = false
+                self.payoutLbl.text = "Unpaid Payout: $ " + "\(self.payout[0].sum)"
+            } else {
+                self.payoutLbl.isHidden = true;
             }
         }
         
@@ -162,10 +172,37 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         }.resume()
     }
     
+    // Query undisbursed driver payments
+    func getPayout(completed: @escaping () -> ()) {
+        var viewPayoutComponents = URLComponents(string: "http://localhost:3000/payment/payout")!
+        viewPayoutComponents.queryItems = [URLQueryItem(name: "userID", value: userID)]
+        var request = URLRequest(url: viewPayoutComponents.url!)
+        print (viewPayoutComponents.url!)
+        
+        // GET Method
+        request.httpMethod = "GET"
+        URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
+            if (error != nil){
+                print (error as Any)
+            } else {
+                guard let data = data else { return }
+                do {
+                    // Decode JSON
+                    self.payout = try JSONDecoder().decode([DriverPayment].self, from: data)
+                    print (self.payout)
+                    DispatchQueue.main.async {
+                        completed()
+                    }
+                } catch let jsnERR {
+                    print(jsnERR)
+                }
+            }
+            }.resume()
+    }
+    
     func registerDeviceToken()
     {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        //print("Device Token:", appDelegate.deviceToken)
         if ((appDelegate.deviceToken?.isEmpty)!)
         {
             print ("Device already registered.")
@@ -205,20 +242,13 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         let menuRightNavigationController = storyboard!.instantiateViewController(withIdentifier: "NotificationsTableViewController") as! UISideMenuNavigationController
         SideMenuManager.default.menuRightNavigationController = menuRightNavigationController
         menuRightNavigationController.menuWidth = UIScreen.main.bounds.width * 0.80
-        
-        
-        // Enable gestures. The left and/or right menus must be set up above for these to work.
-        // Note that these continue to work on the Navigation Controller independent of the View Controller it displays!
+
         SideMenuManager.default.menuAddPanGestureToPresent(toView: self.navigationController!.navigationBar)
         SideMenuManager.default.menuAddScreenEdgePanGesturesToPresent(toView: self.navigationController!.view)
-        
-        // Set up a cool background image for demo purposes
-        //SideMenuManager.default.menuAnimationBackgroundColor = UIColor(patternImage: UIImage(named: "background")!)
     }
 
     // Download notifications JSON and decode into an array
     func getNotifications(completed: @escaping () -> ()) {
-        // get userID
         let userID = Auth.auth().currentUser?.uid
         var viewNotificationComponents = URLComponents(string: "http://localhost:3000/notifications")!
         viewNotificationComponents.queryItems = [URLQueryItem(name: "userID", value: userID)]
@@ -263,5 +293,4 @@ extension DashboardViewController: UISideMenuNavigationControllerDelegate {
     func sideMenuDidDisappear(menu: UISideMenuNavigationController, animated: Bool) {
         print("SideMenu Disappeared! (animated: \(animated))")
     }
-        
 }

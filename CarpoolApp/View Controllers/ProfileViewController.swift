@@ -274,7 +274,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
     
     func readProfileInfo(userID: String)
     {
-        var viewProfileComponents = URLComponents(string: "http://141.217.48.15:3000/users/profile")!
+        var viewProfileComponents = URLComponents(string: "http://localhost:3000/users/profile")!
         viewProfileComponents.queryItems = [
             URLQueryItem(name: "userID", value: userID)
         ]
@@ -315,7 +315,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
     
     func updateProfile(userInfo: Dictionary<String, Any>)
     {
-        let editProfileURL = URL(string: "http://141.217.48.15:3000/users/profile")!
+        let editProfileURL = URL(string: "http://localhost:3000/users/profile")!
         var request = URLRequest(url: editProfileURL)
         let userJSON = try! JSONSerialization.data(withJSONObject: userInfo, options: .prettyPrinted)
         let userJSONInfo = NSString(data: userJSON, encoding: String.Encoding.utf8.rawValue)! as String
@@ -394,14 +394,12 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
-    
-    // Detatch listener
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
     }
@@ -409,19 +407,16 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
     func textFieldDidBeginEditing(_ textField: UITextField) {
         moveScrollView(textField, distance: dist, up: true)
            }
-    
-    // End editing within text field
+
     func textFieldDidEndEditing(_ textField: UITextField) {
         moveScrollView(textField, distance: dist, up: false)
     }
-    
-    // Hide keyboard if return key is pressed
+
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
-    
-    // Move scroll view
+
     func moveScrollView(_ textField: UITextField, distance: Int, up: Bool) {
         
         let movement: CGFloat = CGFloat(up ? distance: -distance)

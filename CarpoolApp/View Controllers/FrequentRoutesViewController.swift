@@ -22,9 +22,7 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
     let dist = -225
     
     var paymentMethod : Bool = false
-    
-    // var longitudeArray: [Float] = []
-    //var latitudeArray: [Float] = []
+
     var lat1 : Double = 0.0
     var lat2: Double = 0.0
     var lon1 : Double = 0.0
@@ -39,7 +37,6 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
     var active_textFiled : UITextField!
     var startadd: String = ""
     var endadd: String = ""
-    //var names: [AnyObject] = []
     
     // Starting of buttons and outlets
     @IBOutlet weak var sunday: BEMCheckBox!
@@ -228,7 +225,6 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
         super.viewDidLoad()
     
         let myColor = UIColor.black
-       // let myColor2 = UIColor(red:0.00, green:0.59, blue:1.00, alpha:1.0)
         placeButton1.layer.borderColor = myColor.cgColor
         placeButton2.layer.borderColor = myColor.cgColor
         arrivaltime1.layer.borderColor = myColor.cgColor
@@ -249,7 +245,6 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
         departtime1.layer.cornerRadius = 8.0
         departtime2.layer.cornerRadius = 8.0
        
-        
         sunday.delegate = self
         monday.delegate = self
         tuesday.delegate = self
@@ -266,10 +261,7 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
         create_toolbar()
         
         for destination in destinationsArray {
-            // Destinations names for picker view
             options2.append(destination.Name)
-            // Destination longitude
-            // Destination latitude
         }
         self.pickerData1.append(contentsOf: options2)
         self.pickerData2.append(contentsOf: options2)
@@ -279,9 +271,6 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
             options3.append(destination.Address)
             
         }
-        //print("address array = \(options3)")
-        //showDestionations()
-        
         checkPaymentMethod()
     }
     
@@ -295,9 +284,8 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
             self.lon1 = (placemark?.location?.coordinate.longitude)!
             print("Lat1: \(self.lat1), Lon1: \(self.lon1)")
         }
-        // Use your location
     }
-    //end end coordinates
+
     func getendcoor(){
         let geocoder = CLGeocoder()
         geocoder.geocodeAddressString(endadd) {
@@ -307,7 +295,6 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
             self.lon2 = (placemark?.location?.coordinate.longitude)!
             print("Lat2: \(self.lat2), Lon2: \(self.lon2)")
         }
-        // Use your location
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -343,12 +330,10 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
         active_textFiled.resignFirstResponder()
     }
     @objc func cancelClick(){
-        //active_textFiled.text = ""
         active_textFiled.resignFirstResponder()
         
     }
     func createDatePicker1() {
-        // toolbar
         let toolbar = UIToolbar()
         toolbar.sizeToFit()
         
@@ -380,8 +365,6 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
     }
     
     func createDatePicker2() {
-        
-        // toolbar
         let toolbar = UIToolbar()
         toolbar.sizeToFit()
         
@@ -415,7 +398,6 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
     }
     
     func createDatePicker3() {
-        // toolbar
         let toolbar = UIToolbar()
         toolbar.sizeToFit()
         
@@ -447,7 +429,6 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
     }
     
     func createDatePicker4() {
-        // toolbar
         let toolbar = UIToolbar()
         toolbar.sizeToFit()
         
@@ -519,8 +500,6 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
         }
     }
     
-    // Keyboard handling
-    // Begin editing within text field
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if active_textFiled == routeName{
         moveScrollView(textField, distance: dist, up: true)
@@ -541,21 +520,18 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
         my_pickerView.reloadAllComponents()
         return true
     }
-    
-    // End editing within text field
+
     func textFieldDidEndEditing(_ textField: UITextField) {
         if active_textFiled == routeName{
             moveScrollView(textField, distance: dist, up: false)
         }
     }
-    
-    // Hide keyboard if return key is pressed
+
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
-    
-    // Move scroll view
+
     func moveScrollView(_ textField: UITextField, distance: Int, up: Bool) {
         let movement: CGFloat = CGFloat(up ? distance: -distance)
         self.view.frame = self.view.frame.offsetBy(dx: 0, dy: movement)
@@ -628,6 +604,3 @@ func getMilitaryTime(date: String) -> String {
     
     return dateString
 }
-
-
-

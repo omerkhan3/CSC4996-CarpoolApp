@@ -28,8 +28,6 @@ class NotificationsTableViewController: UITableViewController {
         guard SideMenuManager.default.menuBlurEffectStyle == nil else {
             return
         }
-        
-        // --set background image--
     }
     
     override func viewDidLoad() {
@@ -66,8 +64,6 @@ class NotificationsTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
-//        let cell = notificationsTableView.dequeueReusableCell(withIdentifier: "notificationCell") as! NotificationTableViewCell
         
         let cell = super.tableView.dequeueReusableCell(withIdentifier: "notificationCell") as! NotificationTableViewCell
         
