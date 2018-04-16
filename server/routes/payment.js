@@ -156,6 +156,19 @@ db.query(`select \"firstName\", \"Amount\", \"Time\" from (select \"firstName\",
   });
 });
 
+router.get("/payout", function (req, res, next) {
+  var userID = req.query.userID;
+  //db.query(`select \"driverID\", \"Amount\", \"Time\", \"riderID\" from carpool.\"paymentHistory\" where \"driverID\" = '${userID}'`)
+  db.query(`select sum(\"Amount\") from carpool.\"paymentHistory\" where \"driverID\" = '${userID}'`)
+  .then(function(data) {
+    console.log(data);
+   res.send(data);
+    })
+    .catch(function(error){
+        console.log('Error fetching recent payments', error);
+    });
+  });
+
 router.get("/checkMethod", function (req, res, next) {
 var userID = req.query.userID;
 db.one(`select \"Users\".\"customerID\" from carpool.\"Users\" where \"Users\".\"userID\" = '${userID}'`)
