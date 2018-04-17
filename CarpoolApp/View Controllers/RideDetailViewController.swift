@@ -62,6 +62,58 @@ class RideDetailViewController: UIViewController {
                 return
             }
         }
+        
+        
+        /*var matchDetail: Match?
+        let userID = Auth.auth().currentUser?.uid
+        if (userID == matchDetail?.driverID) {
+            databaseRef.child("Users").child((matchDetail?.riderID)!).observeSingleEvent(of: .value, with: { (snapshot) in
+                let dictionary = snapshot.value as? NSDictionary
+                
+                if let profileImageURL = dictionary?["Photo"] as? String {
+                    let url = URL(string: profileImageURL)
+                    URLSession.shared.dataTask(with: url!, completionHandler: {
+                        (data, response, error) in
+                        if error != nil {
+                            print(error!)
+                            return
+                        }
+                        DispatchQueue.main.async {
+                            self.profilePicture.image = UIImage(data: data!)
+                        }
+                    }).resume()
+                }
+            }) { (error) in
+                print(error.localizedDescription)
+                return
+            }
+        }
+        else {
+            databaseRef.child("Users").child((matchDetail?.driverID)!).observeSingleEvent(of: .value, with: { (snapshot) in
+                let dictionary = snapshot.value as? NSDictionary
+                
+                if let profileImageURL = dictionary?["Photo"] as? String {
+                    let url = URL(string: profileImageURL)
+                    URLSession.shared.dataTask(with: url!, completionHandler: {
+                        (data, response, error) in
+                        if error != nil {
+                            print(error!)
+                            return
+                        }
+                        DispatchQueue.main.async {
+                            self.profilePicture.image = UIImage(data: data!)
+                        }
+                    }).resume()
+                }
+            }) { (error) in
+                print(error.localizedDescription)
+                return
+            }
+        }*/
+        
+        
+        
+        
         profilePicture.layer.cornerRadius = profilePicture.frame.size.width/2
         profilePicture.clipsToBounds = true
         databaseRef = Database.database().reference()
