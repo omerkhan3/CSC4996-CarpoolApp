@@ -68,6 +68,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.accessibilityIdentifier = "loginView"
+        self.navigationController?.navigationBar.isHidden = true
     }
 
     func textFieldDidBeginEditing(_ textField: UITextField) {
