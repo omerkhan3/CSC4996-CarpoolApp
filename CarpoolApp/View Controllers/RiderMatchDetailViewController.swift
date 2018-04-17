@@ -52,7 +52,7 @@ class RiderMatchDetailViewController: UIViewController {
         view.accessibilityIdentifier = "UpcomingRideDetail"
         databaseRef = Database.database().reference()
         let userID = Auth.auth().currentUser?.uid
-        if (userID == scheduledRideDetail?.driverID) {
+        if (userID == matchDetail?.driverID) {
             databaseRef.child("Users").child((matchDetail?.riderID)!).observeSingleEvent(of: .value, with: { (snapshot) in
                 let dictionary = snapshot.value as? NSDictionary
                 
