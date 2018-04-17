@@ -539,7 +539,7 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
     
     func checkPaymentMethod(){
         let userID = Auth.auth().currentUser?.uid
-        var checkMethodCompenents = URLComponents(string: "http://localhost:3000/payment/checkMethod")!
+        var checkMethodCompenents = URLComponents(string: "http://141.217.48.208:3000/payment/checkMethod")!
         checkMethodCompenents.queryItems = [URLQueryItem(name: "userID", value: userID)]
         var request = URLRequest(url: checkMethodCompenents.url!)
         print (checkMethodCompenents.url!)
@@ -574,7 +574,7 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
 
 func addRoute(routeInfo: Dictionary<String, Any>)
 {
-    let routeURL = URL(string: "http://localhost:3000/routes/")!
+    let routeURL = URL(string: "http://141.217.48.208:3000/routes/")!
     var request = URLRequest(url: routeURL)
     let routeJSON = try! JSONSerialization.data(withJSONObject: routeInfo, options: .prettyPrinted)
     let routeJSONInfo = NSString(data: routeJSON, encoding: String.Encoding.utf8.rawValue)! as String

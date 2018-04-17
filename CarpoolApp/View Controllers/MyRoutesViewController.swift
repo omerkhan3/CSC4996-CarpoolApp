@@ -192,7 +192,7 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
     
     // Query all saved routes from database and, decode and store into an array
     func getMyRoutes(completed: @escaping () -> ()) {
-        var viewMyRoutesComponents = URLComponents(string: "http://localhost:3000/routes/saved")!
+        var viewMyRoutesComponents = URLComponents(string: "http://141.217.48.208:3000/routes/saved")!
         viewMyRoutesComponents.queryItems = [URLQueryItem(name: "userID", value: userID)]
         var request = URLRequest(url: viewMyRoutesComponents.url!)
         print (viewMyRoutesComponents.url!)
@@ -221,7 +221,7 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
     // Function to download and save frequent destinations into an array
     func getDestinationsDecode(completed: @escaping () -> ()) {
         let userID = Auth.auth().currentUser?.uid
-        var viewDestinationCompenents = URLComponents(string: "http://localhost:3000/freqDestinations/getDestination")!
+        var viewDestinationCompenents = URLComponents(string: "http://141.217.48.208:3000/freqDestinations/getDestination")!
         viewDestinationCompenents.queryItems = [URLQueryItem(name: "userID", value: userID)]
         var request = URLRequest(url: viewDestinationCompenents.url!)
         print (viewDestinationCompenents.url!)
@@ -248,7 +248,7 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
     
     func deleteDestination(deletingDestination: Dictionary<String, Any>)
     {
-        let deleteDestinationURL = URL(string: "http://localhost:3000/freqDestinations/deleteDestination")!
+        let deleteDestinationURL = URL(string: "http://141.217.48.208:3000/freqDestinations/deleteDestination")!
         var request = URLRequest(url: deleteDestinationURL)
         let deleteDestinationJSON = try! JSONSerialization.data(withJSONObject: deletingDestination, options: .prettyPrinted)
         let deletingDestinationJSONInfo = NSString(data: deleteDestinationJSON, encoding: String.Encoding.utf8.rawValue)! as String
@@ -267,7 +267,7 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func cancelRoute(cancelrouteInfo: Dictionary<String, Any>) {
-        let cancelURL = URL(string: "http://localhost:3000/routes/cancelRoute")!
+        let cancelURL = URL(string: "http://141.217.48.208:3000/routes/cancelRoute")!
         var request = URLRequest(url: cancelURL)
         let cancelrouteJSON = try! JSONSerialization.data(withJSONObject: cancelrouteInfo, options: .prettyPrinted)
         let cancelrouteJSONInfo = NSString(data: cancelrouteJSON, encoding: String.Encoding.utf8.rawValue)! as String

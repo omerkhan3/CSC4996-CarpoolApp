@@ -146,7 +146,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     
     // Query all scheduled rides from database and, decode and store into an array
     func getScheduledRides(completed: @escaping () -> ()) {
-        var viewScheduledRideComponents = URLComponents(string: "http://localhost:3000/routes/scheduled")!
+        var viewScheduledRideComponents = URLComponents(string: "http://141.217.48.208:3000/routes/scheduled")!
         viewScheduledRideComponents.queryItems = [URLQueryItem(name: "userID", value: userID)]
         var request = URLRequest(url: viewScheduledRideComponents.url!)
         print (viewScheduledRideComponents.url!)
@@ -174,7 +174,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     
     // Query undisbursed driver payments
 //    func getPayout(completed: @escaping () -> ()) {
-//        var viewPayoutComponents = URLComponents(string: "http://localhost:3000/payment/payout")!
+//        var viewPayoutComponents = URLComponents(string: "http://141.217.48.208:3000/payment/payout")!
 //        viewPayoutComponents.queryItems = [URLQueryItem(name: "userID", value: userID)]
 //        var request = URLRequest(url: viewPayoutComponents.url!)
 //        print (viewPayoutComponents.url!)
@@ -217,7 +217,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     
     func updateDevice(userInfo: Dictionary<String, Any>)
     {
-        let editDeviceURL = URL(string: "http://localhost:3000/users/device")!
+        let editDeviceURL = URL(string: "http://141.217.48.208:3000/users/device")!
         var request = URLRequest(url: editDeviceURL)
         let userJSON = try! JSONSerialization.data(withJSONObject: userInfo, options: .prettyPrinted)
         let userJSONInfo = NSString(data: userJSON, encoding: String.Encoding.utf8.rawValue)! as String
@@ -250,7 +250,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     // Download notifications JSON and decode into an array
     func getNotifications(completed: @escaping () -> ()) {
         let userID = Auth.auth().currentUser?.uid
-        var viewNotificationComponents = URLComponents(string: "http://localhost:3000/notifications")!
+        var viewNotificationComponents = URLComponents(string: "http://141.217.48.208:3000/notifications")!
         viewNotificationComponents.queryItems = [URLQueryItem(name: "userID", value: userID)]
         var request = URLRequest(url: viewNotificationComponents.url!)  // Pass Parameter in URL
         print (viewNotificationComponents.url!)

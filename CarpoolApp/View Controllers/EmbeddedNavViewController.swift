@@ -151,7 +151,7 @@ class EmbeddedNavViewController: UIViewController, NavigationViewControllerDeleg
     
     func setRideStatus(rideInfo: Dictionary<String, Any>)
     {
-        let rideURL = URL(string: "http://localhost:3000/liveRide/")!
+        let rideURL = URL(string: "http://141.217.48.208:3000/liveRide/")!
         var request = URLRequest(url: rideURL)
         let rideJSON = try! JSONSerialization.data(withJSONObject: rideInfo, options: .prettyPrinted)
         let rideJSONInfo = NSString(data: rideJSON, encoding: String.Encoding.utf8.rawValue)! as String
@@ -178,7 +178,7 @@ class EmbeddedNavViewController: UIViewController, NavigationViewControllerDeleg
                 return;
             }
             //URL endpoint of our local node server
-            let paymentURL = URL(string: "http://localhost:3000/payment/checkout")!
+            let paymentURL = URL(string: "http://141.217.48.208:3000/payment/checkout")!
             var request = URLRequest(url: paymentURL)
             let ridePaymentJSON = try! JSONSerialization.data(withJSONObject: ridePayment, options: .prettyPrinted)
             let ridePaymentJSONInfo = NSString(data: ridePaymentJSON, encoding: String.Encoding.utf8.rawValue)! as String

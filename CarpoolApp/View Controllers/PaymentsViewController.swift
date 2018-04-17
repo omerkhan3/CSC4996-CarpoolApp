@@ -98,7 +98,7 @@ class PaymentsViewController: UIViewController, UITableViewDelegate, UITableView
     
     // Query all recent payments from database and, decode and store into an array
     func getRecentPayments(completed: @escaping () -> ()) {
-        var viewRecentPaymentsComponents = URLComponents(string: "http://localhost:3000/payment/recentPayments")!
+        var viewRecentPaymentsComponents = URLComponents(string: "http://141.217.48.208:3000/payment/recentPayments")!
         viewRecentPaymentsComponents.queryItems = [URLQueryItem(name: "userID", value: userID)]
         var request = URLRequest(url: viewRecentPaymentsComponents.url!)
         print (viewRecentPaymentsComponents.url!)
@@ -125,7 +125,7 @@ class PaymentsViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func makeRequest(completion: @escaping (String) -> Void) {
-        var clientTokenComponents = URLComponents(string: "http://localhost:3000/payment/client_token")!
+        var clientTokenComponents = URLComponents(string: "http://141.217.48.208:3000/payment/client_token")!
         clientTokenComponents.queryItems = [URLQueryItem(name: "userID", value: userID)]
         var clientTokenRequest = URLRequest(url: clientTokenComponents.url!)
         clientTokenRequest.setValue("text/plain", forHTTPHeaderField: "Accept")
@@ -189,7 +189,7 @@ class PaymentsViewController: UIViewController, UITableViewDelegate, UITableView
             }
             let userToken = idToken!
             //URL endpoint of our local node server
-            let paymentURL = URL(string: "http://localhost:3000/payment/create")!
+            let paymentURL = URL(string: "http://141.217.48.208:3000/payment/create")!
             var request = URLRequest(url: paymentURL)
             let paymentInfo = ["userID": self.userID as Any, "paymentMethodNonce": paymentMethodNonce as Any, "userToken":  userToken as Any] as [String : Any]
             let paymentJSON = try! JSONSerialization.data(withJSONObject: paymentInfo, options: .prettyPrinted)

@@ -97,7 +97,7 @@ class FreqDestinations: UIViewController {
     }
     
     func getDestinations(userID: String) {
-        var viewDestinationComponents = URLComponents(string: "http://localhost:3000/freqDestinations/getDestination")!
+        var viewDestinationComponents = URLComponents(string: "http://141.217.48.208:3000/freqDestinations/getDestination")!
         viewDestinationComponents.queryItems = [
             URLQueryItem(name: "userID", value: userID)
         ]
@@ -160,7 +160,7 @@ class FreqDestinations: UIViewController {
     
     func saveDestinations(destinationInfo: [Dictionary<String, String>])
     {
-        let editDestinationURL = URL(string: "http://localhost:3000/freqDestinations/saveDestination")!
+        let editDestinationURL = URL(string: "http://141.217.48.208:3000/freqDestinations/saveDestination")!
         var request = URLRequest(url: editDestinationURL)
         let destinationJSON = try! JSONSerialization.data(withJSONObject: destinationInfo, options: .prettyPrinted)
         let destinationJSONInfo = NSString(data: destinationJSON, encoding: String.Encoding.utf8.rawValue)! as String
