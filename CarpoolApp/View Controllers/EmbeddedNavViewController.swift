@@ -66,6 +66,22 @@ class EmbeddedNavViewController: UIViewController, NavigationViewControllerDeleg
         super.viewDidLoad()
         calculateDirections()
         print(route!)
+       
+    }
+    
+    
+    func navigationViewControllerDidCancelNavigation(_ navigationViewController: NavigationViewController) {
+        var actionItem : String=String()
+        var actionTitle : String=String()
+        let exitAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)  // default action to exit out of native alerts.
+        actionTitle = "Warning!"
+        actionItem = "You cannot use this button to exit navigation"
+        
+        // Activate UIAlertController to display error
+        let alert = UIAlertController(title: actionTitle, message: actionItem, preferredStyle: .alert)
+        alert.addAction(exitAction)
+        self.present(alert, animated: true, completion: nil)
+        
     }
     
     func calculateDirections() {

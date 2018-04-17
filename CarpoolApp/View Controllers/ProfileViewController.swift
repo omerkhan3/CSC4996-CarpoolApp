@@ -242,7 +242,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         if let userID = Auth.auth().currentUser?.uid {
             let storageItem = storageRef.child("Photo").child(userID)
             guard let image = ProfilePic.image else {return}
-            if let newImage = UIImagePNGRepresentation(image)
+            if let newImage = UIImageJPEGRepresentation(image, 0.3)
             {
                 storageItem.putData(newImage, metadata: nil, completion: { (metadata, error) in
                     if error != nil {
