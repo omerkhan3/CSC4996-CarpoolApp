@@ -40,34 +40,9 @@ class RideDetailViewController: UIViewController {
         setView()
         view.accessibilityIdentifier = "riderMatchDetail"
         databaseRef = Database.database().reference()
-        if let userID = Auth.auth().currentUser?.uid {
-            databaseRef.child("Users").child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
-                let dictionary = snapshot.value as? NSDictionary
-                
-                if let profileImageURL = dictionary?["Photo"] as? String {
-                    let url = URL(string: profileImageURL)
-                    URLSession.shared.dataTask(with: url!, completionHandler: {
-                        (data, response, error) in
-                        if error != nil {
-                            print(error!)
-                            return
-                        }
-                        DispatchQueue.main.async {
-                            self.profilePicture.image = UIImage(data: data!)
-                        }
-                    }).resume()
-                }
-            }) { (error) in
-                print(error.localizedDescription)
-                return
-            }
-        }
-        
-        
-        /*var matchDetail: Match?
         let userID = Auth.auth().currentUser?.uid
-        if (userID == matchDetail?.driverID) {
-            databaseRef.child("Users").child((matchDetail?.riderID)!).observeSingleEvent(of: .value, with: { (snapshot) in
+        if (userID == scheduledRideDetail?.driverID) {
+            databaseRef.child("Users").child((scheduledRideDetail?.riderID)!).observeSingleEvent(of: .value, with: { (snapshot) in
                 let dictionary = snapshot.value as? NSDictionary
                 
                 if let profileImageURL = dictionary?["Photo"] as? String {
@@ -89,7 +64,7 @@ class RideDetailViewController: UIViewController {
             }
         }
         else {
-            databaseRef.child("Users").child((matchDetail?.driverID)!).observeSingleEvent(of: .value, with: { (snapshot) in
+            databaseRef.child("Users").child((scheduledRideDetail?.driverID)!).observeSingleEvent(of: .value, with: { (snapshot) in
                 let dictionary = snapshot.value as? NSDictionary
                 
                 if let profileImageURL = dictionary?["Photo"] as? String {
@@ -109,11 +84,7 @@ class RideDetailViewController: UIViewController {
                 print(error.localizedDescription)
                 return
             }
-        }*/
-        
-        
-        
-        
+        }
         profilePicture.layer.cornerRadius = profilePicture.frame.size.width/2
         profilePicture.clipsToBounds = true
         databaseRef = Database.database().reference()
