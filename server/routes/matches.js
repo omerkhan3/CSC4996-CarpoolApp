@@ -59,7 +59,7 @@ if (requestJSON['requestType'] == 'riderRequest') // If the rider has requested 
    .then(function () {
      db.one(`SELECT \"driverID\" from carpool.\"Matches\" where \"matchID\" = ${matchID}`)
      .then(function(data) {
-        db.any(`INSERT INTO carpool.\"notificationLog\"(\"userID\", \"notificationType\", \"Date\", \"Read\") values ('${data.driverID}', 'You have a new ride request!', 'now', 'false')`);
+        db.any(`INSERT INTO carpool.\"notificationLog\"(\"userID\", \"notificationType\", \"Date\", \"Read\") values ('${data.driverID}', 'You have a new ride request!', now()::timestamp - interval '4 hours', 'false')`);
         db.one(`SELECT \"deviceToken\" from carpool.\"Users\" where \"userID\" = '${data.driverID}'`)
         .then(function(result) {
           sendPushNotification("You have a new ride request!", result.deviceToken);
@@ -84,7 +84,7 @@ if (requestJSON['requestType'] == 'riderRequest') // If the rider has requested 
    .then(function () {
      db.one(`SELECT \"riderID\" from carpool.\"Matches\" where \"matchID\" = ${matchID}`)
      .then(function(data) {
-        db.any(`INSERT INTO carpool.\"notificationLog\"(\"userID\", \"notificationType\", \"Date\", \"Read\") values ('${data.riderID}', 'Your rider request has been approved!', 'now', 'false')`);
+        db.any(`INSERT INTO carpool.\"notificationLog\"(\"userID\", \"notificationType\", \"Date\", \"Read\") values ('${data.riderID}', 'Your rider request has been approved!', now()::timestamp - interval '4 hours', 'false')`);
         db.one(`SELECT \"deviceToken\" from carpool.\"Users\" where \"userID\" = '${data.riderID}'`)
         .then(function(result) {
           sendPushNotification("Your ride request has been approved!", result.deviceToken);
