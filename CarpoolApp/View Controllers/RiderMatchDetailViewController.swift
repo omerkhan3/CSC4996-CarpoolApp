@@ -239,7 +239,7 @@ class RiderMatchDetailViewController: UIViewController {
     
     func riderRequest(matchInfo: Dictionary<String, Any>)
     {
-        let requestURL = URL(string: "http://localhost:3000/matches/approval")!
+        let requestURL = URL(string: "http://141.217.48.208:3000/matches/approval")!
         var request = URLRequest(url: requestURL)
         let requestJSON = try! JSONSerialization.data(withJSONObject: matchInfo, options: .prettyPrinted)
         let requestJSONInfo = NSString(data: requestJSON, encoding: String.Encoding.utf8.rawValue)! as String
