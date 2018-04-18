@@ -88,10 +88,28 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
         let exitAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)  // default action to exit out of native alerts.
         
         dump(options)
-        if ((placeButton1.text == "Select Place") || (options.count == 0) || (placeButton1.text == "") || (placeButton2.text == "") || (placeButton2.text == "Select Place") || (arrivaltime1.text?.isEmpty)! || (departtime1.text?.isEmpty)! || (arrivaltime2.text?.isEmpty)! || (departtime2.text?.isEmpty)! || (routeName.text?.isEmpty)!)  // error handling for if all fields were filled  out.
+        if ((arrivaltime1.text?.isEmpty)! || (departtime1.text?.isEmpty)! || (arrivaltime2.text?.isEmpty)! || (departtime2.text?.isEmpty)! || (routeName.text?.isEmpty)!)  // error handling for if all fields were filled  out.
         {
             actionTitle = "Error!"
             actionItem = "You have not entered all required information."
+            
+            // Activate UIAlertController to display error
+            let alert = UIAlertController(title: actionTitle, message: actionItem, preferredStyle: .alert)
+            alert.addAction(exitAction)
+            self.present(alert, animated: true, completion: nil)  // present error alert.
+        }
+        else if (placeButton1.text == "Select Place") || (placeButton1.text == "") || (placeButton2.text == "") || (placeButton2.text == "Select Place") {
+            actionTitle = "Error!"
+            actionItem = "You must select a starting destination and an ending destination."
+            
+            // Activate UIAlertController to display error
+            let alert = UIAlertController(title: actionTitle, message: actionItem, preferredStyle: .alert)
+            alert.addAction(exitAction)
+            self.present(alert, animated: true, completion: nil)  // present error alert.
+        }
+        else if options.count == 0 {
+            actionTitle = "Error!"
+            actionItem = "You must select at least one day a week for your route."
             
             // Activate UIAlertController to display error
             let alert = UIAlertController(title: actionTitle, message: actionItem, preferredStyle: .alert)
