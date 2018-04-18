@@ -2,7 +2,7 @@
 //  MapViewController.swift
 //  CarpoolApp
 //
-//  Created by Matt on 2/1/18.
+//  Created by Matt  on 2/1/18.
 //  Copyright © 2018 CSC 4996. All rights reserved.
 //
 
