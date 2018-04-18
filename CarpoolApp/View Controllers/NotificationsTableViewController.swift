@@ -58,7 +58,7 @@ class NotificationsTableViewController: UITableViewController {
         print(type)
         
         // Segue to matches view if notifications is type: "Match"
-        if (type == "Match") {
+        if (type == "You have a new match!") {
             self.performSegue(withIdentifier: "showMatches1", sender: self)
         }
     }
