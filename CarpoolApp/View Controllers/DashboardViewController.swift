@@ -17,7 +17,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     var scheduledRide = ScheduledRide()
     let userID = Auth.auth().currentUser?.uid
     var notificationsArray = [Notifications]()
-    //var payout = [DriverPayment]()
+    var payout = [UnpaidPayout]()
     
     // Outlets
     @IBOutlet weak var noRidesLabel: UILabel!
@@ -29,6 +29,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         
         self.ridesTableView.delegate = self
         self.ridesTableView.dataSource = self
+        self.payoutLbl.isHidden = true
         
         getNotifications {
             for notification in self.notificationsArray {
@@ -46,14 +47,12 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
             }
         }
         
-//        getPayout {
-//            if self.payout[0].sum > 0 {
-//                self.payoutLbl.isHidden = false
-//                self.payoutLbl.text = "Unpaid Payout: $ " + "\(self.payout[0].sum)"
-//            } else {
-//                self.payoutLbl.isHidden = true;
-//            }
-//        }
+        getPayout {
+            if self.payout[0].sum > 0 {
+                self.payoutLbl.isHidden = false
+                self.payoutLbl.text = "Unpaid Payout: $ " + "\(self.payout[0].sum)"
+            }
+        }
         
         getScheduledRides {
             self.ridesTableView.reloadData()
@@ -173,32 +172,32 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     // Query undisbursed driver payments
-//    func getPayout(completed: @escaping () -> ()) {
-//        var viewPayoutComponents = URLComponents(string: "http://141.217.48.208:3000/payment/payout")!
-//        viewPayoutComponents.queryItems = [URLQueryItem(name: "userID", value: userID)]
-//        var request = URLRequest(url: viewPayoutComponents.url!)
-//        print (viewPayoutComponents.url!)
-//
-//        // GET Method
-//        request.httpMethod = "GET"
-//        URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
-//            if (error != nil){
-//                print (error as Any)
-//            } else {
-//                guard let data = data else { return }
-//                do {
-//                    // Decode JSON
-//                    self.payout = try JSONDecoder().decode([DriverPayment].self, from: data)
-//                    print (self.payout)
-//                    DispatchQueue.main.async {
-//                        completed()
-//                    }
-//                } catch let jsnERR {
-//                    print(jsnERR)
-//                }
-//            }
-//            }.resume()
-//    }
+    func getPayout(completed: @escaping () -> ()) {
+        var viewPayoutComponents = URLComponents(string: "http://141.217.48.208:3000/payment/payout")!
+        viewPayoutComponents.queryItems = [URLQueryItem(name: "userID", value: userID)]
+        var request = URLRequest(url: viewPayoutComponents.url!)
+        print (viewPayoutComponents.url!)
+
+        // GET Method
+        request.httpMethod = "GET"
+        URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
+            if (error != nil){
+                print (error as Any)
+            } else {
+                guard let data = data else { return }
+                do {
+                    // Decode JSON
+                    self.payout = try JSONDecoder().decode([UnpaidPayout].self, from: data)
+                    print (self.payout)
+                    DispatchQueue.main.async {
+                        completed()
+                    }
+                } catch let jsnERR {
+                    print(jsnERR)
+                }
+            }
+            }.resume()
+    }
     
     func registerDeviceToken()
     {
