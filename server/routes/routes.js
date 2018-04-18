@@ -336,7 +336,7 @@ router.post('/', function(req, res, next) {
                           var riderDropOff = `${riderPickup} +  interval '${leg2Duration.value} seconds'`;
                           var riderPickup2 = `time '${routeJSON['departureTime2']}' - interval '${returnLeg1Duration.value} seconds'`;
 
-                        insertMatchesDriver(driverLeaveTime, riderPickup, riderDropOff, riderPickup2, totalCost);
+                        insertMatches(driverLeaveTime, riderPickup, riderDropOff, riderPickup2, totalCost);
                       } else {
                           console.log(destination + ' is not reachable by land from ' + origin);
                       }
@@ -344,7 +344,7 @@ router.post('/', function(req, res, next) {
                  });
                }
 
-               function insertMatchesDriver(driverLeaveTime, riderPickup, riderDropOff, riderPickup2, totalCost){ // after all 3 legs are calculated, insert data into matches table.
+               function insertMatches(driverLeaveTime, riderPickup, riderDropOff, riderPickup2, totalCost){ // after all 3 legs are calculated, insert data into matches table.
                db.one("SELECT last_value as \"currval\" from \"riderRoutes_routeID_seq\"") // get the rider route ID in the current route table.
                      .then(function(data2){
                          var driverRouteID = parseInt(data2.currval);
@@ -435,7 +435,7 @@ router.post('/', function(req, res, next) {
                   return obj['Days'].indexOf(n) > -1;
                   });
               console.log(matchedDays);
-              if (matchedDays.length == 0){
+              if (matchedDays === undefined || matchedDays.length == 0){
                 continue;
               }
 
@@ -457,7 +457,7 @@ router.post('/', function(req, res, next) {
                  var leg3_origin = [`${obj['endPointLat']}, ${obj['endPointLong']}`]; // driver end
                  var leg3_destination =  [`${routeJSON['endPointLat']}, ${routeJSON['endPointLong']}`]; // rider end
                  //var leg3_destination =  ['2151 Kennedy Drive 48309']; // rider
-                 console.log("Get Third Leg: ", obj); // last working up to here
+
                  // Distance matrix api query
                  distance.matrix(leg3_origin, leg3_destination, function (err, distances) {
                    if (err) {
@@ -467,7 +467,6 @@ router.post('/', function(req, res, next) {
                        return console.log('no distances');
                    }
                    if (distances.status == 'OK') {
-
                        var origin = distances.origin_addresses[0];
                        var destination = distances.destination_addresses[0];
                        if (distances.rows[0].elements[0].status == 'OK') {
@@ -550,8 +549,7 @@ router.post('/', function(req, res, next) {
                         var riderPickup = `${driverLeaveTime} + interval '${leg1Duration.value} seconds'`;
                         var riderDropOff = `${riderPickup} +  interval '${leg2Duration.value} seconds'`;
                         var riderPickup2 = `time '${routeJSON['departureTime1']}' + interval '${leg3Duration.value} seconds'`;
-
-                        insertMatchesRider(driverLeaveTime, riderPickup, riderDropOff, riderPickup2, totalCost);
+                        insertMatches(driverLeaveTime, riderPickup, riderDropOff, riderPickup2, totalCost);
 
                      } else {
                          console.log(destination + ' is not reachable by land from ' + origin);
@@ -560,7 +558,7 @@ router.post('/', function(req, res, next) {
                });
 
 
-                        function insertMatchesRider(driverLeaveTime, riderPickup, riderDropOff, riderPickup2, totalCost){ // after all 3 legs are calculated, insert data into matches table.
+                        function insertMatches(driverLeaveTime, riderPickup, riderDropOff, riderPickup2, totalCost){ // after all 3 legs are calculated, insert data into matches table.
                         db.one("SELECT last_value as \"currval\" from \"riderRoutes_routeID_seq\"") // get the rider route ID in the current route table.
                               .then(function(data2){
                                   var riderRouteID = parseInt(data2.currval);
@@ -581,8 +579,7 @@ router.post('/', function(req, res, next) {
                                         var riderDepartureTime = Date.parse(riderPickup2Time.riderPickup2Time);
 
                                         if (riderArrivalTime.between(riderStartInterval1, riderStartInterval2) == true && riderDepartureTime.between(riderEndInterval1, riderEndInterval2) ==  true){
-
-                                          //db.query(`INSERT INTO carpool.\"Matches\"(\"riderID\", \"driverID\",  \"driverRouteID\", \"Status\", \"riderRouteID\", \"driverLeaveTime\", \"riderPickupTime\", \"riderDropOffTime\", \"riderPickupTime2\", \"rideCost\", \"matchedDays\") values('${userID}', '${obj['driverID']}', ${obj['routeID']}, '${"Awaiting rider request."}', ${riderRouteID}, '${driverLeave.driverLeaveTime}', '${riderPickupTime.riderPickupTime}', '${riderDropOffTime.riderDropOffTime}', '${riderPickup2Time.riderPickup2Time}', ${totalCost}, $1)`, [matchedDays]); // insert rider and driver details into Matches table.
+                                          db.query(`INSERT INTO carpool.\"Matches\"(\"riderID\", \"driverID\",  \"driverRouteID\", \"Status\", \"riderRouteID\", \"driverLeaveTime\", \"riderPickupTime\", \"riderDropOffTime\", \"riderPickupTime2\", \"rideCost\", \"matchedDays\") values('${userID}', '${obj['driverID']}', ${obj['routeID']}, '${"Awaiting rider request."}', ${riderRouteID}, '${driverLeave.driverLeaveTime}', '${riderPickupTime.riderPickupTime}', '${riderDropOffTime.riderDropOffTime}', '${riderPickup2Time.riderPickup2Time}', ${totalCost}, $1)`, [matchedDays]); // insert rider and driver details into Matches table.
 
                                           db.any(`INSERT INTO carpool.\"notificationLog\"(\"userID\", \"notificationType\", \"Date\", \"Read\") values ('${userID}', 'You have a new match!', 'now', 'false')`); // Insert a notification into table when there is a match.
 
