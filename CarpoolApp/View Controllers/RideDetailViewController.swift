@@ -237,7 +237,7 @@ class RideDetailViewController: UIViewController {
                self.startRideBtn.isEnabled = true
             }
             else{
-                self.startRideBtn.isHidden = true
+                //self.startRideBtn.isHidden = true
             }
             
         } else {
@@ -270,7 +270,7 @@ class RideDetailViewController: UIViewController {
                     self.startRideBtn.isEnabled = true
                 }
                 else{
-                    self.startRideBtn.isHidden = true
+                    //self.startRideBtn.isHidden = true
                     
                 }
                 

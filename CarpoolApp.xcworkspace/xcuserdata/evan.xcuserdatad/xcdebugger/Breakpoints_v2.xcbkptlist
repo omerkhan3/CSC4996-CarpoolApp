@@ -170,12 +170,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CarpoolApp/View Controllers/RideDetailViewController.swift"
-            timestampString = "545523820.475212"
+            timestampString = "545800003.644629"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "78"
             endingLineNumber = "78"
-            landmarkName = "loadProfileImage()"
+            landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -223,6 +223,22 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "29"
             endingLineNumber = "29"
+            landmarkName = "viewDidLoad()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CarpoolApp/View Controllers/DashboardViewController.swift"
+            timestampString = "545799703.5543621"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "77"
+            endingLineNumber = "77"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>

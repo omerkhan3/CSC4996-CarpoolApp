@@ -27,8 +27,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.ridesTableView.delegate = self
-        self.ridesTableView.dataSource = self
+
         self.payoutLbl.isHidden = true
         
         getNotifications {
@@ -76,6 +75,8 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         view.accessibilityIdentifier = "dashboardView"
         setupSideMenu()
         registerDeviceToken()
+        self.ridesTableView.delegate = self
+        self.ridesTableView.dataSource = self
         ridesTableView.reloadData()
         
     }
