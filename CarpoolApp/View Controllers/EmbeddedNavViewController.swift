@@ -4,15 +4,17 @@ import MapboxNavigation
 import MapboxDirections
 import FirebaseAuth
 
-class EmbeddedNavViewController: UIViewController, NavigationViewControllerDelegate, UITextFieldDelegate  {
+class EmbeddedNavViewController: UIViewController, NavigationViewControllerDelegate, UITextFieldDelegate, MGLMapViewDelegate  {
 
     var route: ScheduledRide?
     let userID = Auth.auth().currentUser!.uid
+    var mapView: NavigationMapView!
     
     @IBOutlet weak var container: UIView!
     @IBOutlet weak var pickedUp: RoundedButton!
     @IBOutlet weak var droppedOff: RoundedButton!
     @IBOutlet weak var cancelDrive: RoundedButton!
+    
     
     @IBAction func pickPress(_ sender: RoundedButton) {
         cancelDrive.alpha = 0.2
@@ -66,6 +68,12 @@ class EmbeddedNavViewController: UIViewController, NavigationViewControllerDeleg
         super.viewDidLoad()
         calculateDirections()
         print(route!)
+        //mapView = NavigationMapView(frame: view.bounds)
+        //view.addSubview(mapView)
+        mapView.delegate = self
+        mapView.showsUserLocation = true
+        mapView.setUserTrackingMode(.follow, animated: true)
+        
        
     }
     
@@ -87,7 +95,9 @@ class EmbeddedNavViewController: UIViewController, NavigationViewControllerDeleg
     func calculateDirections() {
         if (route?.routeType == "toDestination")
             {
-        let origin = Waypoint(coordinate: CLLocationCoordinate2DMake((route?.driverStartPointLat)!, (route?.driverStartPointLong)!))
+//                guard let userLocation = mapView?.userLocation!.location else {return}
+//                let userWaypoint = Waypoint(location: userLocation, heading: mapView?.userLocation?.heading, name: "user")
+       let origin = Waypoint(coordinate: CLLocationCoordinate2DMake((route?.driverStartPointLat)!, (route?.driverStartPointLong)!))
         let destination = Waypoint(coordinate: CLLocationCoordinate2DMake((route?.driverEndPointLat)!, (route?.driverEndPointLong)!))
         let riderPickup = Waypoint(coordinate: CLLocationCoordinate2DMake((route?.riderStartPointLat)!, (route?.riderStartPointLong)!))
         let riderDropoff = Waypoint(coordinate: CLLocationCoordinate2DMake((route?.riderEndPointLat)!, (route?.riderEndPointLong)!))
