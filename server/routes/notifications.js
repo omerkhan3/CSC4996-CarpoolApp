@@ -24,6 +24,20 @@ db.query(`select \"notificationLog\".\"notificationType\", \"notificationLog\".\
 });
 });
 
+router.get('/unread', function(req, res, next) {
+var userID = req.query.userID;
+console.log(userID);
+db.query(`select COUNT(*) from carpool."notificationLog" where \"notificationLog\".\"Read\" = 'false' and \"notificationLog\".\"userID\" = '${userID}'`) // Query to view all notifications associated with a particular user.
+.then(function(data) {
+    res.send(data);
+})
+.catch(function(error){
+    console.log('Error updating notifications to read: ', error)
+});
+});
+
+
+
 router.post('/deleteIndividual', function(req, res, next) {
 	var deletingNotification = req.body.deletingNotification;
 	var deleteNotificationJSON = JSON.parse(deletingNotification);

@@ -16,8 +16,8 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     var scheduledRidesArray = [ScheduledRide]()
     var scheduledRide = ScheduledRide()
     let userID = Auth.auth().currentUser?.uid
-    var notificationsArray = [Notifications]()
     var payout = [UnpaidPayout]()
+    var unreadNotifications = "0"
     
     // Outlets
     @IBOutlet weak var noRidesLabel: UILabel!
@@ -30,30 +30,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
 
         self.payoutLbl.isHidden = true
         
-        getNotifications {
-            for notification in self.notificationsArray {
-                if notification.Read == false {
-                    // activate notification alert
-                    let actionTitle = "You have new notifications!"
-                    let actionItem = "Click on the notification icon in the upper right or got to notifications from the user menu to view."
-                    
-                    // Activate UIAlertController to display confirmation
-                    let alert = UIAlertController(title: actionTitle, message: actionItem, preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-                    }))
-                    self.present(alert, animated: true, completion: nil)
-                }
-            }
-        }
-        
-        getPayout {
-            if self.payout[0].sum > 0 {
-                self.payoutLbl.isHidden = false
-                self.payoutLbl.text = "Unpaid Payout: $" + "\(self.payout[0].sum)"
-            }
-        }
-        
-        getScheduledRides {
+        checkUnread {
             self.ridesTableView.reloadData()
             
             // Show or hide no schedules rides alert
@@ -66,6 +43,17 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
                 self.noRidesLabel.isHidden = true
             }
         }
+        
+        
+        
+        getPayout {
+            if self.payout[0].sum > 0 {
+                self.payoutLbl.isHidden = false
+                self.payoutLbl.text = "Unpaid Payout: $" + "\(self.payout[0].sum)"
+            }
+        }
+        
+        
         
         ridesTableView.reloadData()
     }
@@ -91,7 +79,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         
         if segue.identifier == "showNotifications" {
             if let notificationsViewController = segue.destination as? NotificationsTableViewController {
-                notificationsViewController.notificationsArray = notificationsArray
+                //notificationsViewController.notificationsArray = notificationsArray
             }
         }
     }
@@ -144,32 +132,46 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     
-    // Query all scheduled rides from database and, decode and store into an array
-    func getScheduledRides(completed: @escaping () -> ()) {
-        var viewScheduledRideComponents = URLComponents(string: "http://141.217.48.208:3000/routes/scheduled")!
-        viewScheduledRideComponents.queryItems = [URLQueryItem(name: "userID", value: userID)]
-        var request = URLRequest(url: viewScheduledRideComponents.url!)
-        print (viewScheduledRideComponents.url!)
+    func checkUnread(completed: @escaping () -> ()){
+        let userID = Auth.auth().currentUser?.uid
+        var checkUnreadCompenents = URLComponents(string: "http://localhost:3000/notifications/unread")!
+        checkUnreadCompenents.queryItems = [URLQueryItem(name: "userID", value: userID)]
+        var request = URLRequest(url: checkUnreadCompenents.url!)
+        print (checkUnreadCompenents.url!)
         
         // GET Method
         request.httpMethod = "GET"
         URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
             if (error != nil){
                 print (error as Any)
-            } else {
-                guard let data = data else { return }
-                do {
-                    // Decode JSON
-                    self.scheduledRidesArray = try JSONDecoder().decode([ScheduledRide].self, from: data)
-                    print (self.scheduledRidesArray)
-                    DispatchQueue.main.async {
-                        completed()
+            }
+            else if let data = data {
+                print(data)
+                let countString:NSString = NSString(data: data, encoding: String.Encoding.utf8.rawValue)!
+                if let data = countString.data(using: String.Encoding.utf8.rawValue) {
+                    do {
+                        let json = try JSONSerialization.jsonObject(with: data, options: []) as! [[String:String]]
+                        
+                        let count = json[0]["count"]!
+                        print(count)
+                        if (count > "0")
+                        {
+                            let actionTitle = "You have new notifications!"
+                            let actionItem = "Click on the notification icon in the upper right or got to notifications from the user menu to view."
+                            
+                            // Activate UIAlertController to display confirmation
+                            let alert = UIAlertController(title: actionTitle, message: actionItem, preferredStyle: .alert)
+                            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                            }))
+                            self.present(alert, animated: true, completion: nil)
+                        }
                     }
-                } catch let jsnERR {
-                    print(jsnERR)
+                    catch let error as NSError {
+                        print(error)
+                    }
                 }
             }
-        }.resume()
+            }.resume()
     }
     
     // Query undisbursed driver payments
@@ -247,33 +249,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         SideMenuManager.default.menuAddScreenEdgePanGesturesToPresent(toView: self.navigationController!.view)
     }
 
-    // Download notifications JSON and decode into an array
-    func getNotifications(completed: @escaping () -> ()) {
-        let userID = Auth.auth().currentUser?.uid
-        var viewNotificationComponents = URLComponents(string: "http://141.217.48.208:3000/notifications")!
-        viewNotificationComponents.queryItems = [URLQueryItem(name: "userID", value: userID)]
-        var request = URLRequest(url: viewNotificationComponents.url!)  // Pass Parameter in URL
-        print (viewNotificationComponents.url!)
-        
-        request.httpMethod = "GET" // GET METHOD
-        URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
-            if (error != nil){  // error handling responses.
-                print (error as Any)
-            } else {
-                guard let data = data else { return }
-                do {
-                    // decode JSON into Notifications[] array type
-                    self.notificationsArray = try JSONDecoder().decode([Notifications].self, from: data)
-                    print(self.notificationsArray)
-                    DispatchQueue.main.async {
-                        completed()
-                    }
-                } catch let jsnErr {
-                    print(jsnErr)
-                }
-            }
-            }.resume()
-    }
+
 }
     
 extension DashboardViewController: UISideMenuNavigationControllerDelegate {
