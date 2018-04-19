@@ -110,10 +110,6 @@ router.get("/payout", function (req, res, next) {
 
 router.get("/checkMethod", function (req, res, next) {
   var idToken = req.query.idToken;
-
-
- admin.auth().verifyIdToken(idToken)
-   .then(function(decodedToken) {
 var userID = req.query.userID;
 db.one(`select \"Users\".\"customerID\" from carpool.\"Users\" where \"Users\".\"userID\" = '${userID}'`)
 .then(function(data) {

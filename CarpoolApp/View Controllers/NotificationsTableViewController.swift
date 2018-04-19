@@ -28,10 +28,6 @@ class NotificationsTableViewController: UITableViewController {
         guard SideMenuManager.default.menuBlurEffectStyle == nil else {
             return
         }
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
         
         getNotifications {
             self.tableView.reloadData()
@@ -47,6 +43,12 @@ class NotificationsTableViewController: UITableViewController {
                 self.present(alert, animated: true, completion: nil)
             }
         }
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+  
         
         notificationsTableView.delegate = self
         notificationsTableView.dataSource = self
