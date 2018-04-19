@@ -115,7 +115,7 @@ router.post('/cancel', function(req, res, next) {
     db.one(`SELECT \"deviceToken\", \"firstName\" from carpool.\"Users\" where \"userID\" = '${otherID}'`)
     .then(function(result) {
       sendPushNotification(`Your ride with ${result.firstName} on ${date.slice(5,10)} has been cancelled.`, result.deviceToken);
-      db.any(`INSERT INTO carpool.\"notificationLog\"(\"userID\", \"notificationType\", \"Date\", \"Read\") values ('${otherID}', '${result.firstName} has cancelled your ride on ${date.slice(5,10)}.', 'now', 'false')`)
+      db.any(`INSERT INTO carpool.\"notificationLog\"(\"userID\", \"notificationType\", \"Date\", \"Read\") values ('${otherID}', '${result.firstName} has cancelled your ride on ${date.slice(5,10)}.', 	now()::timestamp - interval '4 hours', 'false')`)
       .then(function(){
         res.status(200)
           .json({
@@ -141,7 +141,7 @@ else {
         db.one(`SELECT \"deviceToken\", \"firstName\" from carpool.\"Users\" where \"userID\" = '${otherID}'`)
         .then(function(result) {
           sendPushNotification(`Your ride series with ${result.firstName} has been cancelled.`, result.deviceToken);
-          db.any(`INSERT INTO carpool.\"notificationLog\"(\"userID\", \"notificationType\", \"Date\", \"Read\") values ('${otherID}', '${result.firstName} has cancelled your ride series.', 'now', 'false')`)
+          db.any(`INSERT INTO carpool.\"notificationLog\"(\"userID\", \"notificationType\", \"Date\", \"Read\") values ('${otherID}', '${result.firstName} has cancelled your ride series.', now()::timestamp - interval '4 hours', 'false')`)
           .then(function(){
             res.status(200)
               .json({
@@ -368,7 +368,7 @@ router.post('/', function(req, res, next) {
                             // insert rider and driver details into Matches table.
 
 
-                             db.any(`INSERT INTO carpool.\"notificationLog\"(\"userID\", \"notificationType\", \"Date\", \"Read\") values ('${obj['riderID']}', 'You have a new match!', 'now', 'false')`);
+                             db.any(`INSERT INTO carpool.\"notificationLog\"(\"userID\", \"notificationType\", \"Date\", \"Read\") values ('${obj['riderID']}', 'You have a new match!', now()::timestamp - interval '4 hours', 'false')`);
                             db.one(`SELECT \"deviceToken\" from carpool.\"Users\" where \"userID\" = '${obj['riderID']}'`) // we need device token to target specific users with push notifications.
                             .then(function(result) {
                               sendPushNotification("You have a new match!", result.deviceToken);
@@ -376,7 +376,7 @@ router.post('/', function(req, res, next) {
                           }
 
                           else{
-                            console.log("Calculated route times do not comply with rider intervals.");
+                            console.log("Calculated route times do not comply with rider intervals."); 
                           }
 
 
@@ -581,7 +581,7 @@ router.post('/', function(req, res, next) {
                                         if (riderArrivalTime.between(riderStartInterval1, riderStartInterval2) == true && riderDepartureTime.between(riderEndInterval1, riderEndInterval2) ==  true){
                                           db.query(`INSERT INTO carpool.\"Matches\"(\"riderID\", \"driverID\",  \"driverRouteID\", \"Status\", \"riderRouteID\", \"driverLeaveTime\", \"riderPickupTime\", \"riderDropOffTime\", \"riderPickupTime2\", \"rideCost\", \"matchedDays\") values('${userID}', '${obj['driverID']}', ${obj['routeID']}, '${"Awaiting rider request."}', ${riderRouteID}, '${driverLeave.driverLeaveTime}', '${riderPickupTime.riderPickupTime}', '${riderDropOffTime.riderDropOffTime}', '${riderPickup2Time.riderPickup2Time}', ${totalCost}, $1)`, [matchedDays]); // insert rider and driver details into Matches table.
 
-                                          db.any(`INSERT INTO carpool.\"notificationLog\"(\"userID\", \"notificationType\", \"Date\", \"Read\") values ('${userID}', 'You have a new match!', 'now', 'false')`); // Insert a notification into table when there is a match.
+                                          db.any(`INSERT INTO carpool.\"notificationLog\"(\"userID\", \"notificationType\", \"Date\", \"Read\") values ('${userID}', 'You have a new match!', now()::timestamp - interval '4 hours', 'false')`); // Insert a notification into table when there is a match.
 
                                           db.one(`SELECT \"deviceToken\" from carpool.\"Users\" where \"userID\" = '${userID}'`) // we need device token to target specific users with push notifications.
                                           .then(function(result) {
