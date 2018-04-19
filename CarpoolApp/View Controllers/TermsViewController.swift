@@ -7,17 +7,20 @@
 //
 
 import UIKit
-import WebKit
+import PDFKit
 class TermsViewController: UIViewController {
 
-    @IBOutlet weak var webView: WKWebView!
+    
+    @IBOutlet weak var pdfview: PDFView!
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let path = Bundle.main.path(forResource: "Introduction", ofType: "pdf")
+        let path = Bundle.main.path(forResource: "terms2", ofType: "pdf")
         let url = URL(fileURLWithPath: path!)
-        let request = URLRequest(url: url)
+        let pdfDocument = PDFDocument(url: url)
+        pdfview.displayMode = .singlePageContinuous
+        pdfview.autoScales = true
         
-        webView.load(request)
+        pdfview.document = pdfDocument
     }
 }
