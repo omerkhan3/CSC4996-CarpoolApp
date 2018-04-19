@@ -61,14 +61,14 @@ class FreqDestinations: UIViewController {
         if (customInfo["Address"] != nil && customInfo["Address"] != "") {
             destinations.append(customInfo)
         }
-        
+        self.saveDestinations(destinationInfo: destinations)
         actionTitle = "Success!"
         actionItem = "Your frequent destinations have been saved"
         
         let alert = UIAlertController(title: actionTitle, message: actionItem, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-            self.saveDestinations(destinationInfo: destinations)
-            self.performSegue(withIdentifier: "unwindtoMyRoutes", sender: self)
+            
+            _ = self.navigationController?.popViewController(animated: true)
         }))
         self.present(alert, animated: true, completion: nil)
        

@@ -26,36 +26,7 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var myRoutesTable: UITableView!
     @IBOutlet weak var noRoutesLabel: UILabel!
     @IBAction func prepareForUnwind(segue: UIStoryboardSegue) {
-        
-        func getDestinationsDecode(completed: @escaping () -> ()) {
-            let userID = Auth.auth().currentUser?.uid
-            var viewDestinationCompenents = URLComponents(string: "http://141.217.48.208:3000/freqDestinations/getDestination")!
-            viewDestinationCompenents.queryItems = [URLQueryItem(name: "userID", value: userID)]
-            var request = URLRequest(url: viewDestinationCompenents.url!)
-            print (viewDestinationCompenents.url!)
-            
-            // GET Method
-            request.httpMethod = "GET"
-            URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
-                if (error != nil){
-                    print (error as Any)
-                } else {
-                    guard let data = data else { return }
-                    do {
-                        // Decode JSON
-                        self.destinationsArray = try JSONDecoder().decode([FrequentDestination].self, from: data)
-                        DispatchQueue.main.async {
-                            completed()
-                        }
-                    } catch let jsnERR {
-                        print(jsnERR)
-                    }
-                }
-                }.resume()
-        }
-        self.MyDestinationsTable.reloadData()
-        
-        
+
     }
     // UI Button Outlets
     @IBAction func editButton(_ sender: Any) {
@@ -95,8 +66,7 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
     //Reloading the table view and showing label if no saved routes
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        myRoutesTable.reloadData()
-        MyDestinationsTable.reloadData()
+        
         
         getDestinationsDecode {
             self.MyDestinationsTable.reloadData()
@@ -112,6 +82,7 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
                 self.MyDestinationsTable.isHidden = false
             }
         }
+        MyDestinationsTable.reloadData()
         
         getMyRoutes {
             self.myRoutesTable.reloadData()
@@ -126,8 +97,7 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
                 self.myRoutesTable.isHidden = false
             }
         }
-        
-        
+      myRoutesTable.reloadData()
     }
     
     // Class overrides
@@ -138,10 +108,10 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
         self.myRoutesTable.dataSource = self
         self.MyDestinationsTable.delegate = self
         self.MyDestinationsTable.dataSource = self
-        self.MyDestinationsTable.reloadData()
+        MyDestinationsTable.reloadData()
         
     }
-    
+
     // Send data to other view controllers via segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showAddRoute" {
