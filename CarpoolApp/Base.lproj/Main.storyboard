@@ -1549,7 +1549,7 @@
                                                 <rect key="frame" x="16.333333333333343" y="206.33333333333331" width="305" height="20.333333333333343"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sun" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="amk-RE-MlC">
-                                                        <rect key="frame" x="0.3333333333333357" y="0.0" width="35" height="20.333333333333332"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="35" height="20.333333333333332"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="35" id="DiW-mn-obR"/>
                                                         </constraints>
@@ -1558,7 +1558,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mon" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UdR-78-75a">
-                                                        <rect key="frame" x="45.333333333333336" y="0.0" width="35.000000000000007" height="20.333333333333332"/>
+                                                        <rect key="frame" x="45" y="0.0" width="35" height="20.333333333333332"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="35" id="Oky-ck-XiY"/>
                                                         </constraints>
@@ -1567,7 +1567,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tue" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="quJ-rl-ggD">
-                                                        <rect key="frame" x="90.333333333333343" y="0.0" width="35" height="20.333333333333332"/>
+                                                        <rect key="frame" x="90" y="0.0" width="35" height="20.333333333333332"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="35" id="EIw-l4-xoK"/>
                                                         </constraints>
@@ -1576,7 +1576,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wed" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NXe-qa-YRi">
-                                                        <rect key="frame" x="135.33333333333334" y="0.0" width="35" height="20.333333333333332"/>
+                                                        <rect key="frame" x="135" y="0.0" width="35" height="20.333333333333332"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="35" id="UsP-pC-xhC"/>
                                                         </constraints>
@@ -1585,7 +1585,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Thu" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IRE-cp-oY8">
-                                                        <rect key="frame" x="180.33333333333334" y="0.0" width="35" height="20.333333333333332"/>
+                                                        <rect key="frame" x="180" y="0.0" width="35" height="20.333333333333332"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="35" id="hNx-1v-6C3"/>
                                                         </constraints>
@@ -1594,7 +1594,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fri" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zl1-U5-dGs">
-                                                        <rect key="frame" x="225.33333333333334" y="0.0" width="35.000000000000028" height="20.333333333333332"/>
+                                                        <rect key="frame" x="225" y="0.0" width="35" height="20.333333333333332"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="35" id="vXR-j0-IYN"/>
                                                         </constraints>
@@ -1603,7 +1603,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sat" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LEM-Us-gVN">
-                                                        <rect key="frame" x="270.33333333333331" y="0.0" width="35" height="20.333333333333332"/>
+                                                        <rect key="frame" x="270" y="0.0" width="35" height="20.333333333333332"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="35" id="dbO-f1-h1c"/>
                                                         </constraints>
@@ -2345,10 +2345,10 @@
                                 </constraints>
                                 <state key="normal">
                                     <attributedString key="attributedTitle">
-                                        <fragment content="Frequently Asked Qestions">
+                                        <fragment content="Frequently Asked Questions">
                                             <attributes>
-                                                <font key="NSFont" size="24" name=".AppleSystemUIFontEmphasized"/>
-                                                <font key="NSOriginalFont" size="15" name=".AppleSystemUIFontEmphasized"/>
+                                                <font key="NSFont" size="24" name=".SFNSText-Bold"/>
+                                                <font key="NSOriginalFont" size="24" name=".SFNSText-Bold"/>
                                                 <integer key="NSUnderline" value="1"/>
                                             </attributes>
                                         </fragment>
@@ -3963,7 +3963,6 @@
         <image name="user" width="20" height="20"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="bZC-mX-uGm"/>
         <segue reference="Mf8-Xy-6b6"/>
         <segue reference="asS-Az-c3C"/>
         <segue reference="UO1-Vm-wHx"/>
