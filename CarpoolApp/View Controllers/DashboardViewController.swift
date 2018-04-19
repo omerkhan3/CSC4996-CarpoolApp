@@ -32,7 +32,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         
         getNotifications {
             for notification in self.notificationsArray {
-                if notification.Read == 0 {
+                if notification.Read == false {
                     // activate notification alert
                     let actionTitle = "You have new notifications!"
                     let actionItem = "Click on the notification icon in the upper right or got to notifications from the user menu to view."

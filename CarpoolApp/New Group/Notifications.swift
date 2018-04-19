@@ -10,12 +10,12 @@ import Foundation
 struct Notifications: Decodable{
     let notificationType: String
     let Date: String
-    let Read: Int
+    let Read: Bool
     let notificationID: Int
     
     init(json: [String: Any]) {
         Date = json["Date"] as? String ?? ""
-        Read = json["Read"] as? Int ?? -1
+        Read = json["Read"] as? Bool ?? false
         notificationType = json["notificationType"] as? String ?? ""
         notificationID = json["notificationID"] as? Int ?? -1
      }
@@ -23,7 +23,7 @@ struct Notifications: Decodable{
     init() {
         Date = ""
         notificationType = ""
-        Read = -1
+        Read = false
         notificationID = -1
     }
 }
