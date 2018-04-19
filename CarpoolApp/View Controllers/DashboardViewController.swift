@@ -49,7 +49,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         getPayout {
             if self.payout[0].sum > 0 {
                 self.payoutLbl.isHidden = false
-                self.payoutLbl.text = "Unpaid Payout: $ " + "\(self.payout[0].sum)"
+                self.payoutLbl.text = "Unpaid Payout: $" + "\(self.payout[0].sum)"
             }
         }
         

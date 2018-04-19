@@ -41,7 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UNUserNotificationCenter.current().requestAuthorization(options: [.badge, .alert, .sound], completionHandler: {(granted, error) in
         })
         application.registerForRemoteNotifications()
-        IQKeyboardManager.shared.enable = true
+        IQKeyboardManager.sharedManager().enable = true
         return true
     }
 
