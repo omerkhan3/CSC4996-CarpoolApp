@@ -12,6 +12,9 @@ var gateway = braintree.connect({
 });
 
 router.post("/create",function (req, res) {
+  var idToken = req.body.idToken;
+ admin.auth().verifyIdToken(idToken)
+   .then(function(decodedToken) {
   var paymentInfo = req.body.paymentInfo;
   var paymentJSON = JSON.parse(paymentInfo);
   var userID = paymentJSON['userID'];
@@ -75,12 +78,21 @@ else {
     .json({
       status: 'Success',
       message: 'Payment Method Stored.'
-    });
-
+    })
+  }).catch(function(error) {
+       // Handle error
+        console.log ("Invalid User.");
+      });
 });
 
 
 router.get("/recentPayments", function (req, res, next) {
+
+  var idToken = req.query.idToken;
+
+
+ admin.auth().verifyIdToken(idToken)
+   .then(function(decodedToken) {
 var userID = req.query.userID;
 db.query(`select \"firstName\", \"Amount\", \"Time\" from (select \"firstName\", \"userID\" from carpool.\"Users\") a JOIN (select * from carpool.\"paymentHistory\" where \"riderID\" = '${userID}') b ON a.\"userID\" = b.\"driverID\"`)
 .then(function(data) {
@@ -90,9 +102,21 @@ db.query(`select \"firstName\", \"Amount\", \"Time\" from (select \"firstName\",
   .catch(function(error){
       console.log('Error fetching recent payments', error);
   });
+}).catch(function(error) {
+     // Handle error
+      console.log ("Invalid User.");
+    });
 });
 
+
+
+
 router.get("/payout", function (req, res, next) {
+  var idToken = req.query.idToken;
+
+
+ admin.auth().verifyIdToken(idToken)
+   .then(function(decodedToken) {
   var userID = req.query.userID;
   db.query(`select sum(\"Amount\") from carpool.\"paymentHistory\" where \"driverID\" = '${userID}'`)
   .then(function(data) {
@@ -102,9 +126,18 @@ router.get("/payout", function (req, res, next) {
     .catch(function(error){
         console.log('Error fetching recent payments', error);
     });
+  }).catch(function(error) {
+       // Handle error
+        console.log ("Invalid User.");
+      });
   });
 
 router.get("/checkMethod", function (req, res, next) {
+  var idToken = req.query.idToken;
+
+
+ admin.auth().verifyIdToken(idToken)
+   .then(function(decodedToken) {
 var userID = req.query.userID;
 db.one(`select \"Users\".\"customerID\" from carpool.\"Users\" where \"Users\".\"userID\" = '${userID}'`)
 .then(function(data) {
@@ -117,10 +150,19 @@ db.one(`select \"Users\".\"customerID\" from carpool.\"Users\" where \"Users\".\
   .catch(function(error){
       console.log('Error fetching recent payments', error);
   });
+}).catch(function(error) {
+     // Handle error
+      console.log ("Invalid User.");
+    });
 });
 
 
 router.get("/client_token",function (req, res) {
+  var idToken = req.query.idToken;
+
+
+ admin.auth().verifyIdToken(idToken)
+   .then(function(decodedToken) {
   var userID = req.query.userID;
     db.one(`select \"Users\".\"customerID\" from carpool.\"Users\" where \"Users\".\"userID\" ='${userID}'`)
     .then(function(data) {
@@ -133,10 +175,16 @@ router.get("/client_token",function (req, res) {
     .catch(function(error){
         console.log('Error fetching client token', error);
     });
+  }).catch(function(error) {
+       // Handle error
+        console.log ("Invalid User.");
+      });
 
 });
 
 router.post("/checkout", function (req, res) {
+
+
   // Use the payment method nonce here
   var ridePayment = req.body.ridePayment;
   var ridePaymentJSON = JSON.parse(ridePayment);
