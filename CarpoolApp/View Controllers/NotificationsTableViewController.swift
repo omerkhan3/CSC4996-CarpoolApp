@@ -61,6 +61,9 @@ class NotificationsTableViewController: UITableViewController {
         if (type == "You have a new match!") {
             self.performSegue(withIdentifier: "showMatches1", sender: self)
         }
+        if (type == "You have a new ride request!") {
+            self.performSegue(withIdentifier: "showMatches1", sender: self)
+        }
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
