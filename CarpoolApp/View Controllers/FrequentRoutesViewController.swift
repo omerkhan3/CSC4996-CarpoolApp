@@ -275,9 +275,7 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
         
         for destination in destinationsArray{
             options3.append(destination.Address)
-            
         }
-       
     }
     
     // get starting coordinates from start string
@@ -291,7 +289,7 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
             print("Lat1: \(self.lat1), Lon1: \(self.lon1)")
         }
     }
-
+ //get ending coordinates from end string
     func getendcoor(){
         let geocoder = CLGeocoder()
         geocoder.geocodeAddressString(endadd) {
@@ -315,6 +313,7 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         print ("Selected item is", current_arr[row])
         active_textFiled.text = current_arr[row]
+        
         getstart()
         getend()
     }
@@ -542,8 +541,6 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
         let movement: CGFloat = CGFloat(up ? distance: -distance)
         self.view.frame = self.view.frame.offsetBy(dx: 0, dy: movement)
     }
-    
-
 }
 
 func addRoute(routeInfo: Dictionary<String, Any>)

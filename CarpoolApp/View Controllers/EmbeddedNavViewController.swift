@@ -8,7 +8,7 @@ class EmbeddedNavViewController: UIViewController, NavigationViewControllerDeleg
 
     var route: ScheduledRide?
     let userID = Auth.auth().currentUser!.uid
-    var mapView: NavigationMapView!
+    //var mapView: NavigationMapView!
     
     @IBOutlet weak var container: UIView!
     @IBOutlet weak var pickedUp: RoundedButton!
@@ -68,11 +68,11 @@ class EmbeddedNavViewController: UIViewController, NavigationViewControllerDeleg
         super.viewDidLoad()
         calculateDirections()
         print(route!)
-        //mapView = NavigationMapView(frame: view.bounds)
+        //                                                                                                                                                                                 mapView = NavigationMapView(frame: view.bounds)
         //view.addSubview(mapView)
-        mapView.delegate = self
-        mapView.showsUserLocation = true
-        mapView.setUserTrackingMode(.follow, animated: true)
+//        mapView.delegate = self
+//        mapView.showsUserLocation = true
+//        mapView.setUserTrackingMode(.follow, animated: true)
         
        
     }
@@ -93,11 +93,11 @@ class EmbeddedNavViewController: UIViewController, NavigationViewControllerDeleg
     }
     
     func calculateDirections() {
+        //   guard let userLocation = mapView?.userLocation!.location else {return}
+        //   let userWaypoint = Waypoint(location: userLocation, heading: mapView?.userLocation?.heading, name: "user")
         if (route?.routeType == "toDestination")
             {
-//                guard let userLocation = mapView?.userLocation!.location else {return}
-//                let userWaypoint = Waypoint(location: userLocation, heading: mapView?.userLocation?.heading, name: "user")
-       let origin = Waypoint(coordinate: CLLocationCoordinate2DMake((route?.driverStartPointLat)!, (route?.driverStartPointLong)!))
+        let origin = Waypoint(coordinate: CLLocationCoordinate2DMake((route?.driverStartPointLat)!, (route?.driverStartPointLong)!))
         let destination = Waypoint(coordinate: CLLocationCoordinate2DMake((route?.driverEndPointLat)!, (route?.driverEndPointLong)!))
         let riderPickup = Waypoint(coordinate: CLLocationCoordinate2DMake((route?.riderStartPointLat)!, (route?.riderStartPointLong)!))
         let riderDropoff = Waypoint(coordinate: CLLocationCoordinate2DMake((route?.riderEndPointLat)!, (route?.riderEndPointLong)!))
@@ -147,17 +147,17 @@ class EmbeddedNavViewController: UIViewController, NavigationViewControllerDeleg
         self.didMove(toParentViewController: self)
     }
     
-    func navigationViewController(_ navigationViewController: NavigationViewController, didArriveAt waypoint: Waypoint) -> Bool {
-        
-        let alert = UIAlertController(title: "Arrived at \(String(describing: waypoint.name))", message: "Would you like to continue?", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
-            // Begin the next leg once the driver confirms
-            navigationViewController.routeController.routeProgress.legIndex += 1
-        }))
-        navigationViewController.present(alert, animated: true, completion: nil)
-        
-        return false
-    }
+//    func navigationViewController(_ navigationViewController: NavigationViewController, didArriveAt waypoint: Waypoint) -> Bool {
+//
+//        let alert = UIAlertController(title: "Arrived at \(String(describing: waypoint.name))", message: "Would you like to continue?", preferredStyle: .alert)
+//        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+//            // Begin the next leg once the driver confirms
+//            navigationViewController.routeController.routeProgress.legIndex += 1
+//        }))
+//        navigationViewController.present(alert, animated: true, completion: nil)
+//
+//        return false
+//    }
     
     func setRideStatus(rideInfo: Dictionary<String, Any>)
     {
