@@ -29,7 +29,7 @@ class HelpViewController: UIViewController,UITextFieldDelegate, MFMailComposeVie
         let mailComposerVC = MFMailComposeViewController()
         mailComposerVC.mailComposeDelegate = self
         
-        mailComposerVC.setToRecipients(["ajmattia@umich.edu"])
+        mailComposerVC.setToRecipients(["ContactCarPoolApp@gmail.com"])
         mailComposerVC.setSubject("Carpool App")
         mailComposerVC.setMessageBody("this is a test ", isHTML: false)
         
@@ -37,7 +37,7 @@ class HelpViewController: UIViewController,UITextFieldDelegate, MFMailComposeVie
     }
     
     func showMailError() {
-        let sendMailErrorAlert = UIAlertController(title: "Could not send email", message: "Your device could not send email", preferredStyle: .alert)
+        let sendMailErrorAlert = UIAlertController(title: "Could not send email", message: "Your device could not send email, please try adding an email account to your iPhone in order to sent mail from within our app", preferredStyle: .alert)
         let dismiss = UIAlertAction(title: "Ok", style: .default, handler: nil)
         sendMailErrorAlert.addAction(dismiss)
         self.present(sendMailErrorAlert, animated: true, completion: nil)

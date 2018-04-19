@@ -2020,7 +2020,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="N8h-oI-A57">
-                                <rect key="frame" x="0.0" y="44" width="375" height="768"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                                 <connections>
                                     <outlet property="delegate" destination="R6r-bC-zJp" id="3xB-eD-wl6"/>
                                 </connections>
@@ -2336,8 +2336,8 @@
                                     <attributedString key="attributedTitle">
                                         <fragment content="Terms and Conditions">
                                             <attributes>
-                                                <font key="NSFont" size="24" name=".AppleSystemUIFontEmphasized"/>
-                                                <font key="NSOriginalFont" size="15" name=".AppleSystemUIFontEmphasized"/>
+                                                <font key="NSFont" size="24" name=".SFNSDisplay"/>
+                                                <font key="NSOriginalFont" size="24" name=".AppleSystemUIFont"/>
                                                 <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                 <integer key="NSUnderline" value="1"/>
                                             </attributes>
@@ -2357,8 +2357,8 @@
                                     <attributedString key="attributedTitle">
                                         <fragment content="Frequently Asked Questions">
                                             <attributes>
-                                                <font key="NSFont" size="24" name=".SFNSText-Bold"/>
-                                                <font key="NSOriginalFont" size="24" name=".SFNSText-Bold"/>
+                                                <font key="NSFont" size="24" name=".SFNSText"/>
+                                                <font key="NSOriginalFont" size="24" name=".SFNSText"/>
                                                 <integer key="NSUnderline" value="1"/>
                                             </attributes>
                                         </fragment>
@@ -2374,13 +2374,21 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8ua-48-Ujx" customClass="RoundedButton" customModule="CarpoolApp" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8ua-48-Ujx" customClass="RoundedButton" customModule="CarpoolApp" customModuleProvider="target">
                                 <rect key="frame" x="130" y="699" width="114" height="38"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="38" id="gXy-TB-frr"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
-                                <state key="normal" title="Contact Us"/>
+                                <state key="normal">
+                                    <attributedString key="attributedTitle">
+                                        <fragment content="Contact Us">
+                                            <attributes>
+                                                <font key="NSFont" metaFont="system" size="21"/>
+                                                <integer key="NSUnderline" value="1"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
+                                </state>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="rounded" value="YES"/>
                                 </userDefinedRuntimeAttributes>
@@ -2394,8 +2402,8 @@
                                     <constraint firstAttribute="height" constant="157" id="Qct-gI-gCY"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Version 1.1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WJ7-9I-Ott">
-                                <rect key="frame" x="143.66666666666666" y="335" width="87" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Version 1.4" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WJ7-9I-Ott">
+                                <rect key="frame" x="141.66666666666666" y="335" width="91" height="21"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.58980089430000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -3976,6 +3984,7 @@
         <image name="user" width="20" height="20"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="bZC-mX-uGm"/>
         <segue reference="Mf8-Xy-6b6"/>
         <segue reference="asS-Az-c3C"/>
         <segue reference="Fu6-yk-YQr"/>

@@ -60,6 +60,7 @@ class EmbeddedNavViewController: UIViewController, NavigationViewControllerDeleg
             self.present(alert, animated: true, completion: nil)
         }
         else if cancelDrive.alpha == 1.0 {
+             _ = self.navigationController?.popViewController(animated: true)
             print("hi")
         }
     }
@@ -76,7 +77,6 @@ class EmbeddedNavViewController: UIViewController, NavigationViewControllerDeleg
         
        
     }
-    
     
     func navigationViewControllerDidCancelNavigation(_ navigationViewController: NavigationViewController) {
         var actionItem : String=String()
