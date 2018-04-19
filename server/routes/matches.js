@@ -80,7 +80,7 @@ if (requestJSON['requestType'] == 'riderRequest') // If the rider has requested 
 
 // Handles the case of a drive approving a rider's request.
  else {
-   db.query(`UPDATE carpool.\"Matches\" SET \"Status\" = 'Matched' where \"matchID\" = ${matchID}`) // If the request was a driver approving a request, switch the request status to matched.
+   db.query(`UPDATE carpool.\"Matches\" SET \"Status\" = 'Matched' where \"matchID\" = ${matchID}`) // If the request was a driver approving a request, switch the request status to matched. 
    .then(function () {
      db.one(`SELECT \"riderID\" from carpool.\"Matches\" where \"matchID\" = ${matchID}`)
      .then(function(data) {

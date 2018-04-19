@@ -376,7 +376,7 @@ router.post('/', function(req, res, next) {
                           }
 
                           else{
-                            console.log("Calculated route times do not comply with rider intervals.");
+                            console.log("Calculated route times do not comply with rider intervals."); 
                           }
 
 
