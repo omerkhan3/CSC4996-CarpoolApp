@@ -161,7 +161,10 @@ class RiderMatchDetailViewController: UIViewController {
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
                 // update match status
                 self.riderRequest(matchInfo: statusUpdate)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5)
+                {
                 self.performSegue(withIdentifier: "showDashboardFromMatch", sender: self)
+                }
             }))
             
             alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { action in
@@ -307,7 +310,7 @@ class RiderMatchDetailViewController: UIViewController {
             
             // Populate ride info
             //self.profilePicture ==
-            self.firstName.text = matchDetail?.driverFirstName
+            self.firstName.text = matchDetail?.riderFirstName
             self.pickupTime.text = getTime(date: (matchDetail?.riderPickupTime)!)
             self.pickupLocation.text = String(describing: matchDetail!.riderStartAddress[..<(matchDetail!.riderStartAddress.range(of: ",")!.lowerBound)])
             self.destination.text = String(describing: matchDetail!.riderEndAddress[..<(matchDetail!.riderEndAddress.range(of: ",")!.lowerBound)])
