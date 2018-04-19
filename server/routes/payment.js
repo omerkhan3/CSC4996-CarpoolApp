@@ -30,7 +30,7 @@ router.post("/create",function (req, res) {
   {
     console.log (result.success);
 
-db.query(`UPDATE carpool.\"Users\" SET \"customerID\" = '${result.customer.id}', \"theToken\" = '{result.customer.token}' where \"userID\" = '${userID}'`)
+db.query(`UPDATE carpool.\"Users\" SET \"customerID\" = '${result.customer.id}' where \"userID\" = '${userID}'`)
 .then(function (data) {
   console.log ("Successfully stored customer ID and token.");
   console.log(result.customer.paymentMethods.length);
