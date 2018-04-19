@@ -31,6 +31,19 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         self.payoutLbl.isHidden = true
         
         checkUnread {
+            print("Got Unread")
+        }
+        
+        
+        
+        getPayout {
+            if self.payout[0].sum > 0 {
+                self.payoutLbl.isHidden = false
+                self.payoutLbl.text = "Unpaid Payout: $" + "\(self.payout[0].sum)"
+            }
+        }
+        
+        getScheduledRides {
             self.ridesTableView.reloadData()
             
             // Show or hide no schedules rides alert
@@ -41,15 +54,6 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
             } else {
                 self.ridesTableView.isHidden = false
                 self.noRidesLabel.isHidden = true
-            }
-        }
-        
-        
-        
-        getPayout {
-            if self.payout[0].sum > 0 {
-                self.payoutLbl.isHidden = false
-                self.payoutLbl.text = "Unpaid Payout: $" + "\(self.payout[0].sum)"
             }
         }
         
@@ -132,9 +136,38 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     
+    
+    // Query all scheduled rides from database and, decode and store into an array
+    func getScheduledRides(completed: @escaping () -> ()) {
+        var viewScheduledRideComponents = URLComponents(string: "http://141.217.48.208:3000/routes/scheduled")!
+        viewScheduledRideComponents.queryItems = [URLQueryItem(name: "userID", value: userID)]
+        var request = URLRequest(url: viewScheduledRideComponents.url!)
+        print (viewScheduledRideComponents.url!)
+        
+        // GET Method
+        request.httpMethod = "GET"
+        URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
+            if (error != nil){
+                print (error as Any)
+            } else {
+                guard let data = data else { return }
+                do {
+                    // Decode JSON
+                    self.scheduledRidesArray = try JSONDecoder().decode([ScheduledRide].self, from: data)
+                    print (self.scheduledRidesArray)
+                    DispatchQueue.main.async {
+                        completed()
+                    }
+                } catch let jsnERR {
+                    print(jsnERR)
+                }
+            }
+            }.resume()
+    }
+    
     func checkUnread(completed: @escaping () -> ()){
         let userID = Auth.auth().currentUser?.uid
-        var checkUnreadCompenents = URLComponents(string: "http://localhost:3000/notifications/unread")!
+        var checkUnreadCompenents = URLComponents(string: "http://141.217.48.208:3000/notifications/unread")!
         checkUnreadCompenents.queryItems = [URLQueryItem(name: "userID", value: userID)]
         var request = URLRequest(url: checkUnreadCompenents.url!)
         print (checkUnreadCompenents.url!)
