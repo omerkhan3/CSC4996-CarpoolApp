@@ -20,8 +20,6 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
     var searchResults = [MKLocalSearchCompletion]()
     let picker = UIDatePicker()
     let dist = -225
-    
-    var paymentMethod : Bool = false
 
     var lat1 : Double = 0.0
     var lat2: Double = 0.0
@@ -147,16 +145,6 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
             self.present(alert, animated: true, completion: nil)  // present error alert.
         }
             
-        else if (self.paymentMethod == false)
-        {
-            actionTitle = "Error!"
-            actionItem = "You are required to have a payment method on file before adding a route."
-            
-            // Activate UIAlertController to display error
-            let alert = UIAlertController(title: actionTitle, message: actionItem, preferredStyle: .alert)
-            alert.addAction(exitAction)
-            self.present(alert, animated: true, completion: nil)  // present error alert.
-        }
         else {
             print(options.joined(separator: ", "))
             let driver = self.driverSetting.isOn
@@ -289,7 +277,7 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
             options3.append(destination.Address)
             
         }
-        checkPaymentMethod()
+       
     }
     
     // get starting coordinates from start string
@@ -555,39 +543,7 @@ class FrequentRoutesViewController: UIViewController, UIPickerViewDataSource, UI
         self.view.frame = self.view.frame.offsetBy(dx: 0, dy: movement)
     }
     
-    func checkPaymentMethod(){
-        let userID = Auth.auth().currentUser?.uid
-        var checkMethodCompenents = URLComponents(string: "http://141.217.48.208:3000/payment/checkMethod")!
-        checkMethodCompenents.queryItems = [URLQueryItem(name: "userID", value: userID)]
-        var request = URLRequest(url: checkMethodCompenents.url!)
-        print (checkMethodCompenents.url!)
-        
-        // GET Method
-        request.httpMethod = "GET"
-        URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
-            if (error != nil){
-                print (error as Any)
-            }
-            else if let data = data {
-                print(data)
-                let userInfoString:NSString = NSString(data: data, encoding: String.Encoding.utf8.rawValue)!
-                if let data = userInfoString.data(using: String.Encoding.utf8.rawValue) {
-                    do {
-                        let json = try JSONSerialization.jsonObject(with: data, options: []) as! [String:String]
-                        print (json as Any)
-                        
-                        if (json["customerID"] != "NULL")
-                        {
-                            self.paymentMethod = true
-                        }
-                    }
-                    catch let error as NSError {
-                        print(error)
-                    }
-                }
-            }
-            }.resume()
-    }
+
 }
 
 func addRoute(routeInfo: Dictionary<String, Any>)

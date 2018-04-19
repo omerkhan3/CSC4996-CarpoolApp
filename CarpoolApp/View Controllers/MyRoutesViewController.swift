@@ -17,6 +17,7 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
     var destinationDetail: FrequentDestination?
     var myRoutesArray = [SavedRoutes]()
     var routeDetail : SavedRoutes?
+    var paymentMethod : Bool = false
     let userID = Auth.auth().currentUser?.uid
     let color = UIColor(red:0.00, green:0.59, blue:1.00, alpha:1.0)
     
@@ -26,6 +27,35 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var noRoutesLabel: UILabel!
     @IBAction func prepareForUnwind(segue: UIStoryboardSegue) {
         
+        func getDestinationsDecode(completed: @escaping () -> ()) {
+            let userID = Auth.auth().currentUser?.uid
+            var viewDestinationCompenents = URLComponents(string: "http://141.217.48.208:3000/freqDestinations/getDestination")!
+            viewDestinationCompenents.queryItems = [URLQueryItem(name: "userID", value: userID)]
+            var request = URLRequest(url: viewDestinationCompenents.url!)
+            print (viewDestinationCompenents.url!)
+            
+            // GET Method
+            request.httpMethod = "GET"
+            URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
+                if (error != nil){
+                    print (error as Any)
+                } else {
+                    guard let data = data else { return }
+                    do {
+                        // Decode JSON
+                        self.destinationsArray = try JSONDecoder().decode([FrequentDestination].self, from: data)
+                        DispatchQueue.main.async {
+                            completed()
+                        }
+                    } catch let jsnERR {
+                        print(jsnERR)
+                    }
+                }
+                }.resume()
+        }
+        self.MyDestinationsTable.reloadData()
+        
+        
     }
     // UI Button Outlets
     @IBAction func editButton(_ sender: Any) {
@@ -33,15 +63,29 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     @IBAction func addRoute(_ sender: Any) {
+        
+        var actionItem : String=String()
+        var actionTitle : String=String()
+        
         if destinationsArray.count < 2 {
-            let actionTitle = "Error!"
-            let actionItem = "You must have at least 2 destinations saved before you can add a route."
+             actionTitle = "Error!"
+             actionItem = "You must have at least 2 destinations saved before you can add a route."
             let exitAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
             // Activate UIAlertController to display error
             let alert = UIAlertController(title: actionTitle, message: actionItem, preferredStyle: .alert)
             alert.addAction(exitAction)
             self.present(alert, animated: true, completion: nil)  // present error alert.
             
+        }
+        else if (self.paymentMethod == false)
+        {
+            actionTitle = "Error!"
+            actionItem = "You are required to have a payment method on file before adding a route."
+            let exitAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+            // Activate UIAlertController to display error
+            let alert = UIAlertController(title: actionTitle, message: actionItem, preferredStyle: .alert)
+            alert.addAction(exitAction)
+            self.present(alert, animated: true, completion: nil)  // present error alert.
         }
         else{
         self.performSegue(withIdentifier: "showAddRoute", sender: self)
@@ -83,15 +127,18 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
             }
         }
         
-        self.myRoutesTable.delegate = self
-        self.myRoutesTable.dataSource = self
-        self.MyDestinationsTable.delegate = self
-        self.MyDestinationsTable.dataSource = self
+        
     }
     
     // Class overrides
     override func viewDidLoad() {
         super.viewDidLoad()
+        checkPaymentMethod()
+        self.myRoutesTable.delegate = self
+        self.myRoutesTable.dataSource = self
+        self.MyDestinationsTable.delegate = self
+        self.MyDestinationsTable.dataSource = self
+        self.MyDestinationsTable.reloadData()
         
     }
     
@@ -217,7 +264,40 @@ class MyRoutesViewController: UIViewController, UITableViewDelegate, UITableView
             }
             }.resume()
     }
-
+    
+    func checkPaymentMethod(){
+        let userID = Auth.auth().currentUser?.uid
+        var checkMethodCompenents = URLComponents(string: "http://141.217.48.208:3000/payment/checkMethod")!
+        checkMethodCompenents.queryItems = [URLQueryItem(name: "userID", value: userID)]
+        var request = URLRequest(url: checkMethodCompenents.url!)
+        print (checkMethodCompenents.url!)
+        
+        // GET Method
+        request.httpMethod = "GET"
+        URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
+            if (error != nil){
+                print (error as Any)
+            }
+            else if let data = data {
+                print(data)
+                let userInfoString:NSString = NSString(data: data, encoding: String.Encoding.utf8.rawValue)!
+                if let data = userInfoString.data(using: String.Encoding.utf8.rawValue) {
+                    do {
+                        let json = try JSONSerialization.jsonObject(with: data, options: []) as! [String:String]
+                        print (json as Any)
+                        
+                        if (json["customerID"] != "NULL")
+                        {
+                            self.paymentMethod = true
+                        }
+                    }
+                    catch let error as NSError {
+                        print(error)
+                    }
+                }
+            }
+            }.resume()
+    }
     // Function to download and save frequent destinations into an array
     func getDestinationsDecode(completed: @escaping () -> ()) {
         let userID = Auth.auth().currentUser?.uid
