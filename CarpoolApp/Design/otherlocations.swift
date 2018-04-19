@@ -2,7 +2,7 @@
 //  otherlocations.swift
 //  CarpoolApp
 //
-//  Created by Matt on 2/6/18.
+//  Created by Matt Prigorac on 2/6/18.
 //  Copyright © 2018 CSC 4996. All rights reserved.
 //
 

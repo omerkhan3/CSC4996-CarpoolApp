@@ -2,7 +2,7 @@
 //  HelpViewController.swift
 //  CarpoolApp
 //
-//  Created by Matt on 3/6/18.
+//  Created by Matt Prigorac on 3/6/18.
 //  Copyright © 2018 CSC 4996. All rights reserved.
 //
 
@@ -37,7 +37,7 @@ class HelpViewController: UIViewController,UITextFieldDelegate, MFMailComposeVie
     }
     
     func showMailError() {
-        let sendMailErrorAlert = UIAlertController(title: "Could not send email", message: "Your device could not send email, please try adding an email account to your iPhone in order to sent mail from within our app", preferredStyle: .alert)
+        let sendMailErrorAlert = UIAlertController(title: "Could not send email", message: "Your device can not send email from within our app, please try adding an email account to your iPhone in order to send mail from within our app", preferredStyle: .alert)
         let dismiss = UIAlertAction(title: "Ok", style: .default, handler: nil)
         sendMailErrorAlert.addAction(dismiss)
         self.present(sendMailErrorAlert, animated: true, completion: nil)

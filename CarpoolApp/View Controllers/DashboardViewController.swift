@@ -26,15 +26,10 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-
         self.payoutLbl.isHidden = true
-        
         checkUnread {
             print("Got Unread")
         }
-        
-        
         
         getPayout {
             if self.payout[0].sum > 0 {
@@ -56,9 +51,6 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
                 self.noRidesLabel.isHidden = true
             }
         }
-        
-        
-        
         ridesTableView.reloadData()
     }
     
@@ -134,8 +126,6 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return scheduledRidesArray.count
     }
-    
-    
     
     // Query all scheduled rides from database and, decode and store into an array
     func getScheduledRides(completed: @escaping () -> ()) {
@@ -281,8 +271,6 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         SideMenuManager.default.menuAddPanGestureToPresent(toView: self.navigationController!.navigationBar)
         SideMenuManager.default.menuAddScreenEdgePanGesturesToPresent(toView: self.navigationController!.view)
     }
-
-
 }
     
 extension DashboardViewController: UISideMenuNavigationControllerDelegate {

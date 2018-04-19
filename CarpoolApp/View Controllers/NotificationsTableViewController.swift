@@ -47,9 +47,6 @@ class NotificationsTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-  
-        
         notificationsTableView.delegate = self
         notificationsTableView.dataSource = self
     }

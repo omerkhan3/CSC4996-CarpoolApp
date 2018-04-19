@@ -1,9 +1,9 @@
 //
 //  DesignableUITextField.swift
-//  SkyApp
+//  Carpool
 //
-//  Created by Mark Moeykens on 12/16/16.
-//  Copyright © 2016 Mark Moeykens. All rights reserved.
+//  Created by Matt Prigorac on 2/1/18.
+//
 //
 
 import UIKit

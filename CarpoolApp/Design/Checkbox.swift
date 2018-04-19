@@ -1,6 +1,8 @@
 //
 //  Checkbox.swift
-//  CheckboxDemo
+//  Carpool
+
+// Created by Matt Prigorac on 1/26/18
 //
 
 import Foundation

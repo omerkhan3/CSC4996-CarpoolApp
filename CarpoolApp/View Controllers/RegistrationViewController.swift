@@ -206,10 +206,6 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
         view.accessibilityIdentifier = "registrationView"
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
-
     func textFieldDidEndEditing(_ textField: UITextField) {
         moveScrollView(textField, distance: dist, up: false)
     }

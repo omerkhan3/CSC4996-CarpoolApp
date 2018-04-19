@@ -68,9 +68,6 @@ class PasswordResetViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
 
     func textFieldDidBeginEditing(_ textField: UITextField) {
         moveScrollView(textField, distance: dist, up: true)

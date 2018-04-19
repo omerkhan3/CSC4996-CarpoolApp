@@ -2,7 +2,7 @@
 //  FAQViewController.swift
 //  CarpoolApp
 //
-//  Created by Matt on 4/6/18.
+//  Created by Matt Prigorac on 4/6/18.
 //  Copyright © 2018 CSC 4996. All rights reserved.
 //
 
@@ -16,7 +16,7 @@ class FAQViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let path = Bundle.main.path(forResource: "FAQS", ofType: "pdf")
+        let path = Bundle.main.path(forResource: "FAQS-2", ofType: "pdf")
         let url = URL(fileURLWithPath: path!)
         let pdfDocument = PDFDocument(url: url)
         pdfview.displayMode = .singlePageContinuous

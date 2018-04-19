@@ -1,3 +1,6 @@
+// EmbeddedNav View Controller
+// Created by Matt Prigorac on 4/1/18
+
 import Foundation
 import MapboxCoreNavigation
 import MapboxNavigation
@@ -18,6 +21,7 @@ class EmbeddedNavViewController: UIViewController, NavigationViewControllerDeleg
     
     @IBAction func pickPress(_ sender: RoundedButton) {
         cancelDrive.alpha = 0.2
+        pickedUp.alpha = 0.2
         var otherID = ""
         if (self.route?.driverID == self.userID){
             otherID = (self.route?.riderID)!
@@ -31,6 +35,7 @@ class EmbeddedNavViewController: UIViewController, NavigationViewControllerDeleg
     
     @IBAction func dropPress(_ sender: RoundedButton) {
         cancelDrive.alpha = 1.0
+        droppedOff.alpha = 0.2
         var otherID = ""
         if (self.route?.driverID == self.userID){
             otherID = (self.route?.riderID)!
@@ -146,7 +151,7 @@ class EmbeddedNavViewController: UIViewController, NavigationViewControllerDeleg
             ])
         self.didMove(toParentViewController: self)
     }
-    
+    //Do not remove!! for UI alerts when arriving at destinations
 //    func navigationViewController(_ navigationViewController: NavigationViewController, didArriveAt waypoint: Waypoint) -> Bool {
 //
 //        let alert = UIAlertController(title: "Arrived at \(String(describing: waypoint.name))", message: "Would you like to continue?", preferredStyle: .alert)

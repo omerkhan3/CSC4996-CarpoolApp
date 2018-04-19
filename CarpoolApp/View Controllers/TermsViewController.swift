@@ -2,12 +2,13 @@
 //  TermsViewController.swift
 //  CarpoolApp
 //
-//  Created by Matt on 4/9/18.
+//  Created by Matt Prigorac on 4/9/18.
 //  Copyright © 2018 CSC 4996. All rights reserved.
 //
 
 import UIKit
 import PDFKit
+
 class TermsViewController: UIViewController {
 
     
